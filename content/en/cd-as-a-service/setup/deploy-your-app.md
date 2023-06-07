@@ -24,7 +24,7 @@ In this guide, you build on what you learned in the  CD-as-a-Service [Quickstart
 * You have created the Kubernetes manifests for your web app.
 * You have two versions of your app to deploy.
 
-For this guide, you can use the Remote Network Agent that you created as part of the Quickstart. Instead of deploying Armory's sample app, you deploy your own web app using the CD-as-a-service deployment configuration from the Quickstart. 
+For this guide, you can use the Remote Network Agent that you deployed as part of the Quickstart, or you can [install a new one]({{< ref "cd-as-a-service/tasks/networking/install-agent" >}}) . Instead of deploying Armory's sample app, you deploy your own web app using the CD-as-a-service deployment configuration from the Quickstart. 
 
 ### Directory structure
 
@@ -58,7 +58,7 @@ Create a `deployment.yaml` file with the following contents:
 ```yaml
 version: v1
 kind: kubernetes
-application: <your-app-name>
+application: <your-app-name> # the name of your app
 targets:
   staging:  
     account: <your-remote-network-agent-identifier> # the name you gave the RNA when you installed it in your staging cluster
@@ -74,9 +74,9 @@ targets:
         - pause:
             untilApproved: true
 manifests:
-  - path: manifests/my-app.yaml
-  - path: manifests/my-app-service.yaml
-  - path: manifests/namespace-staging.yaml
+  - path: manifests/your-app.yaml # replace with the name of your app manifest
+  - path: manifests/your-app-service.yaml # replace with the name of your app service manifest
+  - path: manifests/namespace-staging.yaml # 
     targets: ["staging"]
   - path: manifests/namespace-prod.yaml
     targets: ["prod"]
@@ -93,7 +93,7 @@ strategies:
             weight: 25
         - exposeServices:
             services:
-              - <my-app-service>
+              - <your-app-service>
             ttl:
               duration: 30
               unit: minutes
@@ -103,8 +103,36 @@ strategies:
             weight: 100
 ```
 
-* Replace `account` and `namespace` values with those specific to your environment. 
-* Replace `<my-app>` with your app name (or the names of your manifest file)
+<table>
+<tr>
+<th>namespace-staging.yaml</th>
+<th>namespace-prod.yaml</th>
+</tr>
+<tr>
+<td>
+<pre>
+<code>
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: &#x3C;your-staging-namespace&#x3E;
+</code>
+</pre>
+</td>
+<td>
+<pre>
+<code>
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: &#x3C;your-prod-namespace&#x3E;
+</code>
+</pre>
+</td>
+</tr>
+</table>
+
+
 
 {{% alert title="Important" color="warning" %}}
 For the first deployment of your app, Armory CD-as-a-Service automatically deploys the app to 100% of the cluster since there is no previous version. Subsequent deployments of your app follow the strategy steps defined in your deployment file.

@@ -44,7 +44,7 @@ The deployment process:
    - Failure: deployment rolls back
 
 ```mermaid
-flowchart TB   
+flowchart LR   
    A --> B
    B --> C
    C --> D
