@@ -216,6 +216,7 @@ kubectl delete ns potato-facts-staging potato-facts-prod
 
 ## {{%  heading "nextSteps" %}}
 
+* View the [code](https://github.com/armory-io/cdaas-examples/tree/main/hello-armory) for this quickstart.
 * {{< linkWithTitle "cd-as-a-service/setup/deploy-your-app.md" >}}
 * {{< linkWithTitle "cd-as-a-service/setup/gh-action.md" >}}
 * {{< linkWithTitle "cd-as-a-service/setup/blue-green.md" >}}
