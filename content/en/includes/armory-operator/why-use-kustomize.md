@@ -1,1 +1,0 @@
-Even though you can configure Armory Continuous Deployment or Spinnaker in a single manifest file, the advantage of using [Kustomize](https://kustomize.io/) patch files is readability, consistency across environments, and maintainability.

@@ -12,67 +12,7 @@
   GO_VERSION = "1.18"
 
 # section redirects
-[[redirects]]
-  from = "/docs/release-notes/rn-armory-agent/*"
-  to = "/plugins/scale-agent/release-notes/:splat"
 
-[[redirects]]
-  from = "/docs/release-notes/rn-armory-agent/agent-plugin/*"
-  to = "/plugins/scale-agent/release-notes/agent-plugin/:splat"
-
-[[redirects]]
-  from = "/docs/release-notes/rn-armory-agent/agent-service/*"
-  to = "/plugins/scale-agent/release-notes/agent-service/:splat"
-
-[[redirects]]
-  from = "/armory-enterprise/release-notes/rn-armory-agent/*"
-  to = "/plugins/scale-agent/release-notes/:splat"
-
-[[redirects]]
-  from = "/continuous-deployment/release-notes/rn-armory-agent/*"
-  to = "/scale-agent/release-notes/:splat"
-
-[[redirects]]
-  from = "/armory-enterprise/armory-agent/*"
-  to = "/plugins/scale-agent/:splat"
-
-[[redirects]]
-  from = "/continuous-deployment/armory-agent/*"
-  to = "/plugins/scale-agent/:splat"
-
-[[redirects]]
-  from = "/scale-agent/*"
-  to = "/plugins/scale-agent/:splat"
-
-[[redirects]]
-  from = "/cd-as-a-service/plugin-spinnaker/"
-  to = "/plugins/cdaas-spinnaker/"
-  force = true # ensure this always redirects because the "from" page does exist and does a TOC redirect but not for users clicking web search result link
-
-[[redirects]]
-  from = "/continuous-deployment/armory-admin/pipelines-as-code-enable/"
-  to = "/plugins/pipelines-as-code/install/armory-cd/"
-  force = true # ensure this always redirects  because the "from" page does exist and does a TOC redirect but not for users clicking web search result link
-
-[[redirects]]
-  from = "/continuous-deployment/armory-admin/policy-engine/policy-engine-use/*"
-  to = "/plugins/policy-engine/use/:splat"
-  
-[[redirects]]
-  from = "/continuous-deployment/plugin-guide/*"
-  to = "/plugins/:splat"
-
-[[redirects]]
-  from = "/docs/*"
-  to = "/continuous-deployment/:splat"
-
-[[redirects]]
-  from = "/armory-enterprise/*"
-  to = "/continuous-deployment/:splat"
-
-[[redirects]]
-  from = "/armory-cdaas/*"
-  to = "/cd-as-a-service/"
 
 # https://github.com/netlify-labs/netlify-plugin-sitemap
 [[plugins]]
@@ -80,18 +20,7 @@ package = "@netlify/plugin-sitemap"
 
   [plugins.inputs]
   buildDir = "public"
-  # make sure you add a comma after each entry in the exclude list except on the last one
-  exclude =[
-    './public/plugins/plugin-appname/',
-    './public/plugins/plugin-external-account/',
-    './public/plugins/plugin-iam-authentication/',
-    './public/cd-as-a-service/plugin-spinnaker/',
-    './public/continuous-deployment/feature-status/deprecations/pacrd-deprecation/',
-    './public/continuous-deployment/installation/deployment-reg/',
-    './public/managed-spin',
-    './public/contribute',
-    './public/continuous-deployment/try/'
-  ]
+  
   # append missing trailing slash to prettyURL
   trailingSlash = true
   changeFreq = "daily"

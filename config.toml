@@ -125,12 +125,12 @@ weight = 1
 [[menu.main]]
   name = "Armory CD"
   weight = 3
-  url = "/continuous-deployment/"
+  url = "https://docs.armory.io/continuous-deployment/"
 
 [[menu.main]]
   name = "Spinnaker Plugins"
   weight = 4
-  url = "/plugins/"
+  url = "https://docs.armory.io/plugins/"
 
 [[menu.main]]
   name = "Support"
@@ -150,27 +150,14 @@ weight = 1
 [[menu.main]]
   name = "Contribute"
   weight = 10
-  url = "/contribute/"
+  url = "https://docs.armory.io/contribute/"
 
 # Everything below this are Site Params
 
 [params]
 # See codenew shortcode
 githubWebsiteRaw = "raw.githubusercontent.com/armory/docs"
-deploy-engine-plugin-version = "0.16.8"
-armory-version = "2.28.x"
-#used in air-gapped
-matching-oss-version-exact = "1.27.0"
-# used in agent compat and system requirements
-mysql-version="5.7; AWS Aurora"
-postgresql-version="10+"
-#used in the Operator docs
-armory-version-exact = "2.28.0"
-halyard-armory-version = "1.12.1"
-kubesvc-version="1.0.57"
-operator-extended-crd-version = "v1alpha2"
-operator-oss-crd-version = "v1alpha2"
-opa-server-version = "0.28.0"
+
 copyright = "Armory Inc."
 privacy_policy = "https://www.armory.io/privacy-policy/"
 terms_of_service = "https://www.armory.io/terms-of-service/"
@@ -184,25 +171,25 @@ cdaas_banner = false
 
 # Menu title if your navbar has a versions selector to access old versions of your site.
 # This menu appears only if you have at least one [params.versions] set.
-version_menu = "Armory CD v2.28"
+# version_menu = "Armory CD v2.28"
 
 # Flag used in the "version-banner" partial to decide whether to display a
 # banner on every page indicating that this is an archived version of the docs.
 # Set this flag to "true" if you want to display the banner.
-archived_version = false
+# archived_version = false
 
 # The version number for the version of the docs represented in this doc set.
 # Used in the "version-banner" partial to display a version number for the
 # current doc set.
 # Also used in the PCM to highlight what version the PCM is for
-version = "2.28.0"
+# version = "2.28.0"
 
 # A link to latest version of the Armory CD docs. Used in the "version-banner" partial to
 # point people to the main Armory CD docs site.
-url_latest_version = "https://docs.armory.io/continuous-deployment/"
+# url_latest_version = "https://docs.armory.io/continuous-deployment/"
 
 # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
-github_repo = "https://github.com/armory/docs/"
+github_repo = "https://github.com/armory/docs-cdaas/"
 github_branch = "master"
 # An optional link to a related project repo. For example, the sibling repository where your product code lives.
 #github_project_repo = "https://github.com/armory"
@@ -223,29 +210,6 @@ offlineSearchSummaryLength = 200
 
 # Enable syntax highlighting and copy buttons on code blocks with Prism
 prism_syntax_highlighting = true
-
-# Armory Agent plugin versions
-[params.kubesvc-plugin]
-
-agent_plug_latest-4="0.9.92"
-agent_plug_latest_spin-4="2.26.x (1.26.x)"
-agent_plug_latest-3="0.10.76"
-agent_plug_latest_spin-3="2.27.x (1.27.x)"
-agent_plug_latest-2="0.11.42"
-agent_plug_latest_spin-2="2.28.x (1.28.x)"
-agent_plug_latest-1="0.12.4"
-agent_plug_latest_spin-1="1.29.x"
-agent_plug_latest="0.13.4"
-agent_plug_latest_spin="2.30.x (1.30.x)"
-
-# Policy Engine plugin versions
-[params.policy-engine-plugin]
-pe_plug_latest="0.3.0"
-pe_plug_latest_spin="2.28.x (1.28.x)"
-pe_plug_latest-1="0.2.2"
-pe_plug_latest_spin-1="2.27.x (1.27.x)"
-pe_plug_latest-2="0.1.6"
-pe_plug_latest_spin-2="2.26.x (1.26.x)"
 
 # User interface configuration
 [params.ui]
@@ -296,33 +260,11 @@ theme = "forest"
 	url = "https://twitter.com/cloudarmory"
 	icon = "fab fa-twitter"
   desc = "Follow us on Twitter to get the latest news!"
-[[params.links.user]]
-	name ="RSS"
-	url = "https://docs.armory.io/index.xml"
-	icon = "fas fa-rss"
-  desc = "Follow us on RSS to get the latest docs updates!"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name = "GitHub"
-	url = "https://github.com/armory/docs/"
+	url = "https://github.com/armory/docs-cdaas/"
 	icon = "fab fa-github"
-   desc = "Docs repository"
-[[params.links.developer]]
-	name = "Slack"
-	url = "https://join.spinnaker.io/"
-	icon = "fab fa-slack"
-   desc = "Chat with Armory users and developers in the Spinnaker Slack"
-
-#Add new release versions here. These entries appear in the drop-down menu
-# at the top of the website.
-[[params.versions]]
-  version = "Armory CD v2.27"
-  githubbranch = "v2.27"
-  url = "https://v2-27.docs.armory.io/docs/"
-
-[[params.versions]]
-  version = "Armory CD v2.26"
-  githubbranch = "v2.26"
-  url = "https://v2-26.docs.armory.io/docs/"
+   desc = "CD-as-a-Service docs repository"
 
 

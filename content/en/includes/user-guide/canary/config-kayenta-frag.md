@@ -1,1 +1,0 @@
-Before you can start using canary deployments, you need to enable Kayenta, the Spinnaker<sup>TM</sup> service for canary deployments. For more information, see the {{< linkWithTitle "kayenta-configure.md" >}} guide.
