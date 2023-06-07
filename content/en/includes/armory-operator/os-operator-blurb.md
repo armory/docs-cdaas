@@ -1,1 +1,0 @@
-> This guide is for both the Armory Operator and the Spinnaker Operator. Armory Continuous Deployment and Spinnaker configuration is the same except for features only in Armory Continuous Deployment. Those features are marked ![Proprietary](/images/proprietary.svg). 
