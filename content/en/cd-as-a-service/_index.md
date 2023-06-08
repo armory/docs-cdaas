@@ -3,12 +3,17 @@ title: Armory Continuous Deployment-as-a-Service
 linkTitle: Armory CD-as-a-Service
 no_list: true
 description: >
-  Use Armory CD-as-a-Service to continuously deliver your apps to your Kubernetes clusters. CD-as-a-Service (CDaaS) integrates with external automation tools like GitHub and Jenkins so you can create your own CI/CD pipelines.
+  Armory CD-as-a-Service is a single control plane that enables deployment to multiple Kubernetes clusters using CD-as-a-Service's secure, one-way Kubernetes agents. These agents facilitate multi-cluster orchestration and advanced deployment strategies, such as canary and blue/green, for your apps.
 ---
 
-Armory CD-as-a-Service is a single control plane that enables deployment to multiple Kubernetes clusters using CD-as-a-Service's secure agents. These agents facilitate multi-cluster orchestration and advanced deployment strategies, such as canary and blue/green, for your apps.
+@TODO IMPLEMENT NICOLE'S DESIGN ON THE TOP-LEVEL INDEX.HTML.
 
-(insert Nicole's graphic)
+Armory CD-as-a-Service delivers intelligent deployment-as-a-service that supports advanced deployment strategies so developers can focus on building
+great code rather than deploying it. By automating code deployment across all of your Kubernetes environments, Armory CD-as-a-Service removes demands on developers and reduces the risk of service disruptions due to change failures. It does this by seamlessly integrating pre-production verification tasks with advanced production deployment strategies. This mitigates risks by providing deployment flexibility while limiting blast radius, which leads to a better customer experience. Best of all, Armory CD-as-a-Service doesn’t require migrating to a new deployment platform. It easily plugs into any existing SDLC.
+
+{{< figure src="/images/cdaas/cdaas-arch.png" alt="CD-as-a-Service High-Level Architecture" height="75%" width="75%" >}}
+
+The [Armory CDaaS](https://www.armory.io/products/continuous-deployment-as-a-service/) product page contains a full list of features and pricing.
 
 {{< cardpane >}}
 
@@ -16,7 +21,7 @@ Armory CD-as-a-Service is a single control plane that enables deployment to mult
 [Quickstart]({{< ref "cd-as-a-service/setup/quickstart" >}})</br>
 [Deploy Your Own App]({{< ref "cd-as-a-service/setup/deploy-your-app" >}})</br>
 [Deploy Using GitHub Action]({{< ref "cd-as-a-service/setup/gh-action" >}})</br>
-[Install a Remote Network Agent]({{<  ref "cd-as-a-service/tasks/networking/install-agent.md" >}})</br>
+[Install an Agent]({{<  ref "cd-as-a-service/tasks/networking/install-agent.md" >}})</br>
 {{% /card %}}
 
 {{% card header="Learn About CD-as-a-Service" %}}

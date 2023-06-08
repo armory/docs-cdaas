@@ -1,8 +1,8 @@
 ```mermaid
 flowchart LR
-   id0<--"REST API"-->id2
+   id0---"REST API"-->id2
    id1<--"REST API"-->id2
-   id2<--"gRPC/HTTP2"-->id3
+   id2<--"gRPC/HTTP2"---id3
 
    subgraph outside [External Environments]
    id0[Armory CD-as-a-Service CLI]
