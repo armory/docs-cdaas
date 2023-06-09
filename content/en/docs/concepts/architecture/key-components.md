@@ -5,15 +5,19 @@ description: >
   Learn about the key components that comprise Armory Continuous Deployment-as-a-Service and how they work together to orchestrate deployments. Remote Network Agent (RNA), Kubernetes permissions, networking requirements, CLI, GitHub Action.
 weight: 10
 aliases:
-  - /armory-deployments/architecture/
-  - /cd-as-as-service/architecture/
+  - /docs/concepts/system-requirements/
+  - /cd-as-a-service/concepts/system-requirements/
 ---
 
-<!-- The CDaaS UI links to this page. Do not change the title or headings without checking with engineering. -->
+<!-- Both armory.io and the CDaaS UI links to this page. Do not change the title or headings without checking with engineering. -->
 
 ## How Armory CD-as-a-Service works
 
 Armory CD-as-a-Service is a platform of cloud-based services that orchestrate app deployments and monitor their progress. These services have API endpoints with which users and non-cloud services interact via HTTPS or gRPC/HTTP2. The [Networking](#networking) section contains details of the endpoints that need to be whitelisted.
+
+Armory CD-as-a-Service uses secure agents that run in target Kubernetes 1.16+ clusters to communicate with Armory CD-as-a-Service. Make sure your environment meets the [networking](#networking) requirements so that the agents can communicate with Armory CD-as-a-Service.
+
+There are no additional requirements for installing the agents that Armory CD-as-a-Service uses. For information about how to install these agents, see [Enable the Armory CD-as-a-Service Remote Network Agent in target Kubernetes clusters]({{< ref "plugin-spinnaker#enable-the-armory-cd-as-a-service-remote-network-agent-in-target-kubernetes-clusters" >}}) or {{< linkWithTitle "docs/tasks/networking/install-agent" >}}.
 
 Armory CD-as-a-Service contains components that you manage: the CLI, the Remote Network Agent (RNA), and the GitHub Action (GHA). These components communicate with Armory CD-as-a-Service to deploy your apps to your existing infrastructure.
 
@@ -53,7 +57,6 @@ You can use the `armory/cli-deploy-action` to trigger a deployment from your Git
 
 ## {{% heading "nextSteps" %}}
 
-* {{< linkWithTitle "docs/concepts/architecture/system-requirements.md" >}}
 * {{< linkWithTitle "docs/setup/quickstart.md" >}}
 
 <br>

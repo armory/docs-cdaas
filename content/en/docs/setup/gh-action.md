@@ -18,7 +18,7 @@ You can find the Action in the [GitHub Action Marketplace](https://github.com/ma
 
 If you have previously configured Armory CD-as-a-Service for your deployment target, you can skip to step 3.
 
-1. Review the CD-as-a-Service [system requirements]({{< ref "docs/concepts/architecture/system-requirements" >}}).
+1. Review the CD-as-a-Service [key components]({{< ref "docs/concepts/architecture/key-components" >}}).
 1. If you have already prepared a deployment target for Armory CD-as-a-Service, skip this step. If you have not, complete the the following:
 
    - [Register for Armory CD-as-a-Service](https://go.armory.io/signup/).
