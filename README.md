@@ -1,10 +1,10 @@
 # Overview
 
-This is the repo for Armory documentation site. We welcome contributions from people outside of Armory.
+This is the repo for Armory CD-as-a-Service documentation. We welcome contributions from people outside of Armory.
 
-The site is hosted by [Netlify](https://www.netlify.com/), which generates a preview build for every pull request. Install the extended version of [Hugo](https://gohugo.io/) (`brew install hugo`) if you want to compile and run the project locally. The Hugo extended version (currently 0.110.10) is specified in both `config.yaml` and `netlify.toml`. Armory docs uses the [Docsy](https://docsy.dev) theme as a Go module. If you want to build locally, you should make sure your workstation has the required software installed. https://www.docsy.dev/docs/get-started/docsy-as-module/installation-prerequisites/
+The site is hosted by [Netlify](https://www.netlify.com/), which generates a preview build for every pull request. Install the extended version of [Hugo](https://gohugo.io/) (`brew install hugo`) if you want to compile and run the project locally. The Hugo extended version (currently 0.110.10) is specified in both `config.yaml` and `netlify.toml`. CD-as-a-Service docs uses the [Docsy](https://docsy.dev) theme as a Go module. If you want to build locally, you should make sure your workstation has the required software installed. https://www.docsy.dev/docs/get-started/docsy-as-module/installation-prerequisites/
 
-The latest version of the docs website is the `master` branch. Previous releases point to branches that start with `v`.
+The latest version of the docs is the `master` branch.
 
 The site has built-in support for [Mermaid](https://mermaid-js.github.io/mermaid/), which is a Javascript based diagramming and charting tool that uses Markdown-inspired text definitions and a renderer to create and modify complex diagrams. <i>Diagramming and documentation costs precious developer time and gets outdated quickly. But not having diagrams or docs ruins productivity and hurts organizational learning. Mermaid addresses this problem by cutting the time, effort and tooling that is required to create modifiable diagrams and charts, for smarter and more reusable content. The text definitions for Mermaid diagrams allows for it to be updated easily, it can also be made part of production scripts (and other pieces of code). So less time needs to be spent on documenting, as a separate and laborious task. Even non-programmers can create diagrams through the Mermaid Live Editor.</i>
 
@@ -25,13 +25,13 @@ People who are not part of the Armory organization need to create a fork of this
 Clone your forked repo:
 
 ```bash
-git clone git@github.com:<github-username>/docs.git
+git clone git@github.com:<github-username>/docs-cdaas.git
 ```
 
 Set this docs repo as the upstream remote:
 
 ```bash
-git remote add upstream https://github.com/armory/docs.git
+git remote add upstream https://github.com/armory/docs-cdaas.git
 ```
 
 Confirm your origin and upstream repositories:
@@ -43,15 +43,15 @@ git remote -v
 Output is similar to:
 
 ```bash
-origin	git@github.com:<github-username>/docs.git (fetch)
-origin	git@github.com:<github-username>/docs.git (push)
-upstream	https://github.com/armory/docs.git (fetch)
-upstream	https://github.com/armory/docs.git (push)
+origin	git@github.com:<github-username>/docs-cdaas.git (fetch)
+origin	git@github.com:<github-username>/docs-cdaas.git (push)
+upstream	https://github.com/armory/docs-cdaas.git (fetch)
+upstream	https://github.com/armory/docs-cdaas.git (push)
 ```
 
 ## Update your local repository
 
-Make sure your local repository is current before you start making changes. Fetch commits from your fork's `origin/master` and `spinnaker/spinnaker.github.io`'s `upstream/master`:
+Make sure your local repository is current before you start making changes. Fetch commits from your fork's `origin/master` and `upstream/master`:
 
    ```bash
    git fetch origin
