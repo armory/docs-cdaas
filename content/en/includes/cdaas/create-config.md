@@ -34,7 +34,7 @@
       ```
 
       Each step can have the same or different pause behaviors. Additionally, you can configure as many steps  as you want for the deployment strategy, but you do not need to create a step with a weight set to 100. Once CD-as-a-Service completes the last step you configure, the manifest is deployed to the whole cluster automatically. 
-      See the [Canary fields]({{< ref "cd-as-a-service/reference/ref-deployment-file#canary-fields" >}}) section of the deployment file reference for more information. 
+      See the [Canary fields]({{< ref "docs/reference/ref-deployment-file#canary-fields" >}}) section of the deployment file reference for more information. 
 
 1. (Optional) Configure a deployment timeout.
 
@@ -47,10 +47,10 @@
         duration: <integer>
     ```
 
-    Note that the minimum timeout you can specify is 60 seconds (1 minute). See the [Deployment config]({{< ref "cd-as-a-service/reference/ref-deployment-file#deploymentconfig" >}}) section of the deployment file reference for more information. 
+    Note that the minimum timeout you can specify is 60 seconds (1 minute). See the [Deployment config]({{< ref "docs/reference/ref-deployment-file#deploymentconfig" >}}) section of the deployment file reference for more information. 
 
 1. (Optional) Ensure there are no YAML issues with your deployment file.
 
    Since a hidden tab in your YAML can cause your deployment to fail, it's a good idea to validate the structure and syntax in your deployment file. There are several online linters, IDE-based linters, and command line linters such as `yamllint` that you can use to validate your deployment file.
 
-> You can view detailed configuration options on the {{< linkWithTitle "cd-as-a-service/reference/ref-deployment-file.md" >}} page.
+> You can view detailed configuration options on the {{< linkWithTitle "docs/reference/ref-deployment-file.md" >}} page.
