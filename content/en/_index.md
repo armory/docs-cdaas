@@ -24,7 +24,7 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 
 {{< figure src="/images/cdaas/cdaas-arch.png" alt="CD-as-a-Service High-Level Architecture" height="75%" width="75%" >}}
 
-
+<!-- linkWithLinkTitle didn't render correctly inside the cardpane cards so hard-code link title and use ref -->
 
 {{< cardpane >}}
 
@@ -32,7 +32,7 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 [Quickstart]({{< ref "setup/quickstart" >}})</br>
 [Deploy Your Own App]({{< ref "setup/deploy-your-app" >}})</br>
 [Deploy Using GitHub Action]({{< ref "setup/gh-action" >}})</br>
-[Install an Agent]({{<  ref "tasks/networking/install-agent.md" >}})</br>
+[Install a Remote Network Agent]({{<  ref "tasks/networking/install-agent.md" >}})</br>
 {{% /card %}}
 
 {{% card header="Learn About CD-as-a-Service" %}}
