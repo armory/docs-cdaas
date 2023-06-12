@@ -1,8 +1,8 @@
 /*
-
 Add styles or override variables from the theme here.
 https://www.docsy.dev/docs/adding-content/lookandfeel/#fonts
 */
+
 
 @font-face {
   font-family: 'AmpleSoft Pro Bold';
@@ -19,6 +19,7 @@ https://www.docsy.dev/docs/adding-content/lookandfeel/#fonts
   font-weight: normal;
   font-style: normal;
 }
+
 
 $primary: #001321;
 $dark: #001321;
@@ -58,6 +59,7 @@ nav.td-navbar-cover {
   color: white !important;
 }
 
+  /*
 // Namespacing homepage styles
 .td-home {
   #td-cover-block-0 {
@@ -68,6 +70,7 @@ nav.td-navbar-cover {
     }
   }
 
+
   h1, h2, h3 {
     font-family: 'AmpleSoft Pro Bold';
   }
@@ -75,6 +78,7 @@ nav.td-navbar-cover {
   p.lead, h4, .new-to-armory h3 {
     font-family: 'AmpleSoft Pro Medium';
   }
+
 
   h1, h2, h3, h4, p, p.lead {
     color: $medium_blue;
@@ -303,4 +307,4 @@ nav.td-navbar-cover {
     }
   }
 }
-
+*/
