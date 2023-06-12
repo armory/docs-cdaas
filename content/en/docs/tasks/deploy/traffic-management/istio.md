@@ -1,16 +1,16 @@
 ---
-title: Configure Traffic Management Using Istio
+title: Configure Traffic Management With Istio
 linkTitle: Istio
 description: >
   Configure your Armory CD-as-a-Service deployment to use Istio for traffic management.
 categories: ["Guides"]
-tags: ["Deployment", "Traffic Management", "Istio", "Config"]
+tags: ["Deployment", "Traffic Management", "Istio", "Deploy Config"]
 ---
 
 ## {{% heading "prereq" %}}
 
 * You have read {{< linkWithTitle "docs/concepts/deployment/traffic-management/istio.md" >}}
-* You have [installed Istio](https://istio.io/latest/docs/setup/getting-started/) in your target cluster. 
+* You have [installed Istio](https://istio.io/latest/docs/setup/getting-started/) in your target cluster.
 * You know how to configure Istio's [VirtualService](https://istio.io/latest/docs/reference/config/networking/virtual-service/) and associated [DestinationRule](https://istio.io/latest/docs/reference/config/networking/virtual-service/#Destination).
 * You know [how to create a CD-as-a-Service deployment config file]({{< ref "docs/tasks/deploy/create-deploy-config" >}}).
 

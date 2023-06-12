@@ -56,8 +56,8 @@ The [Armory CD-as-a-Service (CDaaS)](https://www.armory.io/products/continuous-d
 {{% /card %}}
 
 {{% card header="Traffic Management" %}}
-[Traffic Management Using Istio]({{<  ref "docs/concepts/deployment/traffic-management/istio.md" >}})</br>
-[Traffic Management Using Linkerd]({{<  ref "docs/concepts/deployment/traffic-management/smi-linkerd.md" >}})</br>
+[Traffic Management With Istio]({{<  ref "docs/concepts/deployment/traffic-management/istio.md" >}})</br>
+[Traffic Management With Linkerd]({{<  ref "docs/concepts/deployment/traffic-management/smi-linkerd.md" >}})</br>
 [Configure Istio]({{< ref "docs/tasks/deploy/traffic-management/istio" >}})</br>
 [Configure Linkerd]({{< ref "docs/tasks/deploy/traffic-management/linkerd" >}})</br>
 {{% /card %}}
