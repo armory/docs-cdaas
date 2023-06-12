@@ -1,16 +1,30 @@
 ---
-title: Armory Continuous Deployment-as-a-Service
+title: Armory Continuous Deployment-as-a-Service Docs
 linkTitle: Documentation
+type: "docs"
+cascade:
+- _target:
+    path: "/**"
+    kind: "page"
+  type: "docs"
+- _target:
+    path: "/**"
+    kind: "section"
+  type: "docs"
+- _target:
+    path: "/**"
+    kind: "section"
+  type: "home"
 no_list: true
 description: >
   Armory CD-as-a-Service is a single control plane that enables deployment to multiple Kubernetes clusters using CD-as-a-Service's secure, one-way Kubernetes agents. These agents facilitate multi-cluster orchestration and advanced deployment strategies, such as canary and blue/green, for your apps.
 ---
 
-Armory CD-as-a-Service delivers intelligent deployment-as-a-service that supports advanced deployment strategies so developers can focus on building great code rather than deploying it. By automating code deployment across all of your Kubernetes environments, Armory CD-as-a-Service removes demands on developers and reduces the risk of service disruptions due to change failures. It does this by seamlessly integrating pre-production verification tasks with advanced production deployment strategies. This mitigates risks by providing deployment flexibility while limiting blast radius, which leads to a better customer experience. Best of all, Armory CD-as-a-Service doesn’t require migrating to a new deployment platform. It easily plugs into any existing SDLC.
+Armory CD-as-a-Service delivers intelligent deployment-as-a-service that supports advanced deployment strategies so developers can focus on building great code rather than deploying it. By automating code deployment across all of your Kubernetes environments, Armory CD-as-a-Service removes demands on developers and reduces the risk of service disruptions due to change failures. It does this by seamlessly integrating pre-production verification tasks with advanced production deployment strategies. This mitigates risks by providing deployment flexibility while limiting blast radius, which leads to a better customer experience. Best of all, Armory CD-as-a-Service doesn’t require migrating to a new deployment platform. It easily plugs into any existing SDLC. The [Armory CD-as-a-Service (CDaaS)](https://www.armory.io/products/continuous-deployment-as-a-service/) product page contains a full list of features and pricing.
 
 {{< figure src="/images/cdaas/cdaas-arch.png" alt="CD-as-a-Service High-Level Architecture" height="75%" width="75%" >}}
 
-The [Armory CD-as-a-Service (CDaaS)](https://www.armory.io/products/continuous-deployment-as-a-service/) product page contains a full list of features and pricing.
+
 
 {{< cardpane >}}
 
@@ -45,8 +59,6 @@ The [Armory CD-as-a-Service (CDaaS)](https://www.armory.io/products/continuous-d
 [Construct Retrospective Analysis Queries]({{< ref "tasks/canary/retro-analysis" >}})</br>
 {{% /card %}}
 
-
-
 {{% card header="Deployment" %}}
 [Create a Deployment Config File]({{< ref "tasks/deploy/create-deploy-config" >}})</br>
 [Deployment Config File Reference]({{< ref "reference/ref-deployment-file.md" >}})</br>
@@ -65,7 +77,6 @@ The [Armory CD-as-a-Service (CDaaS)](https://www.armory.io/products/continuous-d
 {{< /cardpane >}}
 
 {{< cardpane >}}
-
 
 {{% card header="Webhooks" %}}
 [Webhook-Based Approvals]({{< ref "concepts/external-automation" >}})</br>
