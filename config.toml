@@ -228,7 +228,7 @@ enable = false
 # Enable Mermaid diagrams
 # With hugo version 0.93 or higher, support of Mermaid diagrams is automatically enabled as soon as you use a mermaid code block on your page.
 [params.mermaid]
-# enable = true
+enable = true
 theme = "forest"
 
 [params.links]
