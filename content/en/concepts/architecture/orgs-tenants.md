@@ -8,11 +8,10 @@ categories: ["Concepts"]
 tags: ["Architecture", "Tenants", "Access", "RBAC"]
 ---
 
-
 ## Overview
 
 {{< cardpane >}}
-{{< card header="<b>Organization</b>: a company, such as Apple or Google" >}}
+{{% card header="<b>Organization</b>: a company, such as Apple or Google" %}}
 ```mermaid
 graph TB
 A(Organization) -- "1...*" --> B(Tenant)
@@ -20,8 +19,8 @@ A  --  1...* --> C(User)
 ```
 * Has a collection of Users
 * Has a collection of Tenants
-{{< /card >}}
-{{< card header="<b>Tenant</b>: an organizational space" >}}
+{{% /card %}}
+{{% card header="<b>Tenant</b>: an organizational space" %}}
 ```mermaid
 graph TB
     A(Tenant) -- "1...1" --> B(Organization)
@@ -30,8 +29,8 @@ graph TB
 * Belongs to a single Organization
 * Has at least one User
 * Has its own configuration, Remote Network Agents, and deployments
-{{< /card >}}
-{{< card header="<b>User</b>: an Organization member" >}}
+{{% /card %}}
+{{% card header="<b>User</b>: an Organization member" %}}
 ```mermaid
 graph TB
     A(User) -- "1...1" --> B(Organization)
@@ -40,7 +39,7 @@ graph TB
 
 * Belongs to a single Organization
 * Can be granted access to multiple Tenants within the Organization
-{{< /card >}}
+{{% /card %}}
 {{< /cardpane >}}
 
 When a user creates an account, CD-as-a-Service does the following:
