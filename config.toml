@@ -192,8 +192,8 @@ prism_syntax_highlighting = true
 [params.ui]
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = true
-# set a desired menu depth to always be visible when sidebar_menu_compact = true; 2 means root-level and the top-level sub-categories are always displayed
-ul_show = 2
+# set a desired menu depth to always be visible when sidebar_menu_compact = true; 1 is root-level; 2 means root-level and the top-level sub-categories are always displayed
+ul_show = 1
 # create a foldable menu that lets users expand/collapse by toggling arrow icons
 sidebar_menu_foldable= false
 sidebar_cache_limit = 10

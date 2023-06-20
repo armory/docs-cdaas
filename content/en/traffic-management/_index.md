@@ -1,10 +1,10 @@
 ---
-title: Configure Traffic Management
-linkTitle: Configure Traffic Management
+title: Traffic Management
+linkTitle: Traffic Management
 no_list: true
 weight: 60
 description: >
-  Configure traffic management using Istio or Linkerd in your Armory Continuous Deployment-as-a-Service deployment.
+  Learn about traffic management using Istio or Linkerd in your Armory Continuous Deployment-as-a-Service deployment.
 ---
 
 ## Service meshes and the Service Mesh Interface (SMI)
