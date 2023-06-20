@@ -1,6 +1,6 @@
 ---
-title: GitLab
-linkTitle: GitLab
+title: Jenkins
+linkTitle: Jenkins
 description: >
   @TODO placeholder change to DRAFT
 categories: ["Integrations"]

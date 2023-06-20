@@ -23,7 +23,7 @@ If you have previously configured Armory CD-as-a-Service for your deployment tar
 
    - [Register for Armory CD-as-a-Service](https://go.armory.io/signup/).
    - [Create machine-to-machine client credentials]({{< ref "access-management/manage-client-creds" >}}) for the Remote Network Agent (RNA), which you install on your deployment target cluster.
-   - Connect your Kubernetes cluster by [installing the RNA]({{< ref "remote-network-agent/install-agent" >}}).
+   - Connect your Kubernetes cluster by [installing the RNA]({{< ref "remote-network-agent/_index.md" >}}).
 
 1. (Optional) [Install the CD-as-a-Service CLI]({{< ref "get-started/quickstart#install-the-cd-as-as-service-cli" >}}) on your workstation. You can use the CLI to generate a deployment file template. You can also create a deployment file manually. See {{< linkWithTitle "reference/deployment/_index.md" >}}.
 1. If you are new to using GitHub Actions, see GitHub's [Quickstart for GitHub Actions](https://docs.github.com/en/actions/quickstart) guide for information about setting up GitHub Actions.

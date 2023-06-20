@@ -24,7 +24,7 @@ In this guide, you build on what you learned in the  CD-as-a-Service [Quickstart
 * You have created the Kubernetes manifests for your web app.
 * You have two versions of your app to deploy.
 
-For this guide, you can use the Remote Network Agent that you deployed as part of the Quickstart, or you can [install a new one]({{< ref "remote-network-agent/install-agent" >}}) . Instead of deploying Armory's sample app, you deploy your own web app using the CD-as-a-service deployment configuration from the Quickstart. 
+For this guide, you can use the Remote Network Agent that you deployed as part of the Quickstart, or you can [install a new one]({{< ref "remote-network-agent/_index.md" >}}). Instead of deploying Armory's sample app, you deploy your own web app using the CD-as-a-service deployment configuration from the Quickstart. 
 
 ### Directory structure
 

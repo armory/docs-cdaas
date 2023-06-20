@@ -34,7 +34,7 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 [Quickstart]({{< ref "get-started/quickstart" >}})</br>
 [Deploy Your Own App]({{< ref "get-started/deploy-your-app" >}})</br>
 [Deploy Using GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}})</br>
-[Install a Remote Network Agent]({{<  ref "remote-network-agent/install-agent.md" >}})</br>
+[Install a Remote Network Agent]({{<  ref "remote-network-agent/_index.md" >}})</br>
 {{% /card %}}
 
 {{% card header="Learn About CD-as-a-Service" %}}
