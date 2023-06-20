@@ -21,13 +21,11 @@ In this tutorial, you learn how to:
 
 ## {{% heading "prereq" %}}
 
-* You have completed the Armory CD-as-a-Service [quickstart]({{< ref "setup/quickstart" >}}), in which you create your login credentials, install the CLI, and deploy an example app.
+* You have completed the Armory CD-as-a-Service [quickstart]({{< ref "get-started/quickstart" >}}), in which you create your login credentials, install the CLI, and deploy an example app.
 * You are familiar with the following content:
 
-    * {{< linkWithTitle "concepts/iam/rbac.md" >}}
-    * {{< linkWithTitle "tasks/iam/create-role.md" >}}
-    * {{< linkWithTitle "tasks/iam/update-role.md" >}}
-    * {{< linkWithTitle "tasks/iam/delete-role.md" >}}
+    * {{< linkWithTitle "access-management/_index.md" >}}
+    * {{< linkWithTitle "access-management/manage-rbac-roles.md" >}}
 
 ## Define and add RBAC roles
 <!-- add an M2M role once that's implemented in the UI -->

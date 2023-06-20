@@ -26,7 +26,7 @@ Organization Admin is a system role. CD-as-a-Service automatically assigns that 
 **Fixes**
 <br>
 * Assign the existing Organization Admin role to the affected user.
-* [Create at least one custom RBAC role]({{< ref "tasks/iam/create-role.md" >}}) and then [assign that RBAC role]({{< ref "tasks/iam/manage-role-user.md" >}}) to the affected user.
+* [Create at least one custom RBAC role]({{< ref "access-management/manage-rbac-roles.md" >}}) and then assign that RBAC role to the affected user.
 
 {{% /tabbody %}}
 {{% tabbody name="SSO" %}}
@@ -36,7 +36,7 @@ Organization Admin is a system role. CD-as-a-Service automatically assigns that 
 
 **Fix**
 <br>
-* [Create RBAC roles]({{< ref "tasks/iam/create-role#sso-roles" >}}) to match the SSO groups that you want to use with CD-as-a-Service.
+* [Create RBAC roles]({{< ref "access-management/manage-rbac-roles#sso-roles" >}}) to match the SSO groups that you want to use with CD-as-a-Service.
 
 
 {{% /tabbody %}}

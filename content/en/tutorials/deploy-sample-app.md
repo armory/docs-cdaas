@@ -20,7 +20,7 @@ This tutorial is designed to use a single Kubernetes cluster with multiple names
 
 ## {{% heading "prereq" %}}
 
-* You have completed the Armory CD-as-a-Service [quickstart]({{< ref "setup/quickstart" >}}), in which you create your login credentials, install the CLI, and deploy a sample app.
+* You have completed the Armory CD-as-a-Service [quickstart]({{< ref "get-started/quickstart" >}}), in which you create your login credentials, install the CLI, and deploy a sample app.
 * You have installed [Helm](https://helm.sh/docs/intro/install/).
 * You have a GitHub account so you can fork the sample project.
 
@@ -34,7 +34,7 @@ The `configuration` directory contains a script to set up Kubernetes cluster and
 
 Create a new set of Client Credentials for the Remote Network Agents. Name the credentials "docs-sample-rna".
 
-{{< include "cdaas/client-creds.md" >}}
+{{< include "client-creds.md" >}}
 
 ## Connect your cluster
 

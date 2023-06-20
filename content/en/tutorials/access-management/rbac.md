@@ -35,7 +35,7 @@ In this tutorial, you learn how to:
 * You have [installed the `armory` CLI]({{< ref "setup/cli" >}}).
 * You have installed [Helm](https://helm.sh/docs/intro/install/).
 * You have a GitHub account so you can fork the sample project.
-* You have read the {{< linkWithTitle "concepts/iam/rbac.md" >}} content.
+* You have read the {{< linkWithTitle "access-management/_index.md.md" >}} content.
 * You have completed the  {{< linkWithTitle "tutorials/deploy-sample-app.md" >}}.
 
 ## Fork and clone the repo
@@ -56,7 +56,7 @@ If you completed the {{< linkWithTitle "deploy-sample-app.md" >}} and have **not
 
 Create a new set of Client Credentials for the Remote Network Agents. Name the credentials "docs-sample-rna".
 
-{{< include "cdaas/client-creds.md" >}}
+{{< include "client-creds.md" >}}
 
 ### Install the Remote Network Agents
 

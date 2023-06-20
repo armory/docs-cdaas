@@ -13,7 +13,7 @@ Define the namespace in your deployment file even if your manifest specifies a n
 
 ## Manifest requirements
 
-{{< include "cdaas/ki-manifest-limitation.md" >}}
+{{< include "ki-manifest-limitation.md" >}}
 
 ## `armory.cloud` config block location
 
