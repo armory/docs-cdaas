@@ -4,7 +4,7 @@ linktitle: Webhooks
 weight: 1
 description: >
   Integrate webhook-based approvals into your Armory CD-as-a-Service app deployment process.
-categories: ["Integrations"]
+categories: ["Integrations", "Features", "Concepts"]
 tags: ["Webhooks", "GitHub", "Automation"]
 ---
 

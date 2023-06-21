@@ -4,7 +4,7 @@ linkTitle: Slack
 weight: 10
 description: >
   @TODO placeholder change to DRAFT
-categories: ["Integrations"]
+categories: ["Integrations", "Features", "Guides"]
 tags: ["Slack", "Automation"]
 draft: false
 ---

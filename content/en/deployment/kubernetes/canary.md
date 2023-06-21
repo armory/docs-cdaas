@@ -3,7 +3,7 @@ title: Canary Deployment
 linktitle: Canary Deployment
 description: >
   @TODO add desc
-categories: ["Deployment"]
+categories: ["Deployment", "Guides"]
 tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 ---
 

@@ -4,7 +4,7 @@ linktitle: Construct Queries
 weight: 1
 description: >
   Learn how to construct retrospective analysis queries that you can then use for your canary strategy.
-categories: ["Guides"]
+categories: ["Integrations", "Features", "Guides"]
 tags: ["Deploy Strategy", "Canary", "Retrospective Analysis"]
 ---
 

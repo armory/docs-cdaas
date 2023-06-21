@@ -4,7 +4,7 @@ linkTitle: Monitor Deployments
 weight: 10
 description: >
   Monitor the status of your deployments and approve or rollback deployments.
-categories: ["Deployment"]
+categories: ["Deployment", "Guides"]
 tags: ["Monitor"]
 ---
 

@@ -4,7 +4,7 @@ linkTitle: Bitbucket
 weight: 1
 description: >
   @TODO placeholder change to DRAFT
-categories: ["Integrations"]
+categories: ["Integrations", "Guides", "Features"]
 tags: ["CI Systems", "Bitbucket", "Automation"]
 draft: false
 ---

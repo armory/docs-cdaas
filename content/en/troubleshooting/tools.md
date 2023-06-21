@@ -5,7 +5,7 @@ weight: 1
 description: >
   Solutions for issues you might encounter while using the Armory Continuous Deployment-as-a-Service AVM, CLI, or GitHub Action.
 categories: ["Troubleshooting"]
-tags: ["Tools"]
+tags: ["Tools", "CLI"]
 ---
 
 ## Troubleshooting overview

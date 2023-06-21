@@ -4,8 +4,8 @@ linkTitle: Linkerd
 weight: 1
 description: >
   Configure your Armory CD-as-a-Service deployment to use Linkerd for traffic management.
-categories: ["Guides"]
-tags: ["Deployment", "Traffic Management", "Linkerd", "Deploy Config"]
+categories: ["Traffic Management", "Features", "Guides"]
+tags: ["Linkerd", "TrafficSplit", "Deploy Config"]
 ---
 
 ## {{% heading "prereq" %}}

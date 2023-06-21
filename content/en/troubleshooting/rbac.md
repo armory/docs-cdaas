@@ -4,8 +4,8 @@ linktitle: RBAC
 weight: 1
 description: >
   Solutions for issues you might encounter while using RBAC in Armory Continuous Deployment-as-a-Service.
-categories: ["Troubleshooting"]
-tags: ["Access", "RBAC"]
+categories: ["Access Management", "Troubleshooting"]
+tags: ["RBAC"]
 ---
 
 ## User sees blank **Deployments** screen

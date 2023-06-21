@@ -4,7 +4,7 @@ linkTitle: Configure Preview Links
 weight: 10
 description: >
   Configure a temporary public preview link to a deployed service for testing.
-categories: ["Guides"]
+categories: ["Reference", "Guides"]
 tags: ["Deployment", "Deploy Config", "Preview"]
 ---
 

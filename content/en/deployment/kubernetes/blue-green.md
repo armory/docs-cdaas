@@ -3,8 +3,8 @@ title: Blue/Green Deployment
 linkTitle: Blue/Green Deployment
 description: >
   This guide walks you through how to deploy using a blue/green strategy.
-categories: ["Get Started"]
-tags: ["Deployment", "Deploy Strategy", "Blue/Green"]
+categories: ["Deployment", "Guides"]
+tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 ---
 
 ## Blue/Green deployment overview

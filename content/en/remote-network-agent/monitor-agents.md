@@ -4,8 +4,8 @@ linktitle: Monitor Agents
 weight: 1
 description: >
   Monitor Remote Network Agents using the Armory CD-as-a-Service console.
-categories: ["Guides"]
-tags: [ "Networking", "Remote Network Agent"]
+categories: ["Remote Network Agent", "Features", "Guides"]
+tags: ["Remote Network Agent", "UI"]
 ---
 
 ## Monitor connected agents

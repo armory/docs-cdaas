@@ -5,7 +5,7 @@ weight: 1
 no_list: true
 description: >
   Learn how Armory Continuous Deployment-as-a-Service implements Kubernetes Horizontal Pod Autoscaling.
-categories: ["Deployment"]
+categories: ["Deployment", "Concepts"]
 tags: ["Kubernetes", "Horizontal Pod Autoscaling"]
 ---
 

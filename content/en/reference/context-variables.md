@@ -5,7 +5,7 @@ weight: 10
 description: >
   @TODO
 categories: ["Reference"]
-tags: ["Deployment", "Deploy Strategy", "Canary"]
+tags: ["Deployment", "Context Variables", "Canary"]
 ---
 
 ### Armory-provided variables

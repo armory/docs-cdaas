@@ -3,8 +3,8 @@ title: Invite and Manage Users
 linktitle: Users
 description: >
   Use the Armory CD-as-a-Service Console to invite a user to your CD-as-a-Service organization.
-categories: ["Guides"]
-tags: [ "Access", "RBAC"]
+categories: ["Access Management", "Guides"]
+tags: ["RBAC", "Users"]
 ---
 
 ## Overview

@@ -4,8 +4,8 @@ linkTitle: GitLab
 weight: 1
 description: >
   @TODO placeholder change to DRAFT
-categories: ["Integrations"]
-tags: ["CI Systems", "Bitbucket", "Automation"]
+categories: ["Integrations", "Guides", "Features"]
+tags: ["CI Systems", "GitLab", "Automation"]
 draft: false
 ---
 

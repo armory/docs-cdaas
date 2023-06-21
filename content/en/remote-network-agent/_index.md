@@ -3,6 +3,8 @@ title: Remote Network Agent
 linktitle: Remote Network Agent
 weight: 30
 no_list: true
+categories: ["Remote Network Agent", "Features", "Concepts"]
+tags: ["Remote Network Agent"]
 description: >
   @TODO
 ---
