@@ -1,6 +1,7 @@
 ---
 title: Armory CD-as-a-Service Plugin for Spinnaker and Armory Continuous Deployment
 linkTitle: Spinnaker Plugin
+weight: 999
 manualLink: "https://docs.armory.io/plugins/cdaas-spinnaker/"
 description: >
   Armory Continuous Deployment-as-a-Service plugin enables performing canary and blue/green deployments in a single stage.

@@ -1,10 +1,9 @@
 ---
 title: Deploy a Sample App Tutorial
 linktitle: Deploy a Sample App
+weight: 1
 description: >
-  Learn how to deploy a sample app to your Kubernetes cluster using Armory Continuous Deployment-as-a-Service. Use Helm to install the Remote Network Agent. Deploy the sample app to multiple targets.  
-aliases:
-  - /cd-as-a-service/tutorials/deploy-demo-app/
+  In this tutorial, learn how to deploy a sample app to your Kubernetes cluster using Armory Continuous Deployment-as-a-Service. Use Helm to install the Remote Network Agent. Deploy the sample app to multiple targets.  
 categories: ["Tutorials"]
 tags: ["Webhooks", "GitHub"]
 ---
@@ -20,7 +19,7 @@ This tutorial is designed to use a single Kubernetes cluster with multiple names
 
 ## {{% heading "prereq" %}}
 
-* You have completed the Armory CD-as-a-Service [quickstart]({{< ref "setup/quickstart" >}}), in which you create your login credentials, install the CLI, and deploy a sample app.
+* You have completed the Armory CD-as-a-Service [quickstart]({{< ref "get-started/quickstart" >}}), in which you create your login credentials, install the CLI, and deploy a sample app.
 * You have installed [Helm](https://helm.sh/docs/intro/install/).
 * You have a GitHub account so you can fork the sample project.
 
@@ -34,7 +33,7 @@ The `configuration` directory contains a script to set up Kubernetes cluster and
 
 Create a new set of Client Credentials for the Remote Network Agents. Name the credentials "docs-sample-rna".
 
-{{< include "cdaas/client-creds.md" >}}
+{{< include "client-creds.md" >}}
 
 ## Connect your cluster
 
@@ -105,9 +104,3 @@ You can run the `configuration/teardown-helm.sh` script to uninstall the Remote 
 
 Because Armory CD-as-a-Service deploys to 100% of nodes on initial deployment, you may run out of space. Increasing the number of nodes should solve the issue.
 
-## {{% heading "nextSteps" %}}
-
-* [Introduction to leveraging external automation]({{< ref "webhook-approval" >}}) and [detailed tutorial]({{< ref "external-automation" >}}).
-
-
-<br>
