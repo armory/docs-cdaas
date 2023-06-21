@@ -1,6 +1,7 @@
 ---
 title: Troubleshoot Role-Based Access Control
 linktitle: RBAC
+weight: 1
 description: >
   Solutions for issues you might encounter while using RBAC in Armory Continuous Deployment-as-a-Service.
 categories: ["Troubleshooting"]

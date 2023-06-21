@@ -1,6 +1,7 @@
 ---
 title: Context Variables Reference
 linkTitle: Context Variables
+weight: 10
 description: >
   @TODO
 categories: ["Reference"]

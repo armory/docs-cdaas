@@ -1,6 +1,7 @@
 ---
 title: Deploy a Sample App Tutorial
 linktitle: Deploy a Sample App
+weight: 1
 description: >
   In this tutorial, learn how to deploy a sample app to your Kubernetes cluster using Armory Continuous Deployment-as-a-Service. Use Helm to install the Remote Network Agent. Deploy the sample app to multiple targets.  
 categories: ["Tutorials"]

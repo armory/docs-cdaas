@@ -1,6 +1,7 @@
 ---
-title: Role-Based Access Control
+title: Role-Based Access Control Tutorial
 linktitle: RBAC
+weight: 10
 description: >
   Learn how to configure and use Role-Based Access Control (RBAC) in Armory Continuous Deployment-as-a-Service.
 draft: true

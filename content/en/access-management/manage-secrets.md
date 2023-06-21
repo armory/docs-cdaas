@@ -1,6 +1,6 @@
 ---
 title: Create and Reference Secrets
-linktitle: Create Secrets
+linktitle: Secrets
 description: >
   Use secrets to integrate Armory CD-as-a-Service with external systems and tools.
 aliases:

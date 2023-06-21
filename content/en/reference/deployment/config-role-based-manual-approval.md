@@ -1,5 +1,6 @@
 ---
 title: Configure Role-Based Manual Approval
+weight: 10
 description: >
   Implement role-based manual deployment approval in Armory Continuous Deployment-as-a-Service.
 categories: ["Guides"]

@@ -1,7 +1,7 @@
 ---
 title: Deployment Reference
 linkTitle: Deployment
-weight: 80
+weight: 1
 no_list: true
 description: >
   Create a deployment config file to use with Armory CD-as-a-Service. Browse the deployment config file reference. Learn how to configure preview links and role-based manual approvals.

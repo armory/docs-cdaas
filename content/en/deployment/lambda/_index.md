@@ -1,6 +1,7 @@
 ---
 title: Lambda
 linktitle: Lambda
+weight: 1
 description: >
  placeholder
 categories: ["Deployment"]

@@ -1,10 +1,11 @@
 ---
-title: How to Monitor Deployments
+title: Monitor Deployments in the UI
 linkTitle: Monitor Deployments
+weight: 10
 description: >
   Monitor the status of your deployments and approve or rollback deployments.
-categories: ["Guides"]
-tags: ["Deployment", "Monitor"]
+categories: ["Deployment"]
+tags: ["Monitor"]
 ---
 
 

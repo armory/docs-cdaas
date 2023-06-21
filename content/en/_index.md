@@ -33,7 +33,6 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 {{% card header="Get Started" %}}
 [Quickstart]({{< ref "get-started/quickstart" >}})</br>
 [Deploy Your Own App]({{< ref "get-started/deploy-your-app" >}})</br>
-[Deploy Using GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}})</br>
 [Install a Remote Network Agent]({{<  ref "remote-network-agent/_index.md" >}})</br>
 {{% /card %}}
 
@@ -49,6 +48,7 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 [Invite Users]({{<  ref "access-management/manage-users.md" >}})</br>
 [Create Machine Credentials]({{< ref "access-management/manage-client-creds" >}})</br>
 [Create and Use Secrets]({{< ref "access-management/manage-secrets" >}})</br>
+[Create and Manage RBAC Roles Tutorial]({{<  ref "tutorials/tutorial-rbac-users" >}})</br>
 {{% /card %}}
 
 {{< /cardpane >}}
@@ -57,9 +57,9 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 {{% card header="Strategies" %}}
 [Blue/Green Deployment]({{< ref "deployment/kubernetes/blue-green" >}})</br>
 [Canary Analysis]({{< ref "deployment/kubernetes/canary" >}})</br>
-[Query Reference Guide]({{< ref "reference/canary-analysis-query.md" >}})</br>
-[Integrate a Metrics Provider]({{< ref "integrations/canary-analysis/integrate-metrics-provider" >}})</br>
 [Construct Retrospective Analysis Queries]({{< ref "integrations/canary-analysis/create-canary-queries" >}})</br>
+[Integrate Datadog, New Relic, Prometheus]({{< ref "integrations/canary-analysis/integrate-metrics-provider" >}})</br>
+[Canary Analysis Query Reference]({{< ref "reference/canary-analysis-query.md" >}})</br>
 {{% /card %}}
 
 {{% card header="Deployment" %}}
@@ -79,23 +79,22 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 
 {{< cardpane >}}
 
-{{% card header="Webhooks" %}}
-[Webhook-Based Approvals]({{< ref "integrations/webhooks/_index.md" >}})</br>
-[Configure a Webhook]({{< ref "integrations/webhooks/webhook-approval" >}})</br>
-
-{{% /card %}}
-
 {{% card header="Tools" %}}
 [CLI]({{< ref "cli" >}})</br>
 {{% /card %}}
 
-{{% card header="Tutorials" %}}
+{{% card header="CI Systems" %}}
 
-[Create and Manage RBAC Roles]({{<  ref "tutorials/tutorial-rbac-users" >}})</br>
-[GitHub Webhook-Based Approval]({{<  ref "tutorials/tutorial-webhook-github" >}})</br>
-
+[Deploy Using GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}})</br>
 
 {{% /card %}}
+
+{{% card header="Webhooks" %}}
+[Webhook-Based Approvals]({{< ref "integrations/webhooks/_index.md" >}})</br>
+[Configure a Webhook]({{< ref "integrations/webhooks/webhook-approval" >}})</br>
+[GitHub Webhook-Based Approval Tutorial]({{<  ref "tutorials/tutorial-webhook-github" >}})</br>
+{{% /card %}}
+
 {{< /cardpane >}}
 
 

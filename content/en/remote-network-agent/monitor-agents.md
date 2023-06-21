@@ -1,6 +1,7 @@
 ---
-title: Monitor Installed Remote Network Agents
+title: Monitor Connected Remote Network Agents in the UI
 linktitle: Monitor Agents
+weight: 1
 description: >
   Monitor Remote Network Agents using the Armory CD-as-a-Service console.
 categories: ["Guides"]

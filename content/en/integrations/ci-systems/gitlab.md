@@ -1,6 +1,7 @@
 ---
 title: GitLab
 linkTitle: GitLab
+weight: 1
 description: >
   @TODO placeholder change to DRAFT
 categories: ["Integrations"]

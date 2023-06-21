@@ -1,6 +1,7 @@
 ---
 title: Bitbucket
 linkTitle: Bitbucket
+weight: 1
 description: >
   @TODO placeholder change to DRAFT
 categories: ["Integrations"]

@@ -1,6 +1,7 @@
 ---
 title: "Kubernetes Deployment in Armory CD-as-a-Service"
-linktitle: "Kubernetes Deployment"
+linktitle: "Kubernetes"
+weight: 1
 no_list: true
 description: >
   Learn how Armory Continuous Deployment-as-a-Service implements Kubernetes Horizontal Pod Autoscaling.

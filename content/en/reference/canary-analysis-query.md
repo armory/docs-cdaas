@@ -1,6 +1,7 @@
 ---
 title: Canary Analysis Query Reference
 linkTitle: Canary Analysis Queries
+weight: 10
 description: >
   Armory CD-as-a-Service has different requirements for how queries are formatted and what kind of data can get returned based on the metrics provider you use for automated canary analysis. This reference provides basic information about what Armory CD-as-a-Service needs for each provider.
 categories: ["Reference"]

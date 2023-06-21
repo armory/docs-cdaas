@@ -1,6 +1,6 @@
 ---
 title: Known Issues and Limitations
-
+weight: 10
 ---
 
 ## Deployment fails with a blank namespace error
