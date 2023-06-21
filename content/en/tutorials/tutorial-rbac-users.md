@@ -1,8 +1,8 @@
 ---
-title: Create and Manage RBAC Roles
+title: Create and Manage RBAC Roles Tutorial
 linktitle: RBAC Roles
 description: >
-  Learn how to configure and use Role-Based Access Control (RBAC) for Armory Continuous Deployment-as-a-Service users.
+  In this tutorial, learn how to configure and use Role-Based Access Control (RBAC) for Armory Continuous Deployment-as-a-Service users.
 categories: ["Tutorials"]
 tags: ["RBAC"]
 ---

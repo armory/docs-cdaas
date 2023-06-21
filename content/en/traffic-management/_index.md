@@ -2,7 +2,7 @@
 title: Traffic Management
 linkTitle: Traffic Management
 no_list: true
-weight: 60
+weight: 30
 description: >
   Learn about traffic management using Istio or Linkerd in your Armory Continuous Deployment-as-a-Service deployment.
 ---

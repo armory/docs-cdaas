@@ -82,7 +82,7 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 {{% card header="Webhooks" %}}
 [Webhook-Based Approvals]({{< ref "integrations/webhooks/_index.md" >}})</br>
 [Configure a Webhook]({{< ref "integrations/webhooks/webhook-approval" >}})</br>
-[GitHub Webhook-Based Approval Tutorial]({{<  ref "tutorials/external-automation/webhook-github" >}})</br>
+
 {{% /card %}}
 
 {{% card header="Tools" %}}
@@ -91,8 +91,8 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 
 {{% card header="Tutorials" %}}
 
-[Create and Manage RBAC Roles]({{<  ref "tutorials/access-management/rbac-users" >}})</br>
-[Deploy a Sample App]({{<  ref "tutorials/deploy-sample-app" >}})</br>
+[Create and Manage RBAC Roles]({{<  ref "tutorials/tutorial-rbac-users" >}})</br>
+[GitHub Webhook-Based Approval]({{<  ref "tutorials/tutorial-webhook-github" >}})</br>
 
 
 {{% /card %}}

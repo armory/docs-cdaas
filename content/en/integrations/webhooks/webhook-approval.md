@@ -185,6 +185,6 @@ strategies:
 ## {{% heading "nextSteps" %}}
 
 * [Webhooks section in the deployment file reference]({{< ref "reference/deployment/config-file/webhooks" >}})
-* {{< linkWithTitle "tutorials/external-automation/webhook-github.md" >}}
+* {{< linkWithTitle "tutorials/tutorial-webhook-github.md" >}}
 * {{< linkWithTitle "troubleshooting/webhook.md" >}}
  

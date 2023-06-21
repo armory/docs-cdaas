@@ -1,7 +1,7 @@
 ---
 title: Deployment
 linktitle: Deployment
-weight: 50
+weight: 30
 no_list: true
 description: >
   @TODO
