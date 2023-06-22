@@ -90,8 +90,8 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 {{% /card %}}
 
 {{% card header="Webhooks" %}}
-[Webhook-Based Approvals]({{< ref "integrations/webhooks/_index.md" >}})</br>
-[Configure a Webhook]({{< ref "integrations/webhooks/webhook-approval" >}})</br>
+[Webhook-Based Approvals]({{< ref "webhooks/_index.md" >}})</br>
+[Configure a Webhook]({{< ref "webhooks/webhook-approval" >}})</br>
 [GitHub Webhook-Based Approval Tutorial]({{<  ref "tutorials/tutorial-webhook-github" >}})</br>
 {{% /card %}}
 

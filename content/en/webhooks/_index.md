@@ -1,7 +1,7 @@
 ---
 title: External Automation Using Webhook-Based Approvals
 linktitle: Webhooks
-weight: 1
+weight: 30
 description: >
   Integrate webhook-based approvals into your Armory CD-as-a-Service app deployment process.
 categories: ["Integrations", "Features", "Concepts"]

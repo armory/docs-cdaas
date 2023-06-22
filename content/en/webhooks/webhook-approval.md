@@ -10,7 +10,7 @@ tags: ["Webhooks", "GitHub", "Automation"]
 
 ## {{% heading "prereq" %}}
 
-You are familiar with [using external automation]({{< ref "integrations/webhooks/_index.md" >}}) with CD-as-a-Service 
+You are familiar with [using external automation]({{< ref "webhooks/_index.md" >}}) with CD-as-a-Service 
 
 ## How to configure a webhook in your deployment file
 

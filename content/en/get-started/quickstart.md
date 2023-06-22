@@ -85,7 +85,7 @@ CD-as-a-Service has four kinds of constraints that you can use to control your d
 
 - Manual Approvals
 - Timed Pauses
-- [Webhooks]({{< ref "integrations/webhooks/_index.md" >}})
+- [Webhooks]({{< ref "webhooks/_index.md" >}})
 - [Automated Canary Analysis]({{< ref "deployment/kubernetes/canary" >}})
 
 You can use these constraints _between_ environments and _within_ environments:

@@ -16,7 +16,7 @@ You should have completed the {{< linkWithTitle "deploy-sample-app.md" >}} guide
 
 ## {{% heading "prereq" %}}
 
-- You have read the webhook-based approvals [introductory page]({{< ref "integrations/webhooks/_index.md" >}}).
+- You have read the webhook-based approvals [introductory page]({{< ref "webhooks/_index.md" >}}).
 - You are familiar with workflows and webhooks in GitHub.
   - [Workflows](https://docs.github.com/en/actions/using-workflows/)
   - [Webhooks and events](https://docs.github.com/en/developers/webhooks-and-events/webhooks/)
