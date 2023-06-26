@@ -200,9 +200,3 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
   color: inherit;
   text-decoration: none
 }
-
-li #m-deployment-li {
-  border-bottom: 1px solid #CECFD1; /* Set the color and thickness of the divider */
-  margin-bottom: 10px; /* Adjust the margin to control spacing around the divider */
-
-}

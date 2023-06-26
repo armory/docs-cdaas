@@ -34,7 +34,7 @@ To complete this quick start, you need the following:
 
    ```yaml
    strategies:
-    blue-green-deploy-strat
+    blue-green-deploy-strat:
       blueGreen:
         redirectTrafficAfter:
           - pause:
