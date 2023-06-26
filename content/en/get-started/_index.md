@@ -5,4 +5,5 @@ description: >
   Armory CD-as-a-Service...
 weight: 1
 no_list: false
+exclude_search: true
 ---

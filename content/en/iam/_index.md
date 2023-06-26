@@ -5,5 +5,5 @@ description: >
   Access Management using RBAC in Armory CD-as-a-Service.
 weight: 80
 no_list: false
-categories: ["IAM", "Features", "Concepts"]
+exclude_search: true
 ---

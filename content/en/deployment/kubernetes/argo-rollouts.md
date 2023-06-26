@@ -1,8 +1,8 @@
 ---
-title: "Strategy: Argo Rollouts Deployment"
-linkTitle: "Strategy: Argo Rollouts Deployment"
+title: "Argo Rollouts Deployment"
+linkTitle: "Argo Rollouts Deployment"
 description: >
-  Use Armory CD-as-a-Service to deploy Argo Rollout Objects across multiple environments.
+  Use Armory CD-as-a-Service to deploy Argo Rollout Objects across multiple Kubernetes environments.
 categories: ["Deployment", "Guides"]
 tags: ["Argo Rollouts", "Kubernetes"]
 ---

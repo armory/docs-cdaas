@@ -1,8 +1,9 @@
 ---
-title: "Strategy: Blue/Green Deployment"
-linkTitle: "Strategy: Blue/Green"
+title: "Blue/Green Deployment Strategy"
+linkTitle: "Blue/Green"
+weight: 5
 description: >
-  This guide walks you through how to deploy using a blue/green strategy.
+  A blue/green strategy shifts traffic from the running version of your app to a new version of your app. This guide walks you through how to deploy your app to Kubernetes using a blue/green strategy. 
 categories: ["Deployment", "Guides"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 ---
