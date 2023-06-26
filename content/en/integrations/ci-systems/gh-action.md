@@ -22,12 +22,12 @@ If you have previously configured Armory CD-as-a-Service for your deployment tar
 1. If you have already prepared a deployment target for Armory CD-as-a-Service, skip this step. If you have not, complete the the following:
 
    - [Register for Armory CD-as-a-Service](https://go.armory.io/signup/).
-   - [Create machine-to-machine client credentials]({{< ref "access-management/manage-client-creds" >}}) for the Remote Network Agent (RNA), which you install on your deployment target cluster.
+   - [Create machine-to-machine client credentials]({{< ref "iam/manage-client-creds" >}}) for the Remote Network Agent (RNA), which you install on your deployment target cluster.
    - Connect your Kubernetes cluster by [installing the RNA]({{< ref "remote-network-agent/_index.md" >}}).
 
 1. (Optional) [Install the CD-as-a-Service CLI]({{< ref "get-started/quickstart#install-the-cd-as-as-service-cli" >}}) on your workstation. You can use the CLI to generate a deployment file template. You can also create a deployment file manually. See {{< linkWithTitle "reference/deployment/_index.md" >}}.
 1. If you are new to using GitHub Actions, see GitHub's [Quickstart for GitHub Actions](https://docs.github.com/en/actions/quickstart) guide for information about setting up GitHub Actions.
-1. [Create a CD-as-a-Service Client Credential]({{< ref "access-management/manage-client-creds" >}}) for your GitHub Action to use to connect to CD-as-a-Service. Assign the `Deployments Full Access` role to your credential.
+1. [Create a CD-as-a-Service Client Credential]({{< ref "iam/manage-client-creds" >}}) for your GitHub Action to use to connect to CD-as-a-Service. Assign the `Deployments Full Access` role to your credential.
 1. Create GitHub [secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) for the Client ID and a Client Secret so you don't expose them in plain text in your GitHub workflow file. Use descriptive name for these two values. You reference these secrets when you configure the CD-as-a-Service GitHub Action.
 
 ## Use the GitHub Action

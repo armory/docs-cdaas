@@ -1,8 +1,7 @@
 ---
 title: CI Systems
 linktitle: CI Systems
-weight: 1
-no_list: true
+no_list: false
 categories: ["Integrations", "Features", "Concepts"]
 tags: ["CI Systems"]
 description: >

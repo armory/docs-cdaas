@@ -1,7 +1,7 @@
 ---
 title: Configure a Webhook in the Deployment File
 linkTitle: Configure a Webhook
-weight: 1
+weight: 5
 description: >
   Configure a webhook-based approval into your Armory CD-as-a-Service app deployment process.
 categories: ["Integrations", "Features", "Guides"]

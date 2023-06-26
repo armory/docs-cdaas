@@ -1,11 +1,10 @@
 ---
-title: Identity & Access Management
-linkTitle: Identity & Access Management
+title: Identity and Access Management Overview
+linktitle: Overview
+weight: 1
 description: >
-  Access Management using RBAC in Armory CD-as-a-Service: tenants, users, client credentials, RBAC roles.
-weight: 40
-no_list: true
-categories: ["Access Management", "Features", "Concepts"]
+  Learn about Access Management using RBAC in Armory CD-as-a-Service: tenants, users, client credentials, RBAC roles. Learn how to organize your CD-as-a-Service space using tenants.
+categories: ["IAM", "Concepts"]
 tags: ["OIDC", "RBAC", "Tenants", "Users"]
 ---
 
@@ -68,10 +67,10 @@ For example, Shannon Singh registers to use CD-as-a-Service. When Shannon create
 * **Organization Admin**: Shannon Singh
 
 As the Organization Admin, Shannon can do the following:
-* [Create Tenants]({{< ref "access-management/manage-tenants.md" >}})
-* [Create User roles]({{< ref "access-management/manage-rbac-roles.md" >}})
-* [Invite Users and assign roles to them]({{< ref "access-management/manage-users.md" >}})
-* [Create Machine-to-Machine Client Credentials]({{< ref "access-management/manage-client-creds.md" >}})
+* [Create Tenants]({{< ref "iam/manage-tenants.md" >}})
+* [Create User roles]({{< ref "iam/manage-rbac-roles.md" >}})
+* [Invite Users and assign roles to them]({{< ref "iam/manage-users.md" >}})
+* [Create Machine-to-Machine Client Credentials]({{< ref "iam/manage-client-creds.md" >}})
 
 ### How to organize your company workspace
 
@@ -272,11 +271,11 @@ roles:
 
 ### Assign roles
 
-After you define your roles, you use the CLI to [add your roles]({{< ref "access-management/manage-rbac-roles" >}}) to your CD-as-a-Service Organization. You do all subsequent role management with the CLI, but you [assign roles to users]({{< ref "access-management/manage-users" >}}) using the UI.
+After you define your roles, you use the CLI to [add your roles]({{< ref "iam/manage-rbac-roles" >}}) to your CD-as-a-Service Organization. You do all subsequent role management with the CLI, but you [assign roles to users]({{< ref "iam/manage-users" >}}) using the UI.
 
 All users must have at least one role in order to use CD-as-a-Service. You can assign the Organization Admin role or a custom role. If a user has login credentials but no role assigned, the user sees a blank **Deployments** screen after logging in.
 
-A Client Credential must also have an RBAC role to access CD-as-a-Service functionality. See {{< linkWithTitle "access-management/manage-client-creds.md" >}} for how to assign a role to a Client Credential.
+A Client Credential must also have an RBAC role to access CD-as-a-Service functionality. See {{< linkWithTitle "iam/manage-client-creds.md" >}} for how to assign a role to a Client Credential.
 
 ### SSO groups and RBAC roles
 

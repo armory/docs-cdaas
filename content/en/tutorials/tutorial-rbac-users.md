@@ -24,8 +24,8 @@ In this tutorial, you learn how to:
 * You have completed the Armory CD-as-a-Service [quickstart]({{< ref "get-started/quickstart" >}}), in which you create your login credentials, install the CLI, and deploy an example app.
 * You are familiar with the following content:
 
-    * {{< linkWithTitle "access-management/_index.md" >}}
-    * {{< linkWithTitle "access-management/manage-rbac-roles.md" >}}
+    * {{< linkWithTitle "iam/_index.md" >}}
+    * {{< linkWithTitle "iam/manage-rbac-roles.md" >}}
 
 ## Define and add RBAC roles
 <!-- add an M2M role once that's implemented in the UI -->

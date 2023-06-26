@@ -1,6 +1,6 @@
 ---
-title: Blue/Green Deployment
-linkTitle: Blue/Green Deployment
+title: "Strategy: Blue/Green Deployment"
+linkTitle: "Strategy: Blue/Green"
 description: >
   This guide walks you through how to deploy using a blue/green strategy.
 categories: ["Deployment", "Guides"]

@@ -1,6 +1,6 @@
 ---
-title: Argo Rollouts Deployment
-linkTitle: Argo Rollouts Deployment
+title: "Strategy: Argo Rollouts Deployment"
+linkTitle: "Strategy: Argo Rollouts Deployment"
 description: >
   Use Armory CD-as-a-Service to deploy Argo Rollout Objects across multiple environments.
 categories: ["Deployment", "Guides"]

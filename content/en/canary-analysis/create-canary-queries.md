@@ -1,10 +1,10 @@
 ---
 title: Construct Retrospective Analysis Queries for Canary Analysis
 linktitle: Construct Queries
-weight: 1
+weight: 5
 description: >
   Learn how to construct retrospective analysis queries that you can then use for your canary strategy.
-categories: ["Integrations", "Features", "Guides"]
+categories: ["Canary Analysis", "Features", "Guides"]
 tags: ["Deploy Strategy", "Canary", "Retrospective Analysis"]
 ---
 
@@ -60,3 +60,8 @@ You can generate the YAML equivalent of your query to use in your deploy file.
 1. From the analysis screen, select **Go back to Analysis Configuration**.
 1. Click **Export Queries for Armory Deployments**. This creates the YAML block for the `analysis` portion of your deploy file.
 1. Insert the YAML block into your deploy file at the bottom.
+
+## {{% heading "nextSteps" %}}
+
+* {{< linkWithTitle "reference/canary-analysis-query.md" >}}
+* {{< linkWithTitle "reference/context-variables.md" >}}

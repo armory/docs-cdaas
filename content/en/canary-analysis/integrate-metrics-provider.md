@@ -1,10 +1,10 @@
 ---
 title: Integrate a Metrics Provider
 linkTitle: Integrate Metrics Provider
-weight: 1
+weight: 5
 description: >
   Add metrics sources such as Prometheus, Datadog, and New Relic for canary analysis in Armory Continuous Deployment-as-a-Service.
-categories: ["Integrations", "Features", "Guides"]
+categories: ["Canary Analysis", "Features", "Guides"]
 tags: ["Prometheus", "Canary", "Metrics", "Datadog", "New Relic"]
 ---
 
@@ -21,7 +21,7 @@ Armory supports the following metrics providers:
 ## {{% heading "prereq" %}}
 
 - You have installed one of the supported metrics providers.
-- You have created a [secret]({{< ref "access-management/manage-secrets" >}}) for your provider's encrypted connection token:
+- You have created a [secret]({{< ref "iam/manage-secrets" >}}) for your provider's encrypted connection token:
 
    - Datadog: **API Key** and **Application Key**
    - New Relic: **API Key**

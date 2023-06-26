@@ -4,7 +4,5 @@ linkTitle: Get Started
 description: >
   Armory CD-as-a-Service...
 weight: 1
-no_list: true
-categories: ["Get Started", "Guides"]
-tags: ["Quickstart", "Deployment"]
+no_list: false
 ---

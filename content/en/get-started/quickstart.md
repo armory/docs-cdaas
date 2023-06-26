@@ -3,7 +3,7 @@ title: Armory CD-as-a-Service Quickstart
 linktitle: Quickstart
 description: >
   Install the Armory Continuous Deployment-as-a-Service CLI, connect your Kubernetes cluster with a single command, and deploy an sample app using a traffic split. Learn deployment file syntax.
-weight: 1
+weight: 2
 categories: ["Get Started", "Guides"]
 tags: ["Deployment", "Quickstart"]
 ---
@@ -86,7 +86,7 @@ CD-as-a-Service has four kinds of constraints that you can use to control your d
 - Manual Approvals
 - Timed Pauses
 - [Webhooks]({{< ref "webhooks/_index.md" >}})
-- [Automated Canary Analysis]({{< ref "deployment/deployment-strategies/canary" >}})
+- [Automated Canary Analysis]({{< ref "deployment/strategies/canary" >}})
 
 You can use these constraints _between_ environments and _within_ environments:
 
@@ -201,7 +201,7 @@ strategies:
 
 CD-as-a-Service integrates with service meshes like [Istio]({{< ref "traffic-management/istio" >}}) and [Linkerd]({{< ref "traffic-management/linkerd" >}}), but you do not need to use a service mesh to use a CD-as-a-Service `canary` strategy.
 
-CD-as-a-Service also supports a [blue/green]({{< ref "deployment/deployment-strategies/blue-green" >}}) deployment strategy.
+CD-as-a-Service also supports a [blue/green]({{< ref "deployment/strategies/blue-green" >}}) deployment strategy.
 
 ## Clean up
 
@@ -216,5 +216,5 @@ kubectl delete ns potato-facts-staging potato-facts-prod
 * View the [code](https://github.com/armory-io/cdaas-examples/tree/main/hello-armory) for this quickstart.
 * {{< linkWithTitle "get-started/deploy-your-app.md" >}}
 * {{< linkWithTitle "integrations/ci-systems/gh-action.md" >}}
-* {{< linkWithTitle "deployment/deployment-strategies/blue-green.md" >}}
-* {{< linkWithTitle "deployment/deployment-strategies/canary.md" >}}
+* {{< linkWithTitle "deployment/strategies/blue-green.md" >}}
+* {{< linkWithTitle "deployment/strategies/canary.md" >}}

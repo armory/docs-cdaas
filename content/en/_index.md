@@ -38,16 +38,16 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 
 {{% card header="Learn About CD-as-a-Service" %}}
 [Key Components]({{<  ref "architecture.md" >}})</br>
-[Tenants, Users, RBAC]({{<  ref "access-management/_index.md" >}})</br>
+[Tenants, Users, RBAC]({{<  ref "iam/_index.md" >}})</br>
 
 {{% /card %}}
 
 {{% card header="Set Up Your Organization" %}}
-[Add Tenants]({{<  ref "access-management/manage-tenants.md" >}})</br>
-[Create Roles]({{<  ref "access-management/manage-rbac-roles.md" >}})</br>
-[Invite Users]({{<  ref "access-management/manage-users.md" >}})</br>
-[Create Machine Credentials]({{< ref "access-management/manage-client-creds" >}})</br>
-[Create and Use Secrets]({{< ref "access-management/manage-secrets" >}})</br>
+[Add Tenants]({{<  ref "iam/manage-tenants.md" >}})</br>
+[Create Roles]({{<  ref "iam/manage-rbac-roles.md" >}})</br>
+[Invite Users]({{<  ref "iam/manage-users.md" >}})</br>
+[Create Machine Credentials]({{< ref "iam/manage-client-creds" >}})</br>
+[Create and Use Secrets]({{< ref "iam/manage-secrets" >}})</br>
 [Create and Manage RBAC Roles Tutorial]({{<  ref "tutorials/tutorial-rbac-users" >}})</br>
 {{% /card %}}
 
@@ -55,8 +55,8 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 
 {{< cardpane >}}
 {{% card header="Strategies" %}}
-[Blue/Green Deployment]({{< ref "deployment/deployment-strategies/blue-green" >}})</br>
-[Canary Analysis]({{< ref "deployment/deployment-strategies/canary" >}})</br>
+[Blue/Green Deployment]({{< ref "deployment/strategies/blue-green" >}})</br>
+[Canary Analysis]({{< ref "deployment/strategies/canary" >}})</br>
 [Construct Retrospective Analysis Queries]({{< ref "canary-analysis/create-canary-queries" >}})</br>
 [Integrate Datadog, New Relic, Prometheus]({{< ref "canary-analysis/integrate-metrics-provider" >}})</br>
 [Canary Analysis Query Reference]({{< ref "reference/canary-analysis-query.md" >}})</br>

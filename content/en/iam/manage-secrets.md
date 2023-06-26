@@ -3,7 +3,7 @@ title: Create and Reference Secrets
 linktitle: Secrets
 description: >
   Use secrets to integrate Armory CD-as-a-Service with external systems and tools.
-categories: ["Access Management", "Guides"]
+categories: ["IAM", "Guides"]
 tags: ["Secrets"]
 ---
 

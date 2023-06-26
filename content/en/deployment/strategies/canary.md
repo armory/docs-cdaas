@@ -1,6 +1,6 @@
 ---
-title: Canary Deployment
-linktitle: Canary Deployment
+title: "Strategy: Canary Deployment"
+linktitle: "Strategy: Canary"
 description: >
   @TODO add desc
 categories: ["Deployment", "Guides"]

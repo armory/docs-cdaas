@@ -1,7 +1,6 @@
 ---
 title: Configure Traffic Management With Istio
 linkTitle: Istio
-weight: 1
 description: >
   Configure your Armory CD-as-a-Service deployment to use Istio for traffic management.
 categories: ["Traffic Management", "Features", "Guides"]

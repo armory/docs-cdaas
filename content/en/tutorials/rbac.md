@@ -36,7 +36,7 @@ In this tutorial, you learn how to:
 * You have [installed the `armory` CLI]({{< ref "setup/cli" >}}).
 * You have installed [Helm](https://helm.sh/docs/intro/install/).
 * You have a GitHub account so you can fork the sample project.
-* You have read the {{< linkWithTitle "access-management/_index.md.md" >}} content.
+* You have read the {{< linkWithTitle "iam/_index.md.md" >}} content.
 * You have completed the  {{< linkWithTitle "tutorials/deploy-sample-app.md" >}}.
 
 ## Fork and clone the repo
