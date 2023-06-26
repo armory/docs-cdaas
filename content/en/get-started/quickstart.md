@@ -103,23 +103,23 @@ armory deploy start -f https://go.armory.io/hello-armory-second-deployment --acc
 
 Use the link provided by the CLI to navigate to your deployment in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). Once the `staging` deployment has completed, click **Approve** to allow the `prod` deployment to begin.
 
-{{< figure src="/images/cdaas/setup/quickstart/clickApprove.jpg" width=80%" height="80%" >}}
+{{< figure src="/images/cdaas/get-started/quickstart/clickApprove.jpg" width=80%" height="80%" >}}
 
 Once deployment begins, you can see the traffic split. CD-as-a-Service has deployed a new `ReplicaSet` with only one pod to achieve a 75/25% traffic split between app versions. Click the **prod** deployment to open the details window.
 
-{{< figure src="/images/cdaas/setup/quickstart/openTrafficSplitDetails.jpg"  width=80%" height="80%"  >}}
+{{< figure src="/images/cdaas/get-started/quickstart/openTrafficSplitDetails.jpg"  width=80%" height="80%"  >}}
 
 Click on `potato-facts` in the **Resources** section to open a preview of `potato-facts`.
 
-{{< figure src="/images/cdaas/setup/quickstart/trafficSplitDetailsWindow.jpg" width=80%" height="80%"  >}}
+{{< figure src="/images/cdaas/get-started/quickstart/trafficSplitDetailsWindow.jpg" width=80%" height="80%"  >}}
 
 The app's graph plots the ratio of facts served by a given Kubernetes `ReplicaSet`. The ratio of facts served by `ReplicaSet` backends in the graph should roughly match the 75/25% split.
 
-{{< figure src="/images/cdaas/setup/quickstart/potatoFactsTrafficSplit.jpg"  width=80%" height="80%"  >}}
+{{< figure src="/images/cdaas/get-started/quickstart/potatoFactsTrafficSplit.jpg"  width=80%" height="80%"  >}}
 
 Return to the deployment details window. Click **Approve & Continue** to finish deployment. CD-as-a-Service fully shifts traffic to the new app version and tears down the previous app version.
 
-{{< figure src="/images/cdaas/setup/quickstart/deployFinishedDetails.jpg"  width=80%" height="80%"  >}}
+{{< figure src="/images/cdaas/get-started/quickstart/deployFinishedDetails.jpg"  width=80%" height="80%"  >}}
 
 ## Learn deployment file syntax
 
@@ -205,11 +205,19 @@ CD-as-a-Service also supports a [blue/green]({{< ref "deployment/strategies/blue
 
 ## Clean up
 
-You can clean kubectl to clean up the resources you created:
+You can clean kubectl to clean up the app resources you created:
 
 ```shell
 kubectl delete ns potato-facts-staging potato-facts-prod
 ```
+
+To clean up the Remote Network Agent you installed:
+
+```bash
+kubectl delete ns armory-rna
+```
+
+You may want to keep the installed Remote Network Agent to use when working through other guides.
 
 ## {{%  heading "nextSteps" %}}
 
