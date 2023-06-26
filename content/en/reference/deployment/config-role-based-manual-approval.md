@@ -13,7 +13,7 @@ You can use role-based manual approvals to enforce approval processes within you
 
 ## {{% heading "prereq" %}}
 
-* You have read {{< linkWithTitle "access-management/_index.md" >}}.
+* You have read {{< linkWithTitle "iam/_index.md" >}}.
 
 ## How role-based manual approval works
 
@@ -36,7 +36,7 @@ pause:
 
 * Users assigned any of the roles in the list can issue the approval. The **Approve** button is disabled if the user doesn't have the correct role.
 * Users assigned the Organization Admin role can issue an approval in any deployment regardless of tenant.
-* Users assigned a [Tenant Admin role]({{< ref "access-management/_index.md#tenant-admin-role" >}}) can issue an approval in any deployment in their specific tenant.
+* Users assigned a [Tenant Admin role]({{< ref "iam/_index.md#tenant-admin-role" >}}) can issue an approval in any deployment in their specific tenant.
 
 ## Configure role-based manual approval
 

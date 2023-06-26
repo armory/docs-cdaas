@@ -3,7 +3,7 @@ title: Create Client Credentials
 linkTitle: Client Credentials
 description: >
   Create machine-to-machine credentials and assign RBAC roles to them in Armory CD-as-a-Service.
-categories: ["Access Management", "Guides"]
+categories: ["IAM", "Guides"]
 tags: ["Credentials"]
 ---
 
@@ -16,7 +16,7 @@ Additionally, a Remote Network Agent uses a Client Credential for authentication
 ## {{% heading "prereq" %}}
 
 * You are an Organization or Tenant Admin within CD-as-a-Service.
-* You are familiar with [tenants, users, and RBAC in CD-as-a-Service]({{< ref "access-management/_index.md" >}})
+* You are familiar with [tenants, users, and RBAC in CD-as-a-Service]({{< ref "iam/_index.md" >}})
 
 
 ## Create a Client Credential

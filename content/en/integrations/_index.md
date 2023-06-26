@@ -1,10 +1,7 @@
 ---
 title: Integrations
 linkTitle: Integrations
-weight: 30
-no_list: true
-categories: ["Integrations", "Features", "Guides"]
-tags: ["CI Systems", "GitHub", "Automation"]
-desc: >
-  @TODO
+weight: 70
+no_list: false
+exclude_search: true
 ---

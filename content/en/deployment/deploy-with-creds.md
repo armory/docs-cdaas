@@ -14,7 +14,7 @@ When you want to script a CLI deployment, you can pass your Client ID and Client
 
 ## {{% heading "prereq" %}}
 
-You have [created machine to machine client credentials]({{< ref "access-management/manage-client-creds.md" >}}) and have access to your Client ID and Client Secret values.
+You have [created machine to machine client credentials]({{< ref "iam/manage-client-creds.md" >}}) and have access to your Client ID and Client Secret values.
 
 ## Deploy your app
 

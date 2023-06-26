@@ -6,7 +6,7 @@ When you create your account, CD-as-a-Service does the following:
 * Creates a Tenant for the Organization
 * Creates a User account with an _Organization Admin_ role for you.
 
-See {{< linkWithTitle "access-management/_index.md" >}} for details.
+See {{< linkWithTitle "iam/_index.md" >}} for details.
 
 > You may have to log in after creating your account.
 

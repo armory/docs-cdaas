@@ -3,7 +3,7 @@ title: Create and Manage RBAC Roles
 title: RBAC Roles
 description: >
   Create an RBAC role using Armory CD-as-a-Service's CLI.
-categories: ["Access Management", "Guides"]
+categories: ["IAM", "Guides"]
 tags: ["RBAC"]
 ---
 
@@ -16,7 +16,7 @@ By default, a new user has no permission to access functionality within CD-as-a-
 ### {{% heading "prereq" %}}
 
 * You are an Organization or Tenant Admin within CD-as-a-Service.
-* You are familiar with tenants, users, and RBAC {{< ref "access-management/_index.md" >}}.
+* You are familiar with tenants, users, and RBAC {{< ref "iam/_index.md" >}}.
 
 ### How to create a custom role
 

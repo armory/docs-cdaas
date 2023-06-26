@@ -3,7 +3,7 @@ title: Add, View, and Switch Tenants
 linkTitle: Tenants
 description: >
   Add tenants to your Armory CD-as-a-Service organization.
-categories: ["Access Management", "Guides"]
+categories: ["IAM", "Guides"]
 tags: ["Tenants"]
 ---
 

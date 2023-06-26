@@ -2,11 +2,8 @@
 title: Deployment
 linktitle: Deployment
 weight: 30
-no_list: true
-categories: ["Deployment", "Features", "Concepts"]
-tags: ["Deployment"]
-description: >
-  @TODO
+no_list: false
+exclude_search: true
 ---
 
 

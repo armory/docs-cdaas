@@ -3,7 +3,7 @@ title: Armory CD-as-a-Service Quickstart
 linktitle: Quickstart
 description: >
   Install the Armory Continuous Deployment-as-a-Service CLI, connect your Kubernetes cluster with a single command, and deploy an sample app using a traffic split. Learn deployment file syntax.
-weight: 1
+weight: 2
 categories: ["Get Started", "Guides"]
 tags: ["Deployment", "Quickstart"]
 ---
@@ -85,8 +85,8 @@ CD-as-a-Service has four kinds of constraints that you can use to control your d
 
 - Manual Approvals
 - Timed Pauses
-- [Webhooks]({{< ref "integrations/webhooks/_index.md" >}})
-- [Automated Canary Analysis]({{< ref "deployment/kubernetes/canary" >}})
+- [Webhooks]({{< ref "webhooks/_index.md" >}})
+- [Automated Canary Analysis]({{< ref "deployment/strategies/canary" >}})
 
 You can use these constraints _between_ environments and _within_ environments:
 
@@ -103,23 +103,23 @@ armory deploy start -f https://go.armory.io/hello-armory-second-deployment --acc
 
 Use the link provided by the CLI to navigate to your deployment in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). Once the `staging` deployment has completed, click **Approve** to allow the `prod` deployment to begin.
 
-{{< figure src="/images/cdaas/setup/quickstart/clickApprove.jpg" width=80%" height="80%" >}}
+{{< figure src="/images/cdaas/get-started/quickstart/clickApprove.jpg" width=80%" height="80%" >}}
 
 Once deployment begins, you can see the traffic split. CD-as-a-Service has deployed a new `ReplicaSet` with only one pod to achieve a 75/25% traffic split between app versions. Click the **prod** deployment to open the details window.
 
-{{< figure src="/images/cdaas/setup/quickstart/openTrafficSplitDetails.jpg"  width=80%" height="80%"  >}}
+{{< figure src="/images/cdaas/get-started/quickstart/openTrafficSplitDetails.jpg"  width=80%" height="80%"  >}}
 
 Click on `potato-facts` in the **Resources** section to open a preview of `potato-facts`.
 
-{{< figure src="/images/cdaas/setup/quickstart/trafficSplitDetailsWindow.jpg" width=80%" height="80%"  >}}
+{{< figure src="/images/cdaas/get-started/quickstart/trafficSplitDetailsWindow.jpg" width=80%" height="80%"  >}}
 
 The app's graph plots the ratio of facts served by a given Kubernetes `ReplicaSet`. The ratio of facts served by `ReplicaSet` backends in the graph should roughly match the 75/25% split.
 
-{{< figure src="/images/cdaas/setup/quickstart/potatoFactsTrafficSplit.jpg"  width=80%" height="80%"  >}}
+{{< figure src="/images/cdaas/get-started/quickstart/potatoFactsTrafficSplit.jpg"  width=80%" height="80%"  >}}
 
 Return to the deployment details window. Click **Approve & Continue** to finish deployment. CD-as-a-Service fully shifts traffic to the new app version and tears down the previous app version.
 
-{{< figure src="/images/cdaas/setup/quickstart/deployFinishedDetails.jpg"  width=80%" height="80%"  >}}
+{{< figure src="/images/cdaas/get-started/quickstart/deployFinishedDetails.jpg"  width=80%" height="80%"  >}}
 
 ## Learn deployment file syntax
 
@@ -201,20 +201,28 @@ strategies:
 
 CD-as-a-Service integrates with service meshes like [Istio]({{< ref "traffic-management/istio" >}}) and [Linkerd]({{< ref "traffic-management/linkerd" >}}), but you do not need to use a service mesh to use a CD-as-a-Service `canary` strategy.
 
-CD-as-a-Service also supports a [blue/green]({{< ref "deployment/kubernetes/blue-green" >}}) deployment strategy.
+CD-as-a-Service also supports a [blue/green]({{< ref "deployment/strategies/blue-green" >}}) deployment strategy.
 
 ## Clean up
 
-You can clean kubectl to clean up the resources you created:
+You can clean kubectl to clean up the app resources you created:
 
 ```shell
 kubectl delete ns potato-facts-staging potato-facts-prod
 ```
+
+To clean up the Remote Network Agent you installed:
+
+```bash
+kubectl delete ns armory-rna
+```
+
+You may want to keep the installed Remote Network Agent to use when working through other guides.
 
 ## {{%  heading "nextSteps" %}}
 
 * View the [code](https://github.com/armory-io/cdaas-examples/tree/main/hello-armory) for this quickstart.
 * {{< linkWithTitle "get-started/deploy-your-app.md" >}}
 * {{< linkWithTitle "integrations/ci-systems/gh-action.md" >}}
-* {{< linkWithTitle "deployment/kubernetes/blue-green.md" >}}
-* {{< linkWithTitle "deployment/kubernetes/canary.md" >}}
+* {{< linkWithTitle "deployment/strategies/blue-green.md" >}}
+* {{< linkWithTitle "deployment/strategies/canary.md" >}}

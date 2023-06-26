@@ -1,16 +1,16 @@
 ---
 title: Configure a Webhook in the Deployment File
 linkTitle: Configure a Webhook
-weight: 1
+weight: 5
 description: >
   Configure a webhook-based approval into your Armory CD-as-a-Service app deployment process.
-categories: ["Integrations", "Features", "Guides"]
+categories: ["Webhooks", "Features", "Guides"]
 tags: ["Webhooks", "GitHub", "Automation"]
 ---
 
 ## {{% heading "prereq" %}}
 
-You are familiar with [using external automation]({{< ref "integrations/webhooks/_index.md" >}}) with CD-as-a-Service 
+You are familiar with [using external automation]({{< ref "webhooks/_index.md" >}}) with CD-as-a-Service 
 
 ## How to configure a webhook in your deployment file
 

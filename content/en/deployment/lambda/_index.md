@@ -1,13 +1,12 @@
 ---
 title: Lambda
 linktitle: Lambda
-weight: 1
+weight: 10
 description: >
  placeholder
-categories: ["Deployment"]
-tags: ["Lambda"]
-draft: false
-no_list: true
+draft: true
+no_list: false
+exclude_search: true
 ---
 
  @TODO placeholder change to DRAFT

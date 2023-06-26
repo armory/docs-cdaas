@@ -1,7 +1,7 @@
 ---
 title: Install a Remote Network Agent Using the CD-as-a-Service Console
 linktitle: Install - UI
-weight: 1
+weight: 5
 description: >
   Install a CD-as-a-Service Remote Network Agent in your Kubernetes cluster.
 categories: ["Remote Network Agent", "Features", "Guides"]

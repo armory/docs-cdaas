@@ -1,8 +1,9 @@
 ---
-title: Canary Deployment
-linktitle: Canary Deployment
+title: "Canary Deployment Strategy"
+linktitle: "Canary"
+weight: 5
 description: >
-  @TODO add desc
+  A canary strategy deploys an app progressively to your Kubernetes cluster based on a set of steps that you configure. You set weights (percentage thresholds) for how the deployment should progress and a pause after each weight is met. Armory CD-as-a-Service works through these steps until your app is fully deployed.
 categories: ["Deployment", "Guides"]
 tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 ---
@@ -53,7 +54,7 @@ Armory CD-as-a-Service can run queries against metrics providers that you add. T
 
 3. Complete the wizard:
 
-   The parameters you need to provide depend on the metrics provider you choose. For more information, see the {{< linkWithTitle "integrations/canary-analysis/integrate-metrics-provider.md" >}} guide.
+   The parameters you need to provide depend on the metrics provider you choose. For more information, see the {{< linkWithTitle "canary-analysis/integrate-metrics-provider.md" >}} guide.
 
    The following fields are for a Prometheus integration:
 
@@ -201,5 +202,5 @@ Once you have confidence in your queries, switching from manual approvals of can
 
 ## {{% heading "nextSteps" %}}
 
-* {{< linkWithTitle "integrations/canary-analysis/create-canary-queries.md" >}}
+* {{< linkWithTitle "canary-analysis/create-canary-queries.md" >}}
 * {{< linkWithTitle "reference/canary-analysis-query.md" >}}

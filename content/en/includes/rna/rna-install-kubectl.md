@@ -1,4 +1,4 @@
-You need [Client Credentials]{{< ref "access-management/manage-client-creds" >}}) (**Client Secret** and **Client ID**) so your RNA can communicate with CD-as-a-Service.
+You need [Client Credentials]{{< ref "iam/manage-client-creds" >}}) (**Client Secret** and **Client ID**) so your RNA can communicate with CD-as-a-Service.
 
 1. Set your `kubectl` [context](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-em-set-context-em-) to connect to the cluster where you want to deploy the RNA.
 

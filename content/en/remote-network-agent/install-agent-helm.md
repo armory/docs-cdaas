@@ -1,7 +1,7 @@
 ---
 title: Install a Remote Network Agent Using Helm
 linktitle: Install - Helm
-weight: 1
+weight: 5
 description: >
   Install a CD-as-a-Service Remote Network Agent in your Kubernetes cluster.
 categories: ["Remote Network Agent", "Features", "Guides"]

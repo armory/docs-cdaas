@@ -16,7 +16,7 @@ You should have completed the {{< linkWithTitle "deploy-sample-app.md" >}} guide
 
 ## {{% heading "prereq" %}}
 
-- You have read the webhook-based approvals [introductory page]({{< ref "integrations/webhooks/_index.md" >}}).
+- You have read the webhook-based approvals [introductory page]({{< ref "webhooks/_index.md" >}}).
 - You are familiar with workflows and webhooks in GitHub.
   - [Workflows](https://docs.github.com/en/actions/using-workflows/)
   - [Webhooks and events](https://docs.github.com/en/developers/webhooks-and-events/webhooks/)
@@ -33,7 +33,7 @@ You need to create credentials that enable GitHub and Armory CD-as-a-Service to 
 
    Replace `<gigithub_personal_access_tokenn_value>` with your token value. You use this secret when configuring your webhook in your deployment file.
 
-1. [Create a new CD-as-a-Service credential]({{< ref "access-management/manage-client-creds" >}}) for your webhook callback to use for CD-as-a-Service authentication. In the CD-as-a-Service Console, go to the **Access Management** > **Client Credentials** screen. Click the **New Credential** button. On the **Create New Client Credential** screen:
+1. [Create a new CD-as-a-Service credential]({{< ref "iam/manage-client-creds" >}}) for your webhook callback to use for CD-as-a-Service authentication. In the CD-as-a-Service Console, go to the **Access Management** > **Client Credentials** screen. Click the **New Credential** button. On the **Create New Client Credential** screen:
 
    - **Name**: `github_webhooks`
    - **Select Roles**: select `Deployments Full Access`
