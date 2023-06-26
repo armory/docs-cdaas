@@ -1,7 +1,7 @@
 ---
 title: Canary Analysis 
 linktitle: Canary Analysis
-weight: 1
+weight: 29
 no_list: true
 categories: ["Integrations", "Features", "Concepts"]
 tags: ["Canary Analysis"]

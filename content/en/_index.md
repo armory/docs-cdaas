@@ -55,10 +55,10 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 
 {{< cardpane >}}
 {{% card header="Strategies" %}}
-[Blue/Green Deployment]({{< ref "deployment/kubernetes/blue-green" >}})</br>
-[Canary Analysis]({{< ref "deployment/kubernetes/canary" >}})</br>
-[Construct Retrospective Analysis Queries]({{< ref "integrations/canary-analysis/create-canary-queries" >}})</br>
-[Integrate Datadog, New Relic, Prometheus]({{< ref "integrations/canary-analysis/integrate-metrics-provider" >}})</br>
+[Blue/Green Deployment]({{< ref "deployment/deployment-strategies/blue-green" >}})</br>
+[Canary Analysis]({{< ref "deployment/deployment-strategies/canary" >}})</br>
+[Construct Retrospective Analysis Queries]({{< ref "canary-analysis/create-canary-queries" >}})</br>
+[Integrate Datadog, New Relic, Prometheus]({{< ref "canary-analysis/integrate-metrics-provider" >}})</br>
 [Canary Analysis Query Reference]({{< ref "reference/canary-analysis-query.md" >}})</br>
 {{% /card %}}
 

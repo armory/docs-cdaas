@@ -15,7 +15,7 @@ Use the **Retrospective Analysis** UI to help you to construct queries. You can 
 
 ## {{% heading "prereq" %}}
 
-You need to integrate your Metrics provider. See the {{< linkWithTitle "integrations/canary-analysis/integrate-metrics-provider.md" >}} guide for details.
+You need to integrate your Metrics provider. See the {{< linkWithTitle "canary-analysis/integrate-metrics-provider.md" >}} guide for details.
 
 ## How to Perform a retrospective analysis
 

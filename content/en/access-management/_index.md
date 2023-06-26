@@ -1,9 +1,9 @@
 ---
-title: Access Management
-linkTitle: Access Management
+title: Identity & Access Management
+linkTitle: Identity & Access Management
 description: >
   Access Management using RBAC in Armory CD-as-a-Service: tenants, users, client credentials, RBAC roles.
-weight: 30
+weight: 40
 no_list: true
 categories: ["Access Management", "Features", "Concepts"]
 tags: ["OIDC", "RBAC", "Tenants", "Users"]

@@ -95,7 +95,7 @@ analysis: # Define queries and thresholds used for automated analysis
                 # note the time should actually be set to ${promQlStepInterval}
 {{< /prism >}}
 
-The query you want to run. See the {{< linkWithTitle "integrations/canary-analysis/create-canary-queries.md" >}} guide for details on how to build and test queries using the UI.
+The query you want to run. See the {{< linkWithTitle "canary-analysis/create-canary-queries.md" >}} guide for details on how to build and test queries using the UI.
 
 For information about writing queries, see {{< linkWithTitle "reference/canary-analysis-query.md" >}}.
 

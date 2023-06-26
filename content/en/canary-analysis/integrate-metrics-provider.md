@@ -63,4 +63,4 @@ For information about how to get the API Key and Application Key, see [DataDog d
 
 ## {{% heading "nextSteps" %}}
 
-* {{< linkWithTitle "integrations/canary-analysis/create-canary-queries.md" >}}
+* {{< linkWithTitle "canary-analysis/create-canary-queries.md" >}}

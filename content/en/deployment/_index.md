@@ -1,7 +1,7 @@
 ---
 title: Deployment
 linktitle: Deployment
-weight: 30
+weight: 20
 no_list: true
 categories: ["Deployment", "Features", "Concepts"]
 tags: ["Deployment"]
