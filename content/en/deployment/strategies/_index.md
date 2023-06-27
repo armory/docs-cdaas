@@ -1,7 +1,7 @@
 ---
 title: "Deployment Strategies in Armory CD-as-a-Service"
 linktitle: "Strategies"
-weight: 10
+weight: 3
 no_list: false
 exclude_search: true
 description: >
