@@ -1,8 +1,9 @@
 ---
-title: "Strategy: Canary Deployment"
-linktitle: "Strategy: Canary"
+title: "Canary Deployment Strategy"
+linktitle: "Canary"
+weight: 5
 description: >
-  @TODO add desc
+  A canary strategy deploys an app progressively to your Kubernetes cluster based on a set of steps that you configure. You set weights (percentage thresholds) for how the deployment should progress and a pause after each weight is met. Armory CD-as-a-Service works through these steps until your app is fully deployed.
 categories: ["Deployment", "Guides"]
 tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 ---

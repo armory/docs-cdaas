@@ -5,6 +5,5 @@ no_list: false
 weight: 50
 description: >
   Integrate webhook-based approvals into your Armory CD-as-a-Service app deployment process.
-categories: ["Integrations", "Features", "Concepts"]
-tags: ["Webhooks", "GitHub", "Automation"]
+exclude_search: true
 ---

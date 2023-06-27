@@ -4,8 +4,6 @@ linktitle: Remote Network Agent
 weight: 20
 no_list: false
 exclude_search: true
-description: >
-  In this section, you can find ...
 ---
 
 
