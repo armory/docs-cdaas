@@ -6,12 +6,13 @@ description: >
   Monitor the status of your deployments and approve or rollback deployments.
 categories: ["Deployment", "Guides"]
 tags: ["Monitor"]
+draft: true
 ---
 
 
 ## Monitor deployments using the Deployments UI
 
-When you navigate to the **Armory Deployments** tab of the UI, you land on the **All Deployments** page, which shows all the apps for a specific Armory CD-as-a-Service environment. If you don't see a deployment that you're expecting to see, refresh the list or verify the Armory CD-as-a-Service environment the app belongs to. You can switch environments in the top right menu by clicking on your username.
+When you navigate to the **Deployments** tab of the UI, you land on the **All Deployments** page, which shows all the apps for a specific Armory CD-as-a-Service environment. If you don't see a deployment that you're expecting to see, refresh the list or verify the Armory CD-as-a-Service environment the app belongs to. You can switch environments in the top right menu by clicking on your username.
 
 On the **All Deployments** page, you can select a specific app to get more details on that app's deployments. This brings up a status pane with basic information that includes the following:
 
