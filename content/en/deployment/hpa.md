@@ -3,7 +3,7 @@ title: Horizontal Pod Autoscaling in CD-as-a-Service
 linktitle: HPA
 weight: 10
 description: >
-  How CD-as-a-Service handles Horizontal Pod Autoscaling during deployments.
+ Learn how CD-as-a-Service handles Kubernetes Horizontal Pod Autoscaling during deployments.
 categories: ["Horizontal Pods Autoscaling", "Features", "Concepts"]
 tags: ["Deploy Strategy", "Canary", "Blue/Green", "Kubernetes"]
 ---
