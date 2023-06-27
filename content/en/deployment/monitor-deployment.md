@@ -6,7 +6,6 @@ description: >
   Monitor the status of your deployments and approve or rollback deployments.
 categories: ["Deployment", "Guides"]
 tags: ["Monitor"]
-# draft: true
 ---
 
 
