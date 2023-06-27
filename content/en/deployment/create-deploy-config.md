@@ -1,7 +1,7 @@
 ---
 title: Create a Deployment Config File
 linkTitle: Create Deploy Config
-weight: 10
+weight: 2
 categories: ["Deployment", "Guides"]
 tags: ["Deploy Config"]
 description: >

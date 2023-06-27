@@ -98,3 +98,12 @@ Armory CD-as-a-Service delivers intelligent deployment-as-a-service that support
 {{< /cardpane >}}
 
 
+ <style>
+li #m-deployment-li {
+  border-bottom: 1px solid #CECFD1; /* Set the color and thickness of the divider */
+  margin-bottom: 12px; !important
+
+}
+</style>
+
+
