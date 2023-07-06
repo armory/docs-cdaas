@@ -1,5 +1,5 @@
 ---
-title: Monitor Deployments in the UI
+title: Monitor Deployments
 linkTitle: Monitor Deployments
 weight: 10
 description: >
@@ -9,24 +9,15 @@ tags: ["Monitor"]
 ---
 
 
-## Monitor deployments using the Deployments UI
+## Monitor deployments using the UI
 
 When you navigate to the **Deployments** tab of the UI, you land on the **All Deployments** page, which shows all the apps for a specific Armory CD-as-a-Service environment. If you don't see a deployment that you're expecting to see, refresh the list or verify the Armory CD-as-a-Service environment the app belongs to. You can switch environments in the top right menu by clicking on your username.
 
-On the **All Deployments** page, you can select a specific app to get more details on that app's deployments. This brings up a status pane with basic information that includes the following:
-
-- Who started the most recent deployment for an app
-- When the deployment started
-- Deployment health
-- Progress and status for the deployment, such as if it is waiting for approval
-
-Select **See Full Details** from the status pane on the **All Deployments**, you arrive on the **All Environments** page, which shows all the environments that are part of that deploy file. If a deploy file only contains one environment, you'll only see one on this page.   
-
-You can watch a [demo](https://s.armory.io/BludOJBo) of how the All Deployments page and the details page for a single environment work together to walk you through progressing your deployment.
+On the **All Deployments** page, you can select a specific app to go the **All Environments** page, which shows all the environments that are part of that deploy file. If a deploy file only contains one environment, clicking the app will take you straight to the **Full Details** page.
 
 ### All environments
 
-The **All Deployments** page shows you all environments that are being deployed to in a single deploy file. If you click the link that the CLI returns when you trigger the deployment, this is the page you are linked to. It can give you a general idea of the state of the deployment and what environment is currently being deployed to.
+The **All Environments** page shows you all environments that are being deployed to in a single deploy file. If you click the link that the CLI returns when you trigger the deployment, this is the page you are linked to. It can give you a general idea of the state of the deployment and what environment is currently being deployed to.
 
 {{< figure src="/images/cdaas/multitarget-deploy.jpg" alt="The deployment starts in a dev environment. It then progresses to infosec and staging environments simultaneously. It finishes by deploying to a prod-west environment." >}}
 
@@ -34,10 +25,66 @@ More specifically, this view shows you how deployments are supposed to progress 
 
 {{< figure src="/images/cdaas/ui-constraints.jpg" alt="The staging-west environment has constraints that prevent it from starting until they are satisfied." >}}
 
-Clicking on a specific environment brings up a status pane with basic information about that environment. From here, you can see the **Full Details** for that single environment where you can take additional action.
+Clicking on a specific environment takes you to the **Full Details** page for that single environment where you can take additional action.
 
 ### Single environment
 
 The **Full Details** page for a single environment is where you monitor the progress of the deployment to that environment. If the strategy you specified involves user input, such as a manual approval, this is the page where you can approve or rollback the deployment.
 
 {{< figure src="/images/cdaas/ui-fulldetails.jpg" >}}
+
+
+## Monitor deployments using the CLI
+
+If you want to monitor your deployment in your terminal, use the `--watch` flag to output deployment status.
+
+```bash
+armory deploy start  -f deployment.yaml --watch
+```
+
+Output is similar to:
+
+```bash
+[2023-05-24T13:43:35-05:00] Waiting for deployment to complete. Status UI: https://console.cloud.armory.io/deployments/pipeline/03fe43c6-ddc1-49d8-8116-b01db0ca0c5a?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
+.
+[2023-05-24T13:43:46-05:00] Deployment status changed: RUNNING
+..
+[2023-05-24T13:44:06-05:00] Deployment status changed: AWAITING_APPROVAL
+...
+[2023-05-24T13:44:36-05:00] Deployment status changed: RUNNING
+..
+[2023-05-24T13:44:56-05:00] Deployment status changed: AWAITING_APPROVAL
+.
+[2023-05-24T13:45:06-05:00] Deployment status changed: RUNNING
+..
+[2023-05-24T13:45:26-05:00] Deployment status changed: SUCCEEDED
+[2023-05-24T13:45:26-05:00] Deployment 03fe43c6-ddc1-49d8-8116-b01db0ca0c5a completed with status: SUCCEEDED
+[2023-05-24T13:45:26-05:00] Deployment ID: 03fe43c6-ddc1-49d8-8116-b01db0ca0c5a
+[2023-05-24T13:45:26-05:00] See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/03fe43c6-ddc1-49d8-8116-b01db0ca0c5a?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
+
+```
+
+If you forget to add the `--watch` flag, you can run the `armory deploy status --deploymentID <deployment-id>` command. Use the Deployment ID returned by the `armory deploy start` command. For example:
+
+```bash
+armory deploy start -f deployment.yaml
+Deployment ID: 9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e
+See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
+```
+
+then run:
+
+```bash
+armory deploy status --deploymentId 9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e
+```
+
+Output is similar to:
+
+   ```bash
+application: sample-application, started: 2023-01-06T20:07:36Z
+status: RUNNING
+See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e? environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
+```
+
+This `armory deploy status` command returns a point-in-time status and exits. It does not watch the deployment.
+
