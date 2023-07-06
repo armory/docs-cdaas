@@ -28,10 +28,14 @@ Software Delivery is rarely single environment. Most workflows require promotion
 
 CDaaS is a declarative developer experience that represents how engineers actually want their software deployed. CDaaS is easy to integrate with the tools you already use via custom web-hooks and a flexible CLI. No more need for custom scripts and duct-taped solutions.
 
+CDaaS uses centralized business logic and logic-less Remote Network Agents that act as dumb network relays and provide the control plane with service account based Kubernetes credentials. This allows you to get new features immediately without having to update the agent in every cluster and worry about change campaigns within your organization.  
+
 ## How does Continuous Deployment-as-a-Service work?
 At a high level, CDaaS is a centralized control plane that utilizes flexible promotion constraints to safely roll-out software/config changes across multiple clusters, environments, and/or regions.
 
-CDaaS uses secure Remote Network Agents to access privately networked resources and Kubernetes clusters via Service Accounts.
+CDaaS uses secure logic-less Remote Network Agents to access privately networked resources and Kubernetes clusters via Service Accounts.
+
+This means there is no logic at the edge, you do not need upgrade agents or do change campaigns with dev teams for new features.
 
 Armory's Remote Network Agents connect to CDaaS to establish gRPC via HTTP/2 connections secured with TLS and OIDC client credentials. This means that you don't need to open any ports to grant the Armory CDaaS control plane access to your Kubernetes clusters or privately networked resources.
 
@@ -42,7 +46,7 @@ With CDaaS:
 
 Start your deployment by sending the deployment configuration file and rendered manifests to the CDaaS control plane using the Armory CLI or automatically with a CI integration like GitHub Actions.
 
-The CDaaS control plane executes the steps and constraints defined in your deployment config, converting Kubernetes deployment objects into CDaaS-managed replicasets, handling traffic management, scaling and more. Remote network agents integrate with internal tools by securely relaying network calls and using their configurable service account credentials to communicate with your clusters API.
+The CDaaS control plane executes the steps and constraints defined in your deployment config, converting Kubernetes deployment objects into CDaaS-managed ReplicaSets, handling traffic management, scaling and more. Remote network agents integrate with internal tools by securely relaying network calls and using their configurable service account credentials to communicate with your clusters API.
 
 Then simply monitor your deployment's progress through the CDaaS UI or CLI.
 
