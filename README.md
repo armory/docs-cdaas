@@ -15,6 +15,15 @@ Mermaid resources:
 
 The theme also supports PlantUML and draw.io.
 
+## Dev
+
+Start the dev server
+
+```bash
+make dev
+```
+
+Open the dev site [http://localhost:9001](http://localhost:9001) and start editing content, server supports live reloading.
 
 ## Cloning the project
 
