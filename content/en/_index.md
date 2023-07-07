@@ -18,37 +18,19 @@ cascade:
 no_list: true
 ---
 
-## What is Continuous Deployment-as-a-Service?
+## What Continuous Deployment-as-a-Service is
 Armory Continuous Deployment-as-a-Service (CDaaS) is a centralized control plane that allows you to deploy to multiple Kubernetes clusters using our secure agent architecture. CDaaS enables multi-environment, multi-region application rollouts with promotion constraints and advanced deployment strategies, such as canary and blue/green.
 
-## Why Continuous Deployment-as-a-Service?
+## Why Armory CD-as-a-Service
 Modern software delivery requires sophisticated control of delivery speed, traffic management, and integration with external tools and verification processes. 
 
-Software Delivery is rarely single environment. Most workflows require promotion from one environment or region to another after some set of constraints has been met, such as test execution, manual approval, CI workflows, canary analysis, etc.
+Software Delivery is rarely single environment. Most workflows require promotion from one environment or region to another after some set of constraints has been met, such as test executions, manual approvals, CI workflows, canary analysis, etc.
 
 CDaaS is a declarative developer experience that represents how engineers actually want their software deployed. CDaaS is easy to integrate with the tools you already use via custom web-hooks and a flexible CLI. No more need for custom scripts and duct-taped solutions.
 
-CDaaS uses centralized business logic and logic-less Remote Network Agents that act as dumb network relays and provide the control plane with service account based Kubernetes credentials. This allows you to get new features immediately without having to update the agent in every cluster and worry about change campaigns within your organization.  
+CDaaS uses centralized business logic, native Kubernetes resources and logic-less Remote Network Agents that act as dumb network relays and provide the control plane with service account based Kubernetes credentials. This allows you to get new features immediately without having to worry about edge maintenance. No agent upgrade change campaigns within your organization, or need manage [Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions).  
 
-## How does Continuous Deployment-as-a-Service work?
-At a high level, CDaaS is a centralized control plane that utilizes flexible promotion constraints to safely roll-out software/config changes across multiple clusters, environments, and/or regions.
-
-CDaaS uses secure logic-less Remote Network Agents to access privately networked resources and Kubernetes clusters via Service Accounts.
-
-This means there is no logic at the edge, you do not need upgrade agents or do change campaigns with dev teams for new features.
-
-Armory's Remote Network Agents connect to CDaaS to establish gRPC via HTTP/2 connections secured with TLS and OIDC client credentials. This means that you don't need to open any ports to grant the Armory CDaaS control plane access to your Kubernetes clusters or privately networked resources.
-
-With CDaaS:
-- You build and publish your containers where and how you want, from dockerhub to a private registry that is only accessible in your network.
-- You render your kubernetes manifests how you want (Helm, Kustomize, Mustache, raw manifests, etc) 
-- You define your software delivery requirements, traffic shaping, canary analysis, webhooks, manual approvals, etc, through our [declarative deployment configuration file]().
-
-Start your deployment by sending the deployment configuration file and rendered manifests to the CDaaS control plane using the Armory CLI or automatically with a CI integration like GitHub Actions.
-
-The CDaaS control plane executes the steps and constraints defined in your deployment config, converting Kubernetes deployment objects into CDaaS-managed ReplicaSets, handling traffic management, scaling and more. Remote network agents integrate with internal tools by securely relaying network calls and using their configurable service account credentials to communicate with your clusters API.
-
-Then simply monitor your deployment's progress through the CDaaS UI or CLI.
+{{< include "cdaas-explained-how.md" >}}
 
 ## Additional Information
 

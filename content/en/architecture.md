@@ -1,60 +1,47 @@
 ---
 title: Armory CD-as-a-Service Architecture
 linkTitle: Architecture
-description: >
-  Learn about the key components that comprise Armory Continuous Deployment-as-a-Service and how they work together to orchestrate deployments. Remote Network Agent (RNA), Kubernetes permissions, networking requirements, CLI, GitHub Action.
 weight: 10
-categories: ["Concepts"]
-tags: ["Architecture", "Key Components", "Remote Network Agent", "Secrets"]
 ---
 
-<!-- Both armory.io and the CDaaS UI links to this page. Do not change the title or headings without checking with engineering. 
-The purpose of this page is to have just enough information about cdaas components to pass a security audit if teams need to get permission to use the product. We can link to other pages for in-depth content. -->
-
-## How Armory CD-as-a-Service works
-
-Armory CD-as-a-Service is a platform of cloud-based services that orchestrate app deployments and monitor their progress. These services have API endpoints with which users and non-cloud services interact via HTTPS or gRPC/HTTP2. The [Networking](#networking) section contains details of the endpoints that need to be whitelisted.
-
-Armory CD-as-a-Service uses secure agents that run in target Kubernetes 1.16+ clusters to communicate with Armory CD-as-a-Service. Make sure your environment meets the [networking](#networking) requirements so that the agents can communicate with Armory CD-as-a-Service.
-
-There are no additional requirements for installing the agents that Armory CD-as-a-Service uses. For information about how to install these agents, see [Enable the Armory CD-as-a-Service Remote Network Agent in target Kubernetes clusters]({{< ref "integrations/plugin-spinnaker#enable-the-armory-cd-as-a-service-remote-network-agent-in-target-kubernetes-clusters" >}}) or {{< linkWithTitle "remote-network-agent/_index.md" >}}.
-
-Armory CD-as-a-Service contains components that you manage: the CLI, the Remote Network Agent (RNA), and the GitHub Action (GHA). These components communicate with Armory CD-as-a-Service to deploy your apps to your existing infrastructure.
-
-{{< figure src="/images/cdaas/cdaas-arch.png" alt="CD-as-a-Service High-Level Architecture" height="75%" width="75%" >}}
-
-When you start a deployment from the CLI or the GHA, Armory CD-as-a-Service forwards your deployment request to the designated RNA in your Kubernetes cluster.
-
-You can track the status of a deployment in the Armory CD-as-a-Service UI.
+{{< include "cdaas-explained-how.md" >}}
 
 ## Key components
 
+### Armory CDaaS API (Control Plane)
+The services that comprise the Armory CDaaS APIs.
+
+It's where the business logic for CDaaS lives, and it utilizes Remote Network Agents to talk to customer privately networked resources such as Kubernetes APIs, Jenkins, Prometheus, etc.
+
+The control plane also integrates with external services as well such as New Relic, Datadog, and more.
+
 ### Remote Network Agent (RNA)
 
-The RNA is a Kubernetes Agent that enables Armory CD-as-a-Service to interact with your Kubernetes clusters and orchestrate deployments without direct network access to your clusters. The RNA that you install in your cluster engages in secure communication with Armory CD-as-a-Service over encrypted, long-lived gRPC/HTTP2 connections. The RNA issues calls to your Kubernetes cluster based on requests from Armory CD-as-a-Service.
+The RNA is a logic-less network relay that enables Armory CD-as-a-Service to communicate with privately networked resources such as Jenkins, Prometheus, or the Kubernetes API for a cluster.
 
-Once you install the RNA in your cluster, you don't need to update it beyond security updates. Deployment logic is encapsulated in server-side services.
+As an enhancement for Kubernetes, the agent is capable of letting the Armory CDaaS Control Plane use the agents Service Account credentials to automatically register any cluster it's installed in as a deployable target.
 
-#### Kubernetes permissions for the Remote Network Agent
+Once you install the RNA in your cluster, you don't need to update it beyond security updates. Deployment logic is encapsulated in Armory's centralized control plane.
 
-By default, the RNA is installed with full access to your cluster. At a minimum, the RNA needs permissions to create, edit, and delete all `kind` objects that you plan to deploy with CD-as-a-Service, in all namespaces to which you plan to deploy. The RNA also requires network access to any monitoring solutions or webhook APIs that you plan to forward through it. You can modify permissions, proxy configurations, custom annotations, labels, or environment variables by modifying the Helm chart's configurable values.
+See the [Remote Network Agent](/remote-network-agent/overview) section of the docs for more details.
+
 
 ### Command Line Interface (CLI)
 
-Users install the CLI locally. The CLI interacts with Armory CD-as-a-Service via REST API. To deploy an app, the user must either log in using the CLI or pass valid authorization credentials to the `deploy` command.
+The CLI is considered the primary means interacting with the Armory CDaaS Control Plane.
 
-### GitHub Action (GHA)
+Users and Machines can use the CLI directly or use it in CI to automate deployments.
 
-You can use the `armory/cli-deploy-action` to trigger a deployment from your GitHub workflow. The GitHub Action interacts with Armory CD-as-a-Service via REST API. The GHA requires a valid Client ID and Client Secret be passed to the deploy command.
+Our official CI integrations are actually just wrappers around the CLI.
 
-### Spinnaker plugin
+We distribute the CLI as a native binary's (amd64 and arm64) for Linux, Mac, and Windows as well as docker image.
 
-{{< include "desc-plugin.md" >}}
+See the [CLI](/cli) section of the docs for more details.
+
+### Cloud Console (UI)
+
+Cloud Console is the browser based UI for Armory CDaaS. It allows users to visually monitor and interact with deployments. Admins can use it to configure integrations with external services like New Relic and Datadog, secrets and more. 
 
 ## Networking
 
 {{< include "req-networking.md" >}}
-
-## {{% heading "nextSteps" %}}
-
-* {{< linkWithTitle "get-started/quickstart.md" >}}
