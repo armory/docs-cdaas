@@ -1,5 +1,5 @@
 ---
-title: Armory Continuous Deployment-as-a-Service
+title: Armory Continuous Deployment-as-a-Service Docs
 linkTitle: Documentation
 type: "docs"
 cascade:
@@ -16,8 +16,8 @@ cascade:
     kind: "section"
   type: "home"
 no_list: true
-description: |
-  A declarative developer experience that represents how engineers actually want their software deployed. Easily integrate with the tools you already use via custom web-hooks and a flexible CLI. No more need for custom scripts and duct-taped solutions.
+description: >
+  A declarative developer experience that represents how engineers actually want their software deployed. Easily integrate with the tools you already use via a flexible CLI and custom web-hooks. No more need for custom scripts and duct-taped solutions.
 ---
 
 ## What Continuous Deployment-as-a-Service is
@@ -29,9 +29,5 @@ Modern software delivery requires sophisticated control of delivery speed, traff
 Software Delivery is rarely a single environment. Most workflows require promotion from one environment or region to another after some set of constraints has been met, such as test executions, manual approvals, CI workflows, canary analysis, etc.
 
 CDaaS uses centralized business logic, native Kubernetes resources and logic-less Remote Network Agents that act as simple network relays and provide the control plane with service account based Kubernetes credentials. This allows you to get new features immediately without having to worry about edge maintenance. No agent upgrade change campaigns within your organization, or need to manage [Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions).  
-
-## How Armory CD-as-a-Service works
-
-Armory CDaaS is a centralized control plane that utilizes flexible promotion constraints to safely rollout software/config changes across multiple clusters, environments, and/or regions.
 
 {{< include "cdaas-explained-how.md" >}}

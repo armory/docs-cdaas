@@ -2,8 +2,8 @@
 title: Armory CD-as-a-Service Architecture
 linkTitle: Architecture
 weight: 10
-description: |
-  Learn about the key components that comprise Armory Continuous Deployment-as-a-Service and how they work together to orchestrate deployments.
+description: >
+  In this high-level overview, learn how Armory Continuous Deployment-as-a-Service works and about its key components.
 ---
 
 {{< include "cdaas-explained-how.md" >}}
