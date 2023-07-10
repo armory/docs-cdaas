@@ -2,6 +2,8 @@
 title: Armory CD-as-a-Service Architecture
 linkTitle: Architecture
 weight: 10
+description: |
+  Learn about the key components that comprise Armory Continuous Deployment-as-a-Service and how they work together to orchestrate deployments.
 ---
 
 {{< include "cdaas-explained-how.md" >}}
@@ -15,7 +17,7 @@ It's where the business logic for CDaaS lives, and it utilizes Remote Network Ag
 
 ### Remote Network Agent (RNA)
 
-The RNA is a logic-less network relay that enables Armory CD-as-a-Service to communicate with privately networked resources such as Jenkins, Prometheus, or the Kubernetes API for a cluster.
+The RNA is a logic-less network relay that enables Armory CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, Kubernetes clusters, etc.
 
 As an enhancement for Kubernetes, the Armory CDaaS Control Plane uses the agent's Service Account credentials to automatically register any cluster it's installed in as a deployable target.
 
