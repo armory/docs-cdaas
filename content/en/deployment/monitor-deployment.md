@@ -11,13 +11,13 @@ tags: ["Monitor"]
 
 ## Monitor deployments using the UI
 
-When you navigate to the **Deployments** tab of the UI, you land on the **All Deployments** page, which shows all the apps for a specific Armory CD-as-a-Service environment. If you don't see a deployment that you're expecting to see, refresh the list or verify the Armory CD-as-a-Service environment the app belongs to. You can switch environments in the top right menu by clicking on your username.
+When you navigate to the **Deployments** tab of the UI, you land on the **Deployment List** page, which shows all the apps for a specific Armory CD-as-a-Service environment. If you don't see a deployment that you're expecting to see, refresh the list or verify the Armory CD-as-a-Service environment the app belongs to. You can switch environments in the top right menu by clicking on your username.
 
-On the **All Deployments** page, you can select a specific app to go the **All Environments** page, which shows all the environments that are part of that deploy file. If a deploy file only contains one environment, clicking the app will take you straight to the **Full Details** page.
+On the **Deployment List** page, you can select a specific app to go the **Deployment Graph** page, which shows all the environments that are part of that deploy file. If a deploy file only contains one environment, clicking the app will take you straight to the **Environment Details** page.
 
-### All environments
+### Deployment Graph Page
 
-The **All Environments** page shows you all environments that are being deployed to in a single deploy file. If you click the link that the CLI returns when you trigger the deployment, this is the page you are linked to. It can give you a general idea of the state of the deployment and what environment is currently being deployed to.
+The **Deployment Graph** page shows you all environments that are being deployed to in a single deploy file. If you click the link that the CLI returns when you trigger the deployment, this is the page you are linked to. It can give you a general idea of the state of the deployment and what environment is currently being deployed to.
 
 {{< figure src="/images/cdaas/multitarget-deploy.jpg" alt="The deployment starts in a dev environment. It then progresses to infosec and staging environments simultaneously. It finishes by deploying to a prod-west environment." >}}
 
@@ -25,11 +25,11 @@ More specifically, this view shows you how deployments are supposed to progress 
 
 {{< figure src="/images/cdaas/ui-constraints.jpg" alt="The staging-west environment has constraints that prevent it from starting until they are satisfied." >}}
 
-Clicking on a specific environment takes you to the **Full Details** page for that single environment where you can take additional action.
+Clicking on a specific environment takes you to the **Environment Details** page for that single environment where you can take additional action.
 
 ### Single environment
 
-The **Full Details** page for a single environment is where you monitor the progress of the deployment to that environment. If the strategy you specified involves user input, such as a manual approval, this is the page where you can approve or rollback the deployment.
+The **Environment Details** page for a single environment is where you monitor the progress of the deployment to that environment. If the strategy you specified involves user input, such as a manual approval, this is the page where you can approve or rollback the deployment.
 
 {{< figure src="/images/cdaas/ui-fulldetails.jpg" >}}
 
