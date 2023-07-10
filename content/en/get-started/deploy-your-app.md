@@ -174,4 +174,8 @@ If your initial deployment fails, you should [manually delete]({{< ref "troubles
 
 ## {{% heading "nextSteps" %}}
 
+* {{< linkWithTitle "deployment/strategies/overview.md" >}}
+* {{< linkWithTitle "webhooks/overview.md" >}}
+* {{< linkWithTitle "integrations/ci-systems/gh-action.md" >}}
+
 
