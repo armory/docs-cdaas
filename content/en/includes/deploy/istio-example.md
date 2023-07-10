@@ -1,24 +1,8 @@
 ---
 ---
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;width:100%;}
-.tg td{border-color:black;border-style:solid;border-width:1px;padding:10px 5px;width:50%;}
-.tg th{border-color:black;border-style:solid;border-width:1px;padding:10px 5px;width:50%;}
-.tg .tg-73oq{border-color:#000000;text-align:left;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-<div class="tg-wrap"><table class="tg">
-<thead>
-  <tr>
-    <th class="tg-73oq">CD-as-a-Service Deployment (deploy.yaml)</th>
-    <th class="tg-73oq">Istio Resources (istio-resources.yaml)</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-     <td class="tg-0lax">
-    {{< prism lang="yaml" line=" " line-numbers="true">}}
+{{< cardpane >}}
+{{< card code=true header="CD-as-a-Service Deployment (deploy.yaml)" lang="yaml">}}
 version: v1
 kind: kubernetes
 application: reviews
@@ -52,10 +36,8 @@ trafficManagement:
         name: reviews 
         activeSubsetName: stable
         canarySubsetName: canary # does not exist yet
-{{< /prism >}}
-    </td>
-    <td class="tg-0lax">
-    {{< prism lang="yaml" line-numbers="true" >}}
+{{< /card >}}
+{{< card code=true header="Istio Resources (istio-resources.yaml)" lang="yaml" >}}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -80,12 +62,8 @@ spec:
   - name: stable
     labels:
       app: reviews
-{{< /prism >}}
-    </td>
-   
-  </tr>
-</tbody>
-</table></div><br>
+{{< /card >}}
+{{< /cardpane >}}
 
 **Mapping**
 <br>
