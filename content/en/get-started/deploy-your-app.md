@@ -42,58 +42,20 @@ The directory structure should look like this:
 First create two manifests for the staging and prod namespaces. These are where you'll deploy your app and this also showcases the ability to deploy manifests to specific targets. Save these to the `manifests` directory.
 
 
-<div style="display: flex; gap: 5%; margin-bottom: 7px;">
-<div>
-<p style="font-weight: bold; margin-bottom: 0;"><code>staging-namespace.yaml</code></p>
-
-```yaml
+{{< cardpane >}}
+{{< card code=true header="namespace-staging.yaml" lang="yaml">}}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: <your-staging-namespace>
-```
-</div>
-<div>
-<p style="font-weight: bold; margin-bottom: 0;"><code>prod-namespace.yaml</code></p>
-
-```yaml
+{{< /card >}}
+{{< card code=true header="namespace-prod.yaml" lang="yaml" >}}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: <your-prod-namespace>
-```
-</div>
-</div>
-
-
-<table>
-<tr>
-<th>namespace-staging.yaml</th>
-<th>namespace-prod.yaml</th>
-</tr>
-<tr>
-<td>
-<pre>
-<code >
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: &#x3C;your-staging-namespace&#x3E;
-</code>
-</pre>
-</td>
-<td>
-<pre>
-<code>
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: &#x3C;your-prod-namespace&#x3E;
-</code>
-</pre>
-</td>
-</tr>
-</table>
+{{< /card >}}
+{{< /cardpane >}}
 
 
 
