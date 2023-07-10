@@ -26,11 +26,11 @@ In this guide you will create a deployment config and two simple namespace confi
 The directory structure should look like this:
 
 ```
-<my-app>
+<your-app>
 ├── deployment.yaml
 └── manifests
-    ├── <my-app>-service.yaml
-    ├── <my-app>.yaml
+    ├── <your-app-service>.yaml
+    ├── <your-app>.yaml
     ├── namespace-staging.yaml
     └── namespace-prod.yaml
 ```
@@ -41,6 +41,29 @@ The directory structure should look like this:
 
 First create two manifests for the staging and prod namespaces. These are where you'll deploy your app and this also showcases the ability to deploy manifests to specific targets. Save these to the `manifests` directory.
 
+
+<div style="display: flex; gap: 5%; margin-bottom: 7px;">
+<div>
+<p style="font-weight: bold; margin-bottom: 0;"><code>staging-namespace.yaml</code></p>
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: <your-staging-namespace>
+```
+</div>
+<div>
+<p style="font-weight: bold; margin-bottom: 0;"><code>prod-namespace.yaml</code></p>
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: <your-prod-namespace>
+```
+</div>
+</div>
 
 
 <table>
@@ -74,26 +97,6 @@ metadata:
 
 
 
-<div style="display: flex; gap: 5%;">
-<div>
-
-```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: <your-staging-namespace>
-```
-</div>
-<div>
-
-```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: <your-prod-namespace>
-```
-</div>
-</div>
 
 Next, save the following config as `deployment.yaml` to the root of your app directory, next to the `manifests` directory. Replace the bracketed values with your own.
 
@@ -117,8 +120,8 @@ targets:
         - pause:
             untilApproved: true
 manifests:
-  - path: manifests/your-app.yaml # replace with the name of your app manifest
-  - path: manifests/your-app-service.yaml # replace with the name of your app service manifest
+  - path: manifests/<your-app>.yaml # replace with the name of your app manifest
+  - path: manifests/<your-app-service>.yaml # replace with the name of your app service manifest
   - path: manifests/namespace-staging.yaml  
     targets: ["staging"]
   - path: manifests/namespace-prod.yaml
@@ -149,23 +152,13 @@ strategies:
 
 In your CDaaS config, you can create deployment strategies with as many steps as you want. In this example, the deployment config defines the following strategies:
 
-* Staging deployment uses `rolling`: deploy 100% of the app 
-* Prod deployment uses `trafficSplit`: 75% to the current version and 25% to the new version
+* `rolling`: deploy 100% of the app (staging deployment)
+* `trafficSplit`: 75% to the current version and 25% to the new version (prod deployment)
 
 The prod deployment requires a manual approval to begin deployment and another to continue deployment after the traffic split.
 
-
-{{% alert title="Important" color="warning" %}}
-For the first deployment of your app, Armory CD-as-a-Service automatically deploys the app to 100% of the cluster since there is no previous version. Subsequent deployments of your app follow the strategy steps defined in your deployment file.
-{{% /alert %}}
-
 ## 2. Deploy your app
-
-{{% alert title="Important" color="warning" %}}
-Armory CD-as-a-Service manages your Kubernetes deployments using ReplicaSet resources. During the initial deployment of your app, CD-as-a-Service deletes the underlying Kubernetes deployment object in a way that leaves behind the ReplicaSet and pods so that there is no actual downtime for your app. These are later deleted when the deployment succeeds.
-
-If your initial deployment fails, you should [manually delete]({{< ref "troubleshooting/tools#initial-deployment-failure-orphaned-replicaset" >}}) the orphaned ReplicaSet.
-{{% /alert %}}
+In order to see some deployment strategies at work, you'll need to deploy your app twice. The first time, CDaaS will skip any traffic splitting or manual approval steps in order to have a stable version fully deployed. The second deploy will demonstrate an advanced deployment strategy, routing only 25% of traffic to your new version, while routing the rest to the stable version.
 
 ### Deploy the first version
 
@@ -192,12 +185,15 @@ If your initial deployment fails, you should [manually delete]({{< ref "troubles
 4. Issue manual approval.
 
    Once CD-as-a-Service successfully deploys your resources to `staging`, it waits for your manual approval before deploying to `prod`. When the `staging` deployment has completed, click **Approve** to allow the `prod` deployment to begin. 
-
-  >You must issue manual approvals using the UI. You cannot issue manual approvals using the CLI.
-
+   > You must issue manual approvals using the UI. You cannot issue manual approvals using the CLI.
 
   Because this is the first time deploying your app, CD-as-a-Service deploys 100% to your prod environment, skipping the defined `trafficSplit` strategy. CD-as-a-Service uses the `trafficSplit` when deploying subsequent versions of your app.
 
+{{% alert title="Important" color="warning" %}}
+CDaaS manages your Kubernetes deployments using ReplicaSets. During the initial deployment of your app, CDaaS deletes the underlying Kubernetes deployment object in a way that leaves behind the ReplicaSet and pods so that there is no actual downtime for your app. These are later deleted when the deployment succeeds.
+
+If your initial deployment fails, you should [manually delete]({{< ref "troubleshooting/tools#initial-deployment-failure-orphaned-replicaset" >}}) the orphaned ReplicaSet.
+{{% /alert %}}
 
 ### Deploy second version
 
