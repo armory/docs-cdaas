@@ -94,20 +94,28 @@ Manifest paths are relative to the directory you run the `armory deploy` command
 ### Deployment Strategies 
 A deployment strategy is the method by which your changes are deployed to a target. Strategies can use different techniques
 to allow for rapid rollback should a problem be discovered, minimizing the impact of potential issues to a small subset of users, 
-or can be optimzed for speed. 
+or can be optimized for speed. 
 
 Armory CD-as-a-Service offers two distinct deployment strategies that each have various trade-offs.
 
-#### The Canary Strategy
+For a more details as to what deployment strategies are and how they differ please see our [overview on the subject]({{< ref "deployment/strategies/overview" >}})
 
-A canary strategy is one that minimized the impact of changes to your system by using traffic routing to only release new code to 
-a subset of users, so you can monitor the impact as the changes are deployed.
+#### The Canary Strategy
+A canary deployment involves releasing a new version of software to a small subset of users or systems while leaving 
+the majority on the current version. This allows for real-world testing and monitoring of the new version's performance
+and stability. If the canary users experience positive results, the new version can be gradually rolled out to a wider 
+audience.
 
 // Insert diagram illustrating a canary deployment
+
+For more details on Canary deployments and how to configure them you can reference the [canary strategy documentation]({{< ref "deployment/strategies/canary" >}}) 
               
 #### The Blue-Green Strategy
-The Blue-Green strategy is one that prioritized the ability to rapidly roll back if needed after a change has been deployed. 
-The strategy operates by creating an entirely new version of your software scaled to production levels allowing you to route 
-traffic to the new version while switching back to the old version at a moments notice if you detect problems with the new changes. 
+In a blue-green deployment, two identical environments, referred to as blue and green, are maintained. The blue 
+environment represents the current production version, while the green environment represents the new version being 
+deployed. The new version is deployed and tested in the green environment, and once validated, traffic is switched from 
+blue to green. This strategy minimizes downtime and provides a quick rollback option if issues arise. 
 
 // Insert diagram illustrating a blue-green deployment
+
+For more details on Canary deployments and how to configure them you can reference the [blue-green strategy documentation]({{< ref "deployment/strategies/blue-green" >}})
