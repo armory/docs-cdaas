@@ -17,8 +17,8 @@ depending on your [configuration]({{<ref "deployment/create-deploy-config" >}}).
 
 ## Defining a Deployment
 
-CD as a Service allows you to decoratively define your deployment configuration using a simple YAML file declaratively. At its core
-need to provide only three pieces of information:
+CD as a Service allows you to decoratively define your deployment configuration using a simple YAML file declaratively. 
+At its core you only need to provide only three pieces of information:
 
 * The environment/target you want to deploy to
 * The artifacts you want to have deployed
