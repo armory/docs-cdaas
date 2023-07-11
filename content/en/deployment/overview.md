@@ -42,6 +42,8 @@ strategies:
       
 ```
 
+For more details you can see our guide on how to [create your deployment configuration]({{<ref "deployment/create-deploy-config" >}}). 
+
 ## Elements of a Deployment
 
 ### Deployment Targets/Environments
@@ -86,6 +88,8 @@ manifests:
   - path: manifests/your-manifest-1.yaml # this manifest will be deployed to the 'target-2' target defined in the targets block
     targets: ["target-2"]
 ```
+             
+Manifest paths are relative to the directory you run the `armory deploy` command from.
 
 ### Deployment Strategies 
 A deployment strategy is the method by which your changes are deployed to a target. Strategies can use different techniques
