@@ -97,6 +97,13 @@ Armory CD-as-a-Service offers two distinct deployment strategies that each have 
 #### The Canary Strategy
 
 A canary strategy is one that minimized the impact of changes to your system by using traffic routing to only release new code to 
-a subset of users so you can monitor the impact as the changes are deployed.
+a subset of users, so you can monitor the impact as the changes are deployed.
 
 // Insert diagram illustrating a canary deployment
+              
+#### The Blue-Green Strategy
+The Blue-Green strategy is one that prioritized the ability to rapidly roll back if needed after a change has been deployed. 
+The strategy operates by creating an entirely new version of your software scaled to production levels allowing you to route 
+traffic to the new version while switching back to the old version at a moments notice if you detect problems with the new changes. 
+
+// Insert diagram illustrating a blue-green deployment
