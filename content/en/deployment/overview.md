@@ -57,9 +57,17 @@ For example, you may define staging, production-west, and production-east deploy
 You can configure each deployment target/environment to use a [unique strategy]({{< ref "deployment/strategies/overview" >}})
 to orchestrate how your code is deployed and your traffic is routed.
 
+#### Deployment Target Constraints
 You can also configure your deployment targets to use constraints that prevent a deployment from beginning until certain 
 conditions are met. For example, you can configure your deployment to wait for your code to be deployed to your staging
-environment before promoting that code to production. 
+environment before promoting that code to production.
+
+CD-as-a-Service offers you multiple constraint options including: 
+##### DependsOn
+The dependsOn constrain allows you to specify environments that must successfully complete prior to starting this target's deployment. 
+Information on configuring the dependsOn constraint can be found in the [CD-as-a-Service reference docs](link to depends on reference)
+##### Webhooks
+##### Manual Approvals
 
 You can configure a  Kubernetes deployment target like this: 
 
@@ -108,15 +116,11 @@ the majority on the current version. This strategy allows for real-world testing
 and stability. If the canary users experience positive results, the new version can be gradually rolled out to a wider 
 audience.
 
-// Insert diagram illustrating a canary deployment
-
 For more details on Canary deployments and how to configure them, you can reference the [canary strategy documentation]({{< ref "deployment/strategies/canary" >}}) 
               
 #### The Blue-Green Strategy
 In a blue-green deployment, two identical environments, blue and green, are maintained. The blue 
 environment represents the current production version, while the green environment represents the new version being 
-deployed. The new version is deployed and tested in the green environment, and once validated, traffic is routed to green instead of blue. This strategy minimizes downtime and provides a quick rollback option if issues arise. 
-
-// Insert diagram illustrating a blue-green deployment
+deployed. The new version is deployed and tested in the green environment, and once validated, traffic is routed to green instead of blue. This strategy minimizes downtime and provides a quick rollback option if issues arise.
 
 For more details on blue-green deployments and how to configure them, you can reference the [blue-green strategy documentation]({{< ref "deployment/strategies/blue-green" >}})
