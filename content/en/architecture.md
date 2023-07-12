@@ -17,7 +17,7 @@ It's where the business logic for CD-as-a-Service lives, and it utilizes Remote 
 
 ### Remote Network Agent (RNA)
 
-The RNA is a logic-less network relay that enables Armory CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, Kubernetes clusters, etc.
+The RNA is a logicless network relay that enables CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, and Kubernetes clusters.
 
 As an enhancement for Kubernetes, the Control Plane uses the agent's Service Account credentials to automatically register any cluster it's installed in as a deployable target.
 
