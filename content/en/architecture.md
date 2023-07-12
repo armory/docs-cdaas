@@ -30,7 +30,7 @@ See the [Remote Network Agent](/remote-network-agent/overview) section of the do
 
 The CLI is the primary means of interacting with the Armory CD-as-a-Service.
 
-Users and Machines can use the CLI directly or use it in CI to automate deployments.
+You can use the CLI directly or with machine-to-machine credentials to automate deployments in your CI system.
 
 Armory distributes the CLI as native binaries (amd64 and arm64) for Linux, Mac, and Windows as well as a Docker image.
 
