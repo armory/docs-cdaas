@@ -32,7 +32,7 @@ The CLI is the primary means of interacting with the Armory CD-as-a-Service.
 
 Users and Machines can use the CLI directly or use it in CI to automate deployments.
 
-We distribute the CLI as native binaries (amd64 and arm64) for Linux, Mac, and Windows as well as docker image.
+Armory distributes the CLI as native binaries (amd64 and arm64) for Linux, Mac, and Windows as well as a Docker image.
 
 See the [CLI](/cli) section of the docs for more details.
 
