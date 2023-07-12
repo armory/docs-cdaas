@@ -23,7 +23,7 @@ As an enhancement for Kubernetes, the Control Plane uses the agent's Service Acc
 
 Once you install the RNA in your cluster, you don't need to update it beyond security updates since deployment logic is encapsulated in Armory's centralized control plane.
 
-See the [Remote Network Agent](/remote-network-agent/overview) section of the docs for more details.
+See the [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) overview for details.
 
 
 ### Command Line Interface (CLI)
