@@ -18,7 +18,7 @@ tags: ["Deployment", "Quickstart"]
 ## {{% heading "prereq" %}}
 
 * You have the [Armory CLI installed]({{< ref "cli.md" >}}).
-* You have an [Armory RNA installed]({{< ref "remote-network-agent/install.md" >}}) in your cluster.
+* You have an [Armory RNA installed]({{< ref "remote-network-agent/overview.md" >}}) in your cluster.
 * You have created the Kubernetes manifests for your web app.
 * You have two versions of your app to deploy.
 
