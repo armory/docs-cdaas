@@ -1,6 +1,6 @@
 ---
-title: External Automation Using Webhook-Based Approvals
-linktitle: Webhooks
+title: External Automation Using Webhooks
+linktitle: External Automation
 no_list: false
 weight: 50
 description: >

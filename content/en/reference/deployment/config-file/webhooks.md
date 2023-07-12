@@ -10,4 +10,4 @@ description: >
 {{< include "dep-file/webhooks-config.md" >}}
 
 
-See {{< linkWithTitle "webhooks/_index.md" >}} for detailed information.
+See {{< linkWithTitle "external-automation/overview.md" >}} for detailed information.
