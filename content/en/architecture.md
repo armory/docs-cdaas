@@ -28,7 +28,7 @@ See the [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) o
 
 ### Command Line Interface (CLI)
 
-The CLI is the primary means of interacting with the Armory CD-as-a-Service.
+The CLI is the primary means of interacting with CD-as-a-Service.
 
 You can use the CLI directly or with machine-to-machine credentials to automate deployments in your CI system.
 
