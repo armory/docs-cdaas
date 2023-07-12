@@ -10,50 +10,61 @@ tags: ["Deployment", "Quickstart"]
 
 ## Learning objectives
 
-In this guide, you build on what you learned in the  CD-as-a-Service [Quickstart]({{< ref "get-started/quickstart" >}}) by deploying your own app using the deployment configuration from the Quickstart.
+1. [Create a deployment config file](#create-a-deployment-config-file)
+2. [Deploy your app](#deploy-your-app)
+3. [Monitor your deployment](#monitor-your-deployment)
 
-1. [Create your deployment config file](#create-a-deployment-config-file)
-1. [Deploy your app](#deploy-your-app)
-
-
->If you prefer a web-based, interactive tutorial, see the CD-as-a-Service Console's [**Deploy Your Own App** tutorial](https://next.console.cloud.armory.io/getting-started).
 
 ## {{% heading "prereq" %}}
 
-* You have completed the CD-as-a-Service [Quickstart]({{< ref "get-started/quickstart" >}}).
+* You have the [Armory CLI installed]({{< ref "cli.md" >}}).
+* You have an [Armory RNA installed]({{< ref "remote-network-agent/install.md" >}}) in your cluster.
 * You have created the Kubernetes manifests for your web app.
 * You have two versions of your app to deploy.
 
-For this guide, you can use the Remote Network Agent that you deployed as part of the Quickstart, or you can [install a new one]({{< ref "remote-network-agent/_index.md" >}}). Instead of deploying Armory's sample app, you deploy your own web app using the CD-as-a-service deployment configuration from the Quickstart. 
 
 ### Directory structure
 
-This guide assumes the following directory structure:
+In this guide you will create a deployment config and two simple namespace configs. The namespace manifests should be in a `manifests` directory along with the Kubernetes manifests for deploying your app.
+
+The directory structure should look like this:
 
 ```
-<my-app>
+<your-app>
 ├── deployment.yaml
 └── manifests
-    ├── <my-app>-service.yaml
-    ├── <my-app>.yaml
+    ├── <your-app-service>.yaml
+    ├── <your-app>.yaml
     ├── namespace-staging.yaml
     └── namespace-prod.yaml
 ```
 
-The Kubernetes manifests for deploying your app are in the `manifests` directory. Replace `<my-app>` with the name of your app.
 
-Create your staging namespace in `namespace-staging.yaml` and your prod namespace in `namespace-prod.yaml`.  The deployment config file supports deploying manifests to specific targets, and the deployment config file uses separate namespace manifests to illustrate this feature.
 
-## Create your deployment config file
+## 1. Create a deployment config file
 
-This deployment config defines the following strategies:
+First create two manifests for the staging and prod namespaces. These are where you'll deploy your app and also showcases the ability to deploy manifests to specific targets. Save these to the `manifests` directory.
 
-* `rolling`: deploy 100% of the app (staging)
-* `trafficSplit`: 75% to the current version and 25% to the new version (prod)
 
-In addition, prod deployment requires a manual approval to begin deployment and another to continue deployment after the traffic split.
+{{< cardpane >}}
+{{< card code=true header="namespace-staging.yaml" lang="yaml">}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: <your-staging-namespace>
+{{< /card >}}
+{{< card code=true header="namespace-prod.yaml" lang="yaml" >}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: <your-prod-namespace>
+{{< /card >}}
+{{< /cardpane >}}
 
-Create a `deployment.yaml` file with the following contents:
+
+
+Next, save the following config as `deployment.yaml` to the root of your app directory, next to the `manifests` directory. Replace the bracketed values with your own.
+
 
 ```yaml
 version: v1
@@ -74,9 +85,9 @@ targets:
         - pause:
             untilApproved: true
 manifests:
-  - path: manifests/your-app.yaml # replace with the name of your app manifest
-  - path: manifests/your-app-service.yaml # replace with the name of your app service manifest
-  - path: manifests/namespace-staging.yaml # 
+  - path: manifests/<your-app>.yaml # replace with the name of your app manifest
+  - path: manifests/<your-app-service>.yaml # replace with the name of your app service manifest
+  - path: manifests/namespace-staging.yaml  
     targets: ["staging"]
   - path: manifests/namespace-prod.yaml
     targets: ["prod"]
@@ -103,50 +114,18 @@ strategies:
             weight: 100
 ```
 
-<table>
-<tr>
-<th>namespace-staging.yaml</th>
-<th>namespace-prod.yaml</th>
-</tr>
-<tr>
-<td>
-<pre>
-<code>
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: &#x3C;your-staging-namespace&#x3E;
-</code>
-</pre>
-</td>
-<td>
-<pre>
-<code>
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: &#x3C;your-prod-namespace&#x3E;
-</code>
-</pre>
-</td>
-</tr>
-</table>
 
+In your CDaaS config, you can create deployment strategies with as many steps as you want. In this example, the deployment config defines the following strategies:
 
+* `rolling`: deploy 100% of the app (staging deployment)
+* `trafficSplit`: 75% to the current version and 25% to the new version (prod deployment)
 
-{{% alert title="Important" color="warning" %}}
-For the first deployment of your app, Armory CD-as-a-Service automatically deploys the app to 100% of the cluster since there is no previous version. Subsequent deployments of your app follow the strategy steps defined in your deployment file.
-{{% /alert %}}
+The prod deployment requires a manual approval to begin deployment and another to continue deployment after the traffic split.
 
-## Deploy your app
+## 2. Deploy your app
+In order to see some deployment strategies at work, you'll need to deploy your app twice. The first time, CDaaS will skip any traffic splitting or manual approval steps in order to have a stable version fully deployed. The second deploy will demonstrate an advanced deployment strategy, routing only 25% of traffic to your new version, while routing the rest to the stable version.
 
-{{% alert title="Important" color="warning" %}}
-Armory CD-as-a-Service manages your Kubernetes deployments using ReplicaSet resources. During the initial deployment of your app, CD-as-a-Service deletes the underlying Kubernetes deployment object in a way that leaves behind the ReplicaSet and pods so that there is no actual downtime for your app. These are later deleted when the deployment succeeds.
-
-If your initial deployment fails, you should [manually delete]({{< ref "troubleshooting/tools#initial-deployment-failure-orphaned-replicaset" >}}) the orphaned ReplicaSet.
-{{% /alert %}}
-
-### Deploy first version
+### Deploy the first version
 
 1. Log in using the CLI.
 
@@ -154,99 +133,52 @@ If your initial deployment fails, you should [manually delete]({{< ref "troubles
    armory login
    ```
 
-   The CLI returns a `Device Code` and opens your default browser.  Confirm the code in your browser to complete the login process,.
+   The CLI returns a `Device Code` and opens your default browser.  Confirm the code in your browser to complete the login process.
 
-1. Start the deployment from the root of your directory.
+2. Start the deployment from the root of your directory.
 
    ```bash
    armory deploy start  -f deployment.yaml
    ```
 
-   The `deploy start` command starts your deployment. The command returns a **Deployment ID** and a link to your deployment details. 
+   This command starts your deployment, then returns a **Deployment ID** and a link to your deployment details. 
 
-1. Monitor your deployment execution.
+3. Monitor your deployment execution.
 
-   Use the link provided by the CLI to navigate to your deployment details page in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). 
+   Use the link provided by the CLI to view your deployment in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). 
 
-1. Issue manual approval.
+4. Issue manual approval.
 
-   Since you defined a manual approval to deploy to prod in your strategy, you need to issue your manual approval using the UI. Once the `staging` deployment has completed, click **Approve** to allow the `prod` deployment to begin. Because this is the first time deploying your app, CD-as-a-Service deploys 100% to your prod environment, skipping the defined `trafficSplit` strategy. CD-as-a-Service uses the `trafficSplit` when deploying subsequent versions of your app.
+   Once CD-as-a-Service successfully deploys your resources to `staging`, it waits for your manual approval before deploying to `prod`. When the `staging` deployment has completed, click **Approve** to allow the `prod` deployment to begin. 
+   > You must issue manual approvals using the UI. You cannot issue manual approvals using the CLI.
+
+  Because this is the first time deploying your app, CD-as-a-Service deploys 100% to your prod environment, skipping the defined `trafficSplit` strategy. CD-as-a-Service uses the `trafficSplit` when deploying subsequent versions of your app.
+
+{{% alert title="Important" color="warning" %}}
+CDaaS manages your Kubernetes deployments using ReplicaSets. During the initial deployment of your app, CDaaS deletes the underlying Kubernetes deployment object in a way that leaves behind the ReplicaSet and pods so that there is no actual downtime for your app. These are later deleted when the deployment succeeds.
+
+If your initial deployment fails, you should [manually delete]({{< ref "troubleshooting/tools#initial-deployment-failure-orphaned-replicaset" >}}) the orphaned ReplicaSet.
+{{% /alert %}}
 
 ### Deploy second version
 
 1. Update your Kubernetes manifest to deploy a new version of your app. 
-1. Start the deployment from the root of your directory.
+2. Start the deployment from the root of your directory.
 
    ```bash
    armory deploy start  -f deployment.yaml
    ```
 
-1. Monitor your deployment.  
+3. Monitor your deployment.
 
-   Use the link provided by the CLI to observe your deployment's progression in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). 
+4. Issue manual approvals.
 
-1. Issue manual approvals.
-
-   CD-as-a-Service deploys your resources to `staging`. After those resources have deployed successfully, CD-as-a-Service waits for your manual approval before deploying to `prod`.
-
-   Once the `staging` deployment has completed, click **Approve** to allow the `prod` deployment to begin. Observe the traffic split and preview your web app deployment. Then issue your manual approval to finish deployment.
-
-## How to watch from your terminal
-
-If you want to monitor your deployment in your terminal, use the `--watch` flag to output deployment status.
-
-```bash
-armory deploy start  -f deployment.yaml --watch
-```
-
-Output is similar to:
-
-```bash
-[2023-05-24T13:43:35-05:00] Waiting for deployment to complete. Status UI: https://console.cloud.armory.io/deployments/pipeline/03fe43c6-ddc1-49d8-8116-b01db0ca0c5a?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
-.
-[2023-05-24T13:43:46-05:00] Deployment status changed: RUNNING
-..
-[2023-05-24T13:44:06-05:00] Deployment status changed: AWAITING_APPROVAL
-...
-[2023-05-24T13:44:36-05:00] Deployment status changed: RUNNING
-..
-[2023-05-24T13:44:56-05:00] Deployment status changed: AWAITING_APPROVAL
-.
-[2023-05-24T13:45:06-05:00] Deployment status changed: RUNNING
-..
-[2023-05-24T13:45:26-05:00] Deployment status changed: SUCCEEDED
-[2023-05-24T13:45:26-05:00] Deployment 03fe43c6-ddc1-49d8-8116-b01db0ca0c5a completed with status: SUCCEEDED
-[2023-05-24T13:45:26-05:00] Deployment ID: 03fe43c6-ddc1-49d8-8116-b01db0ca0c5a
-[2023-05-24T13:45:26-05:00] See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/03fe43c6-ddc1-49d8-8116-b01db0ca0c5a?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
-
-```
-
-If you forget to add the `--watch` flag, you can run the `armory deploy status --deploymentID <deployment-id>` command. Use the Deployment ID returned by the `armory deploy start` command. For example:
-
-```bash
-armory deploy start -f deployment.yaml
-Deployment ID: 9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e
-See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
-```
-
-then run:
-
-```bash
-armory deploy status --deploymentId 9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e
-```
-
-Output is similar to:
-
-   ```bash
-application: sample-application, started: 2023-01-06T20:07:36Z
-status: RUNNING
-See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e? environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
-```
-
-This `armory deploy status` command returns a point-in-time status and exits. It does not watch the deployment.
-
->You must issue manual approvals using the UI. You cannot issue manual approvals using the CLI.
+   Approve the deployment to prod again and this time, observe the traffic split on the deployment details page and preview your web app deployment. Issue your manual approval to finish deployment.
 
 ## {{% heading "nextSteps" %}}
+
+* {{< linkWithTitle "deployment/strategies/overview.md" >}}
+* {{< linkWithTitle "integrations/ci-systems/gh-action.md" >}}
+* {{< linkWithTitle "webhooks/overview.md" >}}
 
 
