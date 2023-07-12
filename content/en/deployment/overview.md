@@ -58,16 +58,22 @@ You can configure each deployment target/environment to use a [unique strategy](
 to orchestrate how your code is deployed and your traffic is routed.
 
 #### Deployment Target Constraints
-You can also configure your deployment targets to use constraints that prevent a deployment from beginning until certain 
+You can also configure your deployment targets to use constraints that prevent a deployment from beginning or completing until certain 
 conditions are met. For example, you can configure your deployment to wait for your code to be deployed to your staging
 environment before promoting that code to production.
 
+Constraints can be set as either `beforeDeployment` or `afterDeployment` depending on your use-case. 
+
+Information on configuring constraints can be found in the [CD-as-a-Service reference docs]({{< ref "reference/deployment/config-file/targets#targetstargetnameconstraints" >}})
+
 CD-as-a-Service offers you multiple constraint options including: 
 ##### DependsOn
-The dependsOn constrain allows you to specify environments that must successfully complete prior to starting this target's deployment. 
-Information on configuring the dependsOn constraint can be found in the [CD-as-a-Service reference docs](link to depends on reference)
-##### Webhooks
-##### Manual Approvals
+The dependsOn constraint allows you to specify environments that must successfully complete prior to starting this target's deployment. 
+
+
+##### Manual Approvals and Pauses
+
+The pause constraint allows you to pause a deployment for a set period of time or until an authorized user issues an approval. 
 
 You can configure a  Kubernetes deployment target like this: 
 
@@ -83,6 +89,9 @@ targets:
     strategy: <the-name-of-the-strategy> # strategy will be defined below in the strategies block      
     constraints:
       dependsOn: ["target-1"] #A constraint indicating that the deployment to target-1 must complete successfully prior to beginning the deployment to target-2
+      beforeDeployment: # a list of constraints that must be satisfied before the deployment to the target can begin 
+        - pause: # a pause constraint that will pause the execution of the deployment until an authorized user gives an approval
+            untilApproved: true
 ```
 ### Deployment Manifests
 
