@@ -38,7 +38,14 @@ See the [CLI](/cli) section of the docs for more details.
 
 ### Cloud Console (UI)
 
-Cloud Console is the browser-based UI for Armory CD-as-a-Service. It allows users to visually monitor and interact with deployments. Admins can use it to configure integrations with external services like New Relic and Datadog, secrets and more. 
+_Cloud Console_ is the browser-based UI for CD-as-a-Service. You can visually monitor and interact with your deployments on the **Deployments** screen. If you're an Admin, you can use the **Configure** screens to perform tasks such as:
+
+ - Configuring integrations with external services such as Prometheus, New Relic, and Datadog
+ - Creating machine-to-machine credentials
+ - Creating secrets
+ - Configuring RBAC
+ - Inviting users
+ - Monitoring your Remote Network Agents
 
 ## Networking
 
