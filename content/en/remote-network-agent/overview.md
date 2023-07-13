@@ -10,7 +10,7 @@ description: >
 
 ## Overview
 
-Armory's Remote Network Agent (RNA) is a simple, lightweight, and reliable agent that resides within your privately networked Kubernetes cluster. It facilitates the orchestration of deployments by providing CD-as-a-Service. RNA enables seamless communication with resources within your private network, empowering CD-as-a-Service to enable use cases such as executing Prometheus queries or initiating Jenkins jobs from within the cluster. RNA supports both `amd64` and `arm64` based architectures, ensuring compatibility across a range of systems.
+Armory's Remote Network Agent (RNA) is a simple, lightweight, and reliable agent that resides within your privately networked Kubernetes cluster. RNA enables seamless communication with resources within your private network, empowering CD-as-a-Service to enable use cases such as executing Prometheus queries or initiating Jenkins jobs from within the cluster. RNA supports both `amd64` and `arm64` based architectures, ensuring compatibility across a range of systems.
 
 The RNA is installed with a logical name, allowing for easy identification of a cluster. This name is then used as an `account` when defining `targets` in your deployment configuration. Armory recommends installing a single agent per Kubernetes cluster to maintain simplicity and consistency.
 
@@ -26,18 +26,19 @@ When installed into a Kubernetes cluster, RNA can register the cluster as a depl
 
 RNA is installed with a service account and its credentials are used by CD-as-a-Service when orchestrating Kubernetes deployments.
 
-See the [Installation Guide](/remote-network-agent/install) to get started and [Production Configuration and Use](/remote-network-agent/production-configuration-and-use) for advanced configuration, such as configuring the service account permissions or opting out of this mode.
+[//]: # (revive below content when installation guide and advanced config guides are complete)
+[//]: # (See the [Installation Guide]&#40;/remote-network-agent/install&#41; to get started and [Production Configuration and Use]&#40;/remote-network-agent/production-configuration-and-use&#41; for advanced configuration, such as configuring the service account permissions or opting out of this mode.)
 
 ### Relaying traffic to private networks
 
 When you install the agent configured with Armory credentials into your private network(s). The agent connects to Armory's Agent Hub registering the private network with an agent identifier.
 
-Agent Hub can route network traffic from internal authenticated Armory services to your privately networked 
-resources via a multi-target network relay that pipes data through encrypted gRPC tunnels to their destination through the remote network agent.
+Agent Hub routes network traffic from internal, authenticated Armory services to your privately networked 
+resources via a multi-target network relay that pipes data through encrypted gRPC tunnels to the RNA, which forwards the data to its destination.
 
 {{< centeredImage src="/images/cdaas/rna-arch.png" alt="CD-as-a-Service Remote Network Agent Architecture Diagram" caption="Remote Network Agent securely integrates your on-prem tools with CD-as-a-Service." >}}
 
-In Armory's secure private network, Agent Hub is an [(RFC 1929)](https://datatracker.ietf.org/doc/html/rfc1929) SOCKS5 compliant proxy [(RFC 1928)](https://www.rfc-editor.org/rfc/rfc1928.html) that knows how to execute socks proxy requests through a bi-directional gRPC tunnel that is established by an agent.
+In Armory's secure private network, Agent Hub is an [(RFC 1929)](https://datatracker.ietf.org/doc/html/rfc1929) SOCKS5 compliant proxy [(RFC 1928)](https://www.rfc-editor.org/rfc/rfc1928.html) that knows how to execute socks proxy requests through a bidirectional gRPC tunnel that is established by an agent.
 
 A couple of things that make Agent Hub plus Remote Network Agent (RNA) special:
 1. They don't require an open port in your network when relaying network requests.
