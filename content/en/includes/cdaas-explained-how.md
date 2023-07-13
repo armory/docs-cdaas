@@ -12,6 +12,6 @@ Remote Network Agents connect to CD-as-a-Service to establish gRPC via HTTP/2 co
 2. You create a CD-as-a-Service deployment config file in which you define your deployment constraints and include the path to your Kubernetes manifests.
 3. You start your deployment by sending the deployment config file to CD-as-a-Service using the [Armory CLI]({{< ref "cli" >}}) or automatically with a CI integration like CD-as-a-Service's [GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}). 
 
-The CD-as-a-Service control plane executes the deployments with constraints defined in your deployment config file, converting Kubernetes deployment objects into CD-as-a-Service managed ReplicaSets, handling traffic management and scaling. Remote Network Agents integrate with internal tools by securely relaying network calls and using their configurable service account credentials to communicate with your clusters API.
+The CD-as-a-Service control plane executes the deployments with constraints defined in your deployment config file, converting Kubernetes deployment objects into CD-as-a-Service managed ReplicaSets, handling traffic management and scaling. Remote Network Agents integrate with internal tools by securely relaying network calls and using their configurable ServiceAccount credentials to communicate with your clusters API.
 
 Then monitor your deployment's progress through the UI or CLI.
