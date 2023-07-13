@@ -3,78 +3,112 @@ title: "Blue/Green Deployment Strategy"
 linkTitle: "Blue/Green"
 weight: 5
 description: >
-  A blue/green strategy shifts traffic from the running version of your app to a new version of your app. This guide walks you through how to deploy your app to Kubernetes using a blue/green strategy. 
+  A blue/green strategy shifts traffic from the running version of your app to a new version of your app based on conditions you set. This guide walks you through how to deploy your app to Kubernetes using a blue/green strategy. 
 categories: ["Deployment", "Guides"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 ---
 
 ## Blue/Green deployment overview
 
-A blue/green strategy shifts traffic from the running version of your software to a new version of your software. The Armory CD-as-a-Service blue/green strategy follows these steps:
+A blue/green strategy shifts traffic from the running version of your software to a new version of your software based on conditions you set. The Armory CD-as-a-Service (CDaaS) blue/green strategy follows these steps:
 
-1. Armory CD-as-a-Service deploys a new version of your software without exposing it to external traffic.
-1. Armory CD-as-a-Service executes one or more user-defined steps in parallel. These steps are pre-conditions for exposing the new version of your software to traffic. For example, you may want to run automated metric analysis or wait for manual approval.
-1. After all pre-conditions complete successfully, Armory CD-as-a-Service redirects all traffic to the new software version. At this stage of the deployment, the old version of your software is still running but is not receiving external traffic.
-1. Next, Armory CD-as-a-Service executes one or more user-defined steps in parallel. These steps are pre-conditions for tearing down the old version of your software. For example, you may want to pause for an hour or wait for an additional automated metric analysis.
-1. After all pre-conditions complete successfully, Armory CD-as-a-Service tears down the old version of your software.
+1. CDaaS deploys a new version of your software without exposing it to external traffic.
+1. CDaaS executes one or more user-defined steps in parallel. These steps are pre-conditions for exposing the new version of your software to traffic. For example, you may want to run automated metric analysis or wait for manual approval.
+1. After all pre-conditions complete successfully, CDaaS redirects all traffic to the new software version. At this stage of the deployment, the old version of your software is still running but is not receiving external traffic.
+1. Next, CDaaS executes one or more user-defined steps in parallel. These steps are pre-conditions for tearing down the old version of your software. For example, you may want to pause for an hour or wait for an additional automated metric analysis.
+1. After all pre-conditions complete successfully, CDaaS tears down the old version of your software.
 
 ## {{% heading "prereq" %}}
 
-This quick start assumes that you completed the prior two quick starts that taught you how to register a cluster with Armory CD-as-a-Service and how to deploy an app with the CLI.
+For this guide, you need the following:
 
-To complete this quick start, you need the following:
+- The [Armory CLI]({{< ref "cli.md" >}}) installed
+- A [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) (RNA) installed in the cluster where you want to deploy your app
 
-- Access to a Kubernetes cluster where you can install the Remote Network Agent (RNA). This cluster acts as the deployment target for the sample app. You can reuse the cluster from the previous quick starts or create a new one.
-- You need to deploy a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that sends traffic to the current version of your application. This is the `trafficManagement.kubernetes.activeService` field in the YAML configuration.
-- (Optional) You can also create a `previewService` Kubernetes Service object so you can programmatically or manually observe the new version of your software before exposing it to traffic via the `activeService`. This is the `trafficManagement.kubernetes.previewService` field in the YAML configuration.
 
-## Add blue/green to your deployment
+## Deploy your active service 
+You need to deploy a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that sends traffic to the current version of your application. This is the `trafficManagement.kubernetes.activeService` field in the YAML configuration.
 
-1. In your deploy file, go to the `strategies` section.
-1. Create a new strategy named `blue-green-deploy-strat` like the following:
+As an example:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: <your-app-service>
+  labels:
+    app: <your-app-name>
+spec:
+  selector:
+    app: <your-app-name>
+  ports:
+    - name: http
+      port: 80
+      targetPort: 9001
+      protocol: TCP
+```
 
-   ```yaml
-   strategies:
-    blue-green-deploy-strat:
-      blueGreen:
-        redirectTrafficAfter:
-          - pause:
-              untilApproved: true
-        shutDownOldVersionAfter:
-          - pause:
-              untilApproved: true
-   ```
 
-   See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for an explanation of these fields.
+## (Optional) Deploy your preview service
+You can also create a `previewService` Kubernetes Service object so you can programmatically or manually observe the new version of your software before exposing it to traffic via the `activeService`. This is the `trafficManagement.kubernetes.previewService` field in the YAML configuration. 
 
-   This strategy is configured to pause for manual judgment before redirecting traffic to your new app version as well as before shutting down your old version. You could instead choose to pause for a duration of time.
+In order to have a separate preview service serving traffic to only your new version, make sure to deploy your new version under a new app name. 
 
-1. Change the value of `targets.<targetName>.strategy` for one or more of your deployment targets to `blue-green-deploy-strat`.
+Then create a new service that exposes traffic internally only, putting your new app name in the appropriate fields below:
 
-   ```yaml
-   ...
-   targets:
-    <targetName>:
-      account: <agentIdentifier>
-      namespace: <namespace>
-      strategy: blue-green-deploy-strat
-    ...
-    ```
-1. At the bottom of your file, create a top-level traffic management configuration for your `activeService` and `previewService`:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: <your-new-app-service>
+  labels:
+    app: <your-new-app-name>
+spec:
+  selector:
+    app: <your-new-app-name>
+  ports:
+    - name: gate-tcp
+      port: 80
+      protocol: TCP
+      targetPort: 9001
+```
 
-   ```yaml
-   ...
-   trafficManagement:
-     - targets: ['<targetName>']
-       kubernetes:
-         - activeService: myAppActiveService
-           previewService: myAppPreviewService
-   ...
-   ```
+## Create a blue/green deployment file
+
+Create a `blue-green-deployment.yaml` file with the following contents:
+
+```yaml
+version: v1
+kind: kubernetes
+application: <your-app-name> # the name of your app
+targets:
+  staging:  
+    account: <your-remote-network-agent-identifier> # the name of the RNA you installed in your cluster
+    namespace: <your-namespace> # defined in namespace-staging.yaml
+    strategy: blue-green-deploy-strat
+manifests:
+  - path: manifests/your-app.yaml # replace with the name of your app manifest
+strategies:
+  blue-green-deploy-strat:
+    blueGreen:
+      redirectTrafficAfter:
+        - pause:
+            untilApproved: true
+      shutDownOldVersionAfter:
+        - pause:
+            untilApproved: true
+trafficManagement:
+  - targets: ['staging']  # optionally apply this to only one environment, if you have multiple environments
+    kubernetes:
+      - activeService: <your-app-service>
+        previewService: <your-new-app-service>  # optional
+```
+
+
+   See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for an explanation of the fields under the <code>blueGreen</code> strategies block.
+
 
    The values for `activeService` and `previewService` must match the names of the Kubernetes Service objects you created to route traffic to the current and preview versions of your application. See the [Deployment File Reference]({{< ref "reference/deployment/config-file/traffic-management" >}}) for an explanation of these fields.
 
-1. Save the file
 
 ## Redeploy your app
 
