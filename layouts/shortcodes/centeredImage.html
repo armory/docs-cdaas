@@ -1,0 +1,11 @@
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" }}
+
+<div style="display: flex; justify-content: center; padding-left: 20px; padding-right: 20px; padding-bottom: 15px; margin-right: 20%">
+  <div style="display: flex; flex-flow: column; text-align: center">
+    <div>
+      <img src="{{ $src }}" alt="{{ $alt }}" style="max-width: 1200px; width: 100%">
+    </div>
+    {{ with .Get "caption" }}<b>{{ . }}</b>{{ end }}
+  </div>
+</div>
