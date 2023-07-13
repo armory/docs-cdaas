@@ -16,7 +16,7 @@ The RNA is installed with a logical name, allowing for easy identification of a 
 
 To get started with CD-as-a-Service or when adding a new deployment target without an existing RNA, you need to install the RNA. Once installed, there is no need for further interaction with the RNA. CD-as-a-Service takes care of the rest, seamlessly handling your deployments.
 
-Please refer to the [Architecture](/architecture) page for more details on how RNA fits in with the rest of the CD-as-a-Service core components.
+Refer to the [Architecture]({{< ref "architecture" >}}) page for more details on how the RNA fits in with the rest of the CD-as-a-Service core components.
 
 ## Core Features
 
