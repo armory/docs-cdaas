@@ -10,31 +10,27 @@ description: >
 
 ## Key components
 
-### Armory CD-as-a-Service API (Control Plane)
-The control plane is the set of services comprising the Armory CD-as-a-Service APIs.
+### CD-as-a-Service control plane
 
-It's where the business logic for CD-as-a-Service lives, and it utilizes Remote Network Agents to talk to customer's privately networked resources such as Kubernetes APIs, Jenkins, Prometheus, etc., as well as external services, such as New Relic, Datadog, and more.
+The control plane is the set of services comprising the CD-as-a-Service platform. This control plane utilizes Remote Network Agents to talk to your networked resources such as Kubernetes APIs, Jenkins, and Prometheus, as well as external services like New Relic and Datadog.
 
 ### Remote Network Agent (RNA)
 
-The RNA is a logicless network relay that enables CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, and Kubernetes clusters.
-
-As an enhancement for Kubernetes, the Control Plane uses the agent's Service Account credentials to automatically register any cluster it's installed in as a deployable target.
-
-Once you install the RNA in your cluster, you don't need to update it beyond security updates since deployment logic is encapsulated in Armory's centralized control plane.
+The RNA is a logicless network relay that enables CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, and Kubernetes clusters. For Kubernetes, the CD-as-a-Service control plane uses an RNA's ServiceAccount credentials to automatically register the cluster the RNA is installed in as a deployment target. Once you install the RNA in your cluster, you don't need to update it beyond security updates since deployment logic is encapsulated in CD-as-a-Service's centralized control plane.
 
 See the [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) overview for details.
 
+### Agent Hub
+
+_Agent Hub_ routes deployment commands to RNAs and caches data received from them. Agent Hub does not require direct network access to the RNAs since they connect to Agent Hub through an encrypted, long-lived gRPC HTTP2 connection. Agent Hub uses this connection to send deployment commands to the RNA for execution.
 
 ### Command Line Interface (CLI)
 
-The CLI is the primary means of interacting with CD-as-a-Service.
-
-You can use the CLI directly or with machine-to-machine credentials to automate deployments in your CI system.
+The CLI is the primary means of interacting with CD-as-a-Service. You can use the CLI directly or with machine-to-machine credentials to automate deployments in your CI system.
 
 Armory distributes the CLI as native binaries (amd64 and arm64) for Linux, Mac, and Windows as well as a Docker image.
 
-See the [CLI](/cli) section of the docs for more details.
+See {{< linkWithLinkTitle "cli.md" >}} for details.
 
 ### Cloud Console (UI)
 
