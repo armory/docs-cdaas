@@ -20,7 +20,7 @@ Refer to the [Architecture]({{< ref "architecture" >}}) page for more details on
 
 ## Core features
 
-### Kubernetes Cluster Mode
+### Kubernetes cluster mode
 
 When installed into a Kubernetes cluster, RNA can register the cluster as a deployable target from within CD-as-a-Service.
 
