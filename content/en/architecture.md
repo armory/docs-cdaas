@@ -1,60 +1,48 @@
 ---
 title: Armory CD-as-a-Service Architecture
 linkTitle: Architecture
-description: >
-  Learn about the key components that comprise Armory Continuous Deployment-as-a-Service and how they work together to orchestrate deployments. Remote Network Agent (RNA), Kubernetes permissions, networking requirements, CLI, GitHub Action.
 weight: 10
-categories: ["Concepts"]
-tags: ["Architecture", "Key Components", "Remote Network Agent", "Secrets"]
+description: >
+ Learn how Armory Continuous Deployment-as-a-Service works and how its key components orchestrate continuous deployment to your Kubernetes clusters.
 ---
 
-<!-- Both armory.io and the CDaaS UI links to this page. Do not change the title or headings without checking with engineering. 
-The purpose of this page is to have just enough information about cdaas components to pass a security audit if teams need to get permission to use the product. We can link to other pages for in-depth content. -->
-
-## How Armory CD-as-a-Service works
-
-Armory CD-as-a-Service is a platform of cloud-based services that orchestrate app deployments and monitor their progress. These services have API endpoints with which users and non-cloud services interact via HTTPS or gRPC/HTTP2. The [Networking](#networking) section contains details of the endpoints that need to be whitelisted.
-
-Armory CD-as-a-Service uses secure agents that run in target Kubernetes 1.16+ clusters to communicate with Armory CD-as-a-Service. Make sure your environment meets the [networking](#networking) requirements so that the agents can communicate with Armory CD-as-a-Service.
-
-There are no additional requirements for installing the agents that Armory CD-as-a-Service uses. For information about how to install these agents, see [Enable the Armory CD-as-a-Service Remote Network Agent in target Kubernetes clusters]({{< ref "integrations/plugin-spinnaker#enable-the-armory-cd-as-a-service-remote-network-agent-in-target-kubernetes-clusters" >}}) or {{< linkWithTitle "remote-network-agent/_index.md" >}}.
-
-Armory CD-as-a-Service contains components that you manage: the CLI, the Remote Network Agent (RNA), and the GitHub Action (GHA). These components communicate with Armory CD-as-a-Service to deploy your apps to your existing infrastructure.
-
-{{< figure src="/images/cdaas/cdaas-arch.png" alt="CD-as-a-Service High-Level Architecture" height="75%" width="75%" >}}
-
-When you start a deployment from the CLI or the GHA, Armory CD-as-a-Service forwards your deployment request to the designated RNA in your Kubernetes cluster.
-
-You can track the status of a deployment in the Armory CD-as-a-Service UI.
+{{< include "cdaas-explained-how.md" >}}
 
 ## Key components
 
+### CD-as-a-Service control plane
+
+The control plane is the set of services comprising the CD-as-a-Service platform. This control plane utilizes Remote Network Agents to talk to your networked resources such as Kubernetes APIs, Jenkins, and Prometheus, as well as external services like New Relic and Datadog.
+
 ### Remote Network Agent (RNA)
 
-The RNA is a Kubernetes Agent that enables Armory CD-as-a-Service to interact with your Kubernetes clusters and orchestrate deployments without direct network access to your clusters. The RNA that you install in your cluster engages in secure communication with Armory CD-as-a-Service over encrypted, long-lived gRPC/HTTP2 connections. The RNA issues calls to your Kubernetes cluster based on requests from Armory CD-as-a-Service.
+The RNA is a logicless network relay that enables CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, and Kubernetes clusters. For Kubernetes, the CD-as-a-Service control plane uses an RNA's ServiceAccount credentials to automatically register the cluster the RNA is installed in as a deployment target. Once you install the RNA in your cluster, you don't need to update it beyond security updates since deployment logic is encapsulated in CD-as-a-Service's centralized control plane.
 
-Once you install the RNA in your cluster, you don't need to update it beyond security updates. Deployment logic is encapsulated in server-side services.
+See the [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) overview for details.
 
-#### Kubernetes permissions for the Remote Network Agent
+### Agent Hub
 
-By default, the RNA is installed with full access to your cluster. At a minimum, the RNA needs permissions to create, edit, and delete all `kind` objects that you plan to deploy with CD-as-a-Service, in all namespaces to which you plan to deploy. The RNA also requires network access to any monitoring solutions or webhook APIs that you plan to forward through it. You can modify permissions, proxy configurations, custom annotations, labels, or environment variables by modifying the Helm chart's configurable values.
+_Agent Hub_ routes deployment commands to RNAs and caches data received from them. Agent Hub does not require direct network access to the RNAs since they connect to Agent Hub through an encrypted, long-lived gRPC HTTP2 connection. Agent Hub uses this connection to send deployment commands to the RNA for execution.
 
 ### Command Line Interface (CLI)
 
-Users install the CLI locally. The CLI interacts with Armory CD-as-a-Service via REST API. To deploy an app, the user must either log in using the CLI or pass valid authorization credentials to the `deploy` command.
+The CLI is the primary means of interacting with CD-as-a-Service. You can use the CLI directly or with machine-to-machine credentials to automate deployments in your CI system.
 
-### GitHub Action (GHA)
+Armory distributes the CLI as native binaries (amd64 and arm64) for Linux, Mac, and Windows as well as a Docker image.
 
-You can use the `armory/cli-deploy-action` to trigger a deployment from your GitHub workflow. The GitHub Action interacts with Armory CD-as-a-Service via REST API. The GHA requires a valid Client ID and Client Secret be passed to the deploy command.
+See {{< linkWithLinkTitle "cli.md" >}} for details.
 
-### Spinnaker plugin
+### Cloud Console (UI)
 
-{{< include "desc-plugin.md" >}}
+_Cloud Console_ is the browser-based UI for CD-as-a-Service. You can visually monitor and interact with your deployments on the **Deployments** screen. If you're an Admin, you can use the **Configure** screens to perform tasks such as:
+
+ - Configuring integrations with external services such as Prometheus, New Relic, and Datadog
+ - Creating machine-to-machine credentials
+ - Creating secrets
+ - Configuring RBAC
+ - Inviting users
+ - Monitoring your Remote Network Agents
 
 ## Networking
 
 {{< include "req-networking.md" >}}
-
-## {{% heading "nextSteps" %}}
-
-* {{< linkWithTitle "get-started/quickstart.md" >}}
