@@ -18,7 +18,7 @@ To get started with CD-as-a-Service or when adding a new deployment target witho
 
 Refer to the [Architecture]({{< ref "architecture" >}}) page for more details on how the RNA fits in with the rest of the CD-as-a-Service core components.
 
-## Core Features
+## Core features
 
 ### Kubernetes Cluster Mode
 
