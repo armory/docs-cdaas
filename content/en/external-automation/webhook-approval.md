@@ -1,6 +1,6 @@
 ---
-title: Configure a Webhook in the Deployment File
-linkTitle: Configure a Webhook
+title: Configure Webhook-Based Approval in the Deployment Config File
+linkTitle: Configure Webhook Approval
 weight: 5
 description: >
   Configure a webhook-based approval into your Armory CD-as-a-Service app deployment process.
@@ -10,7 +10,46 @@ tags: ["Webhooks", "GitHub", "Automation"]
 
 ## {{% heading "prereq" %}}
 
-You are familiar with [using external automation]({{< ref "webhooks/_index.md" >}}) with CD-as-a-Service 
+You have read {{< linkWithTitle "external-automation/overview.md" >}}.
+
+## Requirements for your webhook and callback
+
+- The webhook must retrieve the callback URI from the payload or query parameters.
+- The callback must use Bearer authorization and include a success value and optional message in the body.
+
+### Retrieve an OAUTH token to use in your callback
+
+Request format:
+
+{{< prism lang="bash"  line-numbers="true" >}}
+curl --request POST \
+  --url https://auth.cloud.armory.io/oauth/token \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data "data=audience=https://api.cloud.armory.io&grant_type=client_credentials&client_id=$CDAAS_CLIENT_ID&client_secret=$CDAAS_CLIENT_SECRET"
+{{< /prism >}}
+
+Example response:
+
+{{< prism lang="json"  line-numbers="true" >}}
+{
+  "access_token": "<very long access token>",
+  "scope": "manage:deploy read:infra:data exec:infra:op read:artifacts:data",
+  "expires_in": 86400,
+  "token_type": "Bearer"
+}
+{{< /prism >}}
+
+### Callback format
+
+{{< prism lang="bash"  line-numbers="true" >}}
+curl --request POST \
+  --url 'https://$CALLBACK_URI' \
+  --header 'Authorization: Bearer $OAUTH_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{"success": true, "mdMessage": "Webhook successful"}'
+{{< /prism >}}
+
+CD-as-a-Service looks for `success` value of `true` or `false` to determine the webhook's success or failure. `mdMessage` should contain a user-friendly message for CD-as-a-Service to display in the UI and write to logs.
 
 ## How to configure a webhook in your deployment file
 
@@ -20,7 +59,7 @@ In your deployment file, you configure your webhook by adding a top-level `webho
 
 ### Configuration examples
 
-The first example configures a GitHub webhook that uses token authorization, with the token value configured as a Armory CD-as-a-Service secret. This webhook requires the callback URI be passed in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
+The first example configures a GitHub webhook that uses token authorization, with the token value configured as a CD-as-a-Service secret. This webhook requires the callback URI be passed in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
 
 {{< prism lang="yaml" line-numbers="true" line="8, 16-17" >}}
 webhooks:
@@ -48,7 +87,7 @@ webhooks:
 {{< /prism >}}
 </br>
 
-The second example configures a webhook that is not accessible from the internet. The `networkMode` is set to `remoteNetworkAgent` and the `agentIdentifier` specifies which Remote Network Agent to use. The `agentIdentifier` value must match the **Agent Identifier** value listed on the **Agents** UI screen. The Authorization Bearer value is configured as a Armory CD-as-a-Service secret. Note that in this example, the callback URI is passed in the header.
+The second example configures a webhook that is not accessible from the internet. The `networkMode` is set to `remoteNetworkAgent` and the `agentIdentifier` specifies which Remote Network Agent to use. The `agentIdentifier` value must match the **Agent Identifier** value listed on the **Agents** UI screen. The Authorization Bearer value is configured as a CD-as-a-Service secret. Note that in this example, the callback URI is passed in the header.
 
 {{< prism lang="yaml" line-numbers="true" line="5-6, 9, 11" >}}
 webhooks:
