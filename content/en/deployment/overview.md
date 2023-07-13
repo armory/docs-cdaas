@@ -15,6 +15,8 @@ Deployment is the encompassing construct that delivers your code to remote envir
 can deliver software to a single environment or multiple environments either in sequence or in parallel
 depending on your [configuration]({{<ref "deployment/create-deploy-config" >}}).
 
+You can define the CD-as-a-Service deployment configuration as a YAML file in a declarative manner. The configuration file can be stored within your source control, enabling code-like management. Deployments can be triggered from your CI system or by utilizing the Armory CLI. Currently, CD-as-a-Service requires a separate deployment configuration file for each application. However, you can deploy multiple Kubernetes deployment objects together as part of a single application. 
+
 ## Defining a Deployment
 
 CD as a Service allows you to decoratively define your deployment configuration using a simple YAML file declaratively. 
