@@ -8,70 +8,9 @@ categories: ["Webhooks", "Features", "Guides"]
 tags: ["Webhooks", "GitHub", "Automation"]
 ---
 
-## When you should use webhook-based approvals
+## {{% heading "prereq" %}}
 
-You can think of webhook-based approvals as a generic extensibility layer that enables you to call any API in any internet-accessible system. You can use a webhook to obtain a decision from a process that is external to Armory CD-as-a-Service.  
-
-### Webhook use cases
-
-**Before deployment**
-
-- Upgrade a database schema
-- Custom approval process
-
-**Within your deployment strategy**
-
-- Check logs and system health
-- Run custom tests
-
-**After deployment**
-
-- Run integration tests in a staging environment
-- Perform metric tests
-- Run security scanners
-
-## How webhook-based approval works
-
-In order to accommodate a long-running process, Armory CD-as-a-Service supports the asynchronous webhook with callback pattern. You define the webhook in your deployment file and add a webhook call in the `constraints` section of your deployment definition or in a canary step.
-
-**Basic flow**
-
-The deployment process:
-1. Encounters a webhook call
-1. Calls the external API
-1. Pauses deployment while waiting for the callback
-1. Receives and processes callback
-   - Success: deployment proceeds
-   - Failure: deployment rolls back
-
-```mermaid
-flowchart LR   
-   A --> B
-   B --> C
-   C --> D
-   D --> E
-   E --> F
-   F -- "Success: true" --> G
-   F -- "Success: false" --> H
-
-   A["Deployment Starts"]
-   B["Webhook Call Triggered<br>Deployment Pauses"]
-   F{"Did the external process<br>succeed or fail?"}
-   G["Deployment Continues"]
-   H["Deployment Rolls Back"]
-
-   subgraph exp [External Process]
-   C["External API<br>Receives Request"]
-   D["Process Runs"]
-   E[Callback to Deployment]
-   end
-```
-
-{{% alert title="Important" color="Primary" %}}
-- If you have a manual approval in your deployment constraint and the webhook callback returns failure, the deployment rolls back without waiting for the manual approval.
-- If Armory CD-as-a-Service hasn't received the webhook callback within 24 hours, the process times out and deployment fails.
-- If an `afterDeployment` webhook callback returns failure, deployment is canceled to all environments that depend on the current environment, _but the current environment is not rolled back_.
-{{% /alert %}}
+You have read {{< linkWithTitle "external-automation/overview.md" >}}.
 
 ## Requirements for your webhook and callback
 
@@ -110,7 +49,7 @@ curl --request POST \
   --data '{"success": true, "mdMessage": "Webhook successful"}'
 {{< /prism >}}
 
-Armory CD-as-a-Service looks for `success` value of `true` or `false` to determine the webhook's success or failure. `mdMessage` should contain a user-friendly message for Armory CD-as-a-Service to display in the UI and write to logs.
+CD-as-a-Service looks for `success` value of `true` or `false` to determine the webhook's success or failure. `mdMessage` should contain a user-friendly message for CD-as-a-Service to display in the UI and write to logs.
 
 ## How to configure a webhook in your deployment file
 
@@ -120,7 +59,7 @@ In your deployment file, you configure your webhook by adding a top-level `webho
 
 ### Configuration examples
 
-The first example configures a GitHub webhook that uses token authorization, with the token value configured as a Armory CD-as-a-Service secret. This webhook requires the callback URI be passed in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
+The first example configures a GitHub webhook that uses token authorization, with the token value configured as a CD-as-a-Service secret. This webhook requires the callback URI be passed in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
 
 {{< prism lang="yaml" line-numbers="true" line="8, 16-17" >}}
 webhooks:
@@ -148,7 +87,7 @@ webhooks:
 {{< /prism >}}
 </br>
 
-The second example configures a webhook that is not accessible from the internet. The `networkMode` is set to `remoteNetworkAgent` and the `agentIdentifier` specifies which Remote Network Agent to use. The `agentIdentifier` value must match the **Agent Identifier** value listed on the **Agents** UI screen. The Authorization Bearer value is configured as a Armory CD-as-a-Service secret. Note that in this example, the callback URI is passed in the header.
+The second example configures a webhook that is not accessible from the internet. The `networkMode` is set to `remoteNetworkAgent` and the `agentIdentifier` specifies which Remote Network Agent to use. The `agentIdentifier` value must match the **Agent Identifier** value listed on the **Agents** UI screen. The Authorization Bearer value is configured as a CD-as-a-Service secret. Note that in this example, the callback URI is passed in the header.
 
 {{< prism lang="yaml" line-numbers="true" line="5-6, 9, 11" >}}
 webhooks:
