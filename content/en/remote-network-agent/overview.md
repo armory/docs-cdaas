@@ -28,7 +28,7 @@ RNA is installed with a service account and its credentials are used by CD-as-a-
 
 See the [Installation Guide](/remote-network-agent/install) to get started and [Production Configuration and Use](/remote-network-agent/production-configuration-and-use) for advanced configuration, such as configuring the service account permissions or opting out of this mode.
 
-### Relaying Traffic to Private Networks
+### Relaying traffic to private networks
 
 When you install the agent configured with Armory credentials into your private network(s). The agent connects to Armory's Agent Hub registering the private network with an agent identifier.
 
