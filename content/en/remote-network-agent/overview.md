@@ -5,7 +5,7 @@ weight: 1
 categories: ["Remote Network Agent", "Features", "Concepts"]
 tags: ["Remote Network Agent"]
 description: >
-  a logicless network relay that enables Armory CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, Kubernetes clusters, etc.
+  a logicless network relay that enables CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, Kubernetes clusters, etc.
 ---
 
 ## Overview
@@ -24,7 +24,7 @@ Please refer to the [Architecture](/architecture) page for more details on how R
 
 When installed into a Kubernetes cluster, RNA can register the cluster as a deployable target from within CD-as-a-Service.
 
-RNA is installed with a service account and its credentials are used by Armory CD-as-a-Service when orchestrating kubernetes deployments.
+RNA is installed with a service account and its credentials are used by CD-as-a-Service when orchestrating Kubernetes deployments.
 
 See the [Installation Guide](/remote-network-agent/install) to get started and [Production Configuration and Use](/remote-network-agent/production-configuration-and-use) for advanced configuration, such as configuring the service account permissions or opting out of this mode.
 
