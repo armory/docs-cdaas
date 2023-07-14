@@ -155,7 +155,7 @@ In order to see some deployment strategies at work, you'll need to deploy your a
    armory deploy start  -f deployment.yaml
    ```
 
-   This command starts your deployment, then returns a **Deployment ID** and a link to your deployment details. 
+   This command starts your deployment, and then returns a **Deployment ID** and a link to your deployment details. 
 
 1. **Monitor your deployment execution.**
 
