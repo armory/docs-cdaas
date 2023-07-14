@@ -115,7 +115,7 @@ strategies:
 ```
 
 
-In your CDaaS config, you can create deployment strategies with as many steps as you want. In this example, the deployment config defines the following strategies:
+In your CD-as-a-Service config, you can create deployment strategies with as many steps as you want. In this example, the deployment config defines the following strategies:
 
 * `rolling`: deploy 100% of the app (staging deployment)
 * `trafficSplit`: 75% to the current version and 25% to the new version (prod deployment)
