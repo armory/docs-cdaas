@@ -28,6 +28,10 @@ pygmentsStyle = "tango"
 # https://www.docsy.dev/docs/adding-content/feedback/#adding-analytics
 googleAnalytics = 'G-W14B82N2D2'
 
+
+# taxonomy
+disableKinds = ["taxonomy", "taxonomyTerm"]
+
 # Docsy is now a Go module; need to map theme dirs to local dirs
 [module]
 proxy = "direct"
