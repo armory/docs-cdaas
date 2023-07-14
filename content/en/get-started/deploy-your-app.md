@@ -9,7 +9,9 @@ tags: ["Deployment", "Quickstart"]
 ---
 
 ## Learning objectives
+In this guide, you use a blue/green strategy to deploy your own app to your Kubernetes cluster. If you don't have a cluster, you can use [kind](https://kind.sigs.k8s.io/) to install Kubernetes locally. 
 
+>If you prefer a web-based, interactive tutorial, see the CD-as-a-Service Console's [**Deploy Your Own App** tutorial](https://next.console.cloud.armory.io/getting-started).
 1. [Create a deployment config file](#create-a-deployment-config-file)
 2. [Deploy your app and monitor its progress](#deploy-your-app)
 
