@@ -10,13 +10,13 @@ tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 
 ## Blue/Green deployment overview
 
-A blue/green strategy shifts traffic from the running version of your software to a new version of your software based on conditions you set. The Armory CD-as-a-Service (CDaaS) blue/green strategy follows these steps:
+A blue/green strategy shifts traffic from the running version of your software to a new version of your software based on conditions you set. The Armory CD-as-a-Service blue/green strategy follows these steps:
 
-1. CDaaS deploys a new version of your software without exposing it to external traffic.
-1. CDaaS executes one or more user-defined steps in parallel. These steps are pre-conditions for exposing the new version of your software to traffic. For example, you may want to run automated metric analysis or wait for manual approval.
-1. After all pre-conditions complete successfully, CDaaS redirects all traffic to the new software version. At this stage of the deployment, the old version of your software is still running but is not receiving external traffic.
-1. Next, CDaaS executes one or more user-defined steps in parallel. These steps are pre-conditions for tearing down the old version of your software. For example, you may want to pause for an hour or wait for an additional automated metric analysis.
-1. After all pre-conditions complete successfully, CDaaS tears down the old version of your software.
+1. CD-as-a-Service deploys a new version of your software without exposing it to external traffic.
+1. CD-as-a-Service executes one or more user-defined steps in parallel. These steps are pre-conditions for exposing the new version of your software to traffic. For example, you may want to run automated metric analysis or wait for manual approval.
+1. After all pre-conditions complete successfully, CD-as-a-Service redirects all traffic to the new software version. At this stage of the deployment, the old version of your software is still running but is not receiving external traffic.
+1. Next, CD-as-a-Service executes one or more user-defined steps in parallel. These steps are pre-conditions for tearing down the old version of your software. For example, you may want to pause for an hour or wait for an additional automated metric analysis.
+1. After all pre-conditions complete successfully, CD-as-a-Service tears down the old version of your software.
 
 ## {{% heading "prereq" %}}
 
