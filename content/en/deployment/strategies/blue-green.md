@@ -22,14 +22,20 @@ A blue/green strategy shifts traffic from the running version of your software t
 
 For this guide, you need the following:
 
-- The [Armory CLI]({{< ref "cli.md" >}}) installed
-- A [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) (RNA) installed in the cluster where you want to deploy your app
+* The [Armory CLI]({{< ref "cli.md" >}}) installed
+  <details><summary>Show me how</summary>
+    {{< include "install-cli.md" >}}
+  </details>
+* A [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) (RNA) installed in the cluster where you want to deploy your app
+  <details><summary>Show me how</summary>
+    {{< include "rna/rna-install-cli.md" >}}
+  </details>
 
 
-## Deploy your active service 
-You need to deploy a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that sends traffic to the current version of your application. This is the `trafficManagement.kubernetes.activeService` field in the YAML configuration.
+## Configure an active service
+You need to have a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that sends traffic to the current version of your application. This is the `trafficManagement.kubernetes.activeService` field in the YAML configuration. This can be pre-existing in your cluster or can be deployed along with your deployment config file.
 
-As an example:
+If you don't have one in your cluster, here is an example:
 ```yaml
 apiVersion: v1
 kind: Service
@@ -49,9 +55,9 @@ spec:
 
 Save the file as `<your-app-service>.yaml` and run `kubectl -n <target-namespace> -f <your-app-service>.yaml` to deploy the service.
 
-## Create a blue/green deployment file
+## Define a blue/green deployment strategy
 
-Create a `blue-green-deployment.yaml` file with the following contents:
+Create a deployment config file with the following contents or amend an existing one with the content in `strategies` and `trafficManagement`:
 
 ```yaml
 version: v1
@@ -60,12 +66,12 @@ application: <your-app-name> # the name of your app
 targets:
   staging:  
     account: <your-remote-network-agent-identifier> # the name of the RNA you installed in your cluster
-    namespace: <your-namespace> # defined in namespace-staging.yaml
-    strategy: blue-green-deploy-strat
+    namespace: <your-namespace> # the namespace you want to deploy to
+    strategy: <name-for-your-blue-green-strategy>
 manifests:
-  - path: manifests/your-app.yaml # replace with the name of your app manifest
+  - path: manifests/<your-app>.yaml # the path to and name of your app manifest
 strategies:
-  blue-green-deploy-strat:
+  <name-for-your-blue-green-strategy>:
     blueGreen:
       redirectTrafficAfter:
         - pause:
@@ -75,14 +81,17 @@ strategies:
             untilApproved: true
 trafficManagement:
     kubernetes:
-      - activeService: <your-app-service>
+      - activeService: <your-app-service> # the name of your app's Kubernetes service
 ```
 
 
    See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for an explanation of the fields under the <code>blueGreen</code> strategies block.
 
+The `redirectTrafficAfter` steps are conditions for exposing the new version of your app to the activeService. You can add multiple steps here and they're all executed in parallel. After all the steps complete successfully, CD-as-a-Service exposes the new version to the activeService.
 
-   The values for `activeService` and `previewService` must match the names of the Kubernetes Service objects you created to route traffic to the current and preview versions of your application. See the [Deployment File Reference]({{< ref "reference/deployment/config-file/traffic-management" >}}) for an explanation of these fields.
+Set the conditions for shutting down the old version of your app under `shutDownOldVersionAfter`. These steps are also executed in parallel. After all the steps complete successfully, CD-as-a-Service deletes the old version.
+
+   The value for `activeService` must match the name of the Kubernetes Service object you created to route traffic to the current version of your application. See the [Deployment File Reference]({{< ref "reference/deployment/config-file/traffic-management" >}}) for an explanation of these fields.
 
 
 ## Redeploy your app
@@ -97,9 +106,9 @@ Monitor the progress and **Approve & Continue** or **Roll back** the blue/green 
 
 
 
-# Optional configuration
+## Optional configuration
 
-## Preview service
+### Preview service
 You can also create a `previewService` Kubernetes Service object so you can programmatically or manually observe the new version of your software before exposing it to traffic via the `activeService`. This is the `trafficManagement.kubernetes.previewService` field in the YAML configuration.
 
 In order to have a separate preview service serving traffic to only your new version, make sure to deploy your new version under a new app name.
@@ -134,7 +143,7 @@ trafficManagement:
 ```
 
 
-## Environment-specific traffic management
+### Environment-specific traffic management
 You can apply the traffic management settings to specific environments with the `targets` field.
 
 ```yaml
