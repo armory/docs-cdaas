@@ -32,7 +32,7 @@ In this guide, you use a blue/green strategy to deploy your own app to your Kube
 
 ### Directory structure
 
-In this guide you will create a deployment config and two simple namespace configs. The namespace manifests should be in a `manifests` directory along with the Kubernetes manifests for deploying your app.
+In this guide you create a deployment config and two simple namespace configs. The namespace manifests should be in a `manifests` directory along with the Kubernetes manifests for deploying your app.
 
 The directory structure should look like this:
 
