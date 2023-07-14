@@ -50,7 +50,9 @@ The directory structure should look like this:
 
 ## Create a deployment config file
 
-First create two manifests for the staging and prod namespaces. These are where you'll deploy your app and also showcases the ability to deploy manifests to specific targets. Save these to the `manifests` directory.
+To illustrate deploying to different targets, you deploy to two namespaces in the same cluster. In production, you would deploy to different clusters. 
+
+First, create two manifests, one for staging (`namespace-staging.yaml`) and the other for prod (`namespace-prod.yaml`). Save these to the `manifests` directory.
 
 
 {{< cardpane >}}
