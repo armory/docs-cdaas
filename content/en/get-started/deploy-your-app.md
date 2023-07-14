@@ -190,7 +190,7 @@ If your initial deployment fails, you should [manually delete]({{< ref "troubles
 
 1. **Issue manual approvals.**
 
-   Approve the deployment to prod again and this time, observe the traffic split on the deployment details page and preview your web app deployment. Issue your manual approval to finish deployment.
+   Approve the deployment to prod and this time, observe the traffic split on the deployment details page. You can also preview your web app deployment. Issue your manual approval to finish deployment.
 
 ## {{% heading "nextSteps" %}}
 
