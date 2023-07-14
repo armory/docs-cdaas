@@ -86,3 +86,28 @@ In addition, because the blue-green strategy maintains the 'blue' environment un
 gives you the ability to instantly roll back to a known stable version should any issues be detected during the deployment. 
 
 ## When to use each strategy
+
+Both the canary and blue-green strategies have trade-offs that can help you determine which strategy is best for your use case. 
+
+### When to use the Canary strategy
+
+Canary is best for use cases where you want to minimize risk by exposing your changes to a small percentage of users and 
+monitor prior to exposing the changes to the majority user base. This allows you to ensure stability and performance of 
+the new version before creating a widespread impact. This minimizes the impact of potential issues on user.
+
+### When to use the Blue-Green strategy
+
+Blue-Green deployments are great when you want the ability to rapidly rollback if issues are detected. Given that both 
+the 'blue' and 'green' environments are running in parallel you have the ability to instantly shift traffic from one to
+the other. 
+
+In addition, the blue-green strategy can give you increased confidence by allowing to your test your changes in the 
+'green' environment before users are exposed to the changes minimizing any potential impacts.
+
+### Summary
+
+If you need to prioritize rapid rollback or running tests in production with no risk of impact to users blue-green is 
+probably the strategy that makes the most sense for your use case. 
+
+Conversely, if you need to prioritize minimizing the impact of issues to the smallest percentage of traffic while rolling out
+changes in a controlled manner the canary strategy is likely the strategy that will work best for you. 
