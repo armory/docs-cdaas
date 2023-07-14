@@ -47,30 +47,7 @@ spec:
       protocol: TCP
 ```
 
-
-## (Optional) Deploy your preview service
-You can also create a `previewService` Kubernetes Service object so you can programmatically or manually observe the new version of your software before exposing it to traffic via the `activeService`. This is the `trafficManagement.kubernetes.previewService` field in the YAML configuration. 
-
-In order to have a separate preview service serving traffic to only your new version, make sure to deploy your new version under a new app name. 
-
-Then create a new service that exposes traffic internally only, putting your new app name in the appropriate fields below:
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: <your-new-app-service>
-  labels:
-    app: <your-new-app-name>
-spec:
-  selector:
-    app: <your-new-app-name>
-  ports:
-    - name: gate-tcp
-      port: 80
-      protocol: TCP
-      targetPort: 9001
-```
+Save the file as `<your-app-service>.yaml` and run `kubectl -n <target-namespace> -f <your-app-service>.yaml` to deploy the service.
 
 ## Create a blue/green deployment file
 
@@ -97,10 +74,8 @@ strategies:
         - pause:
             untilApproved: true
 trafficManagement:
-  - targets: ['staging']  # optionally apply this to only one environment, if you have multiple environments
     kubernetes:
       - activeService: <your-app-service>
-        previewService: <your-new-app-service>  # optional
 ```
 
 
@@ -122,3 +97,50 @@ Monitor the progress and **Approve & Continue** or **Roll back** the blue/green 
 
 
 
+# Optional configuration
+
+## Preview service
+You can also create a `previewService` Kubernetes Service object so you can programmatically or manually observe the new version of your software before exposing it to traffic via the `activeService`. This is the `trafficManagement.kubernetes.previewService` field in the YAML configuration.
+
+In order to have a separate preview service serving traffic to only your new version, make sure to deploy your new version under a new app name.
+
+Then create a new service that exposes traffic internally only, putting your new app name in the appropriate fields below:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: <your-new-app-service>
+  labels:
+    app: <your-new-app-name>
+spec:
+  selector:
+    app: <your-new-app-name>
+  ports:
+    - name: gate-tcp
+      port: 80
+      protocol: TCP
+      targetPort: 9001
+```
+
+Add the preview service next to the active service in the `trafficManagement` block:
+
+```yaml
+...
+trafficManagement:
+    kubernetes:
+      - activeService: <your-app-service>
+        previewService: <your-new-app-service>  # optional
+```
+
+
+## Environment-specific traffic management
+You can apply the traffic management settings to specific environments with the `targets` field.
+
+```yaml
+...
+trafficManagement:
+  - targets: ['staging']  # optionally apply this to only one environment, if you have multiple environments
+    kubernetes:
+      - activeService: <your-app-service>
+```
