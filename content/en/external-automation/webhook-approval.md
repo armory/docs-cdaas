@@ -3,30 +3,60 @@ title: Configure Webhook-Based Approval in the Deployment Config File
 linkTitle: Configure Webhook Approval
 weight: 5
 description: >
-  Configure a webhook-based approval into your Armory CD-as-a-Service app deployment process.
+  Configure external automation (webhook-based approval) in your Armory CD-as-a-Service app deployment process.
 categories: ["Webhooks", "Features", "Guides"]
 tags: ["Webhooks", "GitHub", "Automation"]
 ---
 
 ## {{% heading "prereq" %}}
 
-You have read {{< linkWithTitle "external-automation/overview.md" >}}.
+You have read {{< linkWithTitle "external-automation/overview.md" >}}, which explains how webhook-based approval works in CD-as-a-Service.
 
-## Requirements for your webhook and callback
+In order to configure webhook-based approval, you should have the following:
 
-- The webhook must retrieve the callback URI from the payload or query parameters.
-- The callback must use Bearer authorization and include a success value and optional message in the body.
+1. The URL of your webhook
+1. [Client Credentials (Client ID and Client Secret)]({{< ref "iam/manage-client-creds.md" >}}) with **Deployments Full Access** permission. You need these to fetch an OATH token to use in the callback that sends the webhook result to CD-as-a-Service.
 
-### Retrieve an OAUTH token to use in your callback
+   <details><summary>Show me how</summary>
+   {{< include "client-creds.md" >}}
+   </details>
+1. 
+
+
+## Steps to use webhook-based approval
+
+1. Configure your external automation job
+
+
+## Configure your external automation job
+
+Your external automation job needs to perform these tasks:
+
+1. Fetch an OAUTH token and callback URI from CD-as-a-Service.
+
+   You need to include your Client ID and Client Secret.
+
+   {{< prism lang="bash"  line-numbers="true" >}}
+   curl --request POST \
+    --url https://auth.cloud.armory.io/oauth/token \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data "data=audience=https://api.cloud.armory.io&grant_type=client_credentials&client_id=$CDAAS_CLIENT_ID&client_secret=$CDAAS_CLIENT_SECRET"
+   {{< /prism >}}
+
+
+
+1. Use the callback URI and token to send a the job outcome to CD-as-a-Service.
+
+   - The callback must use Bearer authorization and include a success value and optional message in the body.
+
+
+
+
+## How to retrieve an OAUTH token to use in your callback
 
 Request format:
 
-{{< prism lang="bash"  line-numbers="true" >}}
-curl --request POST \
-  --url https://auth.cloud.armory.io/oauth/token \
-  --header 'Content-Type: application/x-www-form-urlencoded' \
-  --data "data=audience=https://api.cloud.armory.io&grant_type=client_credentials&client_id=$CDAAS_CLIENT_ID&client_secret=$CDAAS_CLIENT_SECRET"
-{{< /prism >}}
+
 
 Example response:
 
@@ -59,7 +89,7 @@ In your deployment file, you configure your webhook by adding a top-level `webho
 
 ### Configuration examples
 
-The first example configures a GitHub webhook that uses token authorization, with the token value configured as a CD-as-a-Service secret. This webhook requires the callback URI be passed in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
+The first example configures a GitHub webhook that uses token authorization, with the token value configured as a CD-as-a-Service secret. This webhook requires you to pass the callback URI in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
 
 {{< prism lang="yaml" line-numbers="true" line="8, 16-17" >}}
 webhooks:
