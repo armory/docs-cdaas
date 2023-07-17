@@ -52,11 +52,10 @@ For deployment config file details, see {{< linkWithTitle "deployment/create-dep
 
 ### Targets
 Within a deployment, you define targets that are equivalent to the environments you are deploying to.
-
 For example, you may define staging, production-west, and production-east deployment targets.
 
-You can configure each deployment target/environment to use a [unique strategy]({{< ref "deployment/strategies/overview" >}})
-to orchestrate how your code is deployed and your traffic is routed.
+You can configure each deployment target to use a [unique strategy]({{< ref "deployment/strategies/overview" >}}) that 
+defines how to deploy your software and route traffic.
 
 #### Target constraints
 You can also configure your deployment targets to use constraints that prevent a deployment from beginning or completing until certain 
@@ -65,18 +64,19 @@ environment before promoting that code to production.
 
 Constraints can be set as either `beforeDeployment` or `afterDeployment` depending on your use case. 
 
-For info on configuring constraints, see the [CD-as-a-Service reference docs]({{< ref "reference/deployment/config-file/targets#targetstargetnameconstraints" >}})
-
 CD-as-a-Service offers you multiple constraint options including: 
-##### DependsOn
-The dependsOn constraint allows you to specify environments that must successfully complete prior to starting this target's deployment. 
+*  `dependsOn`  
+   Use `dependsOn` to specify a target deployment that must successfully complete prior to starting this target's deployment.
+*  `pause`  
+   Use `pause` to pause a deployment for a set period of time or until an authorized user issues an approval.
 
 
-##### Manual Approvals and Pauses
+**Example**
 
-The pause constraint allows you to pause a deployment for a set period of time or until an authorized user issues an approval. 
-
-You can configure a  Kubernetes deployment target like this: 
+In the following example, you have two Kubernetes deployment targets: `target-1` and `target-2`.  You want deployment to
+`target-2` to depend on successful deployment to `target-1`, so you add a `dependsOn` constraint to `target-2`. 
+Additionally, you want to manually approve deployment to `target-2`. In the `constraints` section, you add a 
+`beforeDeployment` constraint with a `pause`.
 
 ```yaml
 targets:
@@ -94,6 +94,8 @@ targets:
         - pause: # a pause constraint that will pause the execution of the deployment until an authorized user gives an approval
             untilApproved: true
 ```
+For info on configuring constraints, see the [CD-as-a-Service reference docs]({{< ref "reference/deployment/config-file/targets#targetstargetnameconstraints" >}})
+
 ### Manifests
 
 To deploy your software using CD-as-a-Service, you need tell CD-as-a-Service where to find your Kubernetes manifests.
