@@ -11,9 +11,7 @@ tags: ["Deploy Strategy", "Canary", "Blue/Green", "Kubernetes"]
 
 
 ## What a deployment is
-Deployment is the encompassing construct that delivers your code to remote environments. A deployment
-can deliver software to a single environment or multiple environments either in sequence or in parallel
-depending on your [configuration]({{<ref "deployment/create-deploy-config" >}}).
+A _deployment_ encompasses the manifests, artifacts, configuration, and actions that deliver your code to remote environments. You can configure a deployment to deliver software to a single environment or multiple environments, either in sequence or in parallel depending on your [deployment configuration]({{<ref "deployment/create-deploy-config" >}}).
 
 You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. You trigger deployments using the Armory CLI, either from your CI system or your workstation. Although CD-as-a-Service requires a separate deployment configuration file for each app, you can deploy multiple Kubernetes Deployment objects together as part of a single app. 
 
