@@ -116,10 +116,6 @@ A deployment strategy is the method by which CD-as-a-Service deploys your change
 
 Armory CD-as-a-Service offers two distinct deployment strategies that each have various trade-offs.
 
-For more details as to what deployment strategies are and how they differ, please see our [overview on the subject]({{< ref "deployment/strategies/overview" >}})
-
-CD-as-a-Service offers two distinct deployment strategies:
-
 * Canary
 
   A canary deployment involves releasing a new software version to a small subset of users or systems while leaving the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance and stability. If the canary users experience positive results, the new version can be gradually rolled out to a wider audience.
