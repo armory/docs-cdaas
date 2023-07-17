@@ -29,7 +29,7 @@ CD-as-a-Service provides the following steps as part of a canary deployment:
 - `analysis`: Use the CD-as-a-Service Automated Canary Analysis feature to perform metrics analysis on your deployment. Based on the results of the queries, the deployment can automatically continue or roll back.
 - `runWebhook`: Leverage your existing tooling to run external jobs such as API tests and database migrations. Deployments can automatically continue, pause or roll back based on the result of the external job. 
 
-### Example Canary Deployment Strategy
+### Example Steps in a Canary Deployment Strategy
 Engineers often implement a canary strategy with steps that may look something like this:
 
 1. You identify the amount of traffic you would like to expose to the new version
@@ -46,7 +46,7 @@ In addition, a canary deployment strategy enables providing a better user experi
 
 ## Blue/Green deployment strategy
 The blue/green is one where you deploy and maintain two identical production environments throughout 
-the execution of the deployment. In this strategy, you maintain a 'blue' and a 'green' production environment. The 'blue' environment contains the latest known stable version of your application (usually the version you are replacing with the new version) while the 'green' environment contains the changes you are currently deploying. 
+the execution of the deployment. In this strategy, you maintain a 'blue' and a 'green' production environment. The 'blue' environment contains the latest known stable version of your app (usually the version you are replacing with the new version) while the 'green' environment contains the changes you are currently deploying. 
 
 Once you deploy to the 'green' environment, traffic continues to flow exclusively to the 'blue' environment, allowing you to validate and test the changes in your 'green' environment. You can do this via manual testing, automated testing, or any other validation method you may use. 
 
@@ -67,7 +67,7 @@ Details on each of these steps and their usage can be found in the [blue-green s
 - runWebhook - Allows you to execute tests and scripts using your existing tooling, paired with `exposeServices` you can leverage this step to execute automated tests against the 'green' environment.  
 - `runWebhook`: Leverage your existing tooling to run external jobs such as API tests and database migrations. Deployments can automatically continue, pause or roll back based on the result of the external job. Paired with `exposeServices`, this step can execute automated tests against the 'green' environment.
 ### Benefits of the Blue-Green Deployment Strategy
-The blue/green deployment strategy gives you the benefits of running tests against a full copy of your production environment prior to any traffic being routed to the new version. This gives you for zero downtime deployments and reduced risk when exposing users to new versions of your application. 
+The blue/green deployment strategy gives you the benefits of running tests against a full copy of your production environment prior to any traffic being routed to the new version. This gives you for zero downtime deployments and reduced risk when exposing users to new versions of your app. 
 
 In addition, because the blue/green strategy maintains the 'blue' environment until the shutdown conditions are met it, blue/green gives you the ability to instantly roll back to a known stable version should you detect any issues during the deployment. 
 
