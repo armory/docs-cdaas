@@ -29,7 +29,7 @@ CD-as-a-Service provides the following steps as part of a canary deployment:
 - `analysis`: Use the CD-as-a-Service Automated Canary Analysis feature to perform metrics analysis on your deployment. Based on the results of the queries, the deployment can automatically continue or roll back.
 - `runWebhook`: Leverage your existing tooling to run external jobs such as API tests and database migrations. Deployments can automatically continue, pause or roll back based on the result of the external job. 
 
-### Example Steps in a Canary Deployment Strategy
+### Example Deployment Process in a Canary Deployment Strategy
 Engineers often implement a canary strategy with steps that may look something like this:
 
 1. You identify the amount of traffic you would like to expose to the new version
@@ -66,6 +66,17 @@ Use a blue/green strategy, you can specify the following steps as conditions tha
 - `runWebhook`: Leverage your existing tooling to run external jobs such as API tests and database migrations. Deployments can automatically continue, pause or roll back based on the result of the external job. Paired with `exposeServices`, this step can execute automated tests against the 'green' environment.
 
 Details on each of these steps and their usage can be found in the [blue-green strategy guide]({{<ref "deployment/strategies/blue-green">}})
+
+### Example Deployment Process in a Blue/Green Strategy
+Engineers often implement a canary strategy with steps that may look something like this:
+
+1. A new "green" environment running your changes is created without any traffic being routed to it
+1. You expose the "green" environment internally using the CD-as-a-Service [preview feature]({{<ref "reference/deployment/config-preview-link">}}). 
+1. You execute your test plan against the "green" environment 
+1. Once your testing and approval requirements are met traffic is shifted to the "green"
+1. You monitor the "green" environment until a set of requirements is fulfilled (such as manual approvals, canary analysis, or automated testing passes)
+1. Once your requirements are fulfilled the "blue" environment is shut down and the leaving only the new version running.
+
 ### Benefits of the Blue-Green Deployment Strategy
 The blue/green deployment strategy gives you the benefits of running tests against a full copy of your production environment prior to any traffic being routed to the new version. This gives you for zero downtime deployments and reduced risk when exposing users to new versions of your app. 
 
