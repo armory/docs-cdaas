@@ -10,19 +10,19 @@ tags: ["Deploy Strategy", "Canary", "Blue/Green", "Kubernetes"]
 
 
 
-## What is a Deployment
+## What a deployment is
 Deployment is the encompassing construct that delivers your code to remote environments. A deployment
 can deliver software to a single environment or multiple environments either in sequence or in parallel
 depending on your [configuration]({{<ref "deployment/create-deploy-config" >}}).
 
-You can define the CD-as-a-Service deployment configuration as a YAML file in a declarative manner. The configuration file can be stored within your source control, enabling code-like management. Deployments can be triggered from your CI system or by utilizing the Armory CLI. Currently, CD-as-a-Service requires a separate deployment configuration file for each application. However, you can deploy multiple Kubernetes deployment objects together as part of a single application. 
+You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. You trigger deployments using the Armory CLI, either from your CI system or your workstation. Although CD-as-a-Service requires a separate deployment configuration file for each app, you can deploy multiple Kubernetes Deployment objects together as part of a single app. 
 
-## Defining a Deployment
+## Defining your deployment
 
-CD as a Service allows you to decoratively define your deployment configuration using a simple YAML file declaratively. 
+CD-as-a-Service enables you to declaratively define your deployment configuration in YAML file. 
 At its core you only need to provide only three pieces of information:
 
-* The environment/target you want to deploy to
+* The target environment you want to deploy to
 * The artifacts you want to have deployed
 * The deployment strategy you want to use for the deployment
 
@@ -46,27 +46,26 @@ strategies:
       
 ```
 
-For more details, you can see our guide on how to [create your deployment configuration]({{<ref "deployment/create-deploy-config" >}}). 
+For deployment config file details, see {{< linkWithTitle "deployment/create-deploy-config.md" >}}.
 
-## Elements of a Deployment
+## Elements of a deployment
 
-### Deployment Targets/Environments
-Within a deployment, you can define deployment targets that are equivalent to the environments you are
-deploying to.
+### Targets
+Within a deployment, you define targets that are equivalent to the environments you are deploying to.
 
 For example, you may define staging, production-west, and production-east deployment targets.
 
 You can configure each deployment target/environment to use a [unique strategy]({{< ref "deployment/strategies/overview" >}})
 to orchestrate how your code is deployed and your traffic is routed.
 
-#### Deployment Target Constraints
+#### Target constraints
 You can also configure your deployment targets to use constraints that prevent a deployment from beginning or completing until certain 
 conditions are met. For example, you can configure your deployment to wait for your code to be deployed to your staging
 environment before promoting that code to production.
 
-Constraints can be set as either `beforeDeployment` or `afterDeployment` depending on your use-case. 
+Constraints can be set as either `beforeDeployment` or `afterDeployment` depending on your use case. 
 
-Information on configuring constraints can be found in the [CD-as-a-Service reference docs]({{< ref "reference/deployment/config-file/targets#targetstargetnameconstraints" >}})
+For info on configuring constraints, see the [CD-as-a-Service reference docs]({{< ref "reference/deployment/config-file/targets#targetstargetnameconstraints" >}})
 
 CD-as-a-Service offers you multiple constraint options including: 
 ##### DependsOn
@@ -95,13 +94,11 @@ targets:
         - pause: # a pause constraint that will pause the execution of the deployment until an authorized user gives an approval
             untilApproved: true
 ```
-### Deployment Manifests
+### Manifests
 
-Deploying your code with Armory CD-as-a-Service requires telling the CD-as-a-Service platform what artifacts should be 
-deployed. To accomplish this 
-you need to provide your Kubernetes manifests to Armory. 
+To deploy your software using CD-as-a-Service, you need tell CD-as-a-Service where to find your Kubernetes manifests.
 
-Manifests can be deployed to all environments or specific environments using a simple configuration: 
+You can deploy your manifests to all environments or specific environments using a basic configuration: 
 
 ```yaml
 manifests:
@@ -110,12 +107,10 @@ manifests:
     targets: ["target-2"]
 ```
              
-Manifest paths are relative to the directory from which you run the `armory deploy` command.
+>Manifest paths are relative to the directory from which you run the `armory deploy` command.
 
-### Deployment Strategies 
-A deployment strategy is the method by which your changes are deployed to a target. Strategies can use different techniques
-to allow for rapid rollback should a problem be discovered, minimizing the impact of potential issues to a small subset of users, 
-or can be optimized for speed. 
+### Strategies 
+A deployment strategy is the method by which CD-as-a-Service deploys your changes to a target. Strategies can use different techniques to allow for rapid rollback should a problem be discovered, minimizing the impact of potential issues to a small subset of users. You could also use a strategy optimized for speed. 
 
 Armory CD-as-a-Service offers two distinct deployment strategies that each have various trade-offs.
 
