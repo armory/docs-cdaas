@@ -8,7 +8,7 @@ categories: ["Deployment", "Guides"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 ---
 
-## Blue/Green deployment overview
+## How CD-as-a-Service implements Blue/Green
 
 A blue/green strategy shifts traffic from the running version of your software to a new version of your software based on conditions you set. The Armory CD-as-a-Service blue/green strategy follows these steps:
 
@@ -20,44 +20,51 @@ A blue/green strategy shifts traffic from the running version of your software t
 
 ## {{% heading "prereq" %}}
 
-For this guide, you need the following:
+For a blue/green strategy, you need your Kubernetes service and your deployment object.
 
-* The [Armory CLI]({{< ref "cli.md" >}}) installed
-  <details><summary>Show me how</summary>
-    {{< include "install-cli.md" >}}
+* **Kubernetes Service object**
+
+  A [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that sends traffic to the current version of your application. This can be pre-existing in your cluster or can be deployed along with your deployment config file.
+
+  <details><summary>Show me an example service to apply.</summary>
+
+  ```yaml
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: <your-app-service>
+    labels:
+      app: <your-app-name>
+  spec:
+    selector:
+      app: <your-app-name>
+    ports:
+      - name: http
+        port: 80
+        targetPort: 9001
+        protocol: TCP
+  ```
   </details>
-* A [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) (RNA) installed in the cluster where you want to deploy your app
-  <details><summary>Show me how</summary>
-    {{< include "rna/rna-install-cli.md" >}}
-  </details>
+
+<br>
+
+* **Deployment object**
+Your app!
 
 
-## Configure an active service
-You need to have a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that sends traffic to the current version of your application. This is the `trafficManagement.kubernetes.activeService` field in the YAML configuration. This can be pre-existing in your cluster or can be deployed along with your deployment config file.
-
-If you don't have one in your cluster, here is an example:
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: <your-app-service>
-  labels:
-    app: <your-app-name>
-spec:
-  selector:
-    app: <your-app-name>
-  ports:
-    - name: http
-      port: 80
-      targetPort: 9001
-      protocol: TCP
-```
-
-Save the file as `<your-app-service>.yaml` and run `kubectl -n <target-namespace> -f <your-app-service>.yaml` to deploy the service.
 
 ## Define a blue/green deployment strategy
 
-Create a deployment config file with the following contents or amend an existing one with the content in `strategies` and `trafficManagement`:
+When you define your blue/green strategy, you need the following required fields:
+
+// TODO(Aimee): bullet formatting pleeeease
+* `redirectTrafficAfter`: The `redirectTrafficAfter` steps are conditions for exposing the new version of your app to the activeService. You can add multiple steps here and they're all executed in parallel. After all the steps complete successfully, CD-as-a-Service exposes the new version to the activeService.
+
+* Set the conditions for shutting down the old version of your app under `shutDownOldVersionAfter`. These steps are also executed in parallel. After all the steps complete successfully, CD-as-a-Service deletes the old version.
+
+* The value for `activeService` must match the name of the Kubernetes Service object you created to route traffic to the current version of your application. See the [Deployment File Reference]({{< ref "reference/deployment/config-file/traffic-management" >}}) for an explanation of these fields.
+
+The basic format for your deployment config file is:
 
 ```yaml
 version: v1
@@ -74,46 +81,28 @@ strategies:
   <name-for-your-blue-green-strategy>:
     blueGreen:
       redirectTrafficAfter:
-        - pause:
-            untilApproved: true
+        - pause:        # an example step, see below for all options
+            untilApproved: true   
       shutDownOldVersionAfter:
-        - pause:
-            untilApproved: true
+        - <choose your steps>
 trafficManagement:
     kubernetes:
       - activeService: <your-app-service> # the name of your app's Kubernetes service
 ```
 
 
-   See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for an explanation of the fields under the <code>blueGreen</code> strategies block.
-
-The `redirectTrafficAfter` steps are conditions for exposing the new version of your app to the activeService. You can add multiple steps here and they're all executed in parallel. After all the steps complete successfully, CD-as-a-Service exposes the new version to the activeService.
-
-Set the conditions for shutting down the old version of your app under `shutDownOldVersionAfter`. These steps are also executed in parallel. After all the steps complete successfully, CD-as-a-Service deletes the old version.
-
-   The value for `activeService` must match the name of the Kubernetes Service object you created to route traffic to the current version of your application. See the [Deployment File Reference]({{< ref "reference/deployment/config-file/traffic-management" >}}) for an explanation of these fields.
-
-
-## Redeploy your app
-
-Make a change to your app, such as the number of replicas, and redeploy it with the CLI:
-
-```bash
-armory deploy start  -f <your-deploy-file>.yaml
-```
-
-Monitor the progress and **Approve & Continue** or **Roll back** the blue/green deployment in the UI.
+See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for an explanation of all the fields under the <code>blueGreen</code> strategies block.
 
 
 
 ## Optional configuration
 
 ### Preview service
-You can also create a `previewService` Kubernetes Service object so you can programmatically or manually observe the new version of your software before exposing it to traffic via the `activeService`. This is the `trafficManagement.kubernetes.previewService` field in the YAML configuration.
+With Blue/Green strategy, you can programmatically or manually observe the new version of your software before exposing it to traffic. You can accomplish this by defining a previewService in the deployment configuration in the trafficManagement block.
 
-In order to have a separate preview service serving traffic to only your new version, make sure to deploy your new version under a new app name.
-
-Then create a new service that exposes traffic internally only, putting your new app name in the appropriate fields below:
+The `previewService` is the name of a Kubernetes Service object, that points to the deployment object. This service needs to exist on your cluster, or can be deployed alongside your application with CD-as-a-Service. The previewService must be a different service than the one used for activeService.
+When creating the Replicaset for the new version, CD-as-a-Service will inject the labels into preview service, so that the preview Service points to the new version of application.
+<details><summary>Show me an example preview service.</summary>
 
 ```yaml
 apiVersion: v1
@@ -131,6 +120,9 @@ spec:
       protocol: TCP
       targetPort: 9001
 ```
+</details>
+
+<br>
 
 Add the preview service next to the active service in the `trafficManagement` block:
 
@@ -143,13 +135,17 @@ trafficManagement:
 ```
 
 
-### Environment-specific traffic management
-You can apply the traffic management settings to specific environments with the `targets` field.
+### Target-specific traffic management
+You can apply the traffic management settings to specific targets with the `targets` field.
 
 ```yaml
 ...
 trafficManagement:
-  - targets: ['staging']  # optionally apply this to only one environment, if you have multiple environments
+  - targets: ['staging']  # optionally apply this to only one target, if you have multiple target
     kubernetes:
       - activeService: <your-app-service>
 ```
+
+### Canary Analysis
+### Webhooks
+### Pause
