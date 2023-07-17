@@ -116,17 +116,15 @@ Armory CD-as-a-Service offers two distinct deployment strategies that each have 
 
 For more details as to what deployment strategies are and how they differ, please see our [overview on the subject]({{< ref "deployment/strategies/overview" >}})
 
-#### The Canary Strategy
-A canary deployment involves releasing a new software version to a small subset of users or systems while leaving 
-the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance
-and stability. If the canary users experience positive results, the new version can be gradually rolled out to a wider 
-audience.
+CD-as-a-Service offers two distinct deployment strategies:
 
-For more details on Canary deployments and how to configure them, you can reference the [canary strategy documentation]({{< ref "deployment/strategies/canary" >}}) 
-              
-#### The Blue-Green Strategy
-In a blue-green deployment, two identical environments, blue and green, are maintained. The blue 
-environment represents the current production version, while the green environment represents the new version being 
-deployed. The new version is deployed and tested in the green environment, and once validated, traffic is routed to green instead of blue. This strategy minimizes downtime and provides a quick rollback option if issues arise.
+* Canary
 
-For more details on blue-green deployments and how to configure them, you can reference the [blue-green strategy documentation]({{< ref "deployment/strategies/blue-green" >}})
+  A canary deployment involves releasing a new software version to a small subset of users or systems while leaving the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance and stability. If the canary users experience positive results, the new version can be gradually rolled out to a wider audience.
+
+* Blue/Green
+
+  In a blue/green deployment, you maintain two identical environments, blue and green. The blue environment represents the current production version, while the green environment represents the new version that is being deployed. The new version is deployed and tested in the green environment, and once validated, CD-as-a-Service routes traffic is to green instead of blue. This strategy minimizes downtime and provides a quick rollback option if issues arise.
+
+
+For more details as to what deployment strategies are and how they differ, see ({{< linkWithTitle "deployment/strategies/overview.md" >}}).
