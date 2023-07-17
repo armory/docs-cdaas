@@ -94,7 +94,7 @@ the new version before creating a widespread impact. This minimizes the impact o
 
 ### When to use the Blue-Green strategy
 
-Blue-Green deployments are great when you want the ability to rapidly rollback if issues are detected. Given that both 
+Blue-Green deployments are great when you want the ability to rapidly roll back if issues are detected. Given that both 
 the 'blue' and 'green' environments are running in parallel you have the ability to instantly shift traffic from one to
 the other. 
 
