@@ -101,6 +101,9 @@ In addition, the blue/green strategy can give you increased confidence by allowi
 'green' environment as a dark deployment before users are exposed to the changes minimizing any potential impacts. This 
 can be accomplished using the [CD-as-a-Service Preview Service]({{<ref "reference/deployment/config-preview-link">}})
 
+Blue/Green deployment strategy is very simple to get started with and is recommended if you are just getting started 
+with adopting advanced deployment strategies.
+
 ### Summary
 
 If you need to prioritize rapid rollback or running tests in production with no risk of impact to users blue/green is 
