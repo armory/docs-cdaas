@@ -8,7 +8,7 @@ categories: ["Deployment Strategies", "Features", "Concepts"]
 tags: ["Canary", "Blue/Green"]
 ---
 
-## What is a deployment strategy
+## What is a deployment strategy?
 
 A deployment strategy is the procedure that CD-as-a-Service uses to deploy your changes to a deployment target. Different strategies prioritize different benefits such as speed, ability to rollback, and minimizing risk to a small subset of users.  CD-as-a-Service offers two different deployment strategies that you can customize to meet your needs and priorities: [canary](#canary-deployment-strategy) and [blue/green](#bluegreen-deployment-strategy).
 
