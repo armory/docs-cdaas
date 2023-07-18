@@ -1,9 +1,9 @@
 ---
-title: "Blue/Green Deployment Strategy"
+title: "Blue/Green Deployment Strategy Guide"
 linkTitle: "Blue/Green"
 weight: 5
 description: >
-  Learn how to configure a blue/green strategy shifts, which traffic from the running version of your app to a new version of your app based on conditions you set. 
+  Learn how to configure a blue/green strategy in Armory CD-as-a-Service. A blue/green strategy shifts traffic from the running version of your app to a new version of your app based on conditions you set. 
 categories: ["Deployment", "Guides"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 ---
@@ -317,4 +317,5 @@ You can use a webhook-based approval as a step in the `redirectTrafficAfter` sec
 
 ## {{% heading "nextSteps" %}}
 
-See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for an explanation of all the fields under the <code>blueGreen</code> strategies block.
+* See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for detailed field explanations.
+* 
