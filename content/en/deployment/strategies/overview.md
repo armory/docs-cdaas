@@ -91,6 +91,13 @@ Canary is best for use cases where you want to minimize risk by exposing your ch
 monitor prior to exposing the changes to the majority user base. This allows you to ensure stability and performance of 
 the new version before creating a widespread impact. This minimizes the impact of potential issues on user.
 
+To use a canary strategy effectively, the performance of the canary version needs to be accurately measured. 
+Additionally, it is necessary to determine if the performance of the canary falls within an acceptable range. For 
+instance, a common metric used is the percentage of 5xx responses in the canary version. While integrating monitoring 
+tools to conduct canary analysis is straightforward, finding the correct thresholds for health metrics can be challenging. 
+A canary strategy is suited for you, if you are already aware of metrics and thresholds that determine the health of your 
+application.
+
 ### When to use the blue/green strategy
 
 Blue/Green deployments are great when you want the ability to rapidly roll back if issues are detected. Given that both 
