@@ -11,7 +11,7 @@ tags: ["Deployment", "Quickstart"]
 ## Learning objectives
 
 1. [Sign up for CD-as-a-Service](#sign-up-for-cd-as-a-service).
-1. [Install the CD-as-as-Service CLI](#install-the-cd-as-as-service-cli) on your Mac or Linux workstation.
+1. [Install the CD-as-as-Service CLI](#install-the-cd-as-as-service-cli) on your Mac, Linux, or Windows workstation.
 1. [Connect your Kubernetes cluster](#connect-your-cluster) to CD-as-a-Service.
 1. [Deploy Armory's sample app](#deploy-the-sample-app) `potato-facts` to two environments: `staging` and `prod`.
    * Use the CD-as-a-Service Console to approve an environment promotion.
@@ -32,7 +32,7 @@ tags: ["Deployment", "Quickstart"]
 
 ## Install the CD-as-as-Service CLI
 
-{{< include "install-cli.md" >}}
+{{< include "cli/install-cli-tabpane.md" >}}
 
 ### Log in with the CLI
 
