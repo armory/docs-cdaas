@@ -1,5 +1,5 @@
 ---
-title: "Canary Deployment Strategy"
+title: Canary Deployment Strategy Guide
 linktitle: "Canary"
 weight: 5
 description: >
