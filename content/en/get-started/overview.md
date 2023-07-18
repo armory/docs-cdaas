@@ -10,7 +10,7 @@ tags: ["Quickstart", "Deployment"]
 
 ## What you need to use CD-as-a-Service
 
-You need a Mac, Linux, or Windows workstation and access to a Kubernetes cluster. If you need a cluster, consider installing a local [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/) or [Minikube](https://minikube.sigs.k8s.io/docs/start/) cluster.  Your cluster's API endpoint does not need to be publicly accessible to use CD-as-a-Service.
+You need a Mac, Linux, or Windows workstation and access to a Kubernetes cluster. If you need a cluster, consider installing a local [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/) or [Minikube](https://minikube.sigs.k8s.io/docs/start/) cluster. Your cluster's API endpoint does not need to be publicly accessible to use CD-as-a-Service.
 
 ## Deploy a sample app provided by Armory
 
