@@ -18,7 +18,7 @@ tags: ["Remote Network Agent", "CLI"]
 
 1. Install the CLI if you haven't already.
 
-   {{< include "install-cli.md" >}}
+   {{< include "cli/install-cli-tabpane.md" >}}
 
 1. Log in using the CLI.
 
