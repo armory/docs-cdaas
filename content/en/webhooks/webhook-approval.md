@@ -3,7 +3,7 @@ title: Configure External Automation (Webhook-Based) Approval in your Deployment
 linkTitle: Configure Approval
 weight: 5
 description: >
-  Configure external automation (webhook-based approval) in your Armory CD-as-a-Service app deployment process.
+  Configure external automation (webhook-based) approval in your Armory CD-as-a-Service app deployment process.
 categories: ["Webhooks", "Features", "Guides"]
 tags: ["Webhooks", "GitHub", "Automation"]
 ---
