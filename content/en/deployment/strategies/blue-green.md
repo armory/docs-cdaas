@@ -1,5 +1,5 @@
 ---
-title: "Blue/Green Deployment Strategy Guide"
+title: "Configure a Blue/Green Deployment Strategy"
 linkTitle: "Blue/Green"
 weight: 5
 description: >
@@ -10,7 +10,7 @@ tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 
 ## What a blue/green strategy does
 
-A blue/green strategy shifts traffic from the running version of your software (blue) to a new version of your software (green) based on conditions you set. You specify conditions that must be met prior to routing traffic to the new version and before shutting down the old version. See the [Strategies Overview]({{< ref "deployment/strategies/overview" >}}) for details on the advantages of using a blue/green deployment strategy.
+A blue/green strategy shifts traffic from the running version of your software (_blue_) to a new version of your software (_green_) based on conditions you set. You specify conditions that must be met prior to routing traffic to the new version and before shutting down the old version. See the [Strategies Overview]({{< ref "deployment/strategies/overview" >}}) for details on the advantages of using a blue/green deployment strategy.
 
 ## How CD-as-a-Service implements blue/green
 
@@ -20,9 +20,9 @@ A blue/green strategy shifts traffic from the running version of your software (
 1. Next, CD-as-a-Service executes one or more user-defined steps in parallel. These steps are pre-conditions for tearing down the old version of your software. For example, you may want to pause for an hour or wait for an additional automated metric analysis.
 1. After all pre-conditions complete successfully, CD-as-a-Service tears down the old version of your software.
 
-## Artifacts you need
+## {{% heading "prereq" %}}
 
-Before configuring a blue/green strategy, you should have the following:
+Before configuring a blue/green strategy in your [deployment]({{< ref "deployment/overview" >}}), you should have the following:
 
 * Kubernetes Deployment object
   
@@ -30,7 +30,7 @@ Before configuring a blue/green strategy, you should have the following:
 
 * Kubernetes Service object
 
-  Your [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) sends traffic to the current "green" version of your app. This active Service can already exist in your cluster, or you can deploy it along with your app. You declare the name of this service in the `trafficManagement.kubernetes.activeService` field in the deployment config file.
+  Your [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) sends traffic to the current green version of your app. This active Service can already exist in your cluster, or you can deploy it along with your app. You declare the name of this service in the `trafficManagement.kubernetes.activeService` field in the deployment config file.
 
   <details><summary>Show me an example Service object</summary>
 
@@ -71,7 +71,7 @@ strategies:
       shutDownOldVersionAfter:
 ```
 
-* `redirectTrafficAfter`: Define the conditions for exposing the new "blue" version of your app to the active Service. You can add multiple steps, which are all executed in parallel. After all the steps complete successfully, CD-as-a-Service exposes the new version to the active Service.
+* `redirectTrafficAfter`: Define the conditions for exposing the new blue version of your app to the active Service. You can add multiple steps, which are all executed in parallel. After all the steps complete successfully, CD-as-a-Service exposes the new version to the active Service.
   * `pause`: Pause until a condition is true. You can pause for a set amount of time or until you approve a manual judgment in the UI. When you configure a manual judgment, it's a good idea to include `approvalExpiration` so your deployment cancels if nobody issues a manual approval.
     
     {{< cardpane >}}
@@ -223,17 +223,13 @@ spec:
 ```
 </details>
 
-
-
-
-
 ## Optional configuration
 
 ### Preview service
 
 You can programmatically or manually observe the new version of your software before exposing it to traffic. You can accomplish this by defining a preview Service in the`trafficManagement.kubernetes` block.
 
-As with the active Service, you need to create a Kubernetes Service object as the preview Service, which sends traffic to the new "blue" version of your app. The preview Service must be a different Service object than the active Service. The preview Service needs to exist on your cluster, or you can deploy it alongside your app
+As with the active Service, you need to create a Kubernetes Service object as the preview Service, which sends traffic to the new, blue version of your app. The preview Service must be a different Service object than the active Service. The preview Service needs to exist on your cluster, or you can deploy it alongside your app.
 
 When creating the ReplicaSet for the new version, CD-as-a-Service injects the labels into the preview Service, so that the preview Service points to the new version of app.
 
@@ -259,7 +255,7 @@ spec:
 
 <br>
 
-Configure `previewService` in the `trafficManagement.kuberntes` block:
+Configure `previewService` in the `trafficManagement.kubernetes` block:
 
 ```yaml
 ...
@@ -277,7 +273,7 @@ You can apply the traffic management settings to specific targets with the `targ
 ```yaml
 ...
 trafficManagement:
-  - targets: ['staging']  # optionally apply this to only one target, if you have multiple target
+  - targets: ['staging']  # optionally apply this to only one target, if you have multiple targets
     kubernetes:
       - activeService: <your-app-service>
 ```
@@ -318,4 +314,3 @@ You can use a webhook-based approval as a step in the `redirectTrafficAfter` sec
 ## {{% heading "nextSteps" %}}
 
 * See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for detailed field explanations.
-* 
