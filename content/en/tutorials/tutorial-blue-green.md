@@ -43,35 +43,182 @@ If you don't have a cluster, you can install one locally using [kind](https://ki
 
 ### Directory structure
 
-In this guide you create a deployment config and two simple namespace configs. The namespace manifests should be in a `manifests` directory along with the Kubernetes manifests for deploying your app.
+In this guide you create a deployment config, a namespace config and two service configs.
 
 The directory structure should look like this:
 
 ```
-<your-app>
-├── deployment.yaml  # created as part of this guide
-└── manifests
-    ├── <your-app-service>.yaml
-    ├── <your-app>.yaml
-    ├── namespace-staging.yaml  # created as part of this guide
-    └── namespace-prod.yaml     # created as part of this guide
+armory-blue-green-app/  # use any name for this directory
+├── deployment.yaml  
+└── manifests/
+    ├── potato-facts-service-v1.yaml
+    ├── potato-facts-service-v2.yaml
+    ├── potato-facts-v1.yaml
+    ├── potato-facts-v2.yaml
+    ├── namespace-staging.yaml 
 ```
 
 ## Create your Kubernetes manifests
 
-@TODO Include manifests from  https://github.com/armory-io/cdaas-examples/tree/main/hello-armory/manifests. this has the namespace files, potato factx v1 and v2, and a potato-facts-service.  Need to add a potato-facts-service-v2 to demonstrate the previewService feature. 
+Create a directory for this tutorial. Inside that directory add a `manifests` directory. Inside the manifests directory, save the following files:
+
+### potato-facts-v1.yaml
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: potato-facts
+  labels:
+    app: potato-facts
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: potato-facts
+  template:
+    metadata:
+      labels:
+        app: potato-facts
+    spec:
+      containers:
+        - name: potato-facts
+          image: index.docker.io/armory/potatofacts:v1
+          env:
+            - name: APPLICATION_NAME
+              value: potatofacts
+          ports:
+            - name: http
+              containerPort: 9001
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 9001
+              scheme: HTTP
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 9001
+              scheme: HTTP
+```
+
+### potato-facts-v2.yaml
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: potato-facts
+  labels:
+    app: potato-facts
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: potato-facts
+  template:
+    metadata:
+      labels:
+        app: potato-facts
+    spec:
+      containers:
+        - name: potato-facts
+          image: index.docker.io/armory/potatofacts:v2
+          env:
+            - name: APPLICATION_NAME
+              value: potatofacts
+          ports:
+            - name: http
+              containerPort: 9001
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 9001
+              scheme: HTTP
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 9001
+              scheme: HTTP
+```
+
+### staging-namespace.yaml
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: potato-facts-staging
+```
+
+### prod-namespace.yaml
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: potato-facts-prod
+```
 
 You need to deploy a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that sends traffic to the current version of your application. This is the `trafficManagement.kubernetes.activeService` field in the deployment config YAML configuration.
 
+### potato-facts-service.yaml
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: potato-facts
+spec:
+  selector:
+    app: potato-facts
+  ports:
+    - protocol: TCP
+      port: 9001
+```
 (Optional) You can also create a `previewService` Kubernetes Service object so you can programmatically or manually observe the new version of your software before exposing it to traffic via the `activeService`. This is the `trafficManagement.kubernetes.previewService` field in the YAML configuration.
 
-## Create your deployment config files
+## Create your deployment config file
 
-@TODO Include deploy config files from https://github.com/armory-io/cdaas-examples/tree/main/hello-armory
+This tutorial guides you through altering the following deployment config to define and use a blue/green strategy. Copy this file and save it as `deployment.yaml` to the root of your sample app directory. [See the directory structure above](#directory-structure).
+
+```yaml
+version: v1
+kind: kubernetes
+application: potato-facts
+targets:
+  staging:
+    account: my-cdaas-cluster
+    namespace: potato-facts-staging
+    strategy: rolling
+  prod:
+    account: my-cdaas-cluster
+    namespace: potato-facts-prod
+    strategy: rolling
+    constraints:
+      dependsOn: ["staging"]
+manifests:
+  - path: manifests/potato-facts-v1.yaml
+  - path: manifests/potato-facts-service.yaml
+  - path: manifests/staging-namespace.yaml
+    targets: ["staging"]
+  - path: manifests/prod-namespace.yaml
+    targets: ["prod"]
+strategies:
+  rolling:
+    canary:
+      steps:
+        - setWeight:
+            weight: 100
+```
+
+
+## Deploy your app 
+
+Deploy your app using the deployment config above to have baseline version of your app deployed before deploying with a blue/green strategy.
+
+```bash
+armory deploy start  -f <your-deploy-file>.yaml
+```
 
 ## Add blue/green to your deployment
 
-1. In your deploy file, go to the `strategies` section.
+1. In your deployment config, go to the `strategies` section.
 1. Create a new strategy named `blue-green-deploy-strat` like the following:
 
    ```yaml
