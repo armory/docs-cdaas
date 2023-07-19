@@ -109,7 +109,7 @@ webhooks:
 {{< /prism >}}
 
 
-### How to trigger a webhook
+### Trigger a webhook
 
 You can trigger a webhook from the following areas:
 
@@ -175,7 +175,7 @@ targets:
 
 Deployment to production proceeds only if the `Run-Integration-Tests` callback sends a "success: true" message.
 
-#### Blue/green strategy
+#### Blue/Green strategy
 
 In this example, there is a `security-scan` webhook that scans your deployed app. You have a blue/green deployment strategy in which you want to run that security scan on the preview version of your app before switching traffic to it. You add the `runWebhook` section to the `redirectTrafficAfter` section in your blue/green strategy configuration.
 
