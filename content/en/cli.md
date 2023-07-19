@@ -5,7 +5,7 @@ weight: 10
 categories: ["CLI", "Tools"]
 tags: ["CLI"]
 description: >
-  Install the Armory Continuous Deployment-as-a-Service CLI natively on Linux or Mac or use a Docker image. 
+  Install the Armory Continuous Deployment-as-a-Service CLI natively on Mac, Linux, or Windows. Learn how to run the CLI in Docker. 
 ---
 
 ## CLI overview
