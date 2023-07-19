@@ -37,8 +37,8 @@ In order to accommodate a long-running process, CD-as-a-Service supports the asy
 **Basic flow**
 
 The deployment process:
-1. Encounters a webhook call
-1. Calls the external API
+1. Encounters a webhook configuration
+1. Calls the external API, passing the callback URI
 1. Pauses deployment while waiting for the callback
 1. Receives and processes callback
    - Success: deployment proceeds

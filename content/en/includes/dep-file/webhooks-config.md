@@ -40,6 +40,8 @@ webhooks:
 
 You must pass the callback URI as `{{armory.callbackUri}}/callback`. Armory CD-as-a-Service generates the value for `armory.callbackUri` and fills it in at runtime.
 
+Where you configure the callback URI depends on your external automation tool. If you use a GitHub workflow, for example, you configure the callback URI in the `inline` section of the `bodyTemplate`.
+
 
 <!--  top of file must have the two lines of --- followed by a blank line or Hugo throws a compile error due to the embedded Prism shortcode -->
 <!-- Do not "include" using the "%" version! -->
