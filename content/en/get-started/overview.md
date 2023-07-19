@@ -2,7 +2,7 @@
 title: How to Get Started using Armory CD-as-a-Service
 linkTitle: Overview
 description: >
-  Learn how to deploy a sample app or your own app to your Kubernetes cluster using Armory CD-as-a-Service.
+  Learn what you need to get started deploying an app to Kubernetes using Armory Continuous Deployment-as-a-Service.
 weight: 1
 categories: ["Get Started", "Concepts"]
 tags: ["Quickstart", "Deployment"]

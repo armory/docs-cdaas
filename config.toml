@@ -110,7 +110,7 @@ anchor = "smart"
 [languages.en]
 #comment out title as it messes with the new logo
 #title = "Armory Docs"
-description = "Armory Continuous Deployment-as-a-Service: Declarative Deployment to Kubernetes"
+description = "Armory Continuous Deployment-as-a-Service: Declarative Deployment to Kubernetes. Built for developers. CD-as-a-Service dynamically orchestrates your deployment across all your clusters."
 languageName ="English"
 # Weight used for sorting.
 weight = 1
