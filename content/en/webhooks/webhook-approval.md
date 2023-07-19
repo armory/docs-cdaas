@@ -1,18 +1,53 @@
 ---
-title: Configure a Webhook in the Deployment File
-linkTitle: Configure a Webhook
+title: Configure External Automation (Webhook-Based) Approval in your Deployment Config File
+linkTitle: Configure Approval
 weight: 5
 description: >
-  Configure a webhook-based approval into your Armory CD-as-a-Service app deployment process.
+  Configure external automation (webhook-based) approval in your Armory CD-as-a-Service app deployment process.
 categories: ["Webhooks", "Features", "Guides"]
 tags: ["Webhooks", "GitHub", "Automation"]
 ---
 
 ## {{% heading "prereq" %}}
 
-You are familiar with [using external automation]({{< ref "webhooks/_index.md" >}}) with CD-as-a-Service 
+You have read the [External Automation Overview guide]({{< ref "webhooks/overview.md" >}}), which explains how webhook-based approval works in CD-as-a-Service.
 
-## How to configure a webhook in your deployment file
+In order to configure webhook-based approval, you should have the following:
+
+1. The URL to trigger your external job
+1. [Client Credentials (Client ID and Client Secret)]({{< ref "iam/manage-client-creds.md" >}}) with **Deployments Full Access** permission. You need these to fetch an OATH token to use in the callback that sends the job result to CD-as-a-Service.
+
+   <details><summary>Show me how</summary>
+   {{< include "client-creds.md" >}}
+   </details>
+
+## Steps to use webhook-based approval
+
+1. [Create your external job](#create-your-external-job) and note the URL to trigger the job
+
+   * Your job does not have to be accessible from the internet. CD-as-a-Service can use your Remote Network Agent as a proxy.
+   * You can send context variables from CD-as-a-Service to your job.
+   * The job result should be a boolean pass or fail.
+1. [Configure the webhook](#configure-the-webhoook-in-your-deployment-config-file) in your deployment config file.
+
+   * You define the `callbackUri` that CD-as-a-Service passes in the request to trigger your job.
+   * You can include context variables for CD-as-a-Service to pass to your job.
+1. [Configure your external job](#configure-your-external-jobs-callback) to send the result to CD-as-a-Service.
+
+   * Extract the `callbackUri`.   
+   * Fetch an OAUTH token from CD-as-a-Service.
+   * Send the job result to the callback URI, including the OAUTH token.
+
+## Create your external job
+
+How you create your job varies from system to system and is beyond the scope of this guide.  
+
+A few things to keep in mind:
+
+* You can send send context variables from CD-as-a-Service to your job. 
+* The result that you send to CD-as-a-Service is a boolean. See the [Configure your external job](#configure-your-external-job) section later in this guide for callback format.
+
+## Configure the webhoook in your deployment config file
 
 In your deployment file, you configure your webhook by adding a top-level `webhooks` section with the following information:
 
@@ -20,7 +55,7 @@ In your deployment file, you configure your webhook by adding a top-level `webho
 
 ### Configuration examples
 
-The first example configures a GitHub webhook that uses token authorization, with the token value configured as a Armory CD-as-a-Service secret. This webhook requires the callback URI be passed in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
+The first example configures a GitHub webhook that uses token authorization, with the token value configured as a CD-as-a-Service secret. This webhook requires you to pass the callback URI in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
 
 {{< prism lang="yaml" line-numbers="true" line="8, 16-17" >}}
 webhooks:
@@ -48,7 +83,7 @@ webhooks:
 {{< /prism >}}
 </br>
 
-The second example configures a webhook that is not accessible from the internet. The `networkMode` is set to `remoteNetworkAgent` and the `agentIdentifier` specifies which Remote Network Agent to use. The `agentIdentifier` value must match the **Agent Identifier** value listed on the **Agents** UI screen. The Authorization Bearer value is configured as a Armory CD-as-a-Service secret. Note that in this example, the callback URI is passed in the header.
+The second example configures a webhook that is not accessible from the internet. The `networkMode` is set to `remoteNetworkAgent` and the `agentIdentifier` specifies which Remote Network Agent to use. The `agentIdentifier` value must match the **Agent Identifier** value listed on the **Agents** UI screen. The Authorization Bearer value is configured as a CD-as-a-Service secret. Note that in this example, the callback URI is passed in the header.
 
 {{< prism lang="yaml" line-numbers="true" line="5-6, 9, 11" >}}
 webhooks:
@@ -60,7 +95,7 @@ webhooks:
     headers:
       - key: Authorization
         value: Bearer {{secrets.test_token}}
-      - key: Location
+      - key: CallbackURI
         value: {{armory.callbackUri}}/callback
       - key: Content-Type
         value: application/json
@@ -74,7 +109,7 @@ webhooks:
 {{< /prism >}}
 
 
-## How to trigger a webhook
+### Trigger a webhook
 
 You can trigger a webhook from the following areas:
 
@@ -94,7 +129,7 @@ You add a `runWebhooks` section where you want to trigger the webhook.
 - `name`: (Required) webhook name; must match the name you gave your webhook in the `webhooks` configuration section.
 - `context`: (Optional) dictionary; declare values to use in templates or headers.
 
-### Deployment constraints
+#### Deployment constraints
 
 **Before deployment**
 
@@ -140,7 +175,7 @@ targets:
 
 Deployment to production proceeds only if the `Run-Integration-Tests` callback sends a "success: true" message.
 
-### Blue/green strategy
+#### Blue/Green strategy
 
 In this example, there is a `security-scan` webhook that scans your deployed app. You have a blue/green deployment strategy in which you want to run that security scan on the preview version of your app before switching traffic to it. You add the `runWebhook` section to the `redirectTrafficAfter` section in your blue/green strategy configuration.
 
@@ -165,7 +200,7 @@ strategies:
 
 Since tasks in the `redirectTrafficAfter` section run in parallel, both tasks in this example must be successful for deployment to continue. If the `analysis` task fails, rollback is manual. If the `runWebhook` task fails, rollback is automatic.
 
-### Canary strategy
+#### Canary strategy
 
 In this example, there is a `system-health` webhook that you want to trigger as part of your canary strategy. Add the `runWebhook` section to your `steps` configuration.
 
@@ -182,10 +217,54 @@ strategies:
               environment: staging
 {{< /prism >}}
 
+## Configure your external job's callback
+
+After you have configured your webhook in your deployment config file, you should configure the callback in your job.
+
+1. Extract the callback URI from the HTTP Request that CD-as-a-Service sent to trigger your job. How you do this depends on what external automation tool you use.
+1. Fetch an OAUTH token from CD-as-a-Service.
+
+   Replace `<CLIENT-ID>` and `<CLIENT-SECRET>` with your values.
+
+   Request format:
+
+   {{< prism lang="bash"  line-numbers="true" >}}
+    curl --request POST \
+    --url https://auth.cloud.armory.io/oauth/token \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data data=audience=https://api.cloud.armory.io \
+    --data grant_type=client_credentials \
+    --data client_id=<CLIENT-ID> \
+    --data client_secret=<CLIENT-SECRET>
+   {{< /prism >}}
+
+   Example response:
+
+   {{< prism lang="json"  line-numbers="true" >}}
+   {
+   "access_token": "<very long access token>",
+   "expires_in": 86400,
+   "token_type": "Bearer"
+   }
+   {{< /prism >}}
+
+1. Configure the callback
+
+   {{< prism lang="bash"  line-numbers="true" >}}
+   curl --request POST \
+   --url '<CALLBACK-URI>' \
+   --header 'Authorization: Bearer <OAUTH_TOKEN>' \
+   --header 'Content-Type: application/json' \
+   --data '{"success": <true|false>, "mdMessage": "<MESSAGE>"}'
+   {{< /prism >}}
+
+   - `<CALLBACK-URI>`: Replace with the callback URI you extracted from the HTTP Request that CD-as-a-Service sent to trigger your job.
+   - ` <OAUTH_TOKEN>`: Replace with the OAUTH token you fetched from CD-as-a-Service.
+   - `data` dictionary job outcome: CD-as-a-Service looks for a `success` value of true or false to determine the webhook’s success or failure. `mdMessage` should contain a user-friendly message for CD-as-a-Service to display in the UI and write to logs.
 
 ## {{% heading "nextSteps" %}}
 
-* [Webhooks section in the deployment file reference]({{< ref "reference/deployment/config-file/webhooks" >}})
 * {{< linkWithTitle "tutorials/tutorial-webhook-github.md" >}}
+* [Webhooks section]({{< ref "reference/deployment/config-file/webhooks" >}}) in the deployment config file reference
 * {{< linkWithTitle "troubleshooting/webhook.md" >}}
  

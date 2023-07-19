@@ -1,5 +1,5 @@
 ---
-title: Deploy a Sample App That Uses GitHub Webhook-Based Approval Tutorial
+title: "Tutorial: Deploy a Sample App That Uses GitHub Webhook-Based Approval"
 linktitle: GitHub Webhook Approval
 weight: 2
 description: >
@@ -10,16 +10,21 @@ tags: ["Webhooks", "GitHub"]
 
 ## Objectives
 
-This tutorial shows you how to configure webhook-based approvals using GitHub.
+This tutorial shows you how to configure webhook-based approvals using GitHub. You perform the following tasks:
 
-You should have completed the {{< linkWithTitle "deploy-sample-app.md" >}} guide. You use the same `docs-cdaas-sample` repo that you forked and cloned as part of that tutorial.
+1. [Create credentials](#create-credentials)
+1. [Create the webhook event and workflow](#create-the-webhook-event-and-workflow)
+1. [Configure the webhook in your deployment file](#configure-the-webhook-in-your-deployment-file)
+1. [Call the webhooks in your deployment process](#call-the-webhooks-in-your-deployment-process)
+1. [Deploy your updated process](#deploy-your-updated-process)
 
 ## {{% heading "prereq" %}}
 
-- You have read the webhook-based approvals [introductory page]({{< ref "webhooks/_index.md" >}}).
+- You have read the webhook-based approvals [introductory page]({{< ref "webhooks/overview.md" >}}).
 - You are familiar with workflows and webhooks in GitHub.
   - [Workflows](https://docs.github.com/en/actions/using-workflows/)
   - [Webhooks and events](https://docs.github.com/en/developers/webhooks-and-events/webhooks/)
+- You have completed the {{< linkWithTitle "deploy-sample-app.md" >}} guide. You use the same `docs-cdaas-sample` repo that you forked and cloned as part of that tutorial.
 
 ## Create credentials
 
@@ -92,7 +97,7 @@ jobs:
           method: 'POST'
           bearerToken: ${{ fromJSON(steps.getToken.outputs.response).access_token }}
           customHeaders: '{ "Content-Type": "application/json" }'
-          data: '{ "success": true, "mdMessage": "basickPing webhook success: ${{ github.event.client_payload.callbackUri }}" }'
+          data: '{ "success": true, "mdMessage": "basicPing webhook success: ${{ github.event.client_payload.callbackUri }}" }'
       - name: show http response
         run: echo ${{ steps.callCallback.outputs.response }}
 {{< /prism >}}
