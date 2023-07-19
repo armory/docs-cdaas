@@ -5,7 +5,7 @@ weight: 1
 categories: ["Remote Network Agent", "Features", "Concepts"]
 tags: ["Remote Network Agent"]
 description: >
-  a logicless network relay that enables CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, Kubernetes clusters, etc.
+  Learn how Armory CD-as-a-Service uses a logicless network relay to integrate with privately networked resources such as Jenkins, Prometheus, and Kubernetes clusters.
 ---
 
 ## What Remote Network Agent is
@@ -44,3 +44,7 @@ resources via a multi-target network relay that pipes data through encrypted gRP
 {{< centeredImage src="/images/cdaas/rna-arch.png" alt="CD-as-a-Service Remote Network Agent Architecture Diagram" caption="Remote Network Agent securely integrates your on-prem tools with CD-as-a-Service." >}}
 
 In Armory's secure private network, Agent Hub is an [(RFC 1929)](https://datatracker.ietf.org/doc/html/rfc1929) SOCKS5 compliant proxy [(RFC 1928)](https://www.rfc-editor.org/rfc/rfc1928.html) that knows how to execute socks proxy requests through a bidirectional gRPC tunnel that is established by an agent.
+
+## {{% heading "nextSteps" %}}
+
+[Install]({{< ref "remote-network-agent/install" >}}) a Remote Network Agent in your cluster.
