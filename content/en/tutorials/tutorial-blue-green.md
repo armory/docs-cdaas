@@ -5,6 +5,7 @@ description: >
   In this tutorial, you learn how to use a blue/green strategy to deploy your app to Kubernetes using Armory CD-as-a-Service.
 categories: ["Deployment", "Tutorials"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
+draft: true
 ---
 
 ## Learning objectives
@@ -19,7 +20,6 @@ A blue/green strategy shifts traffic from the running version of your software t
 1. Add blue/green strategy
 1. Deploy first app version
 1. Deploy second app version with preview Service
-...
 1. Clean up 
 
 ## {{% heading "prereq" %}}
