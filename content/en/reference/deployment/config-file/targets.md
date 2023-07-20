@@ -2,7 +2,7 @@
 title: Targets Config
 weight: 3
 description: >
-  This page describes the `targets` section.
+  Declare your deployment targets: account, namespace, and strategy to use. Configure dependsOn and beforeDeployment constraints to pause for a set amount of time or to require manual approval.
 ---
 
 

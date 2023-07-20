@@ -1,14 +1,13 @@
 ---
-title: Horizontal Pod Autoscaling in CD-as-a-Service
-linktitle: HPA
-weight: 10
+title: Use Horizontal Pod Autoscaling in CD-as-a-Service
+linktitle: Horizontal Pod Autoscaling
 description: >
  Learn how CD-as-a-Service handles Kubernetes Horizontal Pod Autoscaling during deployments.
 categories: ["Horizontal Pods Autoscaling", "Features", "Concepts"]
 tags: ["Deploy Strategy", "Canary", "Blue/Green", "Kubernetes"]
 ---
 
-## Horizontal Pod Autoscaler overview 
+## HorizontalPodAutoscaler overview 
 
 As per [Kubernetes Docs](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), a HorizontalPodAutoscaler (HPA) automatically updates a workload resource (such as a Deployment or StatefulSet), with the aim of automatically scaling the workload to match demand. Horizontal scaling means that the response to increased load is to deploy more Pods. This is typically done by creating a HorizontalPodAutoScaler Kubernetes resource.
 
@@ -48,4 +47,4 @@ CD-as-a-Service deletes the v2 app and v2 HorizontalPodAutoscaler and recreates 
 
 - [v1](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v1/)
 - [v2 beta 1 and 2](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2beta2/)
--  [v2](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)
+- [v2](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)

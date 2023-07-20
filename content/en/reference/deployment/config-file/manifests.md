@@ -2,10 +2,8 @@
 title: Manifests Config
 weight: 4
 description: >
-  This page describes the `manifests` section, where you lists the manifests that CD-as-a-Service should deploy.
+  Declare the path to the Kubernetes manifests to use for your deployment. You can also specify manifests per deployment target.
 ---
-
-
 
 ## `manifests.`
 

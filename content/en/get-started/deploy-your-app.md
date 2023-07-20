@@ -2,7 +2,7 @@
 title: Deploy Your Own App
 linkTitle:  Deploy Your Own App
 description: >
-  Create a deployment config file for your app. Use a canary strategy to deploy two versions of your app to your Kubernetes cluster with Armory CD-as-a-Service.
+  Use a canary strategy to deploy two versions of your app to your Kubernetes cluster with Armory CD-as-a-Service. Install the CLI, connect your cluster, create a deployment config file, and deploy your app to two environments.
 weight: 10
 categories: ["Get Started", "Guides"]
 tags: ["Deployment", "Quickstart"]

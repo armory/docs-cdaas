@@ -1,11 +1,11 @@
 ---
-title: "Deployment Strategies in Armory CD-as-a-Service"
-linktitle: "Strategies"
+title: Canary and Blue/Green Deployment Strategies
+linktitle: Strategies
 weight: 3
 no_list: false
 exclude_search: true
 description: >
-  Learn how Armory Continuous Deployment-as-a-Service implements Canary and Blue/Green strategies.
+  In this section, learn about canary and blue/green deployment strategies for deploying your app to Kubernetes using Armory Continuous Deployment-as-a-Service.
 ---
 
 

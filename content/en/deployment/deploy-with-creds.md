@@ -1,5 +1,5 @@
 ---
-title: Deploy an App Using Credentials
+title: Deploy an App Using Client Credentials
 linkTitle: Deploy with Credentials
 weight: 10
 description: >

@@ -3,14 +3,14 @@ title: Add New Context Variables at Deploy Time
 linktitle: Add Context Variables at Deploy Time
 weight: 10
 description: >
-  Add new context variables from the command line or in your GitHub Action. These variables are injected into your canary analysis and webhook triggers.
+  Add new context variables from the command line or in the Armory CD-as-a-Service GitHub Action. CD-as-a-Service injects these variables into your canary analysis and webhook triggers.
 categories: ["Deployment", "Guides"]
 tags: ["Deploy Config", "Context Variables"]
 ---
 
 ## How to add new context variables
 
-You can add new context variables at deployment time by using the `--add-context` argument on the command line or from within your [Armory CD-as-a-Service GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}). Armory CD-as-a-Service adds the new context variables to webhook triggers and canary analysis steps in any deployment constraint.
+You can add new context variables at deployment time by using the `--add-context` argument on the command line or from within your [Armory CD-as-a-Service GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}). CD-as-a-Service adds the new context variables to webhook triggers and canary analysis steps in any deployment constraint.
 
 The value of the `--add-context` argument is a comma-delimited list of key=value pairs.
 

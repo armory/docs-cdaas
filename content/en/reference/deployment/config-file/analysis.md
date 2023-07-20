@@ -2,10 +2,8 @@
 title: Analysis Config
 weight: 6
 description: >
-  This page describes the `analysis` section.
+  Declare the queries used to analyze a deployment for any `analysis` steps. Includes defaultMetricProviderName and queries (name, upperLimit, lowerLimit, queryTemplate).
 ---
-
-
 
 ## `analysis.`
 

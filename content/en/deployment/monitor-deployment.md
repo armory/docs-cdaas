@@ -3,7 +3,7 @@ title: Monitor Deployments
 linkTitle: Monitor Deployments
 weight: 10
 description: >
-  Monitor the status of your deployments and approve or rollback deployments.
+  Monitor the status of your CD-as-s-Service deployments and approve or roll back deployments.
 categories: ["Deployment", "Guides"]
 tags: ["Monitor"]
 ---
@@ -11,21 +11,17 @@ tags: ["Monitor"]
 
 ## Monitor deployments using the UI
 
-When you navigate to the **Deployments** tab of the UI, you land on the **Deployment List** page, which shows all the apps for a specific Armory CD-as-a-Service environment. If you don't see a deployment that you're expecting to see, refresh the list or verify the Armory CD-as-a-Service environment the app belongs to. You can switch environments in the top right menu by clicking on your username.
+When you navigate to the **Deployments** tab of the UI, you land on the **All Deployments** page, which shows all the apps for a specific tenant. If you don't see a deployment that you're expecting to see, refresh the list or verify the tenant the deployment belongs to. You can switch tenants in the top right menu by clicking on your username.
 
-On the **Deployment List** page, you can select a specific app to go the **Deployment Graph** page, which shows all the environments that are part of that deploy file. If a deploy file only contains one environment, clicking the app will take you straight to the **Environment Details** page.
+On the **All Deployments** page, you can select a specific app to go a page that shows a graphical representation the target environments that you defined in your deployment config file. If your deployment contains only one target environment, clicking the app takes you straight to target environment overview page.
 
-### Deployment Graph Page
+### Deployment Graph page
 
-The **Deployment Graph** page shows you all environments that are being deployed to in a single deploy file. If you click the link that the CLI returns when you trigger the deployment, this is the page you are linked to. It can give you a general idea of the state of the deployment and what environment is currently being deployed to.
+The deployment graph page gives you a general idea of the state of the deployment and what environment CD-as-a-Service is currently deploying to.
 
 {{< figure src="/images/cdaas/multitarget-deploy.jpg" alt="The deployment starts in a dev environment. It then progresses to infosec and staging environments simultaneously. It finishes by deploying to a prod-west environment." >}}
 
-More specifically, this view shows you how deployments are supposed to progress through different environments based on the constraints that are defined in the deploy file. An environment that is waiting for one or more constraints to be satisfied is connected to the preceding deployment by a dotted line and is greyed out.
-
-{{< figure src="/images/cdaas/ui-constraints.jpg" alt="The staging-west environment has constraints that prevent it from starting until they are satisfied." >}}
-
-Clicking on a specific environment takes you to the **Environment Details** page for that single environment where you can take additional action.
+More specifically, this view shows you how deployments are supposed to progress through different environments based on the constraints that you defined in the deployment config file. Clicking on a specific target environment takes you to the an overview page for that single target environment, where you can take additional action.
 
 ### Single environment
 

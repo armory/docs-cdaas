@@ -1,10 +1,9 @@
 ---
-title: "Kubernetes Deployment in Armory CD-as-a-Service"
-linktitle: "Kubernetes"
-weight: 10
+title: Kubernetes
+linkTitle: Kubernetes
+weight: 100
 no_list: false
-description: >
-  Learn how Armory Continuous Deployment-as-a-Service implements Kubernetes Horizontal Pod Autoscaling.
 exclude_search: true
-draft: true
+description: >
+  In this section, learn how to use Argo Rollouts with CD-as-a-Service. Also, learn how CD-as-a-Service implements Horizontal Pod Autoscaling when it's part of your deployment.
 ---

@@ -9,8 +9,6 @@ categories: ["Reference"]
 tags: ["Deployment", "Deploy Config"]
 ---
 
-@TODO or change `no_list` to false to simply list pages in this section
-
 ## Deployment config file reference overview
 
 The deployment config file is what you use to define how and where Armory CD-as-a-Service deploys your app.
