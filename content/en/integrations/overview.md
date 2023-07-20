@@ -3,7 +3,7 @@ title: Integrations Overview
 linkTitle: Overview
 weight: 1
 description: >
-  
+  Armory Continuous Deployment-as-a-Service provides tools to integrate with Spinnaker and GitHub. You can also trigger deployments from any CI system by using the CD-as-a-Service CLI and machine to machine credentials.
 categories: ["Integrations", "Features", "Concepts"]
 tags: ["CI Systems", "GitHub", "Automation"]
 ---
@@ -13,7 +13,7 @@ tags: ["CI Systems", "GitHub", "Automation"]
 Armory provides and supports the following:
 
 * The [Armory Continuous Deployment-as-a-Service GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}) enables triggering deployments from your GitHub repo.
-* The [Spinnaker plugin](https://docs.armory.io/plugins/cdaas-spinnaker/) provides a stage in which you can configure a blue/green or canary deployment that uses CD-as-a-Service.
+* The [Spinnaker plugin]({{< ref "integrations/plugin-spinnaker" >}}) provides a stage in which you can configure a blue/green or canary deployment that uses CD-as-a-Service.
 
 ## Generic CI systems
 
