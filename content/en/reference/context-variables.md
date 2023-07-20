@@ -3,7 +3,7 @@ title: Context Variables Reference
 linkTitle: Context Variables
 weight: 10
 description: >
-  @TODO
+  Reference for context variables that you can use in your deployment config file.
 categories: ["Reference"]
 tags: ["Deployment", "Context Variables", "Canary"]
 ---

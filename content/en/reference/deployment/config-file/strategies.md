@@ -2,7 +2,7 @@
 title: Strategies Config
 weight: 5
 description: >
-  This page describes the `strategies` section.
+  Declare your deployment strategies. You can use blue/green, canary, or both. Restrict by target environment. Add constraints.
 ---
 
 ## `strategies.`

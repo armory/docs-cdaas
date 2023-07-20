@@ -2,7 +2,7 @@
 title: Application Config
 weight: 1
 description: >
-  This page describes the `application` section.
+  Define your app name.
 ---
 
 

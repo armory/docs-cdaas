@@ -1,8 +1,8 @@
 ---
-title: Deploy Config
+title: Deployment Config
 weight: 2
 description: >
-  This page describes the `deployConfig` section.
+  Declare the time before your deployment times out. Default is 30 minutes.
 ---
 
 ## `deploymentConfig`
