@@ -5,7 +5,7 @@ weight: 2
 categories: ["Deployment", "Guides"]
 tags: ["Deploy Config"]
 description: >
-  Create a config file to deploy your app using Armory Continuous Deployment-as-a-Service.
+  Create a config file to deploy your app to your Kubernetes cluster using CD-as-a-Service.
 ---
 
 ## {{% heading "prereq" %}}
