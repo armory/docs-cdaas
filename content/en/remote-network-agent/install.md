@@ -10,6 +10,10 @@ tags: [ "Networking", "Remote Network Agent", "CD-as-as-Service Setup"]
 
 <!-- The CDaaS UI links to this page. Do not change the title. -->
 
+## {{% heading "prereq" %}}
+
+You are familiar with [what a a Remote Network Agent is and its core features]({{< ref "remote-network-agent/overview" >}}).
+
 ## Remote Network Agent installation methods
 
 By default, you install a Remote Network Agent (RNA) with full access to your cluster. At a minimum, the RNA needs permissions to create, edit, and delete all `kind` objects that you plan to deploy with CD-as-a-Service, in all namespaces you plan to deploy to. The RNA also requires network access to any monitoring solutions or webhook APIs that you plan to forward through it.
@@ -113,3 +117,7 @@ You have **Client Credentials** with Remote Network Agent permissions.
 ### Steps
 
 {{< include "rna/rna-install-helm.md" >}}
+
+## {{% heading "nextSteps" %}}
+
+[View your connected Remote Network Agents]({{< ref "remote-network-agent/monitor-agents" >}}) to see data such as the last time CD-as-a-Service detected a heartbeat.
