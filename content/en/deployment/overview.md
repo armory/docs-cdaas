@@ -138,4 +138,4 @@ Armory CD-as-a-Service offers two distinct deployment strategies that each have 
 
 * For deployment strategy details and how canary differs from blue/green, see  {{< linkWithTitle "deployment/strategies/overview.md" >}}.
 * Work through the [Quickstart]({{< ref "get-started/quickstart" >}}) to deploy a sample app to a Kubernetes cluster using a blue/green deployment strategy.
-* If you want to use a Kubernetes HorizontalPodAutoscaler in your deployment, [learn how CD-as-a-Service implements horizontal pod autoscaling]({{< ref "deployment/hpa" >}}).
+* If you want to use a Kubernetes HorizontalPodAutoscaler in your deployment, [learn how CD-as-a-Service implements horizontal pod autoscaling]({{< ref "deployment/kubernetes/hpa" >}}).

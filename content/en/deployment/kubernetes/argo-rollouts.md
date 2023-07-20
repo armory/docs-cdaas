@@ -154,5 +154,5 @@ manifests:
 
 ## {{%  heading "nextSteps" %}}
 
-* {{< linkWithTitle "reference/deployment/_index.md" >}}
+* {{< linkWithTitle "reference/deployment/config-file/_index.md" >}}
 

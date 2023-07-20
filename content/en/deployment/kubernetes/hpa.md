@@ -1,7 +1,6 @@
 ---
 title: Use Horizontal Pod Autoscaling in CD-as-a-Service
-linktitle: Kubernetes HPA
-weight: 100
+linktitle: Horizontal Pod Autoscaling
 description: >
  Learn how CD-as-a-Service handles Kubernetes Horizontal Pod Autoscaling during deployments.
 categories: ["Horizontal Pods Autoscaling", "Features", "Concepts"]
