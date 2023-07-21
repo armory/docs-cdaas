@@ -2,7 +2,7 @@
 title: Quickstart
 linktitle: Quickstart
 description: >
-  Quickly get started using Armory CD-as-a-Service. In this Install the CLI, connect your Kubernetes cluster with a single command, and deploy a sample app using a traffic split. Learn deployment file syntax.
+  Quickly get started using Armory CD-as-a-Service. Install the CLI, connect your Kubernetes cluster with a single command, and deploy a sample app using a canary traffic split strategy. Learn deployment file syntax.
 weight: 2
 categories: ["Get Started", "Guides"]
 tags: ["Deployment", "Quickstart"]
