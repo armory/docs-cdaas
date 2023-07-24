@@ -7,4 +7,7 @@ manualLink: "https://armory.releases.live/?filter=eyJ0aXRsZU9yRGVzY3JpcHRpb24iOi
 manualLinkTarget: "_blank"
 ---
 
-Armory CD-as-a-Service [release notes]("https://armory.releases.live/?filter=eyJ0aXRsZU9yRGVzY3JpcHRpb24iOiIiLCJzY29wZSI6WyJDRC1hcy1hLVNlcnZpY2UiXSwidHlwZSI6W10sImZpZWxkcyI6W119")
+
+<h3>
+<a href="https://armory.releases.live/?filter=eyJ0aXRsZU9yRGVzY3JpcHRpb24iOiIiLCJzY29wZSI6WyJDRC1hcy1hLVNlcnZpY2UiXSwidHlwZSI6W10sImZpZWxkcyI6W119" target="_blank">Read CD-as-a-Service Release Notes</a>
+</h3>
