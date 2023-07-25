@@ -1,6 +1,7 @@
 ---
 title: Configure Remote Network Agent Advanced Options
 linktitle: Install - Advanced Config
+weight: 6
 description: >
   Use Helm or Kubernetes manifests to configure and install a Remote Network Agent in your Kubernetes cluster. Configure a proxy 
 categories: ["Guides"]
