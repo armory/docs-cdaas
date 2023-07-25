@@ -1,20 +1,24 @@
-You need [Client Credentials]({{< ref "iam/manage-client-creds" >}}) (**Client Secret** and **Client ID**) so your RNA can communicate with CD-as-a-Service.
 
-1. Set your `kubectl` [context](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-em-set-context-em-) to connect to the cluster where you want to deploy the RNA.
+**{{% heading "prereq" %}}**
 
-   ```bash
-   kubectl config use-context <NAME>
-   ```
+* You have [Client Credentials]({{< ref "iam/manage-client-creds" >}}) (Client Secret and Client ID)
+* You are connected to the Kubernetes cluster where you want to install the RNA.
 
-1. Install the RNA.
+  ```bash
+  kubectl config use-context <NAME>
+  ```
 
-   Replace `<client-secret>` and `<client-id>` with your Client Credentials.
+**Install**
 
-   ```bash
-   kubectl create ns armory-rna; 
-   kubectl --namespace armory-rna create secret generic rna-client-credentials \
-   --type=string \
-   --from-literal=client-secret="<client-secret>" \
-   --from-literal=client-id="<client-id>";
-   kubectl apply -f "https://api.cloud.armory.io/kubernetes/agent/manifest?agentIdentifier=sample-cluster&namespace=armory-rna"
-   ```
+This script installs the RNA into Namespace `armory-rna` with Agent Identifier `sample-cluster`.
+
+Replace `<client-secret>` and `<client-id>` with your Client Secret and Client ID.
+
+```bash
+kubectl create ns armory-rna; 
+kubectl --namespace armory-rna create secret generic rna-client-credentials \
+--type=string \
+--from-literal=client-secret="<client-secret>" \
+--from-literal=client-id="<client-id>";
+kubectl apply -f "https://api.cloud.armory.io/kubernetes/agent/manifest?agentIdentifier=sample-cluster&namespace=armory-rna"
+```
