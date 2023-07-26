@@ -8,13 +8,9 @@ categories: ["Deployment", "Guides"]
 tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 ---
 
-## Overview of canary deployments
+## What a canary strategy does
 
-Armory CD-as-a-Service supports performing canary deployments. The canary deployment strategy deploys an app progressively to your cluster based on a set of steps that you configure. You set weights (percentage thresholds) for how the deployment should progress and a pause after each weight is met. Armory CD-as-a-Service works through these steps until your app is fully deployed. For example, you can deploy the new version of your app to 25% of your target cluster and then wait for a manual judgement or a configurable amount of time. This pause gives you time to assess the impact of your changes. From there, either continue the deployment to the next weight you set or roll back the deployment if you notice an issue.
-
-Performing retrospective analysis on a deployment is a great way to understand how your app is performing over a predefined time period. It is the first step to enabling automatic canary analysis where you create queries that control how canary deployments react based on metrics you consider important.
-
-The examples in this guide use Prometheus as the metrics provider.
+A canary strategy involves shifting a small percentage of traffic to the new version of your application. You specify conditions before gradually increasing the traffic percentage to the new version. Service meshes like Istio and Linkerd enable finer-grained traffic shaping patterns compared to what is available natively. See the [Strategies Overview]({{< ref "deployment/strategies/overview" >}}) for details on the advantages of using a canary deployment strategy.
 
 ## {{% heading "prereq" %}}
 
