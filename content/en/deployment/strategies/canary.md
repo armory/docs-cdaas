@@ -12,6 +12,9 @@ tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 
 A canary strategy involves shifting a small percentage of traffic to the new version of your application. You specify conditions before gradually increasing the traffic percentage to the new version. Service meshes like Istio and Linkerd enable finer-grained traffic shaping patterns compared to what is available natively. See the [Strategies Overview]({{< ref "deployment/strategies/overview" >}}) for details on the advantages of using a canary deployment strategy.
 
+## How CD-as-a-Service implements canary
+With CD-as-a-Service, users can configure their canary deployment strategy as they desire. Users can define a list of steps that are executed sequentially when executing the strategy.
+CD-as-a-Service uses `setWeight` step type to shape the traffic to the new version. 
 ## {{% heading "prereq" %}}
 
 You have completed the following guides:
