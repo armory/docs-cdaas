@@ -2,19 +2,24 @@
 title: Blue/Green Deployment Tutorial
 linkTitle: Blue/Green
 description: >
-  In this tutorial, you learn how to use a blue/green strategy to deploy your app to Kubernetes using Armory CD-as-a-Service.
+  In this tutorial, you learn how to use a blue/green strategy to deploy your app to Kubernetes using Armory CD-as-a-Service. Use kubectl to install the Remote Network Agent. Deploy the sample app to multiple targets.
 categories: ["Deployment", "Tutorials"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
-draft: true
+draft: false
 ---
 
 ## Learning objectives
 
 A blue/green strategy shifts traffic from the running version of your software to a new version of your software. 
 
-1. Install the CLI
-1. Install the RNA
-1. Create directory structure
+This tutorial is designed to use a single Kubernetes cluster with multiple namespaces to simulate multiple clusters. The sample code is in a GitHub repo that you can fork to your own GitHub account.
+
+If you don't have a Kubernetes cluster, you can install one locally using [kind](https://kind.sigs.k8s.io/), which is a tool for running a lightweight Kubernetes cluster using Docker. Your cluster does not need be publicly accessible.
+
+1. Clone the repo branch
+1. Install the CLI so you can deploy from the command line.
+1. Create Client Credentials so you can connect your Kubernetes cluster.
+1. Connect your cluster by installing a Remote Newtwork Agent.
 1. Create Kubernetes manifests - app v1 plus active Service, app v2 plus preview Service
 1. Create your deployment config file
 1. Add blue/green strategy
@@ -26,37 +31,33 @@ A blue/green strategy shifts traffic from the running version of your software t
 
 * You have completed the CD-as-a-Service [Quickstart]({{< ref "get-started/quickstart" >}}), which guides you through deploying a sample app.  
 * You are familiar with [deployment strategies]({{< ref "deployment/strategies/overview" >}}) and [blue/green]({{< ref "deployment/strategies/blue-green" >}}).
+* You have a GitHub account so you can clone a repo branch.
+
+## Clone the repo branch
+
+Clone the [docs-cdaas-sample](https://github.com/armory/docs-cdaas-sample) repo's `tutorial-blue-green` branch:
+
+```shell
+git clone --branch tutorial-blue-green --single-branch https://github.com/armory/docs-cdaas-sample.git
+```
 
 ## Install the CLI
 
 {{< include "cli/install-cli-tabpane.md" >}}
 
-add windows
+## Create Client Credentials
 
-## Install the Remote Network Agent
+Create a new set of Client Credentials for the Remote Network Agents. Name the credentials "tutorial-blue-green".
 
-If you don't have a cluster, you can install one locally using [kind](https://kind.sigs.k8s.io/), which is a tool for running a lightweight Kubernetes cluster using Docker.
+{{< include "client-creds.md" >}}
 
-{{< include "rna/rna-install-cli.md" >}}
+## Connect your cluster
+
+{{< include "rna/rna-install-kubectl.md" >}}
 
 ## Create your directory structure
 
-### Directory structure
 
-In this guide you create a deployment config, a namespace config and two service configs.
-
-The directory structure should look like this:
-
-```
-armory-blue-green-app/  # use any name for this directory
-├── deployment.yaml  
-└── manifests/
-    ├── potato-facts-service-v1.yaml
-    ├── potato-facts-service-v2.yaml
-    ├── potato-facts-v1.yaml
-    ├── potato-facts-v2.yaml
-    ├── namespace-staging.yaml 
-```
 
 ## Create your Kubernetes manifests
 
@@ -228,9 +229,15 @@ armory deploy start  -f <your-deploy-file>.yaml
         redirectTrafficAfter:
           - pause:
               untilApproved: true
+              approvalExpiration:
+                duration: 2
+                unit: hours
         shutDownOldVersionAfter:
           - pause:
               untilApproved: true
+              approvalExpiration:
+                duration: 2
+                unit: hours
    ```
 
    See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for an explanation of these fields.
