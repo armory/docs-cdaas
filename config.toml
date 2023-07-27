@@ -14,7 +14,7 @@ defaultContentLanguageInSubdir = false
 # Useful when translating.
 enableMissingTranslationPlaceholders = true
 
-# Highlighting config
+# Highlighting config (copied from the docsy example site, tag v0.7.1)
 pygmentsCodeFences = true
 pygmentsUseClasses = false
 # Use the new Chroma Go highlighter in Hugo.
@@ -73,9 +73,6 @@ latexDashes = true
 resampleFilter = "CatmullRom"
 quality = 75
 anchor = "smart"
-
-
-
 
 # Language configuration
 
@@ -220,8 +217,7 @@ theme = "forest"
    desc = "CD-as-a-Service docs repository"
 
 
-# hugo module configuration
-
+# hugo module configuration (copied from the docsy example site, tag v0.7.1)
 [module]
   # uncomment line below for temporary local development of module
   # replacements = "github.com/google/docsy -> ../../docsy"
