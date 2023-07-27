@@ -14,6 +14,12 @@ tags: [ "Networking", "Remote Network Agent", "CD-as-as-Service Setup"]
 
 You are familiar with [what a a Remote Network Agent is and its core features]({{< ref "remote-network-agent/overview" >}}).
 
+{{% alert title="Important" color="warning" %}}
+If you are coming to this guide from the UI **Install a Remote Network Agent** screen because you want to manually install the RNA, follow the kubectl or Helm instructions in the [Install with default configuration](#install-with-default-configuration) section. Use the cluster name you created to identify your RNA. Copy the **Client ID** and **Client Secret** from the UI.
+
+_Do not close the pop-up window in the UI until you have completed RNA installation. The credentials in the pop-up window are deleted if you close the window before the RNA has connected._
+{{% /alert %}}
+
 ## Remote Network Agent installation methods
 
 By default, you install a Remote Network Agent (RNA) with full access to your cluster by using one of the following:
