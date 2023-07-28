@@ -157,7 +157,7 @@ Central to CD-as-a-Service's [RBAC](https://en.wikipedia.org/wiki/Role-based_acc
 
 You define your custom RBAC roles in a YAML file that has this structure:
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 roles:
   - name: <role-name>
     tenant: <tenant-name>
@@ -165,7 +165,7 @@ roles:
       - type: <type>
         resource: <resource>
         permission: <permission>
-{{< /prism >}}
+```
 
 You can create an organization-wide role by omitting the `tenant` definition.
 
@@ -219,7 +219,7 @@ CD-as-a-Service provides the following system roles:
 
 This example defines three Tenant Admin roles, one for each tenant. Each role has full authority within the specified tenant.
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 roles:
   - name: Tenant Admin Main
     tenant: main
@@ -239,7 +239,7 @@ roles:
       - type: api
         resource: tenant
         permission: full
-{{< /prism >}}
+```
 
 If you want to grant a user permission to manage all of your tenants, assign that user the **Organization Admin** role using the UI.
 
@@ -247,7 +247,7 @@ If you want to grant a user permission to manage all of your tenants, assign tha
 
 This example defines a role that grants permission to use the **Deployments** UI and start deployments using the CLI. The role is bound to the `finance` tenant.
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 roles:
   - name: Deployer Finance
     tenant: finance
@@ -255,18 +255,18 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 This next example defines a role that grants permission to use the **Deployments** UI and start deployments using the CLI across your entire organization. Note that `tenant` is not defined, which makes this an organization-wide role.
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 roles:
   - name: Deployer All Tenants
     grants:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 
 ### Assign roles
@@ -289,7 +289,7 @@ You must create your RBAC roles using the same names as your SSO groups. For exa
 
 You want to use those groups in CD-as-a-Service, so you need to create roles for those SSO groups. In the following example, `Engineering-Lead` has a tenant-specific Tenant Admin role, `Engineering-Deployment` has a tenant-specific deployment role, and `Engineering-Infra` has the equivalent of an Organization Admin role.
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: Engineering-Lead
     tenant: main
@@ -308,7 +308,7 @@ roles:
       - type: api
         resource: organization
         permission: full
-{{< /prism >}}
+```
 
 During authentication, CD-as-a-Service maps a user's SSO groups to your defined RBAC roles.
 

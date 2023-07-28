@@ -1,6 +1,6 @@
 Example deployment.yaml
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 version: v1
 kind: kubernetes
 application: potato-facts
@@ -42,4 +42,4 @@ targets:
       beforeDeployment:
         - pause:
             untilApproved: true
-{{< /prism >}}
+```

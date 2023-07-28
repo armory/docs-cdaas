@@ -22,7 +22,7 @@ By default, a new user has no permission to access functionality within CD-as-a-
 
 You define your roles in a YAML file using the following structure:
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: <role-name>
     tenant: <tenant-name>
@@ -30,7 +30,7 @@ roles:
       - type: <grant-type>
         resource: <resource-type>
         permission: <permission-type>
-{{< /prism >}}
+```
 
 * `name`: (Required); String; name of the role
 * `tenant`: (Optional); String; name of the tenant; if omitted, the role is an organization-wide role, not bound to a specific tenant
@@ -42,10 +42,10 @@ roles:
 
 After you have defined your roles, use the CLI to add those roles to CD-as-a-Service.
 
-{{< prism lang="bash" line-numbers="true" line="" >}}
+```bash
 armory login
 armory config apply -f <path-to-rbac-config>.yml
-{{< /prism >}}
+```
 
 You can check that you created your roles correctly by running `armory config get`.
 
@@ -57,7 +57,7 @@ You can check that you created your roles correctly by running `armory config ge
 
 A user with this role can access every screen in the `main` tenant and deploy apps using the CLI.
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: Tenant Admin
     tenant: main
@@ -65,13 +65,13 @@ roles:
       - type: api
         resource: tenant
         permission: full
-{{< /prism >}}
+```
 
 **Deployer**
 
 A user with this role can only access the **Deployments** screen in the UI and deploy apps using the CLI.
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: Deployer
     tenant: main
@@ -79,7 +79,7 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 ### SSO roles
 
@@ -91,7 +91,7 @@ If your organization uses SSO with CD-as-a-Service, you must create your roles u
 
 You want to use those groups in CD-as-a-Service, so you need to create roles for those SSO groups. In the following example, `Engineering-Infra` has a Tenant Admin role. `Engineering-Release` and `Engineering-InfoSec` have tenant-scoped deployment roles.
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: Engineering-Infra
     tenant: main
@@ -111,7 +111,7 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 
 ## Update a role
@@ -121,14 +121,15 @@ Perform the following to update a role or roles:
 1. Update the existing role(s) in your RBAC config file.
 1. Log into the CLI and apply the changes:
 
-   {{< prism lang="bash" line-numbers="true" >}}
+   ```bash
    armory login
-   armory config apply -f <path-to-rbac-config>.yml{{< /prism >}}
+   armory config apply -f <path-to-rbac-config>.yml
+   ```
 
 
 For example, you created the following roles:
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: Tenant Admin
     tenant: main
@@ -147,11 +148,11 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 You notice that the Tester role has no `tenant` defined, which means the role is organization-wide. Update your config file to add the tenant:
 
-{{< prism lang="yaml" line-numbers="true" line="14" >}}
+{{< highlight yaml "linenos=table, hl_lines=14" >}}
 roles:
   - name: Tenant Admin
     tenant: main
@@ -171,7 +172,7 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+{{< /highlight >}}
 
 Execute `armory config apply -f <path-to-rbac-config>.yml` to apply your changes.
 
@@ -188,14 +189,15 @@ Perform the following to delete a role or roles:
 1. Remove the role(s) from your RBAC config file.
 1. Log into the CLI and apply the changes:
 
-   {{< prism lang="bash" line-numbers="true" >}}
+   ```bash
    armory login
-   armory config apply -f <path-to-rbac-config>.yml{{< /prism >}}
+   armory config apply -f <path-to-rbac-config>.yml
+   ```
 
 
 For example, you have a config file with the following roles:
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: Tenant Admin
     tenant: main
@@ -215,11 +217,11 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 You want to delete the Tester role. Update your config file by adding `autodelete: true` to the top and removing the Tester role entry:
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 allowAutoDelete: true
 roles:
   - name: Tenant Admin
@@ -234,7 +236,7 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 Execute `armory config apply -f <path-to-rbac-config>.yml` to apply your changes.
 

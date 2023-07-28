@@ -1,7 +1,7 @@
 ---
 ---
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 trafficManagement:
   - targets: ["<target>"]
     smi:
@@ -11,7 +11,7 @@ trafficManagement:
     kubernetes:
       - activeService: "<activeServiceName>"
         previewService: "<previewServiceName>"
-{{< /prism >}}
+```
 
 * `targets`: (Optional) comma-delimited list of deployment targets; if omitted, CD-as-a-Service applies the traffic management configuration to all targets.
 

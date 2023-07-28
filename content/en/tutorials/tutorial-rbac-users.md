@@ -41,7 +41,7 @@ You want to create the following roles for your team:
 
 Create a file called `config.yml`.  Add the following content, which deliberately contains a few mistakes:
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 ---
 roles:
   - name: Tenant Admin
@@ -62,19 +62,19 @@ roles:
       - type: api
         resource: tenant
         permission: full
-{{< /prism >}}
+```
 
 In the directory where you saved your `config.yml` file, log into CD-as-a-Service using the CLI and then execute:
 
-{{< prism lang="bash" line-numbers="true" >}}
+```bash
 armory config apply -f config.yml
-{{< /prism >}}
+```
 
 Then check that the roles are correct by executing:
 
-{{< prism lang="bash" line-numbers="true" >}}
+```bash
 armory config get
-{{< /prism >}}
+```
 
 The output should match the contents of your `config.yml` file.
 
@@ -109,7 +109,7 @@ Due to a hasty copy/paste, you inadvertently granted the Deployer and Tester rol
 
 Your config should look like this:
 
-{{< prism lang="yaml" line-numbers="true" line="2, 14" >}}
+{{< highlight yaml "linenos=table, hl_lines=2 14" >}}
 ---
 allowAutoDelete: true
 roles:
@@ -125,19 +125,19 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+{{< /highlight >}}
 
 Execute:
 
-{{< prism lang="bash" line-numbers="true" >}}
+```bash
 armory config apply -f config.yml
-{{< /prism >}}
+```
 
 Then check that the roles are correct by running:
 
-{{< prism lang="bash" line-numbers="true" >}}
+```bash
 armory config get
-{{< /prism >}}
+```
 
 Lastly, since you eliminiated the Tester role, you need to update the user you originally assigned the Tester role. Access that user in the **Access Management** > **Users** screen and edit the user to assign the Deployer role.
 

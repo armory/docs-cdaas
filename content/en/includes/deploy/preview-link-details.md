@@ -1,6 +1,6 @@
 The section enables exposing deployed `service` resources via a temporary, internet-facing, randomly generated link for testing purposes.  
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 ...
 - exposeServices:
     services:
@@ -10,7 +10,7 @@ The section enables exposing deployed `service` resources via a temporary, inter
     ttl:
       duration: <integer>
       unit: <seconds|minutes|hours>
-{{< /prism >}}
+```
 
 * `services`: List of one-to-many services to expose
   * Each service name must match an existing service deployed in the target cluster.
@@ -31,7 +31,7 @@ You can use exposed service links elsewhere in your deploy config, such as in yo
 
 In this example, the snippet instructs Armory CD-as-a-Service to create a public URL to the deployed services service-name-1 and service-name-2. Both automatically expire after 2 hours.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 ...
 - exposeServices:
     services:
@@ -40,4 +40,4 @@ In this example, the snippet instructs Armory CD-as-a-Service to create a public
     ttl:
       duration: 2
       unit: hours
-{{< /prism >}}
+```

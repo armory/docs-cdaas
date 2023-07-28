@@ -1,7 +1,7 @@
 ---
 ---
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 trafficManagement:
   - targets: ["<target-name>"]
     istio:
@@ -12,7 +12,7 @@ trafficManagement:
         name: <DestinationRule-metadata-name>               
         activeSubsetName: <VirtualService-http-route-destination-subset-name>
         canarySubsetName: <canary-subset-name>     
-{{< /prism >}}
+```
 
 * `targets`: (Optional) comma-delimited list of deployment targets; if omitted, CD-as-a-Service applies the traffic management configuration to all targets.
 * `istio.virtualService`: (Required)

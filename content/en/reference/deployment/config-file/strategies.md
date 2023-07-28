@@ -9,7 +9,7 @@ description: >
 
 This config block is where you define behavior and the actual steps to a deployment strategy.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 strategies:
   <strategyName>
     canary:
@@ -56,7 +56,7 @@ strategies:
       shutDownOldVersionAfter:
         - pause:
             untilApproved: true
-{{< /prism >}}
+```
 
 ### `strategies.<strategyName>`
 
@@ -64,31 +64,31 @@ The name you assign to the strategy. Use this name for `targets.<targetName>.str
 
 For example, this snippet names the strategy `canary-wait-til-approved`:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 strategies:
   canary-wait-til-approved:
-{{< /prism >}}
+```
 
 You would use `canary-wait-til-approved` as the value for `targets.<targetName>.strategy` that is at the start of the file:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 ...
 targets:
   someName:
     ...
     strategy: canary-wait-till-approved
 ...
-{{< /prism >}}
+```
 
 ### `strategies.<strategyName>.<strategy>`
 
 The kind of deployment strategy this strategy uses. Armory CD-as-a-Service supports `canary` and `blueGreen`.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 strategies:
   <strategyName>
     canary:
-{{< /prism >}}
+```
 
 ### Canary fields
 
@@ -112,18 +112,18 @@ This is an integer value and determines how much of the cluster the app gets dep
 
 For example, this snippet instructs Armory CD-as-a-Service to deploy the app to 33% of the cluster:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 ...
 steps:
   - setWeight:
       weight: 33
-{{< /prism >}}
+```
 
 #### `strategies.<strategyName>.canary.steps.pause`
 
 There are two base behaviors you can set for `pause`, either a set amount of time or until a manual judgment is made.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
   - pause:
@@ -135,7 +135,7 @@ steps:
       approvalExpiration:
         duration: 60
         unit: seconds
-{{< /prism >}}
+```
 
 **Pause for a set amount of time**
 
@@ -148,13 +148,13 @@ If you want the deployment to pause for a certain amount of time after a weight 
 
 For example, this snippet instructs Armory CD-as-a-Service to wait for 30 seconds:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
   - pause:
       duration: 30
       unit: seconds
-{{< /prism >}}
+```
 
 **Pause until a manual judgment**
 
@@ -166,7 +166,7 @@ When you configure a manual judgment, the deployment waits when it hits the corr
 
 For example:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
   - pause:
@@ -175,13 +175,13 @@ steps:
       approvalExpiration:
         duration: 60
         unit: minutes
-{{< /prism >}}
+```
 
 #### `strategies.<strategyName>.canary.steps.analysis`
 
 The `analysis` step is used to run a set of queries against your deployment. Based on the results of the queries, the deployment can automatically or manually roll forward or roll back.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
         - analysis:
@@ -197,7 +197,7 @@ steps:
             queries:
               - <queryName>
               - <queryName>
-{{< /prism >}}
+```
 
 ##### `strategies.<strategyName>.canary.steps.analysis.metricProviderName`
 
@@ -232,26 +232,26 @@ For information about writing queries, see {{< linkWithTitle "reference/canary-a
 
 ##### `strategies.<strategyName>.canary.steps.analysis.interval`
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
         - analysis:
             interval: <integer>
             units: <seconds|minutes|hours>
-{{< /prism >}}
+```
 
 How long each sample of the query gets summarized over.
 
 For example, the following snippet sets the interval to 30 seconds:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
         - analysis:
             interval: 30
             units: seconds
 
-{{< /prism >}}
+```
 
 ##### `strategies.<strategyName>.canary.steps.analysis.units`
 
@@ -259,27 +259,27 @@ The unit of time for the interval. Use `seconds`, `minutes` or `hours`. See `str
 
 ##### `strategies.<strategyName>.canary.steps.analysis.numberOfJudgmentRuns`
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
         - analysis:
             ...
             numberOfJudgmentRuns: <integer>
             ...
-{{< /prism >}}
+```
 
 The number of times that each query runs as part of the analysis. Armory CD-as-a-Service takes the average of all the results of the judgment runs to determine whether the deployment falls within the acceptable range.
 
 ##### `strategies.<strategyName>.canary.steps.analysis.rollBackMode`
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
         - analysis:
             ...
             rollBackMode: <manual|automatic>
             ...
-{{< /prism >}}
+```
 
 Optional. Can either be `manual` or `automatic`. Defaults to `automatic` if omitted.
 
@@ -287,14 +287,14 @@ How a rollback is approved if the analysis step determines that the deployment s
 
 ##### `strategies.<strategyName>.canary.steps.analysis.rollForwardMode`
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
         - analysis:
             ...
             rollForwardMode: <manual|automatic>
             ...
-{{< /prism >}}
+```
 
 Optional. Can either be `manual` or `automatic`. Defaults to `automatic` if omitted.
 
@@ -302,7 +302,7 @@ How a rollback is approved if the analysis step determines that the deployment s
 
 ##### `strategies.<strategyName>.canary.steps.analysis.queries`
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 steps:
 ...
         - analysis:
@@ -310,7 +310,7 @@ steps:
             queries:
               - <queryName>
               - <queryName>
-{{< /prism >}}
+```
 
 A list of queries that you want to use as part of this `analysis` step. Provide the name of the query, which is set in the `analysis.queries.name` parameter. Note that thee `analysis` block is separate from the `analysis` step.
 
@@ -326,23 +326,23 @@ All the queries must pass for the step as a whole to be considered a success.
 
 The name of a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that you created to route traffic to your application.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 strategies:
   <strategy>:
     blueGreen:
       activeService: <active-service>
-{{< /prism >}}
+```
 
 #### `strategies.<strategyName>.blueGreen.previewService`
 
 (Optional) The name of a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) you created to route traffic to the new version of your application so you can preview your updates.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 strategies:
   <strategy>:
     blueGreen:
       previewService: <preview-service>
-{{< /prism >}}
+```
 
 #### `strategies.<strategyName>.blueGreen.redirectTrafficAfter`
 
@@ -352,21 +352,21 @@ The `redirectTrafficAfter` steps are conditions for exposing the new version to 
 
 There are two base behaviors you can set for `pause`, either a set amount of time or until a manual judgment is made.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 redirectTrafficAfter:
   - pause:
       duration: <integer>
       unit: <seconds|minutes|hours>
-{{< /prism >}}
+```
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 redirectTrafficAfter:
   - pause:
       untilApproved: true
       approvalExpiration:
         duration: 60
         unit: seconds
-{{< /prism >}}
+```
 
 **Pause for a set amount of time**
 
@@ -379,12 +379,12 @@ If you want the deployment to pause for a certain amount of time, you must provi
 
 For example, this snippet instructs Armory CD-as-a-Service to wait for 30 minutes:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 redirectTrafficAfter:
   - pause:
       duration: 30
       unit: minutes
-{{< /prism >}}
+```
 
 **Pause until a manual judgment**
 
@@ -396,7 +396,7 @@ When you configure a manual judgment, the deployment waits for manual approval t
 - 
 For example:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 redirectTrafficAfter:
   - pause:
       untilApproved: true
@@ -404,13 +404,13 @@ redirectTrafficAfter:
       approvalExpiration:
         duration: 60
         unit: minutes
-{{< /prism >}}
+```
 
 ##### `strategies.<strategyName>.blueGreen.redirectTrafficAfter.analysis`
 
 The `analysis` step is used to run a set of queries against your deployment. Based on the results of the queries, the deployment can (automatically or manually) roll forward or roll back.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 redirectTrafficAfter:
   - analysis:
       metricProviderName: <metricProviderName>
@@ -425,23 +425,23 @@ redirectTrafficAfter:
       queries:
         - <queryName>
         - <queryName>
-{{< /prism >}}
+```
 
 #### `strategies.<strategyName>.blueGreen.shutdownOldVersionAfter`
 
 This step is a condition for deleting the old version of your software. Armory CD-as-a-Service executes the `shutDownOldVersion` steps in parallel. After each step completes, Armory CD-as-a-Service deletes the old version.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 shutdownOldVersionAfter:
   - pause:
       untilApproved: true
-{{< /prism >}}
+```
 
 ##### `strategies.<strategyName>.blueGreen.shutdownOldVersionAfter.analysis`
 
 The `analysis` step is used to run a set of queries against your deployment. Based on the results of the queries, the deployment can (automatically or manually) roll forward or roll back.
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 shutdownOldVersionAfter:
   - analysis:
       metricProviderName: <metricProviderName>
@@ -456,7 +456,7 @@ shutdownOldVersionAfter:
       queries:
         - <queryName>
         - <queryName>`
-{{< /prism >}}
+```
 
 #### `strategies.<strategyName>.blueGreen.redirectTrafficAfter.exposeServices`
 

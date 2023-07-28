@@ -19,13 +19,13 @@ You can use role-based manual approvals to enforce approval processes within you
 
 Any manual approval can be role-based. In your deployment config file, you add a `requiresRoles` field to specify which roles can issue the approval.
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 ...
 pause:
   untilApproved: true
   requiresRoles: []
 ...
-{{< /prism >}}
+```
 
 - `requiresRoles`: list of RBAC roles
 
@@ -42,25 +42,25 @@ pause:
 
 In your deployment manifest, add a `requiresRole` field to your manual approval.
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 ...
 pause:
   untilApproved: true
   requiresRoles: []
 ...
-{{< /prism >}}
+```
 
 - `requiresRoles`: list of RBAC roles
 
 For example, if you want only users with an "Approver", "InfoSec", or "Release Manager" role to be able to issue a manual approval, you would add those roles to the `requiresRole` list:
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 ...
 pause:
   untilApproved: true
   requiresRoles: ["Approver", "InfoSec", "Release Manager"]
 ...
-{{< /prism >}}
+```
 
 ## {{%  heading "nextSteps" %}}
 

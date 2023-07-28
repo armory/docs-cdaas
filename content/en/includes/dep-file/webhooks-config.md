@@ -1,7 +1,7 @@
 ---
 ---
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 webhooks:
   - name: <webhook-name>
     method: <endpoint-method-type>
@@ -16,7 +16,7 @@ webhooks:
       {
       }
     retryCount: <num-retries>
-{{< /prism >}}
+```
 
 * `name`: the unique name of your webhook
 

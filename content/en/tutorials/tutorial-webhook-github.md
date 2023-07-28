@@ -69,7 +69,7 @@ The `docs-cdaas-sample` repo contains a `basicPing.yml` webhook workflow file in
 
 You must include specific keys and values as detailed in the following sample:
 
-{{< prism lang="yaml" line-numbers="true" line="5, 16-19, 24-28" >}}
+{{< highlight yaml "linenos=table, hl_lines=5 16-19 24-28" >}}
 name: basicPing Webhook Callback
 
 on:
@@ -100,7 +100,7 @@ jobs:
           data: '{ "success": true, "mdMessage": "basicPing webhook success: ${{ github.event.client_payload.callbackUri }}" }'
       - name: show http response
         run: echo ${{ steps.callCallback.outputs.response }}
-{{< /prism >}}
+{{< /highlight >}}
 <br>
 Note:
 
@@ -128,7 +128,7 @@ The `uriTemplate` uses secrets instead of hardcoding the URI. If you don't want 
 
 The following is an example of how to configure a GitHub webhook workflow:
 
-{{< prism lang="yaml" line-numbers="true" line="2, 5-6, 8-10, 15-20" >}}
+{{< highlight yaml "linenos=table, hl_lines=2 5-6 8-10 15-20" >}}
 webhooks:
   - name: basicPing
     method: POST
@@ -150,7 +150,7 @@ webhooks:
             }
         }
     retryCount: 1
-{{< /prism >}}
+{{< /highlight >}}
 <br>
 Note:
 
@@ -167,7 +167,7 @@ Note:
 
 The `deploy-webhook.yml` calls the webhook workflows in the `constraints` section of the deployment target definition. Look for `runWebhook` entries such as the following:
 
-{{< prism lang="yaml" line-numbers="true" line="8-9" >}}
+{{< highlight yaml "linenos=table, hl_lines=8-9" >}}
 staging:
   account: sample-rna-staging-cluster
   namespace: sample-staging
@@ -177,7 +177,7 @@ staging:
     afterDeployment:
       - runWebhook:
           name: basicPing
-{{< /prism >}}
+{{< /highlight >}}
 
 `runWebhook.name` must match the name you gave the webhook in the `webhooks` section.
 
@@ -206,7 +206,7 @@ You can check deployment status by accessing the URL included in the output.
 
 To see what webhook failure looks like, go into your GitHub repo and change the `basicPing.yml` file line 28 like this:
 
-{{< prism lang="yaml" line-numbers="true" line="28" >}}
+{{< highlight yaml "linenos=table, hl_lines=28" >}}
 name: Basic Ping Webhook Callback
 
 on:
@@ -237,7 +237,7 @@ jobs:
           data: '{ "success": false, "mdMessage": "Webhook FAILURE: ${{ github.event.client_payload.callbackUri }}" }'
       - name: show http response
         run: echo ${{ steps.callCallback.outputs.response }}
-{{< /prism >}}
+{{< /highlight >}}
 
 Commit the change.
 

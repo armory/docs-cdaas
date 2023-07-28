@@ -16,17 +16,17 @@ tags: ["Tenants"]
 
 Every organization has a `main` tenant. You can create one or more additional tenants using a YAML file and the CLI. Your YAML file should have the following structure:
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 tenants:
   - <tenant-name-1>
   - <tenant-name-2>
-{{< /prism >}}
+```
 
 Run the following command to add those tenants:
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 armory config apply -f <path-to-tenant-config.yaml>
-{{< /prism >}}
+```
 
 ## Example
 
@@ -35,39 +35,44 @@ In the following example, you create tenants for two applications and a sandbox.
 1. Create a file called `config.yaml`.
 1. Add the following content:
 
-   {{< prism lang="yaml" line-numbers="true" line="" >}}
+   ```yaml
    tenants:
      - potato-facts-app
      - sample-app
-     - sandbox{{< /prism >}}
+     - sandbox
+     ```
 
    Save your file.  
 
 1. Run the following command from the directory where you saved your `config.yaml` file:
 
-   {{< prism lang="yaml" line-numbers="true" line="" >}}
-   armory config apply -f config.yaml{{< /prism >}}
+   ```yaml
+   armory config apply -f config.yaml
+   ```
 
    Output should be:
 
-   {{< prism lang="bash" line-numbers="true" >}}
+   ```bash
    Created tenant: potato-facts-app
    Created tenant: sample-app
-   Created tenant: sandbox{{< /prism >}}
+   Created tenant: sandbox
+   ```
 
 1. Confirm your tenants have been added:
 
-   {{< prism lang="bash" line-numbers="true" >}}
-   armory config get{{< /prism >}}
+   ```bash
+   armory config get
+   ```
 
    Output should be:
 
-   {{< prism lang="bash" line-numbers="true" >}}
+   ```bash
    tenants:
     - main
     - potato-facts-app
     - sample-app
-    - sandbox{{< /prism >}}
+    - sandbox
+    ```
     
 ## View tenants
 
@@ -75,16 +80,16 @@ In the following example, you create tenants for two applications and a sandbox.
 
 You can use the CLI to view your tenants:
 
-{{< prism lang="bash" line-numbers="true" >}}
+```bash
 armory config get
-{{< /prism >}}
+```
 
 Output shows the list of tenants. When you only have access to the default tenant, the output is:
 
-{{< prism lang="bash" line-numbers="true" >}}
+```bash
 tenants:
  - main
-{{< /prism >}}
+```
 
 You can also use the UI to view the list of tenants you can access. See the [Switch tenants](#switch-tenants) section.
 
