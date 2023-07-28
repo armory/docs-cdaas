@@ -22,13 +22,13 @@ For this example, you want to add the following new context variables:
 | environment | prod       |
 | changeBy    | jane-smith |
 
-<br>
+
 Your command line looks like this:
 
 ```bash
 armory deploy start -f deploy.yml --add-context=smokeTest=true,environment=prod,changeBy=jane-doe
 ```
-<br>
+
 In your GitHub Action, you add an `addContext` key in your `Deployment` step.
 
 {{< highlight yaml "linenos=table, hl_lines=22" >}}
