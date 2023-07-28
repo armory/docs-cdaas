@@ -36,164 +36,148 @@ Before configuring a canary strategy in your [deployment]({{< ref "deployment/ov
   
   Your [Kubernetes Deployment object](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) describes the desired state for your application Pods and ReplicaSets. 
 
+## Define a canary deployment strategy
 
-## Add your metrics provider
+1. [Declare your strategy](#declare-your-strategy).
+1. [Add your strategy to your deployment target](#add-your-strategy-to-your-deployment-target).
 
-Armory CD-as-a-Service can run queries against metrics providers that you add. The results are examined as part of canary analysis steps in the deploy file.
 
-1. In the **Configuration UI**, go to [**Canary Analysis > Integrations**](https://console.cloud.armory.io/configuration/metric-source-integrations/).
-2. Select **New Integration**.
+### Declare your strategy
 
-   The examples in this guide use Prometheus as the metrics provider.
+You define your blue/green strategy in the root-level `strategies` section of your CD-as-a-Service deployment config file.  The strategy has two required fields:
 
-3. Complete the wizard:
 
-   The parameters you need to provide depend on the metrics provider you choose. For more information, see the {{< linkWithTitle "canary-analysis/integrate-metrics-provider.md" >}} guide.
+```yaml
+strategies:
+  <name-for-your-canary-strategy>:
+    canary:
+      steps:
+        - setWeight: 10
+        - pause:
+            untilApproved: true
+        - setWeight: 20
+        - pause:
+            untilApproved: true
+        - setWeight: 100
+```
+* `steps`: Define a list of steps that constitue your canary strategy. CD-as-a-Service excutes steps sequentially, waiting for the previous step to finish before starting the next step. This enables you to configure monitoring during canary using analysis or webhooks. 
 
-   The following fields are for a Prometheus integration:
+* `setWeight`: Define how much traffic should get directed to the new version of your application. CD-as-a-Service will manipulated the relevant resources to send the traffic to your new version. 
 
-   - **Type**: (Required) Your metrics provider. This example uses Prometheus. The form options change based on your provider.
-   - **Name**: (Required) A descriptive name for your metrics provider, such as the environment it monitors. You use this name in places such as your deploy file when you want to configure canary analysis as part of your deployment strategy.
-   - **Base URL**: (Required) The base URL for your Prometheus instance. If Prometheus runs in the same cluster as the RNA and is exposed using HTTP on port 9090 through a service named `prometheus` in the namespace `prometheus`, then use `http://prometheus.prometheus:9090`. (This can be a private DNS only if the RNA is installed in the same cluster as the Prometheus instance.)
-   - **Remote Network Agent**: (Optional) The RNA that is installed in the Prometheus cluster if the cluster is not publicly accessible. Select the identifier for the RNA from the dropdown.
-   - **Authentication Type**: (Required) Select **None**, **Username/Password**, or **Bearer Token**.
+### Add your strategy to your deployment target
 
-      - If you selected **Username/Password**: Fill in the username for accessing Prometheus and select the password secret.
-      - If you selected **Bearer Token**: Select the token secret from the drop-down list.
+After you configure your strategy, you need to add it to your deployment targets:
 
-## Perform a retrospective analysis
-
-Retrospective analysis is the starting point to creating queries so that you can perform canary analysis on your deployments. The UI gives you a structured way to create a query and test it against previous deployments. When ready, you can export it so that you can add the query to your deploy file easily.
-
-1. In the **Configuration UI**, go to [**Canary Analysis > Retrospective Analysis**](https://console.cloud.armory.io/configuration/metric-source-integrations/).
-2. Select the metric provider you just configured.
-3. Select a time range that includes when you deployed your app.
-4. Add a **Query Template**. Use the following example:
-
-   - **Name**: avgCPUUsage
-   - **Upper Limit**: The upper limit for the query. If the results exceed this value, the deployment is considered to be a failure. Set this to `10000`.
-   - **Lower Limit**: The lower limit for the query. If the results fall below this value, the deployment is considered to be a failure. Set this to `0`.
-   - **Query Template**:
-
-      ```
-      avg(avg_over_time(container_cpu_system_seconds_total{job="kubelet"}[{{armory.promQlStepInterval}}]) * on (pod) group_left (annotation_app)
-      sum(kube_pod_annotations{job="kube-state-metrics",annotation_deploy_armory_io_replica_set_name="{{armory.replicaSetName}}"}) by (annotation_app, pod)) by (annotation_app)
-      ```
-
-      - **The query must return a single result**. Automated canary analysis does not support queries that return multiple values. See [Query template requirements]({{< ref "canary-analysis-query#query-template-requirements" >}}) for restrictions and provider examples.
-      - The query contains variables that are automatically injected during canary analysis, but you must manually provide some of them during retrospective analysis.
-        - Time related variables like `armory.promqlStepInterval` are automatically substituted by Armory CD-as-a-Service. For a full list, see the {{< linkWithTitle "reference/context-variables.md" >}} guide.
-        - `armory.replicaSetName` needs to be set to the name of the ReplicaSet that Armory CD-as-a-Service created for this app version. It's used to differentiate between the current and next version of the app. Do this in the next step where you add key/value pairs.
-
-5. Add **Key Value (KV) Pair** for the **Context**. The key value pairs for your  For the sample query, you need to add the following key value Pair:
-
-  - **Key**: `replicaSetName`
-
-    **Value**: The name of the ReplicaSet that was created when you deployed the app in *Get Started with the CLI to Deploy Apps* guide.
-
-6. Run the analysis. If the results fall within the upper and lower limits you set, the deployment is considered a success.
-
-### Export and add a query to your deploy file
-
-The Retrospective Analysis can take the query you provide and generate the YAML equivalent that you can use it in your deploy file.
-
-1. From the analysis screen, select **Go back to Analysis Configuration**.
-2. Click **Export Queries for Armory Deployments**. This creates the YAML block for the `analysis` portion of a deploy file.
-3. Insert the YAML block into your deploy file at the bottom. For example:
-
-   ```yaml
-   analysis:
-     queries:
-      - name: avgCPUUsage
-        upperLimit: 10000
-        lowerLimit: 0
-        queryTemplate: >-
-          avg (avg_over_time(container_cpu_system_seconds_total{job="kubelet"}[{{armory.promQlStepInterval}}]) * on (pod)  group_left (annotation_app)
-          sum(kube_pod_annotations{job="kube-state-metrics",annotation_deploy_armory_io_replica_set_name="{{armory.replicaSetName}}"})
-          by (annotation_app, pod)) by (annotation_app)
-   ```
-
-For a detailed explanation of these fields, see the [Deployment File Reference]({{< ref "reference/deployment/config-file/analysis.md" >}})
-
-The `avgCPUUsage` query is now available for you to use in the `steps` block of your deploy file to perform canary analysis.
-
-## Add canary analysis to your deployment
-
-Armory CD-as-a-Service supports manual and automated canary analysis. Manual canary analysis allows you to review the canary results until you have confidence that your queries are making good decisions around service health.
-
-Adding canary analysis to your deployment involves updating your deploy file to include the following:
-
-- An `analysis` block that describes what queries to use and how they are run. The YAML for the queries is what you can export from the UI. You did this in [Export and add a query to your deploy file](#export-and-add-a-query-to-your-deploy-file).
-- Steps in your `strategy` block that perform canary analysis and define how it behaves.
-
-1. In your deploy file, go to the `strategies` section.
-2. Create a new strategy named `canary-deploy-strat` like the following:
-
-   ```yaml
-   strategies:
-    canary-deploy-strat
-      canary:
-        steps:
-          - setWeight:
-              weight: 50
-          - analysis:
-              interval: 10
-              units: seconds
-              numberOfJudgmentRuns: 3
-              rollBackMode: manual
-              rollForwardMode: manual
-              queries: # The queries to run
-                - avgCPUUsage
-          - setWeight:
-              weight: 75
-          - analysis:
-              interval: 10
-              units: seconds
-              numberOfJudgmentRuns: 3
-              rollBackMode: manual
-              rollForwardMode: manual
-              queries:
-                - avgCPUUsage
-   ```
-
-   For a detailed explanation of these fields, see the [Deployment File Reference]({{< ref "reference/deployment/config-file//strategies" >}})
-
-   This strategy deploys the app to 50% of the cluster and then performs a canary analysis with the following characteristics:
-
-   - The interval for each run of the query is 10 seconds.
-   - The number of runs of the query is 3.
-   - Rolling a deployment back or forward is done manually using the Deployments UI.
-   - It uses the query `containerCPUSeconds`.
-
-   The strategy then deploys the app to 75% of the cluster and then performs a canary analysis. After the roll forward is approved, Armory CD-as-a-Service deploys the app to 100% of the cluster.
-
-3. Change the value of  `targets.<targetName>.strategy` for one or more of your deployment targets to `canary-deploy-strat`.
-
-   ```yaml
-   ...
-   targets:
-     <targetName>:
-       account: <agentIdentifier>
-       namespace: <namespace>
-       strategy: canary-deploy-strat
+```yaml
+targets:
+  staging:  
     ...
-    ```
-4. Save the file
-
-## Redeploy your app
-
-Make a change to your app, such as the number of replicas, and redeploy it with the CLI:
-
-```bash
-armory deploy start  -f <your-deploy-file>.yaml
+    strategy: <name-for-your-canary-strategy>
+  prod:  
+    ...
+    strategy: <name-for-your-canary-strategy>
 ```
 
-Monitor the progress and approve the canary steps in the UI.
+You can define different canary strategies for different deployment targets.
 
-### Go from manual to automated
+## Example deployment config file
 
-Once you have confidence in your queries, switching from manual approvals of canary steps to automatic approvals involves updating the `analysis` steps in your strategy. You can either comment out the `rollBackMode` and `rollForwardMode` fields or set them to `automatic`. Subsequent deployments using the updated deploy file will progress the deployment automatically if the canary analysis steps pass.
+In this basic example, you deploy an app called "sample-app" to two deployment targets.
 
+```yaml
+version: v1
+kind: kubernetes
+application: sample-app
+targets:
+  staging:  
+    account: staging-cluster
+    namespace: staging-ns
+    strategy: sample-app-canary
+  prod:  
+    account: prod-cluster
+    namespace: prod-ns
+    strategy: sample-app-canary
+manifests:
+  - path: manifests/<your-app>.yaml # the path to and name of your app manifest
+strategies:
+  sample-app-canary:
+    canary:
+      steps:
+        - setWeight: 10
+        - pause:
+            untilApproved: true
+        - setWeight: 20
+        - pause:
+            untilApproved: true
+        - setWeight: 100
+```
+
+<details><summary>Show me the app manifest</summary>
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app
+  annotations: 
+    "app": "sample-app"
+spec:
+  revisionHistoryLimit: 1
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+      annotations: 
+        "app": "sample-app"
+    spec:
+      containers:
+      - image:  demoimages/bluegreen:v3 #v5, v4, v3
+        imagePullPolicy: Always
+        name: sample-app
+        resources:
+          limits:
+            cpu: "100m" # this is to ensure the above busy wait cannot DOS a low CPU cluster.
+            memory: "70Mi"
+          requests:
+            cpu: "10m" # this is to ensure the above busy wait cannot DOS a low CPU cluster.
+            memory: "70Mi"
+        #ports:
+        #  - containerPort: 8086
+      restartPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app-svc
+  labels:
+    app: sample-app
+  annotations:
+    linkerd.io/inject: enabled
+spec:
+  selector:
+    app: sample-app
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+      protocol: TCP
+```
+</details>
+
+## Using canary strategies with service mesh
+
+Service meshes allow setting up accurate traffic split between the new version and the old version of your application.
+ 
 ## {{% heading "nextSteps" %}}
 
 * {{< linkWithTitle "canary-analysis/create-canary-queries.md" >}}
