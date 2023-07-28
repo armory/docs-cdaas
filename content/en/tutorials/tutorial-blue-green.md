@@ -70,7 +70,10 @@ Now that you have cloned the branch, you can deploy the first version of the `po
 * `potato-facts-v1.yaml` defines the Deployment object for the potato-facts app, which is a basic web app that displays facts about potatoes. 
 * `potato-facts-service.yaml` defines the `potato-facts-svc` Service object, which is the active service for the app.
 
-Additionally, there are two manifests for creating namespaces (`staging` and `prod`) so this tutorial can simulate deploying to different clusters.
+Additionally, there are two manifests for creating namespaces (`staging` and `prod`) so that this tutorial can simulate deploying to different clusters.
+
+
+At the `tutorial-blue-green` directory root level is the deployment config file (`deploy-v1.yaml`), where you declare your deployment outcome.
 
 {{< highlight yaml "linenos=table" >}}
 version: v1
@@ -103,25 +106,7 @@ strategies:
 trafficManagement:
   kubernetes:
     - activeService: potato-facts-svc
-
 {{< / highlight >}}
-
-
-## Explore the files
-
-```shell
-.
-├── deploy-v1.yaml
-├── deploy-v2.yaml
-└── manifests
-    ├── potato-facts-preview-service.yaml
-    ├── potato-facts-service.yaml
-    ├── potato-facts-v1.yaml
-    ├── potato-facts-v2.yaml
-    ├── prod-namespace.yaml
-    └── staging-namespace.yaml
-```
-
 
 
 
