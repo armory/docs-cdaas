@@ -13,44 +13,28 @@ tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 A canary strategy involves shifting a small percentage of traffic to the new version of your application. You specify conditions before gradually increasing the traffic percentage to the new version. Service meshes like Istio and Linkerd enable finer-grained traffic shaping patterns compared to what is available natively. See the [Strategies Overview]({{< ref "deployment/strategies/overview" >}}) for details on the advantages of using a canary deployment strategy.
 
 ## How CD-as-a-Service implements canary
-With CD-as-a-Service, users can configure their canary deployment strategy as they desire. Users can define a list of steps that are executed sequentially when executing the strategy. When executing the strategy, CD-as-a-Service creates a new Replicaset for the new version of the application and manipulates the Replicaset object and other resources to shape traffic. 
+With CD-as-a-Service, users can configure their canary deployment strategy as they desire. Users can define a list of steps that are executed sequentially when executing the strategy. When executing the strategy, CD-as-a-Service creates a new ReplicaSet  for the new version of the application and manipulates the ReplicaSet  object and other resources to shape traffic. 
 CD-as-a-Service uses `setWeight` step type to shape the traffic to the new version. Traffic is shaped differently depending on if you are using service mesh or not. 
 
 ### Canary strategy without service mesh
 When using a canary strategy without a service mesh, CD-as-a-Service performs the following steps:
 1. CD-as-a-Service evaluates the setWeight step to determine the traffic split between the new version and the old version.
-1. CD-as-a-Service manipulates Replicaset objects of the new version and the old version to achieve the desired traffic split by changing the number of pods in each Replicaset.
+1. CD-as-a-Service manipulates ReplicaSet  objects of the new version and the old version to achieve the desired traffic split by changing the number of pods in each ReplicaSet .
 
 
 ### Canary strategy with service mesh
 When using a canary strategy with a service mesh like Istio or LinkerD, CD-as-a-Service performs the following steps:
-1. CD-as-a-Service creates the Replicaset for the new version of the application without changing the `replicaCount` specified in the deployment object. 
+1. CD-as-a-Service creates the ReplicaSet  for the new version of the application without changing the `replicaCount` specified in the Kubernetes deployment object. 
 1. CD-as-a-Service evaluates the `setWeight` step to determine the traffic split between the new version and the old version.
 1. CD-as-a-Service manipulates the relevant objects that are involved in shaping the traffic for the service mesh. 
 
 ## {{% heading "prereq" %}}
 
-You have completed the following guides:
+Before configuring a canary strategy in your [deployment]({{< ref "deployment/overview" >}}), you should have the following:
 
-1. {{< linkWithTitle "get-started/quickstart.md" >}}
-1. {{< linkWithTitle "get-started/deploy-your-app.md" >}}
-
-You need the following to work through this guide:
-
-- Access to a Kubernetes cluster where you can install the Remote Network Agent (RNA). This cluster acts as the deployment target for the sample app. You can reuse the clusters from the previous quick starts if you want. Or stand up new ones.
-- A Prometheus instance set up to monitor your Kubernetes clusters. Keep the following in mind:
-
-  - Armory recommends your Prometheus instance uses the following settings: `"prometheus.io/scrape": "true"` (on by default) and `kube-state-metrics.metricAnnotationsAllowList[0]=pods=[*]` (collect annotations). These  flags instruct Prometheus to collect all Kubernetes annotations, which allow you to reference the annotations that Armory CD-as-a-Service injects as part of your query.
-
-   If you install Prometheus with Helm, this example command includes the required flag:
-
-   ```yaml
-   helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --set 'kube-state-metrics.metricAnnotationsAllowList[0]=pods=[*]'
-   ```
-
-  - It is either accessible by the public internet or you have installed the Remote Network Agent (RNA) in the same cluster.
-
-   For information about how to install Prometheus, see the the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/installation/).
+* Kubernetes Deployment object
+  
+  Your [Kubernetes Deployment object](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) describes the desired state for your application Pods and ReplicaSets. 
 
 
 ## Add your metrics provider
