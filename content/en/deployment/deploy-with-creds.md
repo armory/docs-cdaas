@@ -18,6 +18,6 @@ You have [created machine to machine client credentials]({{< ref "iam/manage-cli
 
 ## Deploy your app
 
-{{< prism lang="bash" >}}
+```bash
 armory deploy start  -c <your-client-id> -s <your-client-secret> -f <your-deploy.yaml>
-{{< /prism >}}
+```

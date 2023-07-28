@@ -36,17 +36,17 @@ This is a confusing error that occurs when you do not send authorization credent
 
 Make sure you include your GitHub token in the request header.
 
-{{< prism lang="yaml" >}}
+```yaml
 headers:
 - key: Authorization
   value: token  {{secrets.github_personal_access_token}}
-{{< /prism >}}
+```
 
 ### Failed to fetch access token
 
-{{< prism lang="bash" >}}
+```bash
 level=fatal msg="failed to fetch access token, err: no credentials set or expired. Either run armory login command to interactively login, or add clientId and clientSecret flags to specify service account credentials"
-{{< /prism >}}
+```
 
 You may see this error when you are using Secrets in a reusable workflow.
 

@@ -25,13 +25,13 @@ For this example, you want to add the following new context variables:
 <br>
 Your command line looks like this:
 
-{{< prism lang="bash" line-numbers="true" >}}
+```bash
 armory deploy start -f deploy.yml --add-context=smokeTest=true,environment=prod,changeBy=jane-doe
-{{< /prism >}}
+```
 <br>
 In your GitHub Action, you add an `addContext` key in your `Deployment` step.
 
-{{< prism lang="yaml" line-numbers="true" line="22" >}}
+{{< highlight yaml "linenos=table, hl_lines=22" >}}
 name: Deploy my latest version
 
 on:
@@ -55,7 +55,7 @@ jobs:
           path-to-file: "/deploy.yml"
           addContext: "smokeTest=true,environment=prod,changeBy=jane-doe"
           applicationName: "potato-facts"
-{{< /prism >}}
+{{< /highlight >}}
 
 ## Known issues
 

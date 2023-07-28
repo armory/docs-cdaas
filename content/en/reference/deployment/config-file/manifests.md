@@ -7,7 +7,7 @@ description: >
 
 ## `manifests.`
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 manifests:
   # Directory containing manifests
   - path: /path/to/manifest/directory
@@ -15,7 +15,7 @@ manifests:
   # Specific manifest file
   - path: /path/to/specific/manifest.yaml
     targets: ["<targetName3>", "<targetName4>"]
-{{< /prism >}}  
+```
 
 ### `manifests.path`
 

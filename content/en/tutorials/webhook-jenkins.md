@@ -19,7 +19,7 @@ description: >
 
 
 
-{{< prism lang="yaml" line-numbers="true" line="3" >}}
+{{< highlight yaml "linenos=table, hl_lines=3" >}}
 webhooks:
   - name: jenkins-integration
     method: POST
@@ -29,7 +29,7 @@ webhooks:
     headers:
       - key: Authorization
         value: Basic ${potato-facts-jenkins-auth}
-{{< /prism >}}
+{{< /highlight >}}
 
 not that the URI template has a token, webhook parms as placeholders, and the callback
 

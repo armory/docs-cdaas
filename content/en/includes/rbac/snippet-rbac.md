@@ -1,6 +1,6 @@
 Example rbac.yaml
 
-{{< prism lang="yaml" line-numbers="true" >}}
+{{< highlight yaml "linenos=table" >}}
 targetGroups:
   - name: potato-facts
     # optional field, defaults to main
@@ -50,4 +50,4 @@ roles:
       - type: api
         resource: agent-hub
         permission: connect         
-{{< /prism >}}
+{{< /highlight >}}
