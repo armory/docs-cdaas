@@ -1,6 +1,6 @@
 Example rbac.yaml
 
-{{< highlight yaml "linenos=table" >}}
+```yaml
 targetGroups:
   - name: potato-facts
     # optional field, defaults to main
@@ -50,4 +50,4 @@ roles:
       - type: api
         resource: agent-hub
         permission: connect         
-{{< /highlight >}}
+```

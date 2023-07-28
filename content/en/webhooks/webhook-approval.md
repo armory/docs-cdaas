@@ -44,7 +44,7 @@ How you create your job varies from system to system and is beyond the scope of 
 
 A few things to keep in mind:
 
-* You can send send context variables from CD-as-a-Service to your job. 
+* You can send send context variables from CD-as-a-Service to your job.
 * The result that you send to CD-as-a-Service is a boolean. See the [Configure your external job](#configure-your-external-job) section later in this guide for callback format.
 
 ## Configure the webhoook in your deployment config file
@@ -119,12 +119,12 @@ You can trigger a webhook from the following areas:
 
 You add a `runWebhooks` section where you want to trigger the webhook.
 
-{{< highlight yaml "linenos=table" >}}
+```yaml
 - runWebhook:
     name: <webhook-name>
-    context: 
+    context:
         myCustomKey: myCustomValue
-{{< /highlight >}}
+```
 
 - `name`: (Required) webhook name; must match the name you gave your webhook in the `webhooks` configuration section.
 - `context`: (Optional) dictionary; declare values to use in templates or headers.
@@ -267,4 +267,3 @@ After you have configured your webhook in your deployment config file, you shoul
 * {{< linkWithTitle "tutorials/tutorial-webhook-github.md" >}}
 * [Webhooks section]({{< ref "reference/deployment/config-file/webhooks" >}}) in the deployment config file reference
 * {{< linkWithTitle "troubleshooting/webhook.md" >}}
- 

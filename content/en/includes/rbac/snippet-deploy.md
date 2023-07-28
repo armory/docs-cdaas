@@ -1,6 +1,6 @@
 Example deployment.yaml
 
-{{< highlight yaml "linenos=table" >}}
+```yaml
 version: v1
 kind: kubernetes
 application: potato-facts
@@ -42,4 +42,4 @@ targets:
       beforeDeployment:
         - pause:
             untilApproved: true
-{{< /highlight >}}
+```
