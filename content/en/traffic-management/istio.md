@@ -28,7 +28,7 @@ In the following example, you define a CD-as-a-Service deployment that uses a Vi
 
 When you deploy your app, CD-as-a-Service modifies your VirtualService and DestinationRule, setting weights for `stable` and `canary` subsets based on the weights specified in your deployment strategy.  CD-as-a-Service also adds the `armory-pod-template-hash` label to the DestinationRule subsets for routing traffic to the pods of each ReplicaSet.
 
-{{< highlight yaml "linenos=table, hl_lines=13-17 30-34" >}}
+{{< highlight yaml "linenos=table, hl_lines=13 17 30 34" >}}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
