@@ -20,6 +20,10 @@ Add a top-level `trafficManagement.targets` section to your deployment file.
 
 {{< include "dep-file/tm-smi-config.md" >}}
 
+(Optional) Configure your app's Kubernetes Service:
+
+{{< include "dep-file/tm-k8s-service.md" >}}
+
 ## {{% heading "nextSteps" %}}
 
 * {{< linkWithTitle "reference/deployment/_index.md" >}}

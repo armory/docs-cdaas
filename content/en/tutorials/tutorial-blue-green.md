@@ -18,14 +18,15 @@ If you don't have a Kubernetes cluster, you can install one locally using [kind]
 
 ## Learning objectives
 
-1. Install the CLI so you can deploy from the command line.
-1. Create Client Credentials so you can connect your Kubernetes cluster.
-1. Connect your cluster by installing a Remote Network Agent.
-1. Clone the repo branch
-1. Explore the files
-1. Deploy the first version of your app using a canary strategy.
-1. Deploy the second version of your app using a blue/green strategy.
-1. Clean up 
+1. [Install the CLI](#install-the-cli) so you can deploy from the command line.
+1. [Create Client Credentials](#create-client-credentials) so you can connect your Kubernetes cluster.
+1. [Connect your cluster](#connect-your-cluster) by installing a Remote Network Agent.
+1. [Clone the repo branch](#clone-the-repo-branch) so you have the code for this tutorial.
+1. [Explore the app v1 files](#explore-the-app-v1-deployment-files).
+1. [Deploy the first version of the ap](#deploy-v1) using a canary strategy.
+1. [Explore the app v2 files](#explore-the-app-v2-deployment-files) to learn how to implement a blue/green strategy.
+1. [Deploy the second version of the app](#deploy-v2) using a blue/green strategy.
+1. [Clean up](#clean-up) installed resources.
 
 ## {{% heading "prereq" %}}
 
@@ -57,28 +58,45 @@ The commands do the following:
 
 ## Clone the repo branch
 
-Clone the [docs-cdaas-sample](https://github.com/armory/docs-cdaas-sample) repo's `tutorial-blue-green` branch:
+Clone the [docs-cdaas-sample](https://github.com/armory/docs-cdaas-sample) repo's `tutorial-blue-green` branch so you have the code for this tutorial.
 
 ```shell
 git clone --branch tutorial-blue-green --single-branch https://github.com/armory/docs-cdaas-sample.git
 ```
 
-## Configure and deploy the first version of your app
+## Explore the app v1 deployment files
 
-Now that you have cloned the branch, you can deploy the first version of the `potato-facts` app, which Armory's engineers created for CD-as-a-Service demos. You can find the manifests in the `manifests` folder of the `tutorial-blue-green` directory.
+Now that you have cloned the branch, you can explore the files you use to deploy the first version of the `potato-facts` app, which Armory's engineers created for CD-as-a-Service demos. 
 
-* `potato-facts-v1.yaml` defines the Deployment object for the potato-facts app, which is a basic web app that displays facts about potatoes. 
-* `potato-facts-service.yaml` defines the `potato-facts-svc` Service object, which is the active service for the app.
+### Manifests
+
+You can find the manifests in the `manifests` folder of the `tutorial-blue-green` directory.
+
+* `potato-facts-v1.yaml`: Defines the Deployment object for the potato-facts app, which is a basic web app that displays facts about potatoes. 
+* `potato-facts-service.yaml`: Defines the `potato-facts-svc` Service object, which sends traffic to the current version of your app. You use this in `trafficManagement.kubernetes.activeService` field in the deployment config file.
 
 Additionally, there are two manifests for creating namespaces (`staging` and `prod`) so that this tutorial can simulate deploying to different clusters.
 
+### Deployment config
 
-At the `tutorial-blue-green` directory root level is the deployment config file (`deploy-v1.yaml`), where you declare your deployment outcome.
+#### Strategy
 
-{{< highlight yaml "linenos=table" >}}
-version: v1
-kind: kubernetes
-application: potato-facts
+At the `tutorial-blue-green` directory root level is the deployment config file (`deploy-v1.yaml`), where you declare your deployment outcome. App v1 deployment uses a canary strategy called `rolling` to deploy 100% of the app.
+
+```yaml
+strategies:
+  rolling:
+    canary:
+      steps:
+        - setWeight:
+            weight: 100
+```
+
+#### Deployment targets
+
+Next, looking at the `targets` section, you see two targets: `staging` and `prod`.
+
+```yaml
 targets:
   staging:
     account: sample-cluster
@@ -90,6 +108,24 @@ targets:
     strategy: rolling
     constraints:
       dependsOn: ["staging"]
+```
+
+`target.staging`:
+* `account`: `sample-cluster` declares the Remote Network Agent associated with the `staging` environment. `sample-cluster` is the Agent Identifier used when you installed the RNA in your cluster. 
+* `namespace`: `potato-facts-staging` is the namespace defined in the `manifests/staging-namespace.yaml` file. This simulates deploying to a staging cluster.
+* `strategy`: `rolling` is the strategy name declared in the `strategies` top-level section.
+
+`target.prod`:
+* `account`: `sample-cluster` declares the Remote Network Agent associated with the `staging` environment. `sample-cluster` is the Agent Identifier used when you installed the RNA in your cluster. In a real world deployment, you would have a different Remote Network Agent installed in your production cluster.
+* `namespace`: `potato-facts-prod` is the namespace defined in the `manifests/prod-namespace.yaml` file. This simulates deploying to a prod cluster.
+* `strategy`: `rolling` is the strategy name declared in the `strategies` top-level section.
+* `constraints.dependsOn`: this constraint means that the deployment to prod depends upon successful completion of deployment to staging. If staging deployment fails, CD-as-a-Service does not deploy the app to prod. The entire deployment fails.
+
+#### App manifests
+
+This section declares the paths to the Kubernetes manifests that CD-as-a-Service deploys. Note that the `staging-namespace.yaml` file has a target constraint, as does the `prod-namespace.yaml` file. CD-as-a-Service deploys those manifests to only the specified deployment target.
+
+```yaml
 manifests:
   - path: manifests/potato-facts-v1.yaml
   - path: manifests/potato-facts-service.yaml
@@ -97,148 +133,179 @@ manifests:
     targets: ["staging"]
   - path: manifests/prod-namespace.yaml
     targets: ["prod"]
-strategies:
-  rolling:
-    canary:
-      steps:
-        - setWeight:
-            weight: 100
+```
+
+#### Active service
+
+Finally, the `trafficManagement.kubernetes.activeService` field declares the app's active Service, which is defined in `manifests/potato-facts-service.yaml`. 
+
+```yaml
 trafficManagement:
-  kubernetes:
-    - activeService: potato-facts-svc
-{{< / highlight >}}
-
-
-
-
-
-
- Inside the manifests directory, save the following files:
-
-
-You need to deploy a [Kubernetes Service object](https://kubernetes.io/docs/concepts/services-networking/service/) that sends traffic to the current version of your application. This is the `trafficManagement.kubernetes.activeService` field in the deployment config YAML configuration.
-
-### potato-facts-service.yaml
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: potato-facts
-spec:
-  selector:
-    app: potato-facts
-  ports:
-    - protocol: TCP
-      port: 9001
+  - targets: ["staging", "prod"]
+    kubernetes:
+      - activeService: potato-facts-svc
 ```
-(Optional) You can also create a `previewService` Kubernetes Service object so you can programmatically or manually observe the new version of your software before exposing it to traffic via the `activeService`. This is the `trafficManagement.kubernetes.previewService` field in the YAML configuration.
 
-## Create your deployment config file
+## Deploy v1
 
-This tutorial guides you through altering the following deployment config to define and use a blue/green strategy. Copy this file and save it as `deployment.yaml` to the root of your sample app directory. [See the directory structure above](#directory-structure).
+You deploy using the CLI, so be sure to log in:
+
+```bash
+armory login
+```
+
+Confirm the device code in your browser when prompted. Then return to this tutorial. 
+
+
+Next, from the root of `tutorial-blue-green`, deploy the app:
+
+```bash
+armory deploy start -f deploy-v1.yaml
+```
+
+You can use the link provided by the CLI to observe your deployment's progression in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). CD-as-a-Service deploys your resources to `staging`. Once those resources have deployed successfully, CD-as-a-Service deploys to `prod`.
+
+## Explore the app v2 deployment files
+
+### Manifests
+
+* `potato-facts-v2.yaml`: Links to the second version of the app.
+* `potato-facts-service.yaml`: No changes.
+* `potato-facts-preview-service.yaml`: Defines a `potato-facts-preview-svc` Service object that points to the new version of your app. You can programmatically or manually observe the new version before exposing it to traffic via the `activeService`. You configure the preview Service in the `trafficManagement.kubernetes.previewService` field in the deployment config file.
+
+### Deployment config
+
+The `deploy-v2.yaml` config file defines a blue/green strategy called `blue-green-prod`. 
+
+#### Strategy
 
 ```yaml
-version: v1
-kind: kubernetes
-application: potato-facts
-targets:
-  staging:
-    account: my-cdaas-cluster
-    namespace: potato-facts-staging
-    strategy: rolling
-  prod:
-    account: my-cdaas-cluster
-    namespace: potato-facts-prod
-    strategy: rolling
-    constraints:
-      dependsOn: ["staging"]
-manifests:
-  - path: manifests/potato-facts-v1.yaml
-  - path: manifests/potato-facts-service.yaml
-  - path: manifests/staging-namespace.yaml
-    targets: ["staging"]
-  - path: manifests/prod-namespace.yaml
-    targets: ["prod"]
 strategies:
   rolling:
     canary:
       steps:
         - setWeight:
             weight: 100
+  blue-green-prod:
+    blueGreen:
+      redirectTrafficAfter:
+        - pause:
+            untilApproved: true
+            approvalExpiration:
+              duration: 10
+              unit: minutes
+        - exposeServices:
+            services:
+              - potato-facts-preview-svc
+            ttl:
+              duration: 10
+              unit: minutes
+      shutDownOldVersionAfter:
+        - pause:
+            duration: 15
+            unit: minutes
 ```
 
+* `blueGreen.redirectTrafficAfter`: This step conditions for exposing the new app version to the active Service. CD-as-a-Service executes steps in parallel.
 
-## Deploy your app 
+   - `pause`: This step pauses for manual judgment before redirecting traffic to the new app version. The step has an expiration configured. If you do not approve within the specified time, the deployment fails. You can also configure the deployment to pause for a set amount of time before automatically continuing deployment.
+   
+   - `exposeServices`: This step creates a temporary preview service link for testing purposes. The exposed link is not secure and expires after the time in the `ttl` section. See {{< linkWithTitle "reference/deployment/config-preview-link.md" >}} for details.
+   
+   
+   >The `redirectTrafficAfter` field also supports continuing or rolling back based on canary analysis. See the [Strategies config file reference]({{< ref "reference/deployment/config-file/strategies#strategiesstrategynamebluegreenredirecttrafficafteranalysis" >}}) for details.
 
-Deploy your app using the deployment config above to have baseline version of your app deployed before deploying with a blue/green strategy.
+* `blueGreen.shutDownOldVersionAfter`: This step defines a condition for deleting the old version of your app. If deployment is successful, CD-as-a-Service shuts down the old version after the specified time. This field supports the same `pause` steps as the `redirectTrafficAfter` field.
+
+#### Deployment targets
+
+The `staging` configuration is the same, but the `prod` configuration strategy has changed to `blue-green-prod`.
+
+```yaml
+targets:
+  staging:
+    account: sample-cluster
+    namespace: potato-facts-staging
+    strategy: rolling
+  prod:
+    account: sample-cluster
+    namespace: potato-facts-prod
+    strategy: blue-green-prod
+    constraints:
+      dependsOn: ["staging"]
+      beforeDeployment:
+        - pause:
+            untilApproved: true
+```
+
+#### App manifests
+
+This section has also changed slightly. In addition to specifying the second version of the app (`potato-facts-v2.yaml`), the section contains `potato-facts-service-preview.yaml`, which is the preview Service for the new version of the app. 
+
+```yaml
+manifests:
+  - path: manifests/potato-facts-v2.yaml
+  - path: manifests/potato-facts-service.yaml
+  - path: manifests/potato-facts-service-preview.yaml
+  - path: manifests/staging-namespace.yaml
+    targets: ["staging"]
+  - path: manifests/prod-namespace.yaml
+    targets: ["prod"]
+```
+
+#### Active and preview services
+
+Finally, the `trafficManagement.kubernetes` field declares the preview Service, which is defined in `manifests/potato-facts-service-preview.yaml`. 
+
+```yaml
+trafficManagement:
+  - targets: ["staging", "prod"]
+    kubernetes:
+      - activeService: potato-facts-svc
+      - previewService: potato-facts-preview-svc
+```
+
+## Deploy v2
 
 ```bash
-armory deploy start  -f <your-deploy-file>.yaml
+armory deploy start  -f deploy-v2.yaml
 ```
 
-## Add blue/green to your deployment
+Use the link provided by the CLI to navigate to your deployment in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). Once the `staging` deployment has completed, click **Approve** to allow the `prod` deployment to begin.
 
-1. In your deployment config, go to the `strategies` section.
-1. Create a new strategy named `blue-green-deploy-strat` like the following:
+{{< figure src="/images/cdaas/tutorials/bluegreen/approve-prod-start.jpg" width=80%" height="80%" >}}
 
-   ```yaml
-   strategies:
-    blue-green-deploy-strat:
-      blueGreen:
-        redirectTrafficAfter:
-          - pause:
-              untilApproved: true
-              approvalExpiration:
-                duration: 2
-                unit: hours
-        shutDownOldVersionAfter:
-          - pause:
-              untilApproved: true
-              approvalExpiration:
-                duration: 2
-                unit: hours
-   ```
 
-   See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for an explanation of these fields.
+Once deployment begins, click **prod** deployment to open the details window.
 
-   This strategy is configured to pause for manual judgment before redirecting traffic to your new app version as well as before shutting down your old version. You could instead choose to pause for a duration of time.
+{{< figure src="/images/cdaas/tutorials/bluegreen/openDetailsWindow.jpg" width=80%" height="80%" >}}
 
-1. Change the value of `targets.<targetName>.strategy` for one or more of your deployment targets to `blue-green-deploy-strat`.
+You can see that both the previous version (blue) and new version (green) are running.
 
-   ```yaml
-   ...
-   targets:
-    <targetName>:
-      account: <agentIdentifier>
-      namespace: <namespace>
-      strategy: blue-green-deploy-strat
-    ...
-    ```
-1. At the bottom of your file, create a top-level traffic management configuration for your `activeService` and `previewService`:
+In the **Next Version** section, click **View Environment** to open the preview link to the green version of the app. You can also find the link in the **Resources** section.
 
-   ```yaml
-   ...
-   trafficManagement:
-     - targets: ['<targetName>']
-       kubernetes:
-         - activeService: myAppActiveService
-           previewService: myAppPreviewService
-   ...
-   ```
+{{< figure src="/images/cdaas/tutorials/bluegreen/detailsWithPreviewLink.jpg" width=80%" height="80%" >}}
 
-   The values for `activeService` and `previewService` must match the names of the Kubernetes Service objects you created to route traffic to the current and preview versions of your application. See the [Deployment File Reference]({{< ref "reference/deployment/config-file/traffic-management" >}}) for an explanation of these fields.
+After you have verified the new app version, you can click **Approve & Continue** to redirect all traffic to the new version. The last step is shutting down the old version. Note that you can still roll back until the old version has been shut down.
 
-1. Save the file
+{{< figure src="/images/cdaas/tutorials/bluegreen/deployFinish.jpg" width=80%" height="80%" >}}
 
-## Redeploy your app
+## Clean up
 
-Make a change to your app, such as the number of replicas, and redeploy it with the CLI:
+
+You can clean kubectl to clean up the app resources you created:
+
+```shell
+kubectl delete ns potato-facts-staging potato-facts-prod
+```
+
+To clean up the Remote Network Agent resources you installed:
 
 ```bash
-armory deploy start  -f <your-deploy-file>.yaml
+kubectl delete ns armory-rna
 ```
 
-Monitor the progress and **Approve & Continue** or **Roll back** the blue/green deployment in the UI.
 
+## {{% heading "nextSteps" %}}
 
-
+* [Blue/Green deployment config file reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) 

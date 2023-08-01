@@ -18,10 +18,12 @@ trafficManagement:
 
 {{< include "dep-file/tm-smi-config.md" >}}
 
-
 ### `trafficManagment.targets.istio`
 
 See {{< linkWithTitle "traffic-management/istio.md" >}} for a detailed example.
 
 {{< include "dep-file/tm-istio-config.md" >}}
 
+### `trafficManagement.targets.kubernetes`
+
+{{< include "dep-file/tm-k8s-service.md" >}}
