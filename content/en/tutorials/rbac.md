@@ -33,10 +33,10 @@ In this tutorial, you learn how to:
 
 * You have installed `kubectl` and have access to a Kubernetes cluster
 * You have [set up your Armory CD-as-a-Service account]({{< ref "get-started" >}}).
-* You have [installed the `armory` CLI]({{< ref "setup/cli" >}}).
+* You have [installed the `armory` CLI]({{< ref "cli" >}}).
 * You have installed [Helm](https://helm.sh/docs/intro/install/).
 * You have a GitHub account so you can fork the sample project.
-* You have read the {{< linkWithTitle "iam/_index.md.md" >}} content.
+* You have read the {{< linkWithTitle "iam/overview.md" >}} content.
 * You have completed the  {{< linkWithTitle "tutorials/deploy-sample-app.md" >}}.
 
 ## Fork and clone the repo

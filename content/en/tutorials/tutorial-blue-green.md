@@ -29,7 +29,7 @@ A blue/green strategy shifts traffic from the running version of your software t
 
 ## Install the CLI
 
-{{< include "install-cli.md" >}}
+{{< include "cli/install-cli-tabpane.md" >}}
 
 add windows
 
