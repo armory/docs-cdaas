@@ -6,7 +6,7 @@ The following network endpoints are used for communication into Armory CD-as-a-S
 | api.cloud.armory.io       | 443  | HTTP over TLS (HTTPS)<br>TLS version 1.2        | Armory REST API; Clients connect to these APIs to interact with Armory CD-as-a-Service.    |
 | auth.cloud.armory.io      | 443  | HTTP over TLS (HTTPS)<br>TLS version 1.2        | OIDC Service; The Open ID Connect (OIDC) service is used to authorize and authenticate machines and users. The Remote Network Agents, Armory Continuous Deployment (Spinnaker) plugin, and other services all authenticate against this endpoint. The service provides an identity token that can be passed to the Armory API and Agent Hub.                                   |
 | console.cloud.armory.io   | 443  | HTTP over TLS (HTTPS)<br>TLS version 1.2        | Cloud Console; The browser-based UI for Armory CD-as-a-Service       |
-| *.preview.cloud.armory.io | 443  | HTTP over TLS (HTTPS)<br>TLS version 1.2        | Preview Service; Creates a temporary public preview link to a deployed services for testing; routes traffic to exposed services through Agent Hub plus Remote Network Agents.
+| *.preview.cloud.armory.io | 443  | HTTP over TLS (HTTPS)<br>TLS version 1.2        | Preview Service; Creates a temporary public preview link to deployed services for testing; routes traffic to exposed services through Agent Hub plus Remote Network Agents.
 
 All network traffic is encrypted while in transit.
 
