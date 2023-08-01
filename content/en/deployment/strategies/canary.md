@@ -35,6 +35,8 @@ Before configuring a canary strategy in your [deployment]({{< ref "deployment/ov
   
   Your [Kubernetes Deployment object](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) describes the desired state for your application Pods and ReplicaSets. 
 
+  >If you do not have a Kubernetes deployment object being deployed to a target, CD-as-a-Service will ignore the strategy and deploy all the manifests destined for the target.
+
 ## Define a canary deployment strategy
 
 1. [Declare your strategy](#declare-your-strategy).
