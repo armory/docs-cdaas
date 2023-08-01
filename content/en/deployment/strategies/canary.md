@@ -62,7 +62,7 @@ strategies:
 ```
 * `steps`: Define a list of steps that constitue your canary strategy. CD-as-a-Service executes steps sequentially, waiting for each step to finish before starting the next step. This enables you to configure monitoring during canary using analysis or webhooks. 
 
-* `setWeight`: Define how much traffic should get directed to the new version of your application. CD-as-a-Service will manipulate the relevant resources to send the traffic to your new version. 
+* `setWeight`: Define how much traffic should get directed to the new version of your application. CD-as-a-Service will manipulate the relevant resources to gradually increase the traffic to the new version. 
 
 ### Add your strategy to your deployment target
 
