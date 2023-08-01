@@ -2,7 +2,7 @@
 title: Blue/Green Deployment Tutorial
 linkTitle: Blue/Green
 description: >
-  In this tutorial, you learn how to use a blue/green strategy to deploy your app to Kubernetes using Armory CD-as-a-Service. Use kubectl to install the Remote Network Agent. Deploy the sample app to multiple targets.
+  In this tutorial, you learn how to use a blue/green strategy to deploy an app to Kubernetes using Armory CD-as-a-Service. Use kubectl to install the Remote Network Agent. Deploy the sample app to multiple targets.
 categories: ["Deployment", "Tutorials"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 draft: false
@@ -12,9 +12,9 @@ draft: false
 
 A blue/green strategy shifts traffic from the running version of your software (_blue_) to a new version of your software (_green_). You can preview the green version before approving the full deployment.
 
-This tutorial is designed to use a single Kubernetes cluster with multiple namespaces to simulate multiple clusters. The sample code is in a GitHub repo branch that you clone as part of this tutorial.
+This tutorial uses a single Kubernetes cluster with multiple namespaces to simulate multiple clusters. If you don't have a Kubernetes cluster, you can install one locally using [kind](https://kind.sigs.k8s.io/), which is a tool for running a lightweight Kubernetes cluster using Docker. Your cluster does not need be publicly accessible.
 
-If you don't have a Kubernetes cluster, you can install one locally using [kind](https://kind.sigs.k8s.io/), which is a tool for running a lightweight Kubernetes cluster using Docker. Your cluster does not need be publicly accessible.
+The sample code is in a GitHub repo branch that you clone as part of this tutorial.
 
 ## Learning objectives
 
@@ -23,10 +23,12 @@ If you don't have a Kubernetes cluster, you can install one locally using [kind]
 1. [Connect your cluster](#connect-your-cluster) by installing a Remote Network Agent.
 1. [Clone the repo branch](#clone-the-repo-branch) so you have the code for this tutorial.
 1. [Explore the app v1 files](#explore-the-app-v1-deployment-files).
-1. [Deploy the first version of the ap](#deploy-v1) using a canary strategy.
+1. [Deploy the first version of the app](#deploy-v1) using a canary strategy.
 1. [Explore the app v2 files](#explore-the-app-v2-deployment-files) to learn how to implement a blue/green strategy.
 1. [Deploy the second version of the app](#deploy-v2) using a blue/green strategy.
 1. [Clean up](#clean-up) installed resources.
+
+If you have already installed the CLI and have connected a cluster, you can start at the [Clone the repo branch](#clone-the-repo-branch) step.
 
 ## {{% heading "prereq" %}}
 
