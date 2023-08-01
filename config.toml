@@ -21,7 +21,7 @@ pygmentsUseClasses = false
 pygmentsUseClassic = false
 #pygmentsOptions = "linenos=table"
 # See https://help.farbox.com/pygments.html
-pygmentsStyle = "tango"
+pygmentsStyle = "dracula"
 
 # Google Analytics configuration
 # https://gohugo.io/templates/internal/#configure-google-analytics
@@ -40,7 +40,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
       unsafe = true
   [markup.highlight]
     # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
-    style = "tango"
+    style = "dracula"
     # these are defaults https://gohugo.io/getting-started/configuration-markup/#highlight
     anchorLineNos = false
     codeFences = true
