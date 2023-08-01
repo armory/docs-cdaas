@@ -176,15 +176,17 @@ spec:
 
 ## Using canary strategies with service mesh
 
-Service meshes allow setting up accurate traffic split between the new version and the old version of your application. If you are using a service mesh you need to add a `trafficManagement` block to your deployment config.
+Service meshes allow setting up accurate traffic split between the new version and the old version of your application. If you are using a service mesh you need to add a `trafficManagement` block to your deployment config. 
 
 ```yaml
 trafficManagement:
   - istio:
       ...
 ```
- 
+For more info on using service mes, see:
+* [Using service mesh for canary]({{< ref "traffic-management/overview.md" >}})
+
 ## {{% heading "nextSteps" %}}
 
-* [Using Service Mesh for canary]({{< ref "traffic-management/overview.md" >}})
 * [Configure your metrics provider to use canary analysis]({{< ref "canary-analysis/overview.md" >}})
+* See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#canary-fields" >}}) for detailed field explanations.
