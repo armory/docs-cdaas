@@ -23,7 +23,7 @@ When using a canary strategy without a service mesh, CD-as-a-Service performs th
 
 
 ### Canary strategy with service mesh
-When using a canary strategy with a service mesh like Istio or LinkerD, CD-as-a-Service performs the following steps:
+When using a canary strategy with a service mesh like Istio or Linkerd, CD-as-a-Service performs the following steps:
 1. CD-as-a-Service creates the ReplicaSet  for the new version of the application without changing the `replicaCount` specified in the Kubernetes deployment object. 
 1. CD-as-a-Service evaluates the `setWeight` step to determine the traffic split between the new version and the old version.
 1. CD-as-a-Service manipulates the relevant objects that are involved in shaping the traffic for the service mesh. 
@@ -60,7 +60,7 @@ strategies:
             untilApproved: true
         - setWeight: 100
 ```
-* `steps`: Define a list of steps that constitue your canary strategy. CD-as-a-Service executes steps sequentially, waiting for each step to finish before starting the next step. This enables you to configure monitoring during canary using analysis or webhooks. 
+* `steps`: Define a list of steps that constitute your canary strategy. CD-as-a-Service executes steps sequentially, waiting for each step to finish before starting the next step. This enables you to configure monitoring during canary using analysis or webhooks. 
 
 * `setWeight`: Define how much traffic should get directed to the new version of your application. CD-as-a-Service will manipulate the relevant resources to gradually increase the traffic to the new version. 
 
@@ -161,8 +161,6 @@ metadata:
   name: sample-app-svc
   labels:
     app: sample-app
-  annotations:
-    linkerd.io/inject: enabled
 spec:
   selector:
     app: sample-app
