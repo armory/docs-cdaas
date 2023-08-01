@@ -205,7 +205,7 @@ CD-as-a-Service also supports a [blue/green]({{< ref "deployment/strategies/blue
 
 ## Clean up
 
-You can use kubectl to clean up the app resources you created:
+You can use `kubectl` to clean up the app resources you created:
 
 ```shell
 kubectl delete ns potato-facts-staging potato-facts-prod

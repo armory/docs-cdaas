@@ -2,7 +2,7 @@
 title: Blue/Green Deployment Tutorial
 linkTitle: Blue/Green
 description: >
-  In this tutorial, you learn how to use a blue/green strategy to deploy an app to Kubernetes using Armory CD-as-a-Service. Use kubectl to install the Remote Network Agent. Deploy the sample app to multiple targets.
+  In this tutorial, learn how to configure a blue/green deployment strategy. Use Armory CD-as-a-Service to deploy a sample app to multiple Kubernetes targets.
 categories: ["Deployment", "Tutorials"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 draft: false
@@ -72,18 +72,18 @@ Now that you have cloned the branch, you can explore the files you use to deploy
 
 ### Manifests
 
-You can find the manifests in the `manifests` folder of the `tutorial-blue-green` directory.
+You can find the Kubernetes app manifests in the `manifests` folder of the `tutorial-blue-green` directory.
 
 * `potato-facts-v1.yaml`: Defines the Deployment object for the potato-facts app, which is a basic web app that displays facts about potatoes. 
 * `potato-facts-service.yaml`: Defines the `potato-facts-svc` Service object, which sends traffic to the current version of your app. You use this in `trafficManagement.kubernetes.activeService` field in the deployment config file.
 
-Additionally, there are two manifests for creating namespaces (`staging` and `prod`) so that this tutorial can simulate deploying to different clusters.
+Additionally, there are two manifests for creating `staging` and `prod` namespaces, so that this tutorial can simulate deploying to different clusters.
 
 ### Deployment config
 
 #### Strategy
 
-At the `tutorial-blue-green` directory root level is the deployment config file (`deploy-v1.yaml`), where you declare your deployment outcome. App v1 deployment uses a canary strategy called `rolling` to deploy 100% of the app.
+At the `tutorial-blue-green` directory root level is the deployment config file (`deploy-v1.yaml`), where you declare your deployment outcome. App v1 deployment uses a canary strategy called `rolling` to deploy 100% of the app. If you create a blue/green strategy for app v1 deployment, CD-as-a-Service ignores the strategy and instead deploys 100% of your app to the target because there is only one version of the app.
 
 ```yaml
 strategies:
@@ -113,15 +113,15 @@ targets:
 ```
 
 `target.staging`:
-* `account`: `sample-cluster` declares the Remote Network Agent associated with the `staging` environment. `sample-cluster` is the Agent Identifier used when you installed the RNA in your cluster. 
+* `account`: `sample-cluster` declares the Remote Network Agent associated with the `staging` environment. `sample-cluster` is the `agentIdentifier` used when you installed the RNA in your cluster in the [Connect your cluster](#connect-your-cluster) step . _If you are using an RNA installed outside of this tutorial, be sure to update the `account` field with your RNA's `agentIdentifier`._
 * `namespace`: `potato-facts-staging` is the namespace defined in the `manifests/staging-namespace.yaml` file. This simulates deploying to a staging cluster.
 * `strategy`: `rolling` is the strategy name declared in the `strategies` top-level section.
 
 `target.prod`:
-* `account`: `sample-cluster` declares the Remote Network Agent associated with the `staging` environment. `sample-cluster` is the Agent Identifier used when you installed the RNA in your cluster. In a real world deployment, you would have a different Remote Network Agent installed in your production cluster.
+* `account`: `sample-cluster` declares the Remote Network Agent associated with the `staging` environment. `sample-cluster` is the Agent Identifier used when you installed the RNA in your cluster. In a real world deployment, you would have a different Remote Network Agent installed in your production cluster. _If you are using an RNA installed outside of this tutorial, be sure to update the `account` field with your RNA's `agentIdentifier`._
 * `namespace`: `potato-facts-prod` is the namespace defined in the `manifests/prod-namespace.yaml` file. This simulates deploying to a prod cluster.
 * `strategy`: `rolling` is the strategy name declared in the `strategies` top-level section.
-* `constraints.dependsOn`: this constraint means that the deployment to prod depends upon successful completion of deployment to staging. If staging deployment fails, CD-as-a-Service does not deploy the app to prod. The entire deployment fails.
+* `constraints.dependsOn`: This constraint means that the deployment to prod depends upon successful completion of deployment to staging. If staging deployment fails, CD-as-a-Service does not deploy the app to prod. The entire deployment fails.
 
 #### App manifests
 
@@ -156,7 +156,7 @@ You deploy using the CLI, so be sure to log in:
 armory login
 ```
 
-Confirm the device code in your browser when prompted. Then return to this tutorial. 
+Confirm the device code in your browser when prompted.
 
 
 Next, from the root of `tutorial-blue-green`, deploy the app:
@@ -208,9 +208,9 @@ strategies:
             unit: minutes
 ```
 
-* `blueGreen.redirectTrafficAfter`: This step conditions for exposing the new app version to the active Service. CD-as-a-Service executes steps in parallel.
+* `blueGreen.redirectTrafficAfter`: This step declares conditions for exposing the new app version to the active Service. CD-as-a-Service executes steps in parallel.
 
-   - `pause`: This step pauses for manual judgment before redirecting traffic to the new app version. The step has an expiration configured. If you do not approve within the specified time, the deployment fails. You can also configure the deployment to pause for a set amount of time before automatically continuing deployment.
+   - `pause`: This step pauses for manual judgment before redirecting traffic to the new app version and has an expiration configured. If you do not approve within the specified time, the deployment fails. You can also configure the deployment to pause for a set amount of time before automatically continuing deployment.
    
    - `exposeServices`: This step creates a temporary preview service link for testing purposes. The exposed link is not secure and expires after the time in the `ttl` section. See {{< linkWithTitle "reference/deployment/config-preview-link.md" >}} for details.
    
@@ -278,7 +278,7 @@ Use the link provided by the CLI to navigate to your deployment in the [CD-as-a-
 {{< figure src="/images/cdaas/tutorials/bluegreen/approve-prod-start.jpg" width=80%" height="80%" >}}
 
 
-Once deployment begins, click **prod** deployment to open the details window.
+Once deployment begins, click the **prod** deployment node to open the details window.
 
 {{< figure src="/images/cdaas/tutorials/bluegreen/openDetailsWindow.jpg" width=80%" height="80%" >}}
 
@@ -288,20 +288,21 @@ In the **Next Version** section, click **View Environment** to open the preview 
 
 {{< figure src="/images/cdaas/tutorials/bluegreen/detailsWithPreviewLink.jpg" width=80%" height="80%" >}}
 
-After you have verified the new app version, you can click **Approve & Continue** to redirect all traffic to the new version. The last step is shutting down the old version. Note that you can still roll back until the old version has been shut down.
+After you have verified the new app version, you can click **Approve & Continue** to redirect all traffic to the new version. 
+
+The last step is shutting down the old version. Note that you can roll back until the old version has been shut down.
 
 {{< figure src="/images/cdaas/tutorials/bluegreen/deployFinish.jpg" width=80%" height="80%" >}}
 
 ## Clean up
 
-
-You can clean kubectl to clean up the app resources you created:
+You can use `kubectl` to remove the app resources you created:
 
 ```shell
 kubectl delete ns potato-facts-staging potato-facts-prod
 ```
 
-To clean up the Remote Network Agent resources you installed:
+To remove the Remote Network Agent resources you installed:
 
 ```bash
 kubectl delete ns armory-rna
