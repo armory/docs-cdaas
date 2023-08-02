@@ -1,29 +1,33 @@
 ---
 title: Configure a Canary Deployment Strategy
-linktitle: Canary
+linkTitle: Canary
 weight: 5
 description: >
-  Learn how to configure a canary deployment strategy. Integrate your metrics provider, create a retrospective analysis query, and add canary analysis as a deployment constraint. Deploy your app to your Kubernetes cluster.
+  Learn how to configure a canary deployment strategy in your Armory CD-as-a-Service deployment.
 categories: ["Deployment", "Guides"]
 tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 ---
 
 ## What a canary strategy does
 
-A canary strategy involves shifting a small percentage of traffic to the new version of your application. You specify conditions and then gradually increase the traffic percentage to the new version. Service meshes like Istio and Linkerd enable finer-grained traffic shaping patterns compared to what is available natively. See the [Strategies Overview]({{< ref "deployment/strategies/overview" >}}) for details on the advantages of using a canary deployment strategy.
+A canary strategy involves shifting a small percentage of traffic to the new version of your app. You specify conditions and then gradually increase the traffic percentage to the new version. Service meshes like Istio and Linkerd enable finer-grained traffic shaping patterns compared to what is available natively. See the [Strategies Overview]({{< ref "deployment/strategies/overview" >}}) for details on the advantages of using a canary deployment strategy.
 
 ## How CD-as-a-Service implements canary
-With CD-as-a-Service, users can configure their canary deployment strategy however they want. Users define a list of steps that are executed sequentially when the strategy is executed. When the strategy is executed, CD-as-a-Service creates a new ReplicaSet for the new version of the application and manipulates the ReplicaSet object and other resources to shape traffic. CD-as-a-Service uses the `setWeight` step type to shape traffic to the new version. Traffic is shaped differently depending on whether or not you are using service mesh.
 
-### Canary strategy without service mesh
+With CD-as-a-Service, you can configure your canary deployment strategy however you want. You define a list of steps that CD-as-a-Service executes sequentially when deploying your app. CD-as-a-Service creates a new ReplicaSet for the new version of the app and then manipulates the ReplicaSet object and other resources to shape traffic. CD-as-a-Service uses the `setWeight` step type to shape traffic to the new version. Traffic is shaped differently depending on whether or not you are using a service mesh.
+
+### Canary strategy without a service mesh
+
 When using a canary strategy without a service mesh, CD-as-a-Service performs the following steps:
-1. CD-as-a-Service evaluates the setWeight step to determine the traffic split between the new version and the old version.
-1. CD-as-a-Service manipulates ReplicaSet  objects of the new version and the old version to achieve the desired traffic split by changing the number of pods in each ReplicaSet.
 
+1. CD-as-a-Service evaluates the `setWeight` step to determine the traffic split between the new version and the old version.
+1. CD-as-a-Service manipulates ReplicaSet objects of the new version and the old version to achieve the desired traffic split by changing the number of pods in each ReplicaSet.
 
 ### Canary strategy with service mesh
+
 When using a canary strategy with a service mesh such as Istio or Linkerd, CD-as-a-Service performs the following steps:
-1. CD-as-a-Service creates the ReplicaSet for the new version of the application without changing the `replicaCount` specified in the Kubernetes deployment object. 
+
+1. CD-as-a-Service creates the ReplicaSet for the new version of the app without changing the `replicaCount` specified in the Kubernetes deployment object. 
 1. CD-as-a-Service evaluates the `setWeight` step to determine the traffic split between the new version and the old version.
 1. CD-as-a-Service manipulates the relevant objects that are involved in shaping the traffic for the service mesh. 
 
@@ -33,9 +37,9 @@ Before configuring a canary strategy in your [deployment]({{< ref "deployment/ov
 
 * Kubernetes Deployment object
   
-  Your [Kubernetes Deployment object](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) describes the desired state for your application Pods and ReplicaSets. 
+  Your [Kubernetes Deployment object](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) describes the desired state for your app Pods and ReplicaSets. 
 
-  >If you do not have a Kubernetes deployment object being deployed to a target, CD-as-a-Service will ignore the strategy and deploy all the manifests destined for the target.
+  >If you do not have a Kubernetes deployment object being deployed to a target, CD-as-a-Service ignores the strategy and deploys all the manifests destined for the target.
 
 ## Define a canary deployment strategy
 
@@ -45,10 +49,10 @@ Before configuring a canary strategy in your [deployment]({{< ref "deployment/ov
 
 ### Declare your strategy
 
-You define your blue/green strategy in the root-level `strategies` section of your CD-as-a-Service deployment config file.  The strategy has two required fields:
+You define your canary strategy in the root-level `strategies` section of your CD-as-a-Service deployment config file. The strategy has two required fields: `steps` and `setWeight`. 
 
 
-```yaml
+{{< highlight yaml "hl_lines=4 5 8 11" >}}
 strategies:
   <name-for-your-canary-strategy>:
     canary:
@@ -60,10 +64,13 @@ strategies:
         - pause:
             untilApproved: true
         - setWeight: 100
-```
-* `steps`: Define a list of steps that constitute your canary strategy. CD-as-a-Service executes steps sequentially, waiting for each step to finish before starting the next step. This enables you to configure monitoring during canary using analysis or webhooks. 
+{{< /highlight >}}
 
-* `setWeight`: Define how much traffic should get directed to the new version of your application. CD-as-a-Service will manipulate the relevant resources to gradually increase the traffic to the new version. 
+* `steps`: Define a list of steps that constitute your canary strategy. CD-as-a-Service executes steps sequentially, waiting for each step to finish before starting the next step. This enables you to configure monitoring during deployment using analysis or webhooks. 
+
+* `setWeight`: Define how much traffic CD-as-a-Service should direct to the new version of your app. CD-as-a-Service manipulates the relevant resources to gradually increase the traffic to the new version. 
+
+Between `setWeight` entries, you can configure deployment to wait for the outcome of canary analysis, to pause for manual judgment, or to pause for a defined period of time. See the [Deployment File Reference]({{< ref "/reference/deployment/config-file/strategies#strategiesstrategynamecanarystepspause" >}}) for details.
 
 ### Add your strategy to your deployment target
 
@@ -173,19 +180,20 @@ spec:
 ```
 </details>
 
-## Using canary strategies with service mesh
+## Using canary strategies with a service mesh
 
-Service meshes allow setting up accurate traffic split between the new version and the old version of your application. If you are using a service mesh you need to add a `trafficManagement` block to your deployment config. 
+Service meshes enable setting up accurate traffic splits between the new version and the old version of your app. If you are using a service mesh, you need to add a `trafficManagement` block to your deployment config. 
 
 ```yaml
 trafficManagement:
   - istio:
       ...
 ```
-For more info on using service mes, see:
-* [Using service mesh for canary]({{< ref "traffic-management/overview.md" >}})
+For more info on using service meshes, see the [Traffic Management Overview]({{< ref "traffic-management/overview.md" >}}), which explains how CD-as-a-Service implements progressive canary deployment using an SMI TrafficSplit.
 
 ## {{% heading "nextSteps" %}}
 
-* [Configure your metrics provider to use canary analysis]({{< ref "canary-analysis/overview.md" >}})
+* [Configure your metrics provider and create canary analysis queries]({{< ref "canary-analysis/overview.md" >}}).
 * See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#canary-fields" >}}) for detailed field explanations.
+* [Configure Istio]({{< ref "traffic-management/istio" >}}).
+* [Configure Linkerd]({{< ref "traffic-management/linkerd" >}}).
