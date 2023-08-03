@@ -314,3 +314,4 @@ You can use a webhook-based approval as a step in the `redirectTrafficAfter` sec
 ## {{% heading "nextSteps" %}}
 
 * See the [Deployment File Reference]({{< ref "reference/deployment/config-file/strategies#bluegreen-fields" >}}) for detailed field explanations.
+* The {{< linkWithTitle "tutorials/tutorial-blue-green.md" >}} shows you how to deploy an app using a blue/green strategy.

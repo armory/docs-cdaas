@@ -107,5 +107,5 @@ Conversely, if you need to prioritize minimizing the impact of issues to the sma
 
 ## {{% heading "nextSteps" %}}
 
-* [Learn how to configure a blue/green strategy]({{< ref "deployment/strategies/blue-green" >}}.
+* [Learn how to configure a blue/green strategy]({{< ref "deployment/strategies/blue-green" >}}).
 * [Learn how to configure a canary strategy]({{< ref "deployment/strategies/canary.md" >}}).

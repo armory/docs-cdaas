@@ -14,7 +14,16 @@ defaultContentLanguageInSubdir = false
 # Useful when translating.
 enableMissingTranslationPlaceholders = true
 
-# Highlighting config
+# Google Analytics configuration
+# https://gohugo.io/templates/internal/#configure-google-analytics
+# https://www.docsy.dev/docs/adding-content/feedback/#adding-analytics
+googleAnalytics = 'G-KYT3X41389'
+
+# taxonomy
+disableKinds = ["taxonomy", "taxonomyTerm"]
+
+
+# Highlighting config (copied from the docsy example site, tag v0.7.1)
 pygmentsCodeFences = true
 pygmentsUseClasses = false
 # Use the new Chroma Go highlighter in Hugo.
@@ -22,15 +31,6 @@ pygmentsUseClassic = false
 #pygmentsOptions = "linenos=table"
 # See https://help.farbox.com/pygments.html
 pygmentsStyle = "dracula"
-
-# Google Analytics configuration
-# https://gohugo.io/templates/internal/#configure-google-analytics
-# https://www.docsy.dev/docs/adding-content/feedback/#adding-analytics
-googleAnalytics = 'G-KYT3X41389'
-
-
-# taxonomy
-disableKinds = ["taxonomy", "taxonomyTerm"]
 
 [markup]
   [markup.goldmark]
@@ -44,7 +44,6 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     # these are defaults https://gohugo.io/getting-started/configuration-markup/#highlight
     anchorLineNos = false
     codeFences = true
-    guessSyntax = false
     hl_Lines = ''
     hl_inline = false
     lineAnchors = ''
@@ -54,8 +53,8 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     noClasses = true
     noHl = false
     tabWidth = 4
-    # Uncomment if you want your chosen highlight style used for code blocks without a specified language
-    # guessSyntax = "true"
+    guessSyntax = false
+    # Set guessSyntax to true if you want your chosen highlight style used for code blocks without a specified language
 
 # Configure how URLs look like per section.
 [permalinks]
@@ -73,9 +72,6 @@ latexDashes = true
 resampleFilter = "CatmullRom"
 quality = 75
 anchor = "smart"
-
-
-
 
 # Language configuration
 
@@ -127,30 +123,16 @@ weight = 1
 
 [params]
 # See codenew shortcode
-githubWebsiteRaw = "raw.githubusercontent.com/armory/docs"
+githubWebsiteRaw = "raw.githubusercontent.com/armory/docs-cdaas"
 
 copyright = "Armory Inc."
 privacy_policy = "https://www.armory.io/privacy-policy/"
 terms_of_service = "https://www.armory.io/terms-of-service/"
 terms_and_conditions = "https://www.armory.io/terms-and-conditions/"
 
-# Display the Armory CDaaS NDA banner
-cdaas_banner = false
-
 # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
 github_repo = "https://github.com/armory/docs-cdaas/"
 github_branch = "master"
-# An optional link to a related project repo. For example, the sibling repository where your product code lives.
-#github_project_repo = "https://github.com/armory"
-
-# Specify a value here if your content directory is not in your repo's root directory
-# github_subdir = ""
-
-# Google Custom Search Engine ID. Remove or comment out to disable search.
-# gcs_engine_id = "011737558837375720776:fsdu1nryfng"
-
-# Enable Algolia DocSearch
-algolia_docsearch = false
 
 # Enable Lunr.js offline search
 offlineSearch = true
@@ -179,14 +161,15 @@ footer_about_disable = false
 
 
 # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
-# This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
 # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
 # add "hide_feedback: true" to the page's front matter.
+# https://www.docsy.dev/docs/adding-content/feedback/#how-is-this-data-useful
+# https://www.docsy.dev/docs/adding-content/feedback/#access-the-feedback-data
 [params.ui.feedback]
 enable = true
 # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
 yes = 'Thank you for letting us know!'
-no = 'Sorry to hear that. Please <a href="https://github.com/armory/docs/issues/new">tell us how we can improve</a>.'
+no = 'Sorry to hear that. Please <a href="https://github.com/armory/docs-cdaas/issues/new">tell us how we can improve</a>.'
 
 # Adds a reading time to the top of each doc.
 # If you want this feature, but occasionally need to remove the Reading time from a single page,
@@ -206,7 +189,7 @@ theme = "forest"
 	name = "Email Armory"
 	url = "mailto:info@armory.io"
 	icon = "fa fa-envelope"
-        desc = "Discussion and help from your fellow users"
+  desc = "Discussion and help from your fellow users"
 [[params.links.user]]
 	name ="Twitter"
 	url = "https://twitter.com/cloudarmory"
@@ -217,11 +200,10 @@ theme = "forest"
 	name = "GitHub"
 	url = "https://github.com/armory/docs-cdaas/"
 	icon = "fab fa-github"
-   desc = "CD-as-a-Service docs repository"
+  desc = "CD-as-a-Service docs repository"
 
 
-# hugo module configuration
-
+# hugo module configuration (copied from the docsy example site, tag v0.7.1)
 [module]
   # uncomment line below for temporary local development of module
   # replacements = "github.com/google/docsy -> ../../docsy"

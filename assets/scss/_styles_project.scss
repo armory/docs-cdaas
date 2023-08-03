@@ -1,2 +1,38 @@
 .td-page-meta--child { display: none !important; }
 .td-page-meta--project-issue { display: none !important; }
+
+
+/* Applies when there are no line numbers, or when line numbers are inline. */
+.highlight  pre {
+  padding: 1em 0 1em 1em ;
+  font-size: 1em !important;
+}
+
+/* Applies when line numbers are in a table cell. */
+.highlight div {
+  padding: 0 0 0 1em ;
+  font-size: 1em !important;
+}
+// .highlight pre {
+//   padding: 1em 0 1em 1em ;
+//   font-size: 1em !important;
+// }
+/* Applies to all. */
+.highlight div,
+.highlight > pre {
+  overflow-x: auto;
+  /* add border-radius and box-shadow here */
+}
+
+/* Applies when using an external style sheet. */
+/* https://github.com/alecthomas/chroma/issues/722 */
+.highlight .chroma .lntable .lnt,
+.highlight .chroma .lntable .hl {
+  display: flex ;
+}
+
+/* Applies when using an external style sheet. */
+/* https://github.com/alecthomas/chroma/issues/722 */
+.highlight .chroma .lntable .lntd + .lntd {
+  width: 100% ;
+}
