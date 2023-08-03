@@ -8,9 +8,9 @@ Remote Network Agents connect to CD-as-a-Service to establish gRPC via HTTP/2 co
 
 {{< figure src="/images/cdaas/how-cdaas-works.png" alt="How CD-as-a-Service Works" height="75%" width="75%" >}}
 
-1. You create your deployment artifact and push to your artifact store.
-2. You create a CD-as-a-Service deployment config file in which you define your deployment constraints and include the path to your Kubernetes manifests.
-3. You start your deployment by sending the deployment config file to CD-as-a-Service using the [Armory CLI]({{< ref "cli" >}}) or automatically with a CI integration like CD-as-a-Service's [GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}). 
+1. You render your Kubernets manifests using the tools you want. You build and publish your containers where and how you want, from DockerHub to a private registry on your network.
+2. You create a CD-as-a-Service deployment config file in which you define your deployment: canary and/or blue/green strategy; traffic shaping; deployment constraints such as manual judgments; external automation using webhooks; and retrospective analysis. You include the path to your Kubernetes manifests in the deployment config file.
+3. You start your deployment by sending the deployment config file to CD-as-a-Service using the [Armory CLI]({{< ref "cli" >}}), which you can run locally or in a Docker container. You can trigger deployments automatically from any CI system. If you're using GitHub, Armory provides a [GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}) for triggering deployments from your GitHub workflow.
 
 The CD-as-a-Service control plane executes the deployments with constraints defined in your deployment config file, converting Kubernetes deployment objects into CD-as-a-Service managed ReplicaSets, handling traffic management and scaling. Remote Network Agents integrate with internal tools by securely relaying network calls and using their configurable ServiceAccount credentials to communicate with your clusters API.
 
