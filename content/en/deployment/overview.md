@@ -20,7 +20,17 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 * CD-as-a-Service starts a deployment with an environment, such as development, that does not depend on another environment. Then deployment progresses through the steps, conditions, and environments defined in your deployment process. 
 * CD-as-a-Service deploys a new ReplicaSet every time a deployment is started. This ensures changes to resources like ConfigMap are immediately reflected and validated with your deployment strategy. 
-* CD-as-a-Service automatically rolls back in case there is an error when deploying your Kubernetes manifests or if pods fail to be in Ready state within 30 minutes. You can deploy multiple Deployment objects as part of a single CD-as-a-Service deployment. When defined in a single deployment, multiple Deployment objects are rolled back together if there's an automatic or manual rollback.
+* CD-as-a-Service automatically rolls back when:
+
+  * There is an error deploying your Kubernetes manifests
+  * Pods fail to be in a Ready state within 30 minutes
+  * A webhook fails
+  * You configured your retrospective analysis step to automatically rollback (avaible in both canary and blue/green deployments)
+  * A user fails to issue a configured manual approval within a specified time frame
+  * A deployment target constraint is not met
+
+    
+  You can deploy multiple Deployment objects as part of a single CD-as-a-Service deployment. When defined in a single deployment, multiple Deployment objects are rolled back together if there's an automatic or manual rollback.
 
 > CD-as-a-Service deploys any Kubernetes manifest to your environments without the need for any special annotations in the manifest.
 
