@@ -9,7 +9,7 @@ tags: ["Secrets"]
 
 ## Secrets in CD-as-a-Service
 
-A CD-as-a-Service secret is not the same as [Client Credentials]({{< ref "iam/manage-client-creds" >}}). You create Client Credentials so your Remote Network Agent can connect to CD-as-a-Service. You create a secret when you want to integrate external tools such as a metrics provider or GitHub automation using webhooks.  
+A CD-as-a-Service secret is not the same as [Client Credentials]({{< ref "iam/manage-client-creds" >}}). You create Client Credentials so your Remote Network Agent can connect to CD-as-a-Service. You create a secret when you want to integrate external tools such as a metrics provider or GitHub automation using webhooks.  For Example - you can store API key from New Relic to run New Relic queries during canary strategy.
 
 ## Create a secret
 
