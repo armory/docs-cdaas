@@ -122,9 +122,6 @@ weight = 1
 # Everything below this are Site Params
 
 [params]
-# See codenew shortcode
-githubWebsiteRaw = "raw.githubusercontent.com/armory/docs-cdaas"
-
 copyright = "Armory Inc."
 privacy_policy = "https://www.armory.io/privacy-policy/"
 terms_of_service = "https://www.armory.io/terms-of-service/"
