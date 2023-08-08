@@ -1,7 +1,7 @@
 # This config.toml is used with Hugo <= 0.110.0
 baseURL = "/"
 
-enableRobotsTXT = true
+# enableRobotsTXT = true
 enableInlineShortcodes = true
 
 # Will give values to .Lastmod etc.
