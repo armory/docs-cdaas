@@ -1,5 +1,5 @@
 ---
-title: GitHub Action
+title: Use Armory's GitHub Action to Deploy Your App Using CD-as-a-Service
 linkTitle: GitHub Action
 weight: 1
 description: >
