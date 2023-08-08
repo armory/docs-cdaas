@@ -58,9 +58,6 @@ You name your agent during the installation process. This guide references that 
 
 Armory's `potato-facts` sample app is a basic web app. The UI polls the API backend for facts about potatoes and renders them for users. 
 
->If you want to verify the `potato-facts` web app code for security reasons, you can view the app code in the [public repo](https://github.com/armory-io/potato-facts-go). This repo only contains the app code. It **does not** contain the deployment files for this quickstart. 
-
-
 ### First deployment
 
 Your first deployment deploys the following resources into your Kubernetes cluster:
@@ -225,6 +222,7 @@ You may want to keep the installed Remote Network Agent to use when working thro
 ## {{%  heading "nextSteps" %}}
 
 * View the [code](https://github.com/armory-io/cdaas-examples/tree/main/hello-armory) for this quickstart. 
+* If you want to verify the `potato-facts` web app code for security reasons, you can view the app code in the [public repo](https://github.com/armory-io/potato-facts-go). This repo only contains the app code. It **does not** contain any deployment config files or GitHub Actions for this quickstart. 
 * {{< linkWithTitle "get-started/deploy-your-app.md" >}}
 * {{< linkWithTitle "integrations/ci-systems/gh-action.md" >}}
 * {{< linkWithTitle "deployment/strategies/blue-green.md" >}}
