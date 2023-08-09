@@ -28,7 +28,8 @@ package = "@netlify/plugin-sitemap"
     './public/includes/',
     './public/categories/',
     './public/tags/',
-    './public/favicons/'
+    './public/favicons/',
+    './public/404/'
   ]
   # set baseURL because we aren't configuring a custom domain in Netlify
   # Although the above is called base URL this actually ends up being the hostname in the sitemap and as such trying to use a URL like http://example.com/en/ will results in http://example.com/
