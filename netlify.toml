@@ -24,10 +24,17 @@ package = "@netlify/plugin-sitemap"
 
   [plugins.inputs]
   buildDir = "public"
+  exclude =[
+    './public/includes/',
+    './public/categories/',
+    './public/tags/',
+    './public/favicons/',
+    './public/404.html'
+  ]
   # set baseURL because we aren't configuring a custom domain in Netlify
   # Although the above is called base URL this actually ends up being the hostname in the sitemap and as such trying to use a URL like http://example.com/en/ will results in http://example.com/
   # https://github.com/netlify-labs/netlify-plugin-sitemap
-  baseUrl = "https://developer.armory.io"
+  baseUrl = "https://developer.armory.io/docs/"
   
   # append missing trailing slash to prettyURL
   trailingSlash = true
