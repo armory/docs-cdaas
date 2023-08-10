@@ -85,39 +85,14 @@ languageName ="English"
 weight = 1
 
 [[menu.main]]
-  name = "CD-as-a-Service"
-  weight = 2
-  url = "/"
-
-[[menu.main]]
-  name = "Armory CD"
-  weight = 3
-  url = "https://docs.armory.io/continuous-deployment/"
-
-[[menu.main]]
-  name = "Spinnaker Plugins"
-  weight = 4
-  url = "https://docs.armory.io/plugins/"
-
-[[menu.main]]
-  name = "Support"
-  weight = 5
-  url = "https://support.armory.io/"
-
+  name = "Armory.io"
+  weight = 7
+  url = "https://www.armory.io/"
+  
 [[menu.main]]
   name = "Blog"
   weight = 6
   url = "https://www.armory.io/blog/"
-
-[[menu.main]]
-  name = "Armory.io"
-  weight = 7
-  url = "https://www.armory.io/"
-
-[[menu.main]]
-  name = "Contribute"
-  weight = 10
-  url = "https://docs.armory.io/contribute/"
 
 # Everything below this are Site Params
 
