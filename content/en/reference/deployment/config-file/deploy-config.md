@@ -2,7 +2,7 @@
 title: Deployment Config
 weight: 2
 description: >
-  Customize your deployment's behavior.
+  Customize your CD-as-a-Service deployment's behavior.
 ---
 
 ## `deploymentConfig`
@@ -26,7 +26,6 @@ A deployment times out if the pods for your application fail to be in ready stat
 
 >The minimum timeout you can specify is 60 seconds (1 minute).
  
-- `keepDeploymentObject`: (Optional; Default: `false`) By default, Armory CD-as-a-Service deploys and manages `ReplicaSet`s even when 
-the client-requested resource is a Kubernetes `Deployment`. When this flag is set to `true`, CD-as-a-Service 
-will keep `Deployment` objects between deployment executions. 
+- `keepDeploymentObject`: (Optional; Default: `false`) By default, Armory CD-as-a-Service deploys and manages ReplicaSets even when 
+the client-requested resource is a Kubernetes Deployment. When this flag is set to `true`, CD-as-a-Service keeps Deployment objects between deployment executions. 
 
