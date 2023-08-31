@@ -110,7 +110,7 @@ See {{< linkWithTitle "reference/deployment/_index.md" >}} if you want to create
 
 You can use webhooks in `afterDeployment` constraints to add specific logic for Argo Rollouts to finish deploying before starting integration tests. For example:
 
-{{< highlight yaml "hl_lines=9-12, 15-28" >}}
+{{< highlight yaml "linenos=table,hl_lines=9-12 15-28" >}}
  # armoryDeployment.yaml
 version: v1
 kind: kubernetes
