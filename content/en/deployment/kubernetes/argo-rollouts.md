@@ -110,7 +110,7 @@ See {{< linkWithTitle "reference/deployment/_index.md" >}} if you want to create
 
 You can use webhooks in `afterDeployment` constraints to add specific logic for Argo Rollouts to finish deploying before starting integration tests. For example:
 
-{{< highlight yaml "hl_lines=9-12, 15-28" >}}
+{{< highlight yaml "linenos=table,hl_lines=9-12 15-28" >}}
  # armoryDeployment.yaml
 version: v1
 kind: kubernetes
@@ -141,6 +141,8 @@ webhooks:
         }
 {{< /highlight >}}
 
+This example employs [cmd-hook](https://hub.docker.com/r/demoimages/cmd-hook), which is an open source service deployed in the cluster to execute `kubectl` commands. CD-as-a-Service employs RNA to execute `kubectl` commands for monitoring the state of rollout objects. You can view the source code for `cmd-hook` in the [public repository](https://github.com/stephenatwell/cmdHook).
+
 ### Deploy multiple Argo Rollouts
 
 To deploy multiple Argo Rollouts together, you can add more paths to the `manifests` section of the deployment config file:
@@ -151,6 +153,7 @@ manifests:
   - path: rollout-2.yaml
   - path: rollout-3.yaml
 {{< /highlight >}}
+
 
 ## {{%  heading "nextSteps" %}}
 
