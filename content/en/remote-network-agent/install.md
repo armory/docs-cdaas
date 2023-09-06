@@ -3,12 +3,12 @@ title: Install a Remote Network Agent in Your Cluster
 linktitle: Install - Basic
 weight: 5
 description: >
-  Use the CD-as-a-Service Console, the CLI, Helm, or kubectl to install a CD-as-a-Service Remote Network Agent in your Kubernetes cluster. 
+  Use the CD-as-a-Service Console, the CLI, Helm, or kubectl to do a basic Remote Network Agent installation with default options in your Kubernetes cluster. This basic installation is not meant for production environments.
 categories: ["Guides"]
 tags: [ "Networking", "Remote Network Agent", "CD-as-as-Service Setup"]
 ---
 
-<!-- The CDaaS UI links to this page. Do not change the title. -->
+<!-- The CDaaS UI links to this page. Do not change the title or filename. -->
 
 ## {{% heading "prereq" %}}
 
@@ -25,18 +25,18 @@ _Do not close the pop-up window in the UI until you have completed RNA installat
 By default, you install a Remote Network Agent (RNA) with full access to your cluster by using one of the following:
 
 * [**UI wizard**](#generate-install-script-using-a-ui-wizard)
-  * Use a UI wizard to generate an install script that includes Client Credentials 
-  * Install using default configuration
-  * Not recommended for production environments
+  * Use a UI wizard to generate an install script that includes Client Credentials.
+  * Install using default configuration.
+  * Not recommended for production environments.
 * [**CLI**](#install-manually-using-the-cli)
-  * Install using default configuration
-  * Not recommended for production environments
+  * Install using default configuration.
+  * Not recommended for production environments.
 * [**kubectl**](#install-manually-using-kubectl)
-  * Install using default or [advanced configuration]({{< ref "remote-network-agent/install-advanced" >}}).
-  * Advanced configuration recommended for production environments
+  * Install using default configuration.
+  * Not recommended for production environments.
 * [**Helm**](#install-manually-using-helm)
-  * Install using default or [advanced configuration]({{< ref "remote-network-agent/install-advanced" >}}).
-  * Recommended for production environments
+  * Install using default or advanced configuration.
+  * Advanced configuration]({{< ref "remote-network-agent/install-helm" >}}) recommended for production environments.
 
 
 ## {{% heading "prereq" %}}
@@ -46,7 +46,7 @@ By default, you install a Remote Network Agent (RNA) with full access to your cl
   * For the UI and CLI methods, you **do not** need to create Client Credentials. Those methods create Client Credentials for you.
   * For the kubectl and Helm methods, you **do** need to create Client Credentials.
 
-    <details><summary>Show me how to create Client Credentials</summary>
+    <details><summary>Show how to create Client Credentials</summary>
     {{< include "client-creds.md" >}}
     </details></br> 
 
@@ -99,12 +99,7 @@ Default configuration:
 
 You have [Client Credentials]({{< ref "iam/manage-client-creds" >}}) with Remote Network Agent permissions.
 
-1. Set your `kubectl` [context](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-em-set-context-em-) to connect to the cluster where you want to deploy the RNA:
-
-   ```bash
-   kubectl config use-context <NAME>
-   ```
-
+1. Ensure you are connected to the cluster where you want to deploy the RNA.
 1. Create the namespace for the RNA:
 
    ```bash
@@ -139,8 +134,7 @@ You have [Client Credentials]({{< ref "iam/manage-client-creds" >}}) with Remote
 
 You can go to the [Agents page](https://console.cloud.armory.io/configuration/agents) in the CD-as-a-Service Console to verify that your RNA has been installed and is communicating with CD-as-a-Service. If you do not see the RNA, check your cluster logs to see if the RNA is running.
 
-
 ## {{% heading "nextSteps" %}}
 
 * [View your connected Remote Network Agents]({{< ref "remote-network-agent/monitor-agents" >}}) to see data such as the last time CD-as-a-Service detected a heartbeat.
-* [Install with advanced configuration options]({{< ref "remote-network-agent/install-advanced" >}}).
+* [Install with advanced configuration options]({{< ref "remote-network-agent/install-helm" >}}).

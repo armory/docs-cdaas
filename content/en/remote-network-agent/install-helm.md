@@ -12,21 +12,19 @@ tags: [ "Networking", "Remote Network Agent", "CD-as-as-Service Setup"]
 
 Armory recommends and supports installing the Remote Network Agent using the `armory/remote-network-agent` Helm chart. Using a `values` file, you can configure advanced options such as:
 
-- Secrets Management outside of Kubernetes (AWS Secrets Manager, AWS S3, Vault Kubernetes Injector)
-- Agent Proxy Settings
-- Pod Labels
-- Pod Annotations
-- Pod Env Vars
-- Pod Resource Requests / Limits
-- Pod DNS Settings 
+- Secrets management outside of Kubernetes (AWS Secrets Manager, AWS S3, Vault, Kubernetes Injector)
+- Agent proxy settings
+- Pod labels
+- Pod annotations
+- Pod environment variables
+- Pod resource requests and limits
+- Pod DNS settings 
 - Pod Node selection 
-- Pod Affinity 
-- Pod Tolerations
-- Log Configuration
-  - output type (JSON vs human-readable text), level, color settings
+- Pod affinity 
+- Pod tolerations
+- Log configuration
 - Disable Kubernetes cluster mode
 - Metrics 
-
 
 ## {{% heading "prereq" %}}
 
@@ -42,7 +40,7 @@ Installation using Helm consists of the following steps:
 
 1. Configure your installation in the  `values.yaml` file, which you should download from the [repo](https://github.com/armory-io/remote-network-agent-helm-chart/blob/main/values.yaml).  
 
-   * [Configure required settings](#configure-required-settngs)
+   * [Configure required settings](#configure-required-settings)
    * [Configure optional settings](#configure-optional-settings)
 
 1. [Generate and preview the manifests](#generate-and-preview-the-manifests)
@@ -87,7 +85,7 @@ Default: `2` replicas. Change this value to increase the number of replicas.
 
 ### Image
 
-The `armory/remote-network-agent` image is in a public Docker registry. If you plan to host the image in a private registry, you should know how to [pull an image from a private registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
+The `armory/remote-network-agent` image is in a public registry. If you plan to host the image in a private registry, you should know how to [pull an image from a private registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
 ```yaml
 image:
@@ -101,7 +99,7 @@ imagePullSecrets: []
 ```
 
 * `image`
-  * `repository`: The default is `armory/remote-network-agent`, which is a public Docker image.
+  * `repository`: The default is `armory/remote-network-agent`, which is public.
   * `pullPolicy`: [Image pull policy](https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy); one of `IfNotPresent`, `Always`, or `Never`.
   * `tag`: Specify a tag only if you want to override the default image tag, which is the chart `appVersion`.
 * `imagePullSecrets`: The secret for pulling an image from a private registry. **This field is required only if you are hosting the RNA image in your own private registry**. 
@@ -117,8 +115,7 @@ proxy:
   nonProxyHosts:
 ```
 
-
-### Kubernetes settings
+### Kubernetes permissions
 
 ```yaml
 kubernetes:
@@ -133,23 +130,16 @@ kubernetes:
     annotations: {}
 ```
 
-#### Cluster mode
+* `enableClusterAccountMode`
 
-* Enabled
-   
-  When `enableClusterAccountMode: true`, installation creates a ServiceAccount, ClusterRole, and ClusterRoleBinding. Then installation applies the ServiceAccount with ClusterRoleBinding to the RNA. Lastly, the RNA registers itself as a deployment target within CD-as-a-Service.
+   *  `enableClusterAccountMode: true`: Installation creates a ServiceAccount, ClusterRole, and ClusterRoleBinding. Then installation applies the ServiceAccount with ClusterRoleBinding to the RNA. Lastly, the RNA registers itself as a deployment target within CD-as-a-Service.
+   *  `enableClusterAccountMode: false`: The RNA only allows you to make network calls to networked resources. You have to configure Kubernetes accounts in the CD-as-a-Service Console to have Kubernetes deployment targets.
 
-* Disabled
+* `clusterRoleRules` and `serviceAccount`
 
-  When `enableClusterAccountMode: false`, the RNA only allows you to make network calls to networked resources. You have to configure Kubernetes accounts in the CD-as-a-Service Console to have Kubernetes deployment targets.
+   Configure ClusterRole and ServiceAccount in the `kubernetes.clusterRoleRules` and `kubernetes.serviceAccount` blocks. At a minimum, the RNA needs permissions to create, edit, and delete all `kind` objects that you plan to deploy with CD-as-a-Service, in all namespaces you plan to deploy to. The RNA also requires network access to any monitoring solutions or webhook APIs that you plan to forward through it. 
 
-#### ServiceAccount permissions
-
-Configure ClusterRole and ServiceAccount in the `kubernetes.clusterRoleRules` and `kubernetes.serviceAccount` blocks.
-
-At a minimum, the RNA needs permissions to create, edit, and delete all `kind` objects that you plan to deploy with CD-as-a-Service, in all namespaces you plan to deploy to. The RNA also requires network access to any monitoring solutions or webhook APIs that you plan to forward through it. 
-
-See the Kubernetes Documentation's [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) guide for detailed info on configuring permissions.
+   See the Kubernetes Documentation's [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) guide for detailed info on configuring permissions.
 
 ### Pods
 
@@ -174,8 +164,8 @@ nodeSelector: {}
 tolerations: []
 ```
 
-* `podEnvironmentVariables`:  [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) to add to the Pods
-* `podLabels`: [Labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) to add to the Pods
+* `podEnvironmentVariables`:  Environment variables to add to the Pods. See [Define Environment Variables for a Container](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/).
+* `podLabels`: Labels to add to the Pods. See [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
 * `resources`: Configure Pod requests and limits. See [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
 * `priorityClassName`: PriorityClass name. See [Pod Priority and Preemption](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 * `dnsPolicy`: Set the Pod's DNS policy. See [Pod's DNS Policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy).
@@ -211,7 +201,7 @@ log:
 
 * `type`: log output type; specify one of the following:
   * `console`
-  * `console-wide`: all the same metadata that gets added to json output
+  * `console-wide`: all the same metadata that gets added to JSON output
   * `json`
 * `disableColor`: `true|false`; turn off color output 
 * `level`: specify one of `debug`, `info`, `warn`, or `error`
