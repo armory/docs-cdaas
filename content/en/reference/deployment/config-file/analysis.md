@@ -14,7 +14,7 @@ You can provide multiple queries in this block.  The following snippet includes 
 - `kube-state-metrics.metricAnnotationsAllowList[0]=pods=[*]` must be set
 - Your applications pods need to have the annotation `"prometheus.io/scrape": "true"`
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 analysis: # Define queries and thresholds used for automated analysis
   defaultMetricProviderName: <providerName> # The name that you assigned a metrics provider in the Configuration UI.
   queries:
@@ -36,7 +36,7 @@ analysis: # Define queries and thresholds used for automated analysis
                 #${replicaSetName}
                 #${applicationName}
                 # note the time should actually be set to ${promQlStepInterval}
-{{< /prism >}}
+```
 
 You can insert variables into your queries. Variables are inserted using the format `{{key}}`. The example query includes the variable `armory.replicaSetName`. Variables that Armory supports can be referenced by `{{armory.VariableName}}`. Custom defined variables can be referenced by `{{context.VariableName}}`.
 
@@ -70,7 +70,7 @@ If the query returns a value that falls within the range between the `upperLimit
 
 #### `analysis.queries.queryTemplate`
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 analysis: # Define queries and thresholds used for automated analysis
   queries:
     - name: <queryName>
@@ -91,7 +91,7 @@ analysis: # Define queries and thresholds used for automated analysis
                 #${replicaSetName}
                 #${applicationName}
                 # note the time should actually be set to ${promQlStepInterval}
-{{< /prism >}}
+```
 
 The query you want to run. See the {{< linkWithTitle "canary-analysis/create-canary-queries.md" >}} guide for details on how to build and test queries using the UI.
 

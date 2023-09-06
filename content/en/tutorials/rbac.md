@@ -33,10 +33,10 @@ In this tutorial, you learn how to:
 
 * You have installed `kubectl` and have access to a Kubernetes cluster
 * You have [set up your Armory CD-as-a-Service account]({{< ref "get-started" >}}).
-* You have [installed the `armory` CLI]({{< ref "setup/cli" >}}).
+* You have [installed the `armory` CLI]({{< ref "cli" >}}).
 * You have installed [Helm](https://helm.sh/docs/intro/install/).
 * You have a GitHub account so you can fork the sample project.
-* You have read the {{< linkWithTitle "iam/_index.md.md" >}} content.
+* You have read the {{< linkWithTitle "iam/overview.md" >}} content.
 * You have completed the  {{< linkWithTitle "tutorials/deploy-sample-app.md" >}}.
 
 ## Fork and clone the repo
@@ -97,7 +97,7 @@ Since the default user role is one with no permissions, you should create your r
 
 Your team consists of an engineer and an intern. You want both to start and monitor deployments, so you create a role called "Deployer".
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: Deployer
     tenant: main
@@ -105,13 +105,13 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 ### App deployment role
 
 Since You want to restrict who deploys Prod App, you need to create a deployment role. A deployment role requires a target deployment group, so begin by defining that target group. You can find the targets in `deploy-prod-app.yml`.
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 targetGroups:
   - name: ProdAppDeploymentTargetGroup
     tenant: main
@@ -132,10 +132,11 @@ targetGroups:
         account: sample-rna-prod-us-cluster
         kubernetes:
           namespace: sample-prod-us
-{{< /prism >}}
+```
 
 Next, add the deployment role for Prod App to the `roles` section.
-{{< prism lang="yaml" line-numbers="true" line="8-13" >}}
+
+{{< highlight yaml "linenos=table, hl_lines=8-13" >}}
 roles:
   - name: Deployer
     tenant: main
@@ -170,14 +171,14 @@ targetGroups:
         account: sample-rna-prod-us-cluster
         kubernetes:
           namespace: sample-prod-us
-{{< /prism >}}
+{{< /highlight >}}
 
 ### Add roles using the CLI
 
 After you have defined your roles, you need to add them to using the Armory CLI. Log into the Armory CLI, navigate to `docs-sample-repo/rbac` and execute:
 
-{{< prism lang="bash" >}}
+```bash
 armory config apply -f ./config.yaml
-{{< /prism >}}
+```
 
 ## Assign RBAC roles

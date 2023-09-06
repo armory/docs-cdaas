@@ -8,11 +8,11 @@ categories: ["IAM", "Concepts"]
 tags: ["OIDC", "RBAC", "Tenants", "Users"]
 ---
 
-## Armory CD-as-a-Service Access Management
+## Armory CD-as-a-Service access management
 
 Armory CD-as-a-Service uses OIDC to authenticate both user and machine principals and issue short-lived access tokens, which are signed JSON web tokens (JWTs).
 
-The Armory CD-as-a-Service API consumes these access tokens in order to validate that a request has authorization for a given tenant’s resources and operations.
+The Armory CD-as-a-Service API consumes these access tokens to validate that a request has authorization for a given tenant’s resources and operations.
 
 Use the the [CD-as-a-Service Console](https://console.cloud.armory.io/) to manage the following:
 
@@ -54,11 +54,18 @@ graph TB
 {{% /card %}}
 {{< /cardpane >}}
 
-When a user creates an account, CD-as-a-Service does the following:
+When a user creates an account or signs in for the first time using _Social Sign On_ (GitHub or Google credentials), CD-as-a-Service does the following:
 
 * Creates an Organization for the user
 * Creates a Tenant for the Organization
 * Creates a User with an _Organization Admin_ role
+
+{{% alert title="Social Sign On Caveats" color="warning" %}}
+* Users who are part of an organization configured to use a single sign-on identity provider such as Okta are not allowed to use the Social Sign On feature.
+* CD-as-a-Service does not allow multiple accounts with the same email address. A user is not allowed to create a new account using social sign on if a user with that email address already exists. 
+  
+  When a user attempts to sign in with a social sign on that has an email address associated with an existing CD-as-a-Service account, CD-as-a-Service prompts the user to link the accounts instead of creating a new account. To link the accounts, the user must sign in with their original sign in method to verify they are who they say they are. For example, if the user signed up with email and password, CD-as-a-Service requires the user to sign in using that email and password before linking a social sign on to their existing account. 
+{{% /alert %}}
 
 For example, Shannon Singh registers to use CD-as-a-Service. When Shannon creates a new account or signs in using GitHub or Google credentials, CD-as-a-Service creates these: 
 
@@ -67,6 +74,7 @@ For example, Shannon Singh registers to use CD-as-a-Service. When Shannon create
 * **Organization Admin**: Shannon Singh
 
 As the Organization Admin, Shannon can do the following:
+
 * [Create Tenants]({{< ref "iam/manage-tenants.md" >}})
 * [Create User roles]({{< ref "iam/manage-rbac-roles.md" >}})
 * [Invite Users and assign roles to them]({{< ref "iam/manage-users.md" >}})
@@ -103,6 +111,7 @@ Foothold has 3 project teams and wants team-level deployment separation.
 Like the previous scenario, Organization Admin Shannon has to create the tenants and roles. Then he assigns roles to project team members, with Cassidy assigned two roles since she works on two different teams.
 
 The advantage to this approach is that it supports project teams responsible for a varying number of apps at any given point in time. 
+
 
 ## RBAC in CD-as-a-Service
 
@@ -157,7 +166,7 @@ Central to CD-as-a-Service's [RBAC](https://en.wikipedia.org/wiki/Role-based_acc
 
 You define your custom RBAC roles in a YAML file that has this structure:
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 roles:
   - name: <role-name>
     tenant: <tenant-name>
@@ -165,7 +174,7 @@ roles:
       - type: <type>
         resource: <resource>
         permission: <permission>
-{{< /prism >}}
+```
 
 You can create an organization-wide role by omitting the `tenant` definition.
 
@@ -219,7 +228,7 @@ CD-as-a-Service provides the following system roles:
 
 This example defines three Tenant Admin roles, one for each tenant. Each role has full authority within the specified tenant.
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 roles:
   - name: Tenant Admin Main
     tenant: main
@@ -239,7 +248,7 @@ roles:
       - type: api
         resource: tenant
         permission: full
-{{< /prism >}}
+```
 
 If you want to grant a user permission to manage all of your tenants, assign that user the **Organization Admin** role using the UI.
 
@@ -247,7 +256,7 @@ If you want to grant a user permission to manage all of your tenants, assign tha
 
 This example defines a role that grants permission to use the **Deployments** UI and start deployments using the CLI. The role is bound to the `finance` tenant.
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 roles:
   - name: Deployer Finance
     tenant: finance
@@ -255,18 +264,18 @@ roles:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 This next example defines a role that grants permission to use the **Deployments** UI and start deployments using the CLI across your entire organization. Note that `tenant` is not defined, which makes this an organization-wide role.
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 roles:
   - name: Deployer All Tenants
     grants:
       - type: api
         resource: deployment
         permission: full
-{{< /prism >}}
+```
 
 
 ### Assign roles
@@ -289,7 +298,7 @@ You must create your RBAC roles using the same names as your SSO groups. For exa
 
 You want to use those groups in CD-as-a-Service, so you need to create roles for those SSO groups. In the following example, `Engineering-Lead` has a tenant-specific Tenant Admin role, `Engineering-Deployment` has a tenant-specific deployment role, and `Engineering-Infra` has the equivalent of an Organization Admin role.
 
-{{< prism lang="yaml" line-numbers="true" line="" >}}
+```yaml
 roles:
   - name: Engineering-Lead
     tenant: main
@@ -308,7 +317,7 @@ roles:
       - type: api
         resource: organization
         permission: full
-{{< /prism >}}
+```
 
 During authentication, CD-as-a-Service maps a user's SSO groups to your defined RBAC roles.
 

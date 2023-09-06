@@ -49,7 +49,7 @@ If you have a long-running deployment, be suure to choose a long enough `ttl` fo
 
 If you configure the following in a canary strategy:
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 ...
 steps:
 ...
@@ -59,7 +59,7 @@ steps:
     ttl:
       duration: 20
       unit: minutes
-{{< /prism >}}
+```
 
 ... and then deploy your app, you would see this in your deployment details:
 
@@ -71,7 +71,7 @@ If you query the REST API endpoint, you see results similar to:
 
 To reference an exposed service in your webhook, add a `runWebhook` step in your strategy and then add a `preview-link` in your webhook definition. For example:
 
-{{< prism lang="yaml"  line-numbers="true" line="" >}}
+```yaml
 ...
 steps:
 ...
@@ -86,4 +86,4 @@ webhooks:
   {
   "preview-link": "{{armory.preview.sample-app-svc}}"
   }
-  {{< /prism >}}
+```

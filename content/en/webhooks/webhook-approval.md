@@ -44,7 +44,7 @@ How you create your job varies from system to system and is beyond the scope of 
 
 A few things to keep in mind:
 
-* You can send send context variables from CD-as-a-Service to your job. 
+* You can send send context variables from CD-as-a-Service to your job.
 * The result that you send to CD-as-a-Service is a boolean. See the [Configure your external job](#configure-your-external-job) section later in this guide for callback format.
 
 ## Configure the webhoook in your deployment config file
@@ -57,7 +57,7 @@ In your deployment file, you configure your webhook by adding a top-level `webho
 
 The first example configures a GitHub webhook that uses token authorization, with the token value configured as a CD-as-a-Service secret. This webhook requires you to pass the callback URI in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
 
-{{< prism lang="yaml" line-numbers="true" line="8, 16-17" >}}
+{{< highlight yaml "linenos=table, hl_lines=8 16-17" >}}
 webhooks:
   - name: myWebhook
     method: POST
@@ -80,12 +80,12 @@ webhooks:
             }
         }
     retryCount: 3
-{{< /prism >}}
+{{< /highlight >}}
 </br>
 
 The second example configures a webhook that is not accessible from the internet. The `networkMode` is set to `remoteNetworkAgent` and the `agentIdentifier` specifies which Remote Network Agent to use. The `agentIdentifier` value must match the **Agent Identifier** value listed on the **Agents** UI screen. The Authorization Bearer value is configured as a CD-as-a-Service secret. Note that in this example, the callback URI is passed in the header.
 
-{{< prism lang="yaml" line-numbers="true" line="5-6, 9, 11" >}}
+{{< highlight yaml "linenos=table, hl_lines=5-6 9 11" >}}
 webhooks:
   - name: integration-tests
     method: POST
@@ -106,7 +106,7 @@ webhooks:
       - key: replicaSetName
         value: {{armory.replicaSetName}}
     retryCount: 5
-{{< /prism >}}
+{{< /highlight >}}
 
 
 ### Trigger a webhook
@@ -119,12 +119,12 @@ You can trigger a webhook from the following areas:
 
 You add a `runWebhooks` section where you want to trigger the webhook.
 
-{{< prism lang="yaml" line-numbers="true" >}}
+```yaml
 - runWebhook:
     name: <webhook-name>
-    context: 
+    context:
         myCustomKey: myCustomValue
-{{< /prism >}}
+```
 
 - `name`: (Required) webhook name; must match the name you gave your webhook in the `webhooks` configuration section.
 - `context`: (Optional) dictionary; declare values to use in templates or headers.
@@ -135,7 +135,7 @@ You add a `runWebhooks` section where you want to trigger the webhook.
 
 In this example, you have a webhook named `Update-Database-Schema`. You want to trigger this webhook before your app gets deployed. So you trigger the webhook in the `beforeDeployment` constraint of your environment deployment.
 
-{{< prism lang="yaml" line-numbers="true" line="8-9" >}}
+{{< highlight yaml "linenos=table, hl_lines=8-9" >}}
 targets:
   dev:
     account: dev-cluster
@@ -145,7 +145,7 @@ targets:
       beforeDeployment:
         - runWebhook:
             name: Update-Database-Schema
-{{< /prism >}}
+{{< /highlight >}}
 
 App deployment proceeds only if the `Update-Database-Schema` callback sends a "success: true" message.
 
@@ -153,7 +153,7 @@ App deployment proceeds only if the `Update-Database-Schema` callback sends a "s
 
 In this example, you have a webhook named `Run-Integration-Tests`. You want to trigger this webhook after your app has been deployed to staging but before it gets deployed to production. So you trigger the webhook in the `afterDeployment` constraint of your staging environment deployment.
 
-{{< prism lang="yaml" line-numbers="true" line="8-11" >}}
+{{< highlight yaml "linenos=table, hl_lines=8-11" >}}
 targets:
   staging:
     account: staging-cluster
@@ -171,7 +171,7 @@ targets:
     strategy: rolling-canary
     constraints:
       dependsOn: ["staging"]
-{{< /prism >}}
+{{< /highlight >}}
 
 Deployment to production proceeds only if the `Run-Integration-Tests` callback sends a "success: true" message.
 
@@ -179,7 +179,7 @@ Deployment to production proceeds only if the `Run-Integration-Tests` callback s
 
 In this example, there is a `security-scan` webhook that scans your deployed app. You have a blue/green deployment strategy in which you want to run that security scan on the preview version of your app before switching traffic to it. You add the `runWebhook` section to the `redirectTrafficAfter` section in your blue/green strategy configuration.
 
-{{< prism lang="yaml" line-numbers="true" line="15-16" >}}
+{{< highlight yaml "linenos=table, hl_lines=15-16" >}}
 strategies:
   myBlueGreen:
     blueGreen:
@@ -196,7 +196,7 @@ strategies:
               - avgCPUUsage-pass
         - runWebhook:
             name: security-scan
-{{< /prism >}}
+{{< /highlight >}}
 
 Since tasks in the `redirectTrafficAfter` section run in parallel, both tasks in this example must be successful for deployment to continue. If the `analysis` task fails, rollback is manual. If the `runWebhook` task fails, rollback is automatic.
 
@@ -204,7 +204,7 @@ Since tasks in the `redirectTrafficAfter` section run in parallel, both tasks in
 
 In this example, there is a `system-health` webhook that you want to trigger as part of your canary strategy. Add the `runWebhook` section to your `steps` configuration.
 
-{{< prism lang="yaml" line-numbers="true" line="7-10" >}}
+{{< highlight yaml "linenos=table, hl_lines=7-10" >}}
 strategies:
   canary-rolling:
     canary:
@@ -215,7 +215,7 @@ strategies:
             name: system-health
             context:
               environment: staging
-{{< /prism >}}
+{{< /highlight >}}
 
 ## Configure your external job's callback
 
@@ -228,7 +228,7 @@ After you have configured your webhook in your deployment config file, you shoul
 
    Request format:
 
-   {{< prism lang="bash"  line-numbers="true" >}}
+   ```bash
     curl --request POST \
     --url https://auth.cloud.armory.io/oauth/token \
     --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -236,27 +236,27 @@ After you have configured your webhook in your deployment config file, you shoul
     --data grant_type=client_credentials \
     --data client_id=<CLIENT-ID> \
     --data client_secret=<CLIENT-SECRET>
-   {{< /prism >}}
+   ```
 
    Example response:
 
-   {{< prism lang="json"  line-numbers="true" >}}
+   ```json
    {
    "access_token": "<very long access token>",
    "expires_in": 86400,
    "token_type": "Bearer"
    }
-   {{< /prism >}}
+   ```
 
 1. Configure the callback
 
-   {{< prism lang="bash"  line-numbers="true" >}}
+   ```bash
    curl --request POST \
    --url '<CALLBACK-URI>' \
    --header 'Authorization: Bearer <OAUTH_TOKEN>' \
    --header 'Content-Type: application/json' \
    --data '{"success": <true|false>, "mdMessage": "<MESSAGE>"}'
-   {{< /prism >}}
+   ```
 
    - `<CALLBACK-URI>`: Replace with the callback URI you extracted from the HTTP Request that CD-as-a-Service sent to trigger your job.
    - ` <OAUTH_TOKEN>`: Replace with the OAUTH token you fetched from CD-as-a-Service.
@@ -267,4 +267,3 @@ After you have configured your webhook in your deployment config file, you shoul
 * {{< linkWithTitle "tutorials/tutorial-webhook-github.md" >}}
 * [Webhooks section]({{< ref "reference/deployment/config-file/webhooks" >}}) in the deployment config file reference
 * {{< linkWithTitle "troubleshooting/webhook.md" >}}
- 

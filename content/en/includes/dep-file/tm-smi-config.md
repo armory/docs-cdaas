@@ -1,7 +1,7 @@
 ---
 ---
 
-{{< prism lang="yaml"  line-numbers="true" >}}
+```yaml
 trafficManagement:
   - targets: ["<target>"]
     smi:
@@ -11,9 +11,9 @@ trafficManagement:
     kubernetes:
       - activeService: "<activeServiceName>"
         previewService: "<previewServiceName>"
-{{< /prism >}}
+```
 
-* `targets`: (Optional) comma-delimited list of deployment targets; if omitted, CD-as-a-Service applies the traffic management configuration to all targets.
+* `targets`: Comma-delimited list of deployment targets; if omitted, CD-as-a-Service applies the traffic management configuration to all targets.
 
 * `smi.rootServiceName`: (Required if configuring an `smi` block) the name of a Kubernetes `Service`. Its service selector should target a Kubernetes `Deployment` resource in your deployment's manifests. The SMI `TrafficSplit` spec defines a root service as the fully qualified domain name (FQDN) used by clients to communicate with your application. The `Service` should exist at the time of deployment.
 

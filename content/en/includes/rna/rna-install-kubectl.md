@@ -4,10 +4,6 @@
 * You have [Client Credentials]({{< ref "iam/manage-client-creds" >}}) (Client Secret and Client ID)
 * You are connected to the Kubernetes cluster where you want to install the RNA.
 
-  ```bash
-  kubectl config use-context <NAME>
-  ```
-
 **Install**
 
 This script installs the RNA into Namespace `armory-rna` with Agent Identifier `sample-cluster`.

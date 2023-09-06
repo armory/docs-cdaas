@@ -22,7 +22,7 @@ tags: ["Deployment", "Quickstart"]
 ## {{% heading "prereq" %}}
 
 * You are familiar with CD-as-a-Service's [key components]({{< ref "architecture.md" >}}).
-* You have access to a Kubernetes cluster. If you need a cluster, consider installing a local [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/) or [Minikube](https://minikube.sigs.k8s.io/docs/start/) cluster.  Your cluster's API endpoint does not need to be publicly accessible to use CD-as-a-Service.
+* You have access to a Kubernetes cluster. If you need a cluster, consider installing a local [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/) or [Minikube](https://minikube.sigs.k8s.io/docs/start/) cluster. Your cluster's API endpoint does not need to be publicly accessible to use CD-as-a-Service.
 
 >If you do not have a Kubernetes cluster and still wish to tour CD-as-a-Service, you can [sign up ](https://go.armory.io/signup/) and select **Self-Guided Browser Tour**. CD-as-a-Service creates a short-lived Kubernetes cluster for you and then guides you through deploying the sample app.
 
@@ -56,7 +56,7 @@ You name your agent during the installation process. This guide references that 
 
 ## Deploy the sample app
 
-Armory's [`potato-facts` sample app](https://github.com/armory-io/potato-facts-go) is a simple web app. The UI polls the API backend for facts about potatoes and renders them for users.
+Armory's `potato-facts` sample app is a basic web app. The UI polls the API backend for facts about potatoes and renders them for users. 
 
 ### First deployment
 
@@ -205,7 +205,7 @@ CD-as-a-Service also supports a [blue/green]({{< ref "deployment/strategies/blue
 
 ## Clean up
 
-You can clean kubectl to clean up the app resources you created:
+You can use `kubectl` to clean up the app resources you created:
 
 ```shell
 kubectl delete ns potato-facts-staging potato-facts-prod
@@ -219,9 +219,10 @@ kubectl delete ns armory-rna
 
 You may want to keep the installed Remote Network Agent to use when working through other guides.
 
-## {{%  heading "nextSteps" %}}
+## {{% heading "nextSteps" %}}
 
-* View the [code](https://github.com/armory-io/cdaas-examples/tree/main/hello-armory) for this quickstart.
+* View the [manifests and deployment config files](https://github.com/armory-io/cdaas-examples/tree/main/hello-armory) for this quickstart. 
+* If you want to verify the `potato-facts` web app code for security reasons, you can view the app code in the [public repo](https://github.com/armory-io/potato-facts-go). This repo only contains the app code. It **does not** contain any deployment config files or GitHub Actions for this quickstart. 
 * {{< linkWithTitle "get-started/deploy-your-app.md" >}}
 * {{< linkWithTitle "integrations/ci-systems/gh-action.md" >}}
 * {{< linkWithTitle "deployment/strategies/blue-green.md" >}}

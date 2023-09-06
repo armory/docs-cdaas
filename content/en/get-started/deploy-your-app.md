@@ -63,7 +63,7 @@ In this guide, you create a deployment config and two simple namespace configs. 
 
 The directory structure should look like this:
 
-```
+```bash
 <your-app>
 ├── deployment.yaml  # created as part of this guide
 └── manifests
