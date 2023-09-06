@@ -97,6 +97,9 @@ targets:
         - pause:
             duration: <integer>
             unit: <seconds|minutes|hours>
+      afterDeployment:
+        - runWebhook:
+            name: Send-Slack-Deployment-Complete
 ```
 
 #### `targets.<targetName>.constraints.dependsOn`
@@ -117,9 +120,28 @@ targets:
 
 #### `targets.<targetName>.constraints.beforeDeployment`
 
-Conditions that must be met before the deployment can start. These are in addition to the deployments you define in `dependsOn` that must finish.
+Add conditions that must be met before the deployment can start. These are in addition to the deployments you define in `dependsOn` that must finish.
 
-You can specify a pause that waits for a manual approval or a certain amount of time before starting.
+You can specify a pause that waits for a manual approval or a certain amount of time before starting. You can additionally add a webhook to the `beforeDeployment` constraint.
+
+**Pause for a certain amount of time**
+
+- `targets.<targetName>.constraints.beforeDeployment.pause.duration` set to an integer value for the amount of time to wait before starting after the `dependsOn` condition is met.
+- `targets.<targetName>.constraints.beforeDeployment.pause.unit` set to `seconds`, `minutes` or `hours` to indicate the unit of time to wait.
+
+```yaml
+targets:
+  prod:
+    account: prod-cluster-west
+    namespace: overflow
+    strategy: canary-wait-til-approved
+    constraints:
+      dependsOn: ["dev-west"]
+      beforeDeployment:
+        - pause:
+            duration: 60
+            unit: seconds
+```
 
 **Pause until manual approval**
 
@@ -146,10 +168,9 @@ targets:
               unit: seconds
 ```
 
-**Pause for a certain amount of time**
+**Call a webhook**
 
-- `targets.<targetName>.constraints.beforeDeployment.pause.duration` set to an integer value for the amount of time to wait before starting after the `dependsOn` condition is met.
-- `targets.<targetName>.constraints.beforeDeployment.pause.unit` set to `seconds`, `minutes` or `hours` to indicate the unit of time to wait.
+In the following example, before deploying to the `prod-cluster-west` target, CD-as-a-Service pauses deployment for manual approval by an Org Admin and also calls a webhook that sends a Slack notification.
 
 ```yaml
 targets:
@@ -158,9 +179,72 @@ targets:
     namespace: overflow
     strategy: canary-wait-til-approved
     constraints:
-      dependsOn: ["dev-west"]
+      dependsOn: ["staging"]
       beforeDeployment:
         - pause:
-            duration: 60
-            unit: seconds
+            untilApproved: true
+            requiresRole:
+              - Organization Admin
+            approvalExpiration:
+              duration: 24
+              unit: hours
+        - runWebhook:
+            name: Send_Slack_Deployment_Approval_Required
 ```
+
+#### `targets.<targetName>.constraints.afterDeployment`
+
+Add conditions that must be met before deployment to this target is considered finished. 
+
+`afterDeployment` supports the same `pause` and `runWebhook` conditions as [`beforeDeployment`](#targetstargetnameconstraintsbeforedeployment). 
+
+In this example, there are four targets: `dev`,  `infosec`, `staging`, and `prod-west`. After you deploy code to `infosec` and `staging`, you want to run jobs against those targets. If either of those jobs fails, CD-as-a-Service does not deploy to `prod-west`.
+
+`prod-west`'s `afterDeployment` condition calls a webhook that sends a "deployment complete" notification.
+
+{{< highlight yaml "linenos=table,hl_lines=9-11 19-21 29-31 " >}}
+targets:
+  dev:
+    account: demo-dev-cluster
+    namespace: cdaas-dev
+    strategy: rolling
+  infosec:
+    account: demo-staging-cluster
+    constraints:
+      afterDeployment:
+        - runWebhook:
+            name: Security_Scanners
+      dependsOn:
+        - dev
+    namespace: cdaas-infosec
+    strategy: rolling
+  staging:
+    account: demo-staging-cluster
+    constraints:
+      afterDeployment:
+        - runWebhook:
+            name: Integration_Tests
+      dependsOn:
+        - dev
+    namespace: cdaas-staging
+    strategy: rolling
+  prod-west:
+    account: demo-prod-west-cluster
+    constraints:
+      afterDeployment:
+        - runWebhook:
+            name: Send_Slack_Deployment_Complete
+      beforeDeployment:
+        - pause:
+            requiresRoles:
+              - Organization Admin
+            untilApproved: true
+        - runWebhook:
+            name: Send_Slack_Deployment_Approval_Required
+      dependsOn:
+        - infosec
+        - staging
+    namespace: cdaas-prod
+    strategy: mycanary
+{{< /highlight >}}
+
