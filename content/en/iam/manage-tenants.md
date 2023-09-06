@@ -14,7 +14,7 @@ tags: ["Tenants"]
 
 ## Create tenants
 
-Every organization has a `main` tenant. You can create one or more additional tenants using a YAML file and the CLI. Your YAML file should have the following structure:
+Every organization has a `main` tenant. You can create one or more additional tenants using a YAML config file and the CLI. Your YAML file should have the following structure:
 
 ```yaml
 tenants:
@@ -93,7 +93,11 @@ tenants:
 
 You can also use the UI to view the list of tenants you can access. See the [Switch tenants](#switch-tenants) section.
 
-## Switch tenants
+## Delete a tenant
+
+Contact your CD-as-a-Service rep if you need to delete a tenant. 
+
+## Switch tenants in the UI
 
 You use the UI to switch to the tenant whose resources you want to see. CD-as-a-Service only displays the **Switch Tenants* user content menu item when you have access to more than one tenant.
 
