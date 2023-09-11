@@ -34,6 +34,12 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 > CD-as-a-Service deploys any Kubernetes manifest to your environments without the need for any special annotations in the manifest.
 
+### How to trigger a deployment
+
+* [Use the GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}) in your GitHub workflow.
+* [Use the CLI]({{< ref "cli" >}}) with any CI system by installing the CLI natively or running it in Docker.
+* [Use the plugin for Spinnaker and Armory Continuous Deployment]({{< ref "integrations/plugin-spinnaker" >}}), which enables configuring a canary or blue/green deployment that uses CD-as-a-Service.
+
 ## Define your deployment
 
 CD-as-a-Service enables you to declaratively define your deployment configuration outcome in a YAML file. 
@@ -149,3 +155,4 @@ Armory CD-as-a-Service offers two distinct deployment strategies that each have 
 * For deployment strategy details and how canary differs from blue/green, see  {{< linkWithTitle "deployment/strategies/overview.md" >}}.
 * Work through the [Quickstart]({{< ref "get-started/quickstart" >}}) to deploy a sample app to a Kubernetes cluster using a blue/green deployment strategy.
 * If you want to use a Kubernetes HorizontalPodAutoscaler in your deployment, [learn how CD-as-a-Service implements horizontal pod autoscaling]({{< ref "deployment/kubernetes/hpa" >}}).
+* Learn how you can [monitor your deployment]({{< ref "deployment/monitor-deployment" >}}) using the UI or the CLI.

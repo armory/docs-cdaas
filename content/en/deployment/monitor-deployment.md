@@ -3,7 +3,7 @@ title: Monitor Deployments
 linkTitle: Monitor Deployments
 weight: 10
 description: >
-  Monitor the status of your CD-as-s-Service deployments and approve or roll back deployments.
+  Monitor the status of your CD-as-s-Service deployments and approve or roll back deployments. View information such as deployment status, pull request lineage, deployment triggers, and target details.
 categories: ["Deployment", "Guides"]
 tags: ["Monitor"]
 ---
