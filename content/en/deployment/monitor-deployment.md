@@ -11,19 +11,25 @@ tags: ["Monitor"]
 
 ## Monitor deployments using the UI
 
-When you navigate to the **Deployments** tab of the UI, you land on the **All Deployments** page, which shows all the apps for a specific tenant. If you don't see a deployment that you're expecting to see, refresh the list or verify the tenant the deployment belongs to. You can switch tenants in the top right menu by clicking on your username.
+When you navigate to the **Deployments** tab of the UI, you land on the **All Deployments** page, which shows all the deployments for a specific tenant. If you don't see a deployment that you're expecting to see, verify the tenant the deployment belongs to. You can switch tenants in the top right menu by clicking on your username.
 
-On the **All Deployments** page, you can select a specific app to go a page that shows a graphical representation the target environments that you defined in your deployment config file. If your deployment contains only one target environment, clicking the app takes you straight to target environment overview page.
+On the **All Deployments** page, you can select a specific deployment to go a page that shows a graphical representation of the target environments that you defined in your deployment config file. If your deployment contains only one target environment, clicking the deployment takes you straight to the target environment overview page.
 
-### Deployment Graph page
+### View the deployment graph
 
-The deployment graph page gives you a general idea of the state of the deployment and what environment CD-as-a-Service is currently deploying to.
+The deployment graph page gives you a general idea of the state of the deployment and what environment CD-as-a-Service is currently deploying to. This view is continuously in sync with your deployment.
 
 {{< figure src="/images/cdaas/multitarget-deploy.jpg" alt="The deployment starts in a dev environment. It then progresses to infosec and staging environments simultaneously. It finishes by deploying to a prod-west environment." >}}
 
-More specifically, this view shows you how deployments are supposed to progress through different environments based on the constraints that you defined in the deployment config file. Clicking on a specific target environment takes you to the an overview page for that single target environment, where you can take additional action.
+This graph uses nodes to represent key aspects of your deployment, gives a dynamic view of the execution of a deployment as it promotes through environments, and offers a historical view of a selected past deployment, including those that were canceled or rolled back.
 
-### Single environment
+The nodes that appear on the Deployment Graph represent key aspects of your deployment. The connections between the nodes illustrate the promotion relationships and if applicable, current progress of an inflight deployment.
+
+Clicking on a specific target environment takes you to the an overview page for that single target environment, where you can view details and take additional action if needed.
+
+### View a deployment trigger
+
+### View target details 
 
 The **Environment Details** page for a single environment is where you monitor the progress of the deployment to that environment. If the strategy you specified involves user input, such as a manual approval, this is the page where you can approve or rollback the deployment.
 
