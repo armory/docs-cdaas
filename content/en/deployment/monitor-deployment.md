@@ -25,7 +25,7 @@ The deployment graph page gives you a general idea of the state of the deploymen
 
 ## Deployment graph node types
 
-The graph begins with a trigger node and then displays target nodes that correspond to the targets you declared in your deployment config file.
+The graph begins with a trigger node and then displays deployment target nodes that correspond to the targets you declared in your deployment config file.
 
 ### Trigger node
 
@@ -45,9 +45,9 @@ Common trigger types include the following:
 In some scenarios, you can see additional details:
 
 * Source context for the artifacts involved in the deployment plan
-* Context variables injected at runtime using [this process](https://developer.armory.io/docs/deployment/add-context-variable)
+* [Context variables injected at runtime]({{< ref "deployment/add-context-variable">}})
 
-Source context is visible if the trigger source is the Armory GitHub Action, and includes the following details.
+Source context is visible if the trigger source is the Armory GitHub Action. Source context includes the following details:
 
 * Pull request title
 * Pull request number
@@ -112,9 +112,6 @@ Context variables are visible if you have configured them at the time the deploy
 A target node corresponds to a target you defined in your deployment config file. Clicking on a specific target takes you to the an overview page for that single target, where you can view details and take additional action if needed.
 
 {{< figure src="/images/cdaas/deploy/ui-fulldetails.jpg" >}}
-
-
-
 
 ## {{% heading "nextSteps" %}}
 
