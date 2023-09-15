@@ -59,8 +59,7 @@ Source context is visible if the trigger source is the Armory GitHub Action. Sou
 
 Context variables are visible if you have configured them at the time the deployment plan is triggered.
 
-**Examples**
-
+#### Trigger node type examples
 
 {{% cardpane %}}
 {{% card header="**Pull Request**" %}}
@@ -89,7 +88,7 @@ Context variables are visible if you have configured them at the time the deploy
 
 **Source**: Armory GitHub Action<br>
 **Type**: `workflow_dispatch`<br>
-**Context Variables**:  Present, passed through CLIn<br>
+**Context Variables**:  Present, passed through CLI<br>
 
 {{< figure src="/images/cdaas/deploy/triggers/deploy.png" >}}
 
