@@ -13,80 +13,109 @@ tags: ["Monitor"]
 
 When you navigate to the **Deployments** tab of the UI, you land on the **All Deployments** page, which shows all the deployments for a specific tenant. If you don't see a deployment that you're expecting to see, verify the tenant the deployment belongs to. You can switch tenants in the top right menu by clicking on your username.
 
-On the **All Deployments** page, you can select a specific deployment to go a page that shows a graphical representation of the target environments that you defined in your deployment config file. If your deployment contains only one target environment, clicking the deployment takes you straight to the target environment overview page.
+On the **All Deployments** page, you can select a specific deployment to go a page that shows a graphical representation of the target that you defined in your deployment config file. If your deployment contains only one target, clicking the deployment takes you straight to the target overview page.
 
-### View the deployment graph
+## View the deployment graph
 
-The deployment graph page gives you a general idea of the state of the deployment and what environment CD-as-a-Service is currently deploying to. This view is continuously in sync with your deployment.
+The deployment graph page gives you a general idea of the state of the deployment and what target CD-as-a-Service is currently deploying to. This graph uses nodes to represent key aspects of your deployment, gives a dynamic view of the execution of a deployment as it promotes through targets, and offers a historical view of a selected past deployment, including those that were canceled or rolled back. The connections between the nodes illustrate the promotion relationships and if applicable, current progress of an inflight deployment.
 
-{{< figure src="/images/cdaas/multitarget-deploy.jpg" alt="The deployment starts in a dev environment. It then progresses to infosec and staging environments simultaneously. It finishes by deploying to a prod-west environment." >}}
+{{< figure src="/images/cdaas/deploy/multitarget-ghaTrigger.jpg" >}}
 
-This graph uses nodes to represent key aspects of your deployment, gives a dynamic view of the execution of a deployment as it promotes through environments, and offers a historical view of a selected past deployment, including those that were canceled or rolled back.
+{{< figure src="/images/cdaas/deploy/multitarget-cliTrigger.jpg" >}}
 
-The nodes that appear on the Deployment Graph represent key aspects of your deployment. The connections between the nodes illustrate the promotion relationships and if applicable, current progress of an inflight deployment.
+## Deployment graph node types
 
-Clicking on a specific target environment takes you to the an overview page for that single target environment, where you can view details and take additional action if needed.
+The graph begins with a trigger node and then displays target nodes that correspond to the targets you declared in your deployment config file.
 
-### View a deployment trigger
+### Trigger node
 
-### View target details 
+A trigger node marks the moment a deployment plan is set in motion. These nodes communicate the following information:
 
-The **Environment Details** page for a single environment is where you monitor the progress of the deployment to that environment. If the strategy you specified involves user input, such as a manual approval, this is the page where you can approve or rollback the deployment.
+* The system which triggered the deployment to start
+* The person who initiated the trigger
+* The type of trigger
 
-{{< figure src="/images/cdaas/ui-fulldetails.jpg" >}}
+Common trigger types include the following:
+
+* pull_request
+* push
+* workflow_dispatch
+* Armory CLI deploy
+
+In some scenarios, you can see additional details:
+
+* Source context for the artifacts involved in the deployment plan
+* Context variables injected at runtime using [this process](https://developer.armory.io/docs/deployment/add-context-variable)
+
+Source context is visible if the trigger source is the Armory GitHub Action, and includes the following details.
+
+* Pull request title
+* Pull request number
+* Actor (person who triggered the deployment)
+* Source and target branch
+* Commit SHA (most recent from the PR, or that which maps to push)
+* Repository
+* Tag (when the trigger is a push tag)
+
+Context variables are visible if you have configured them at the time the deployment plan is triggered.
+
+**Examples**
 
 
-## Monitor deployments using the CLI
+{{% cardpane %}}
+{{% card header="**Pull Request**" %}}
 
-If you want to monitor your deployment in your terminal, use the `--watch` flag to output deployment status.
+**Source**: Armory GitHub Action<br>
+**Type**: `pull_request`<br>
+**Context Variables**: Declared in GitHub Action<br>
 
-```bash
-armory deploy start  -f deployment.yaml --watch
-```
+{{< figure src="/images/cdaas/deploy/triggers/pr-contextvars.png" >}}
 
-Output is similar to:
+{{% /card %}}
+{{% card header="**Push**" %}}
 
-```bash
-[2023-05-24T13:43:35-05:00] Waiting for deployment to complete. Status UI: https://console.cloud.armory.io/deployments/pipeline/03fe43c6-ddc1-49d8-8116-b01db0ca0c5a?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
-.
-[2023-05-24T13:43:46-05:00] Deployment status changed: RUNNING
-..
-[2023-05-24T13:44:06-05:00] Deployment status changed: AWAITING_APPROVAL
-...
-[2023-05-24T13:44:36-05:00] Deployment status changed: RUNNING
-..
-[2023-05-24T13:44:56-05:00] Deployment status changed: AWAITING_APPROVAL
-.
-[2023-05-24T13:45:06-05:00] Deployment status changed: RUNNING
-..
-[2023-05-24T13:45:26-05:00] Deployment status changed: SUCCEEDED
-[2023-05-24T13:45:26-05:00] Deployment 03fe43c6-ddc1-49d8-8116-b01db0ca0c5a completed with status: SUCCEEDED
-[2023-05-24T13:45:26-05:00] Deployment ID: 03fe43c6-ddc1-49d8-8116-b01db0ca0c5a
-[2023-05-24T13:45:26-05:00] See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/03fe43c6-ddc1-49d8-8116-b01db0ca0c5a?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
+**Source**: Armory GitHub Action<br>
+**Type**:  `push` (or `push` with tag)<br>
+**Context Variables**: None<br>
 
-```
+{{< figure src="/images/cdaas/deploy/triggers/pr.png" >}}
 
-If you forget to add the `--watch` flag, you can run the `armory deploy status --deploymentID <deployment-id>` command. Use the Deployment ID returned by the `armory deploy start` command. For example:
+{{% /card %}}
+{{% /cardpane %}}
 
-```bash
-armory deploy start -f deployment.yaml
-Deployment ID: 9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e
-See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e?environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
-```
 
-then run:
+{{% cardpane %}}
+{{% card header="**Workflow Dispatch**" %}}
 
-```bash
-armory deploy status --deploymentId 9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e
-```
+**Source**: Armory GitHub Action<br>
+**Type**: `workflow_dispatch`<br>
+**Context Variables**:  Present, passed through CLIn<br>
 
-Output is similar to:
+{{< figure src="/images/cdaas/deploy/triggers/deploy.png" >}}
 
-   ```bash
-application: sample-application, started: 2023-01-06T20:07:36Z
-status: RUNNING
-See the deployment status UI: https://console.cloud.armory.io/deployments/pipeline/9bfb67e9-41c1-41e8-b01f-e7ad6ab9d90e? environmentId=82431eae-1244-4855-81bd-9a4bc165f90b
-```
+{{% /card %}}
+{{% card header="**Armory CLI**" %}}
 
-This `armory deploy status` command returns a point-in-time status and exits. It does not watch the deployment.
+**Source**: Armory CLI<br>
+**Type**: deploy<br>
+**Context Variables**: none<br>
 
+{{< figure src="/images/cdaas/deploy/triggers/cli.png" >}}
+
+{{% /card %}}
+{{% /cardpane %}}
+
+
+
+### Target node
+
+A target node corresponds to a target you defined in your deployment config file. Clicking on a specific target takes you to the an overview page for that single target, where you can view details and take additional action if needed.
+
+{{< figure src="/images/cdaas/deploy/ui-fulldetails.jpg" >}}
+
+
+
+
+## {{% heading "nextSteps" %}}
+
+You can [monitor deployment status using the CLI]({{< ref "cli#monitor-deployments" >}}).
