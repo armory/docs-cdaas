@@ -2,7 +2,7 @@
 title: Targets Config
 weight: 3
 description: >
-  Declare your deployment targets: account, namespace, and strategy to use. Configure dependsOn and beforeDeployment constraints to pause for a set amount of time or to require manual approval.
+  Declare your deployment targets: account, namespace, and strategy to use. Configure target constraints such as dependsOn, beforeDeployment, and afterDeployment with pause, webhoook, an analysis conditions.
 ---
 
 
