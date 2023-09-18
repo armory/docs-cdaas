@@ -20,6 +20,7 @@ For information about using queries in your deploy file, see the following resou
 
 - [Add queries to your deploy file]({{< ref "reference/deployment/config-file/analysis" >}})
 - [Use a query in a deployment step]({{< ref "reference/deployment/config-file/strategies#strategiesstrategynamestrategystepsanalysis" >}})
+- [Analysis in `beforeDeployment` and `afterDeployment` target constraints]{{< ref "reference/deployment/config-file/targets#analysis">}}
 
 ## Query variables
 
