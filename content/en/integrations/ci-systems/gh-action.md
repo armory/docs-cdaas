@@ -89,7 +89,7 @@ jobs:
       - name: Armory CD-as-a-Service Deployment
         id: deploy
         env:
-          GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' # Needed for trigger node on deployment graph; GitHub generates this
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed for trigger node on deployment graph; GitHub generates this
         uses: armory/cli-deploy-action@main
         with:
           clientId: "<github-secret-name-for-client-id>"
@@ -173,7 +173,7 @@ jobs:
       - name: Deploy app
         id: deploy
         env:
-          GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: armory/cli-deploy-action@main
         with:
           clientId: ${{ secrets.CDAAS_CLIENT_ID }}
