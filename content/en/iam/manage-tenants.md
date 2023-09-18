@@ -1,5 +1,5 @@
 ---
-title: Add, View, and Switch Tenants
+title: Add, Delete, View, and Switch Tenants
 linkTitle: Tenants
 description: >
   Add tenants to your Armory CD-as-a-Service organization.
@@ -14,7 +14,7 @@ tags: ["Tenants"]
 
 ## Create tenants
 
-Every organization has a `main` tenant. You can create one or more additional tenants using a YAML file and the CLI. Your YAML file should have the following structure:
+Every organization has a `main` tenant. You can create one or more additional tenants using a YAML config file and the CLI. Your YAML file should have the following structure:
 
 ```yaml
 tenants:
@@ -93,7 +93,11 @@ tenants:
 
 You can also use the UI to view the list of tenants you can access. See the [Switch tenants](#switch-tenants) section.
 
-## Switch tenants
+## Delete a tenant
+
+Contact a <a href="mailto:devadvocates@armory.io?subject=Delete a CD-as-a-Service Tenant">CD-as-a-Service Dev Advocate</a> if you need to delete a tenant. 
+
+## Switch tenants in the UI
 
 You use the UI to switch to the tenant whose resources you want to see. CD-as-a-Service only displays the **Switch Tenants* user content menu item when you have access to more than one tenant.
 

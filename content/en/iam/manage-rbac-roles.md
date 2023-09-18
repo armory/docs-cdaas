@@ -219,7 +219,7 @@ roles:
         permission: full
 ```
 
-You want to delete the Tester role. Update your config file by adding `autodelete: true` to the top and removing the Tester role entry:
+You want to delete the Tester role. Update your config file by adding `allowAutoDelete: true` to the top and removing the Tester role entry:
 
 ```yaml
 allowAutoDelete: true
