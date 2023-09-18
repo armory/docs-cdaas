@@ -59,53 +59,6 @@ Source context is visible if the trigger source is the Armory GitHub Action. Sou
 
 Context variables are visible if you have configured them at the time the deployment plan is triggered.
 
-#### Trigger node type examples
-
-{{% cardpane %}}
-{{% card header="**Pull Request**" %}}
-
-**Source**: Armory GitHub Action<br>
-**Type**: `pull_request`<br>
-**Context Variables**: Declared in GitHub Action<br>
-
-{{< figure src="/images/cdaas/deploy/triggers/pr-contextvars.png" >}}
-
-{{% /card %}}
-{{% card header="**Push**" %}}
-
-**Source**: Armory GitHub Action<br>
-**Type**:  `push` (or `push` with tag)<br>
-**Context Variables**: None<br>
-
-{{< figure src="/images/cdaas/deploy/triggers/pr.png" >}}
-
-{{% /card %}}
-{{% /cardpane %}}
-
-
-{{% cardpane %}}
-{{% card header="**Workflow Dispatch**" %}}
-
-**Source**: Armory GitHub Action<br>
-**Type**: `workflow_dispatch`<br>
-**Context Variables**:  Present, passed through CLI<br>
-
-{{< figure src="/images/cdaas/deploy/triggers/deploy.png" >}}
-
-{{% /card %}}
-{{% card header="**Armory CLI**" %}}
-
-**Source**: Armory CLI<br>
-**Type**: deploy<br>
-**Context Variables**: none<br>
-
-{{< figure src="/images/cdaas/deploy/triggers/cli.png" >}}
-
-{{% /card %}}
-{{% /cardpane %}}
-
-
-
 ### Target node
 
 A target node corresponds to a target you defined in your deployment config file. Clicking on a specific target takes you to the an overview page for that single target, where you can view details and take additional action if needed.
