@@ -71,7 +71,7 @@ Installation using Helm consists of the following steps:
 
    See the comments in the `values.yaml` file for examples using other secrets managers.
 
-* `agentIdentifier`: the name of your Remote Network Agent
+* `agentIdentifier`: the name of your Remote Network Agent; you use this name in your deployment config file to identify your deployment target cluster; for example, if your `agentIdentifer` is `prod-eu`, your `targets.<targetname>.account` is `prod-eu`.
 
 ## Configure optional settings
 
