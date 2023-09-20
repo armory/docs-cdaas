@@ -74,6 +74,11 @@ on:
     branches:
       - <branchName> # What branch triggers a deployment. For example, `main`.
 
+permissions: # Needed for trigger node on deployment graph
+  contents: read
+  pull-requests: read
+  statuses: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -83,6 +88,8 @@ jobs:
 
       - name: Armory CD-as-a-Service Deployment
         id: deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed for trigger node on deployment graph; GitHub generates this
         uses: armory/cli-deploy-action@main
         with:
           clientId: "<github-secret-name-for-client-id>"
@@ -92,8 +99,8 @@ jobs:
 ```
 
 **Armory  CD-as-a-Service Deployment job**
-
-* `clientId`: GitHub secret that you created for your CD-as-a-Service Client ID. For example, if you named your secret **CDAAS_CLIENT_ID**, the value for `clientId` would be `"${{ secrets.CDAAS_CLIENT_ID }}"`.
+* `clientId`: GitHub secret that you created for your CD-as-a-Service Client ID. For example, if you 
+named your secret **CDAAS_CLIENT_ID**, the value for `clientId` would be `"${{ secrets.CDAAS_CLIENT_ID }}"`.
 * `clientSecret`: GitHub secret that you created for your CD-as-a-Service Client ID. For example, if you named your secret **CDAAS_CLIENT_SECRET**, the value for `clientSecret` would be `"${{ secrets.CDAAS_CLIENT_SECRET }}"`.
 * `path-to-file`: Relative path to your deployment file. The path you provide for the `path-to-file` parameter is relative to where your GitHub Action YAML is stored (`.github/workflows`).
 
@@ -151,6 +158,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pull-requests: read
+  statuses: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -160,6 +172,8 @@ jobs:
 
       - name: Deploy app
         id: deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: armory/cli-deploy-action@main
         with:
           clientId: ${{ secrets.CDAAS_CLIENT_ID }}
