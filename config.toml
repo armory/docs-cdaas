@@ -55,6 +55,8 @@ pygmentsStyle = "dracula"
     tabWidth = 4
     guessSyntax = false
     # Set guessSyntax to true if you want your chosen highlight style used for code blocks without a specified language
+  [markup.tableOfContents]
+    endLevel = 4 # page TOC render ##, ###, #### headings
 
 # Configure how URLs look like per section.
 [permalinks]
