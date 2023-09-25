@@ -32,7 +32,7 @@ The name that you assigned to a metrics provider in the **Configuration UI**. If
 
 In this block, you define the queries that you want to run.
 
-### Query name
+### Name
 
 `analysis.queries.name`
 
