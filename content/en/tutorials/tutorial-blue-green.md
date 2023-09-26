@@ -215,7 +215,7 @@ strategies:
    - `exposeServices`: This step creates a temporary preview service link for testing purposes. The exposed link is not secure and expires after the time in the `ttl` section. See {{< linkWithTitle "reference/deployment/config-preview-link.md" >}} for details.
    
    
-   >The `redirectTrafficAfter` field also supports continuing or rolling back based on canary analysis. See the [Strategies config file reference]({{< ref "reference/deployment/config-file/strategies#strategiesstrategynamebluegreenredirecttrafficafteranalysis" >}}) for details.
+   >The `redirectTrafficAfter` field also supports continuing or rolling back based on canary analysis. See the [Strategies config file reference]({{< ref "reference/deployment/config-file/strategies#analysis-1" >}}) for details.
 
 * `blueGreen.shutDownOldVersionAfter`: This step defines a condition for deleting the old version of your app. If deployment is successful, CD-as-a-Service shuts down the old version after the specified time. This field supports the same `pause` steps as the `redirectTrafficAfter` field.
 

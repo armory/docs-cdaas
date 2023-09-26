@@ -148,7 +148,7 @@ targets:
       dependsOn: ["dev-west"]
       beforeDeployment:
         - pause:
-            untilApproved: trueIn 
+            untilApproved: true 
             requiresRole: []
             approvalExpiration:
               duration: 60

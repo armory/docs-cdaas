@@ -70,7 +70,7 @@ strategies:
 
 * `setWeight`: Define how much traffic CD-as-a-Service should direct to the new version of your app. CD-as-a-Service manipulates the relevant resources to gradually increase the traffic to the new version. 
 
-Between `setWeight` entries, you can configure deployment to wait for the outcome of canary analysis, to pause for manual judgment, or to pause for a defined period of time. See the [Deployment File Reference]({{< ref "/reference/deployment/config-file/strategies#strategiesstrategynamecanarystepspause" >}}) for details.
+Between `setWeight` entries, you can configure deployment to wait for the outcome of canary analysis, to pause for manual judgment, or to pause for a defined period of time. See the [Deployment File Reference]({{< ref "/reference/deployment/config-file/strategies#pause" >}}) for details.
 
 ### Add your strategy to your deployment target
 
