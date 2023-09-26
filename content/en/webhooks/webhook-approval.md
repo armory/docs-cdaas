@@ -53,6 +53,10 @@ In your deployment file, you configure your webhook by adding a top-level `webho
 
 {{< include "dep-file/webhooks-config.md" >}}
 
+### Webhooks context variables
+
+{{< include "webhooks-context-variables.md" >}}
+
 ### Configuration examples
 
 The first example configures a GitHub webhook that uses token authorization, with the token value configured as a CD-as-a-Service secret. This webhook requires you to pass the callback URI in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
