@@ -52,7 +52,7 @@ pause:
 
 - `requiresRoles`: list of RBAC roles
 
-For example, if you want only users with an "Approver", "InfoSec", or "Release Manager" role to be able to issue a manual approval, you would add those roles to the `requiresRoles` list:
+For example, if you want only users with an "Approver", "InfoSec", **or** "Release Manager" role to be able to issue a manual approval, you would add those roles to the `requiresRoles` list:
 
 ```yaml
 ...
