@@ -134,6 +134,7 @@ steps:
 ...
   - pause:
       untilApproved: true
+      requiresRoles: []
       approvalExpiration:
         duration: 60
         unit: seconds
@@ -163,7 +164,7 @@ steps:
 When you configure a manual judgment, the deployment waits when it hits the corresponding weight threshold. At that point, you can either approve the deployment so far and let it continue or roll the deployment back if something doesn't look right.
 
 - `strategies.<strategyName>.canary.steps.pause.untilApproved: true`
-- `strategies.<strategyName>.canary.steps.pause.requiresRole` (Optional) list of RBAC roles that can issue a manual approval
+- `strategies.<strategyName>.canary.steps.pause.requiresRoles` (Optional) list of RBAC roles that can issue a manual approval
 - `strategies.<strategyName>.canary.steps.pause.approvalExpiration` (Optional) time to wait for the approval - if expired, current deployment is cancelled
 
 For example:
@@ -439,7 +440,7 @@ redirectTrafficAfter:
 When you configure a manual judgment, the deployment waits for manual approval through the UI. You can either approve the deployment or roll the deployment back if something doesn't look right. Do not provide a `duration` or `unit` value when defining a judgment-based pause.
 
 - `strategies.<strategyName>.blueGreen.redirectTrafficAfter.pause.untilApproved: true`
-- `strategies.<strategyName>.blueGreen.redirectTrafficAfter.pause.requiresRole` (Optional) list of RBAC roles that can issue a manual approval
+- `strategies.<strategyName>.blueGreen.redirectTrafficAfter.pause.requiresRoles` (Optional) list of RBAC roles that can issue a manual approval
 - `strategies.<strategyName>.blueGreen.redirectTrafficAfter.pause.approvalExpiration` (Optional) time to wait for the approval - if expired, current deployment is cancelled
 - 
 For example:
@@ -518,9 +519,6 @@ shutdownOldVersionAfter:
         - <queryName>`
 ```
 
-
-
-
 ## Examples
 
 ### Basic canary strategies
@@ -545,7 +543,7 @@ targets:
       beforeDeployment:
         - pause:
             untilApproved: true
-            requiresRole:
+            requiresRoles:
               - Organization Admin
 strategies:
   rolling:

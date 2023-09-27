@@ -135,7 +135,7 @@ You can specify a pause that waits for a manual approval or a certain amount of 
 Use the following to configure a deployment to pause for manual approval before starting:
 
 - `pause.untilApproved`: Set to true
-- `pause.requiresRole`: (Optional) List of RBAC roles that can issue a manual approval
+- `pause.requiresRoles`: (Optional) List of RBAC roles that can issue a manual approval
 - `pause.approvalExpiration`: (Optional) Timeout configuration; when expired the ongoing deployment is cancelled 
 
 ```yaml
@@ -149,7 +149,7 @@ targets:
       beforeDeployment:
         - pause:
             untilApproved: true 
-            requiresRole: []
+            requiresRoles: []
             approvalExpiration:
               duration: 60
               unit: seconds
@@ -189,7 +189,7 @@ targets:
       beforeDeployment:
         - pause:
             untilApproved: true
-            requiresRole:
+            requiresRoles:
               - Organization Admin
             approvalExpiration:
               duration: 24
