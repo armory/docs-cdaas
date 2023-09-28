@@ -1,6 +1,5 @@
 ---
 title: Application Config
-weight: 1
 description: >
   Define your app name.
 ---

@@ -1,6 +1,5 @@
 ---
 title: Traffic Management Config
-weight: 8
 description: >
   Declare Istio or Linkerd traffic management. Configure activeService and previewService. You can restrict traffic management to a specific deployment target.
 ---

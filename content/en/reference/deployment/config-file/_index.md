@@ -8,8 +8,9 @@ categories: ["Reference"]
 tags: ["Deployment", "Deploy Config"]
 ---
 
-
-
+<details><summary>Show an example deploy config file</summary>
+{{< readfile file="/includes/dep-file/deploy-example.yaml" code="true" lang="yaml" >}}
+</details>
 
 
 

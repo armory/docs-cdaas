@@ -1,6 +1,5 @@
 ---
 title: Webhooks Config
-weight: 7
 description: >
   Declare webhooks that call external automation for webhook-based approvals in your strategies.
 ---

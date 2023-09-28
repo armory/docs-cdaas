@@ -1,6 +1,5 @@
 ---
 title: Manifests Config
-weight: 4
 description: >
   Declare the path to the Kubernetes manifests to use for your deployment. You can also specify manifests per deployment target.
 ---

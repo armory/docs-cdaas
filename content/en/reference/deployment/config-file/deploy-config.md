@@ -1,6 +1,5 @@
 ---
 title: Deployment Config
-weight: 2
 description: >
   Customize your CD-as-a-Service deployment's behavior.
 ---
