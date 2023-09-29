@@ -213,7 +213,7 @@ steps:
 
 `strategies.<strategyName>.canary.steps.analysis.metricProviderName`
 
-Optional. The name of a configured metric provider. If you do not provide a metric provider name, Armory CD-as-a-Service uses the default metric provider defined in the `analysis.defaultMetricProviderName`. Use the **Configuration UI** to add a metric provider.
+Optional. The name of a configured metric provider. If you do not provide a metric provider name, CD-as-a-Service uses the default metric provider defined in the `analysis.defaultMetricProviderName`. Use the **Configuration UI** to add a metric provider.
 
 ##### Context
 
@@ -221,7 +221,7 @@ Optional. The name of a configured metric provider. If you do not provide a metr
 
 Custom key/value pairs that are passed as substitutions for variables to the queries.
 
-Armory supports the following variables out of the box:
+CD-as-a-Service supports the following variables out of the box:
 
 - `armory.startTimeIso8601`
 - `armory.startTimeEpochSeconds`
@@ -237,8 +237,7 @@ Armory supports the following variables out of the box:
 - `armory.environmentName`
 - `armory.replicaSetName`
 
-If your deployment strategy contains `exposeServices` step, all exposed service preview links are available as part of the `armory.preview` sub-context. 
-For example, if you create service preview for service `my-http-service` you could access it using `armory.preview.my-http-service`.
+If your deployment strategy contains `exposeServices` step, all exposed service preview links are available as part of the `armory.preview` sub-context. For example, if you create service preview for service `my-http-service` you could access it using `armory.preview.my-http-service`.
 
 You can supply your own variables by adding them to this section. When you use them in your query, include the `context` prefix. For example, if you create a variable named `owner`, you would use `context.owner` in your query.
 

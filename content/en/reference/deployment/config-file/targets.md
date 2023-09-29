@@ -47,7 +47,11 @@ targets:
 
 ## Namespace
 
-`targets.<targetName>.namespace`: (Recommended) The namespace on the target Kubernetes cluster that you want to deploy to. This field overrides any namespaces defined in your manifests.
+`targets.<targetName>.namespace`
+
+Optional but recommended
+
+The namespace on the target Kubernetes cluster that you want to deploy to. This field overrides any namespaces defined in your manifests.
 
 For example, this snippet overrides the namespace in your manifest and deploys the app to a namespace called `overflow`:
 
@@ -76,6 +80,8 @@ Read more about how this config is defined and used in the [strategies.<strategy
 
 ## Constraints
 
+Optional
+
 `targets.<targetName>.constraints`
 
 `constraints` is a map of conditions that must be met before a deployment starts. The constraints can be dependencies on previous deployments, such as requiring deployments to a test environment before staging, or a pause. If you omit the constraints section, the deployment starts immediately when it gets triggered.
@@ -98,10 +104,12 @@ targets:
             unit: <seconds|minutes|hours>
       afterDeployment:
         - runWebhook:
-            name: Send-Slack-Deployment-Complete
+            name: <webhook-name>
 ```
 
 ### Depends on
+
+Optional
 
 `targets.<targetName>.constraints.dependsOn`: A comma-separated list of deployments that must finish before this deployment can start. You can use this option to sequence deployments. Deployments with the same `dependsOn` criteria execute in parallel. For example, you can make it so that a deployment to prod cannot happen until a staging deployment finishes successfully.
 
@@ -119,6 +127,8 @@ targets:
 
 ### Before and after deployment
 
+Optional
+
 `targets.<targetName>.constraints.beforeDeployment`: Add conditions that must be met before the deployment can start. These are in addition to the deployments you define in `dependsOn` that must finish. If a `beforeDeployment` condition fails, CD-as-a-Service does not deploy to this target or subsequent targets.
 
 `targets.<targetName>.constraints.afterDeployment`: Add conditions that must be met before deployment to this target is considered finished. These constraints are executed after deployment to this target but before deployment to the next target (or before deployment is considered done). If an `afterDeployment` condition fails, CD-as-a-Service does not roll back this target and does not deploy to subsequent targets.
@@ -130,12 +140,6 @@ targets:
 You can specify a pause that waits for a manual approval or a certain amount of time before starting. 
 
 **Pause until manual approval**
-
-Use the following to configure a deployment to pause for manual approval before starting:
-
-- `pause.untilApproved`: Set to true
-- `pause.requiresRoles`: (Optional) List of RBAC roles that can issue a manual approval
-- `pause.approvalExpiration`: (Optional) Timeout configuration; when expired the ongoing deployment is cancelled 
 
 ```yaml
 targets:
@@ -154,10 +158,11 @@ targets:
               unit: seconds
 ```
 
-**Pause for a certain amount of time**
+- `pause.untilApproved`: Set to true
+- `pause.requiresRoles`: (Optional) List of RBAC roles that can issue a manual approval
+- `pause.approvalExpiration`: (Optional) Timeout configuration; when expired the ongoing deployment is cancelled 
 
-- `pause.duration` set to an integer value for the amount of time to wait before starting after the `dependsOn` condition is met.
-- `pause.unit` set to `seconds`, `minutes` or `hours` to indicate the unit of time to wait.
+**Pause for a certain amount of time**
 
 ```yaml
 targets:
@@ -173,9 +178,12 @@ targets:
             unit: seconds
 ```
 
+- `pause.duration` set to an integer value for the amount of time to wait before starting after the `dependsOn` condition is met.
+- `pause.unit` set to `seconds`, `minutes` or `hours` to indicate the unit of time to wait.
+
 #### Run a webhook
 
-In the following example, before deploying to the `prod-cluster-west` target, CD-as-a-Service pauses deployment for manual approval by an Org Admin and also calls a webhook that sends a Slack notification.
+In the following example, before deploying to the `prod-cluster-west` target, CD-as-a-Service pauses deployment for manual approval by an Org Admin and also calls a webhook that sends a Slack notification. You declare the webhook in the [webhooks section]
 
 ```yaml
 targets:
@@ -199,7 +207,7 @@ targets:
 
 #### Analysis
 
-In this example, CD-as-a-Service performs a [canary analysis]({{< ref "reference/canary-analysis-query" >}}) after deploying to the target.
+In this example, CD-as-a-Service performs a [canary analysis]({{< ref "reference/canary-analysis-query" >}}) after deploying to the target. You declare your query in the [analysis section]{{< ref "reference/deployment/config-file/analysis" >}} and then add the name to the `queries` list.
 
 ```yaml
 targets:
@@ -211,6 +219,7 @@ targets:
       dependsOn: ["dev"]
       afterDeployment:
         - analysis:
+            metricProviderName: <metric-provider-name>
             interval: 10
             units: seconds
             numberOfJudgmentRuns: 3

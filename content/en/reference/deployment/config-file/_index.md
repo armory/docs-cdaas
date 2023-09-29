@@ -9,6 +9,9 @@ tags: ["Deployment", "Deploy Config"]
 ---
 
 <details><summary>Show an example deploy config file</summary>
+<br>
+The following is a skeleton with all config options listed for each section. 
+
 {{< readfile file="/includes/dep-file/deploy-example.yaml" code="true" lang="yaml" >}}
 </details>
 
