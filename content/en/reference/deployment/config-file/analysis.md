@@ -1,7 +1,7 @@
 ---
 title: Analysis Config
 description: >
-  Declare the queries used to analyze a deployment for any `analysis` steps. Includes defaultMetricProviderName and queries (name, upperLimit, lowerLimit, queryTemplate).
+  Declare the queries used to analyze a deployment for any `analysis` steps in your deployment strategies. Includes defaultMetricProviderName and queries (name, upperLimit, lowerLimit, queryTemplate).
 ---
 
 ## Analysis section

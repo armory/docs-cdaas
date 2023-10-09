@@ -1,7 +1,7 @@
 ---
 title: Deployment Config
 description: >
-  Customize your CD-as-a-Service deployment's behavior.
+  Customize your CD-as-a-Service deployment's behavior deployment timeout and `keepDeploymentObject` settings.
 ---
 
 ## Deployment config section
@@ -40,5 +40,5 @@ deploymentConfig:
   keepDeploymentObject: <boolean> 
 ```
 
-(Optional; Default: `false`) By default, Armory CD-as-a-Service deploys and manages ReplicaSets even when the client-requested resource is a Kubernetes Deployment. When this flag is set to `true`, CD-as-a-Service keeps Deployment objects between deployment executions. 
+(Optional; Default: `false`) By default, CD-as-a-Service deploys and manages ReplicaSets even when the client-requested resource is a Kubernetes Deployment. When this flag is set to `true`, CD-as-a-Service keeps Deployment objects between deployment executions. 
 

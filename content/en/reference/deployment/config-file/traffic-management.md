@@ -1,7 +1,7 @@
 ---
 title: Traffic Management Config
 description: >
-  Declare Istio or Linkerd traffic management. Configure activeService and previewService. You can restrict traffic management to a specific deployment target.
+  Declare Istio or Linkerd traffic management for all or specific targets. Configure Istio settings such as virtual service and destination rule. Configure Linkerd settings like root service, canary service, active service, and traffic split.
 ---
 
 ## Traffic management section

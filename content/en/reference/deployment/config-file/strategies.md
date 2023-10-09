@@ -1,7 +1,7 @@
 ---
 title: Strategies Config
 description: >
-  Declare your deployment strategies. You can use blue/green, canary, or both. Restrict by target environment. Add constraints.
+  Declare your deployment strategies. You can use blue/green, canary, or both. Restrict by target environment. Add steps such as weight, manual or timed pauses, analysis, expose services, redirect traffic, and shut down old version. 
 ---
 
 ## Strategies section
