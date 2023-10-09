@@ -25,7 +25,7 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
   * There is an error deploying your Kubernetes manifests
   * Pods fail to be in a Ready state within 30 minutes
   * A webhook fails
-  * You configured your retrospective analysis step to automatically rollback (avaible in both canary and blue/green deployments)
+  * You configured your retrospective analysis step to automatically rollback (available in both canary and blue/green deployments)
   * A user fails to issue a configured manual approval within a specified time frame
   * A deployment target constraint is not met
 
