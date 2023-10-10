@@ -19,7 +19,7 @@ When Armory CD-as-a-Service performs automated canary analysis, Armory CD-as-a-S
 For information about using queries in your deploy file, see the following resources:
 
 - [Add queries to your deploy file]({{< ref "reference/deployment/config-file/analysis" >}})
-- [Use a query in a deployment step]({{< ref "reference/deployment/config-file/strategies#strategiesstrategynamestrategystepsanalysis" >}})
+- [Use a query in a deployment step]({{< ref "reference/deployment/config-file/strategies#analysis" >}})
 - [Analysis in `beforeDeployment` and `afterDeployment` target constraints]{{< ref "reference/deployment/config-file/targets#analysis">}}
 
 ## Query variables

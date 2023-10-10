@@ -16,9 +16,9 @@ You can use this step in both canary and blue-green deployment strategies.
 
  ## Expose your service
 
-**Canary strategy**: add an `exposeServices` step to `strategies.<strategyName>.canary.steps` in your [deployment file]({{< ref "reference/deployment/config-file/strategies#strategiesstrategynamecanarystepsexposeservices" >}}).
+**Canary strategy**: add an `exposeServices` step to `strategies.<strategyName>.canary.steps` in your [deployment file]({{< ref "reference/deployment/config-file/strategies#expose-services-preview-links" >}}).
 
-**Blue/Green strategy**: add an `exposeServices` entry to `strategies.<strategyName>.redirectTrafficAfter` in your [deployment file]({{< ref "reference/deployment/config-file/strategies#strategiesstrategynamebluegreenredirecttrafficafterexposeservices" >}}).
+**Blue/Green strategy**: add an `exposeServices` entry to `strategies.<strategyName>.redirectTrafficAfter` in your [deployment file]({{< ref "reference/deployment/config-file/strategies#expose-services-preview-links-1" >}}).
 
 {{< include "deploy/preview-link-details.md" >}}
 

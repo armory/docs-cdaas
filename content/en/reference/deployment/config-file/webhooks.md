@@ -1,18 +1,21 @@
 ---
 title: Webhooks Config
-weight: 7
 description: >
   Declare webhooks that call external automation for webhook-based approvals in your strategies.
 ---
 
-## `webhooks.`
+## Webhooks section
+
+`webhooks.`
 
 {{< include "dep-file/webhooks-config.md" >}}
 
+## Webhooks context variables
 
-See {{< linkWithTitle "webhooks/overview.md" >}} for detailed information.
+{{< include "webhooks-context-variables.md" >}}
 
 ## Guides and tutorials
 
+* {{< linkWithTitle "webhooks/overview.md" >}}
 * {{< linkWithTitle "webhooks/webhook-approval.md" >}}
 * {{< linkWithTitle "tutorials/tutorial-webhook-github">}}

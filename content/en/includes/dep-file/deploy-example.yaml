@@ -1,0 +1,209 @@
+---
+version: v1
+kind: kubernetes
+application: <application-name>
+targets:
+  <targetName>:
+    account: <account-name>
+    namespace: <namespace-override>
+    strategy: <strategy-name>
+    constraints:
+      dependsOn: ["<target-name>", "<target-name>"]
+      beforeDeployment:
+        - pause:
+            untilApproved: true
+            requiresRoles:
+              - <role-name>
+            approvalExpiration:
+              duration: <integer>
+              unit: <seconds|minutes|hours>
+        - pause:
+            duration: <integer>
+            unit: <seconds|minutes|hours>
+        - runWebhook:
+            name: <webhook-name>
+        - analysis:
+            metricProviderName: <metric-provider-name>
+            context:
+              keyName: <value>
+            interval: <integer>
+            units: <seconds|minutes|hours>
+            numberOfJudgmentRuns: <integer>
+            rollBackMode: <manual|automatic>
+            rollForwardMode: <manual|automatic>
+            queries:
+              - <queryName1>
+              - <queryName2>
+      afterDeployment:
+        - pause:
+            untilApproved: true 
+            requiresRoles:
+              - <role-name>
+            approvalExpiration:
+              duration: <integer>
+              unit: <seconds|minutes|hours>
+        - pause:
+            duration: <integer>
+            unit: <seconds|minutes|hours>
+        - runWebhook:
+            name: <webhook-name>
+        - analysis:
+            metricProviderName: <metric-provider-name>
+            context:
+              keyName: <value>
+            interval: <integer>
+            units: <seconds|minutes|hours>
+            numberOfJudgmentRuns: <integer>
+            rollBackMode: <manual|automatic>
+            rollForwardMode: <manual|automatic>
+            queries:
+              - <queryName1>
+              - <queryName2>
+manifests:
+  - path: <path-to-manifest-or-directory>
+  - path: <path-to-manifest-or-directory>
+    targets:
+      - <target-name>
+strategies:
+  myCanary:
+    canary:
+      steps:
+        - setWeight:
+            weight: <integer>
+        - analysis:
+            metricProviderName: <metric-provider-name>
+            context:
+              keyName1: <value>
+              keyName2: <value>
+            interval: <integer>
+            units: <seconds|minutes|hours>
+            numberOfJudgmentRuns: <integer>
+            rollBackMode: <manual|automatic>
+            rollForwardMode: <manual|automatic>
+            queries:
+              - <queryName1>
+              - <queryName2>
+        - runWebhook:
+            name: <webhook-name>
+        - pause:
+            duration: <integer>
+            unit: <seconds|minutes|hours>
+        - setWeight:
+            weight: <integer>
+        - exposeServices:
+            services:
+              - <service-1>
+              - <service-2>
+              - <service-n>
+            ttl:
+              duration: <integer>
+              unit: <seconds|minutes|hours>
+        - analysis:
+            metricProviderName: <metric-provider-name>
+            context:
+              keyName1: <value>
+              keyName2: <value>
+            interval: <integer>
+            units: <seconds|minutes|hours>
+            numberOfJudgmentRuns: <integer>
+            rollBackMode: <manual|automatic>
+            rollForwardMode: <manual|automatic>
+            queries:
+              - <queryName1>
+              - <queryName2>
+        - pause:
+            untilApproved: true
+            requiresRoles:
+              - <role-name>
+            approvalExpiration:
+              duration: <integer>
+              unit: <seconds|minutes|hours>
+        - setWeight:
+            weight: <integer>
+  myBlueGreen:
+    blueGreen:
+      activeService: <active-service-name>
+      previewService: <preview-service-name>
+      redirectTrafficAfter:
+        - runWebhook:
+            name: CheckLogs
+        - analysis:
+            metricProviderName: <metric-provider-name>
+            context:
+              keyName1: <value>
+              keyName2: <value>
+            interval: <integer>
+            units: <seconds|minutes|hours>
+            numberOfJudgmentRuns: <integer>
+            rollBackMode: <manual|automatic>
+            rollForwardMode: <manual|automatic>
+            queries:
+              - <queryName1>
+              - <queryName2>
+        - pause:
+            duration: <integer>
+            unit: <seconds|minutes|hours>
+        - exposeServices:
+            services:
+              - <service-1>
+              - <service-2>
+              - <service-n>
+            ttl:
+              duration: <integer>
+              unit: <seconds|minutes|hours>
+      shutDownOldVersionAfter:
+        - pause:
+            untilApproved: true
+            approvalExpiration:
+              duration: <integer>
+              unit: <seconds|minutes|hours>
+              requiresRoles:
+                - <role-name>
+        - pause:
+            duration: <integer>
+            unit: <seconds|minutes|hours>
+        - analysis:
+            metricProviderName: <metric-provider-name>
+            context:
+              keyName1: <value>
+              keyName2: <value>
+            interval: <integer>
+            units: <seconds|minutes|hours>
+            numberOfJudgmentRuns: <integer>
+            rollBackMode: <manual|automatic>
+            rollForwardMode: <manual|automatic>
+            queries:
+              - <queryName>
+analysis:
+  defaultMetricProviderName: <provider-name>
+  queries:
+    - name: <query-name>
+      upperLimit: <integer>
+      lowerLimit: <integer>
+      queryTemplate: >-
+        <query>
+webhooks:
+  - name: <webhook-name>
+    method: <endpoint-method-type>
+    uriTemplate: <endpoint-uri>
+    networkMode: <network-mode>
+    agentIdentifier: <remote-network-agent-id>
+    headers:
+      - key: Authorization
+        value: <auth-type-and-value>
+      - key: Content-Type
+        value: application/json
+    bodyTemplate:
+      inline: >-
+        {
+          "event_type": "<event-type>",
+          "client_payload": {
+            "callbackUri": "{{armory.callbackUri}}/callback"
+            }
+        }
+    retryCount: <num-retries>
+deploymentConfig:
+  keepDeploymentObject: <true|false>
+  timeout:
+    unit: <seconds|minutes|hours>
+    duration: <integer>

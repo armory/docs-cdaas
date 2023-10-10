@@ -40,7 +40,7 @@ pause:
 
 ## Configure role-based manual approval
 
-In your deployment manifest, add a `requiresRole` field to your manual approval.
+In your deployment manifest, add a `requiresRoles` field to your manual approval.
 
 ```yaml
 ...
@@ -52,7 +52,7 @@ pause:
 
 - `requiresRoles`: list of RBAC roles
 
-For example, if you want only users with an "Approver", "InfoSec", or "Release Manager" role to be able to issue a manual approval, you would add those roles to the `requiresRole` list:
+For example, if you want only users with an "Approver", "InfoSec", **or** "Release Manager" role to be able to issue a manual approval, you would add those roles to the `requiresRoles` list:
 
 ```yaml
 ...
