@@ -1,7 +1,7 @@
 ---
 title: Targets Config
 description: >
-  Declare your deployment targets: account, namespace, and strategy to use. Configure target constraints such as dependsOn, beforeDeployment, and afterDeployment with pause, webhoook, and analysis conditions.
+  Declare your deployment targets: account, namespace, and strategy to use. Configure target constraints such as `dependsOn`, `beforeDeployment`, and `afterDeployment` with pause, webhoook, and analysis conditions.
 ---
 
 
