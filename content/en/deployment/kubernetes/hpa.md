@@ -46,5 +46,4 @@ CD-as-a-Service deletes the v2 app and v2 HorizontalPodAutoscaler and recreates 
 ## Supported HorizontalPodAutoscaler API versions
 
 - [v1](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v1/)
-- [v2 beta 1 and 2](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2beta2/)
 - [v2](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)

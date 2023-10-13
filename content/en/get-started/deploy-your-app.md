@@ -10,7 +10,7 @@ tags: ["Deployment", "Quickstart"]
 
 ## Learning objectives
 
->If you prefer a web-based, interactive tutorial, see the CD-as-a-Service Console's [**Deploy Your Own App** tutorial](https://next.console.cloud.armory.io/getting-started).
+>If you prefer a web-based, interactive tutorial, see the CD-as-a-Service Console's [**Deploy Your Own App** tutorial](https://console.cloud.armory.io/getting-started).
 
 In this guide, you create a deployment config that declares two strategies to deploy your own app to "staging" and "prod" namespaces in your Kubernetes cluster. 
 

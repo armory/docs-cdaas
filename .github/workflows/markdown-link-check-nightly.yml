@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '**.md'
   schedule:
     # Run everyday at 2:00 AM (See https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
     - cron: "0 2 * * *"
@@ -17,3 +19,4 @@ jobs:
         with:
           use-quiet-mode: 'yes'
           use-verbose-mode: 'yes'
+          config-file: '.mlc_config.json'
