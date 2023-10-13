@@ -155,3 +155,6 @@ See the GitHub [docs](https://help.github.com/en/github/collaborating-with-issue
 
 The Armory documentation uses New Relic to monitor the website status and other metrics.
 
+## Link checks
+
+The repo uses [Markdown link check](https://github.com/marketplace/actions/markdown-link-checker) to check static links in a PR.  
