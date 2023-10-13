@@ -4,6 +4,9 @@
 # https://github.com/wjdp/htmltest
 
 name: run-htmltest-nightly
+
+permissions:
+  contents: read # (default) needed for the actions/checkout task
 on:
   schedule:
     - cron: "0 1 * * *" # every day at 01:00
@@ -35,10 +38,10 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
       - name: Run NPM
         run: npm ci
-      - name: BuildDocsSite
-        # Put the build output where the following steps can find it
-        # GITHUB_WORKSPACE
-        run: hugo server --verbose --destination $GITHUB_WORKPLACE/dist
+      - name: BuildDocsSite 
+        # Put the build output where the following steps can find it  GITHUB_WORKSPACE; this doesn't work
+        # https://patrickod.com/2023/05/06/til-using-htmltest-to-find-broken-links-in-your-blog/
+        run: hugo --minify --gc
       - name: Test HTML
         # https://github.com/wjdp/htmltest-action/
         # Don't fail on broken links
