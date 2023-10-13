@@ -61,6 +61,7 @@ In your deployment file, you configure your webhook by adding a top-level `webho
 
 The first example configures a GitHub webhook that uses token authorization, with the token value configured as a CD-as-a-Service secret. This webhook requires you to pass the callback URI in the request body. The payload also contains context variables that you pass in when invoking the webhook in your deployment file.
 
+<!-- markdown-link-check-disable -->
 {{< highlight yaml "linenos=table, hl_lines=8 16-17" >}}
 webhooks:
   - name: myWebhook
@@ -85,10 +86,12 @@ webhooks:
         }
     retryCount: 3
 {{< /highlight >}}
+<!-- markdown-link-check-enable-->
 </br>
 
 The second example configures a webhook that is not accessible from the internet. The `networkMode` is set to `remoteNetworkAgent` and the `agentIdentifier` specifies which Remote Network Agent to use. The `agentIdentifier` value must match the **Agent Identifier** value listed on the **Agents** UI screen. The Authorization Bearer value is configured as a CD-as-a-Service secret. Note that in this example, the callback URI is passed in the header.
 
+<!-- markdown-link-check-disable -->
 {{< highlight yaml "linenos=table, hl_lines=5-6 9 11" >}}
 webhooks:
   - name: integration-tests
@@ -111,7 +114,7 @@ webhooks:
         value: {{armory.replicaSetName}}
     retryCount: 5
 {{< /highlight >}}
-
+<!-- markdown-link-check-enable-->
 
 ### Trigger a webhook
 

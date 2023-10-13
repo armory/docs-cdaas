@@ -76,7 +76,7 @@ targets:
     strategy: canary-wait-til-approved
 ```
 
-Read more about how this config is defined and used in the [strategies.<strategyName>](#strategies.<strategyName>) section.
+Read more about how this config is defined and used in the [strategies]({{< ref "reference/deployment/config-file/strategies" >}}) section.
 
 ## Constraints
 

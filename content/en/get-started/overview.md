@@ -14,10 +14,10 @@ You need a Mac, Linux, or Windows workstation and access to a Kubernetes cluster
 
 ## Deploy a sample app provided by Armory
 
-  * [Guided UI tour](https://next.console.cloud.armory.io/getting-started) using an Armory sandbox cluster
+  * [Guided UI tour](https://console.cloud.armory.io/getting-started) using an Armory sandbox cluster
   * Written [Quickstart guide]({{< ref "get-started/quickstart.md" >}}) deploying a sample app to your own cluster
 
 ## Deploy your own app to your cluster
 
-  * [Guided UI tour](https://next.console.cloud.armory.io/getting-started?gettingStartedPane=InstallFlowPane)
+  * [Guided UI tour](https://console.cloud.armory.io/getting-started?gettingStartedPane=InstallFlowPane)
   * Written [Deploy Your Own App]({{< ref "get-started/deploy-your-app.md" >}}) guide

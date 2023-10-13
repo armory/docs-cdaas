@@ -191,7 +191,7 @@ jobs:
 
 After you have created your deployment file and configured your workflow, you can trigger a CD-as-a-Service deployment based on the trigger you defined in your workflow.
 
-You can monitor your deployment's progress in the GitHub UI or in the CD-as-a-Service UI. Be sure to you know how to access a GitHub Action [workflow run log](https://docs.github.com/en/act##ions/monitoring-and-troubleshooting-workflows/about-monitoring-and-troubleshooting) before you begin.
+You can monitor your deployment's progress in the GitHub UI or in the CD-as-a-Service UI. Be sure to you know how to access a GitHub Action [workflow run log](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/about-monitoring-and-troubleshooting) before you begin.
 
 1. **GitHub workflow run log**: Use `waitForDeployment: true` in your job and watch the Action output in the workflow run log.
 

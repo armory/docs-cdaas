@@ -48,8 +48,8 @@ For information about how to get the API Key and Application Key, see [DataDog d
 
 - **Name**: A descriptive name for your metrics provider, such as the environment it monitors. You use this name in places such as your deploy file when you want to configure canary analysis as part of your deployment strategy.
 - **Base URL**: Your New Relic instance URL; for example, `https://api.newrelic.com/graphql/`.
-- **API Key**: The metrics integration requires access to Graph QL, so provide the User Key API key. For more information, see [User Key in the New Relic documentation](https://docs.newrelic.com/docs/apis/accounts-api/new-relic-user-key-api-key/).
-- **Account ID**: Your New Relic account ID. For information about how to get this ID, see [Account ID in the New Relic documentation](https://docs.newrelic.com/docs/apis/accounts-api/new-relic-account-id/).
+- **API Key**: The metrics integration requires access to Graph QL, so provide the User Key API key. For more information, see [the New Relic documentation](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/).
+- **Account ID**: Your New Relic account ID. For information about how to get this ID, see [Account ID in the New Relic documentation](https://docs.newrelic.com/docs/accounts/accounts-billing/account-structure/account-id/).
 
 ### Prometheus
 
