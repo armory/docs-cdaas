@@ -41,7 +41,7 @@ jobs:
       - name: BuildDocsSite 
         # Put the build output where the following steps can find it  GITHUB_WORKSPACE; this doesn't work
         # https://patrickod.com/2023/05/06/til-using-htmltest-to-find-broken-links-in-your-blog/
-        run: hugo --minify --gc
+        run: hugo
       - name: Test HTML
         # https://github.com/wjdp/htmltest-action/
         # Don't fail on broken links
