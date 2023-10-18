@@ -14,6 +14,8 @@ deploymentConfig:
     unit: <seconds|minutes|hours>
     duration: <integer>
   keepDeploymentObject: <boolean> 
+  ifDeploymentInProgress:
+    strategy: <strategy>
 ```
 
 ## Timeout
@@ -42,3 +44,15 @@ deploymentConfig:
 
 (Optional; Default: `false`) By default, CD-as-a-Service deploys and manages ReplicaSets even when the client-requested resource is a Kubernetes Deployment. When this flag is set to `true`, CD-as-a-Service keeps Deployment objects between deployment executions. 
 
+## If deployment in progress
+
+```yaml
+ifDeploymentInProgress:
+  strategy: "<strategy>"
+```
+
+(Optional) 
+
+- `strategy`: choose one of the following:
+  - `enqueueOne`: This enables the deployment queue feature.
+  - `reject`: (Default) This is the single deployment (no deployment queue) default deployment method. 
