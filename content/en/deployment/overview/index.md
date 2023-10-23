@@ -45,14 +45,15 @@ For example, you have an deployment called Potato Facts.
 
 ### Deployment queue process
 
-CDaaS provides you with a simple deployment queue, which deployment requests enter if there is an in-progress deployment. Once the in-progress deployment is complete, CD-as-a-Service starts the most recent request to deploy. This minimizes the time for changes to go from PR merge to production, while ensuring deployments are reliable.
+CD-as-a-Service provides you with a simple deployment queue, which deployment requests enter if there is an in-progress deployment. Once the in-progress deployment is complete, CD-as-a-Service starts the most recent deployment reques. This minimizes the time for changes to go from PR merge to production, while ensuring reliable deployments.
+
+When multiple deployments enter the queue, CD-as-a-Service deploys the most recent deployment request after the in-progress deployment finishes.
 
 {{< figure src="deploy-queue.png" alt="When multiple deployments enter the queue, CD-as-a-Service deploys the most recent deployment request." >}}
 
 See the Deployment Config File [reference]({{< ref "reference/deployment/config-file/deploy-config" >}}) for how to configure the deployment queue feature.
 
 {{< include "dep-file/deploy-queue-unsupported-features.md" >}}
-
 
 ## How to trigger a deployment
 
