@@ -42,22 +42,23 @@ deploymentConfig:
   keepDeploymentObject: <boolean> 
 ```
 
-(Optional; Default: `false`) By default, CD-as-a-Service deploys and manages ReplicaSets even when the client-requested resource is a Kubernetes Deployment. When this flag is set to `true`, CD-as-a-Service keeps Deployment objects between deployment executions. 
+(Optional; Default: `false`) 
 
-## If deployment in progress
+By default, CD-as-a-Service deploys and manages ReplicaSets even when the client-requested resource is a Kubernetes Deployment. When this flag is set to `true`, CD-as-a-Service keeps Deployment objects between deployment executions. 
 
-This field enables the [deployment queue]({{< ref "deployment/overview#deployment-queue-process" >}}) feature.
+## If deployment in progress (deploy queue)
+
+This field tells CD-as-a-Service how to behave when you start a deployment but there is an existing deployment (with the same name) in progress.
 
 ```yaml
 ifDeploymentInProgress:
   strategy: <strategy>
 ```
 
-(Optional) 
+(Optional; Default: `reject`) 
 
 - `strategy`: choose one of the following:
-  - `enqueueOne`: Use this value to enable the deployment queue feature.
-  - `reject`: (Default) This is the single deployment (no deployment queue) default deployment method.
-  
-
+  - `enqueueOne`: Use this value to enable the [deploy queue]({{< ref "deployment/overview#deploy-queue-process" >}}) feature. CD-as-a-Service starts the most recent deployment request after the in-progress deployment finishes.
+  - `reject`: (Default) This is the [single thread]({{< ref "deployment/overview#single-thread-process" >}}) (no deploy queue) default deployment process. 
+ 
 {{< include "dep-file/deploy-queue-unsupported-features.md" >}}

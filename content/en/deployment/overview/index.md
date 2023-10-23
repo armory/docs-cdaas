@@ -3,16 +3,16 @@ title: Deployment Overview
 linktitle: Overview
 weight: 1
 description: >
-  Learn what an Armory CD-as-a-Service deployment is and how it works - strategies (blue/green, canary) and constraints for deploying your app to your target Kubernetes clusters.
+  Learn what an Armory CD-as-a-Service deployment is and how CD-as-a-Service deploys your artifacts. Learn about deployment strategies (blue/green, canary) and constraints for deploying your app to your target Kubernetes clusters.
 categories: ["Canary Analysis", "Features", "Concepts"]
 tags: ["Deploy Strategy", "Canary", "Blue/Green", "Kubernetes"]
 ---
 
 ## What a deployment is
 
-A _deployment_ encompasses the manifests, artifacts, configuration, and actions that deliver your code to remote environments. You can configure a deployment to deliver software to a single environment or multiple environments, either in sequence or in parallel depending on your [deployment configuration]({{<ref "deployment/create-deploy-config" >}}).
+A _deployment_ encompasses the manifests, artifacts, configuration, and actions that deliver your code to remote environments. You can configure a deployment to deliver software to a single environment or multiple environments, either in sequence or in parallel depending on your [deployment configuration]({{<ref "deployment/create-deploy-config" >}}). 
 
-You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. You trigger deployments using the Armory CLI, either from your CI system or your workstation. Although CD-as-a-Service requires a separate deployment configuration file for each app, you can deploy multiple Kubernetes Deployment objects together as part of a single app. 
+You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. Each deployment has a unique name, which you declare in the config file. You trigger deployments using the Armory CLI, either from your CI system or your workstation. Although CD-as-a-Service requires a separate deployment configuration file for each app, you can deploy multiple Kubernetes Deployment objects together as part of a single app. 
 
 ## How deployment works
 
@@ -38,20 +38,20 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 This is CD-as-a-Service's default deployment behavior. You cannot start a second deployment _of the same deployment name_ until the first deployment has finished. 
 
-For example, you have an deployment called Potato Facts. 
+For example, you have an deployment named Potato Facts. 
 1. You start a deployment of Potato Facts.
 1. Immediately you start a second deployment of Potato Facts.
 1. CD-as-a-Service does not start the second deployment because the first deployment has not finished.
 
-### Deployment queue process
+### Deploy queue process
 
-CD-as-a-Service provides you with a simple deployment queue, which deployment requests enter if there is an in-progress deployment. Once the in-progress deployment is complete, CD-as-a-Service starts the most recent deployment reques. This minimizes the time for changes to go from PR merge to production, while ensuring reliable deployments.
+CD-as-a-Service provides you with a simple deployment queue, which deployment requests enter if there is an in-progress deployment with the same name. Once the in-progress deployment is complete, CD-as-a-Service starts the most recent deployment request. This minimizes the time for changes to go from PR merge to production, while ensuring reliable deployments.
 
 When multiple deployments enter the queue, CD-as-a-Service deploys the most recent deployment request after the in-progress deployment finishes.
 
 {{< figure src="deploy-queue.png" alt="When multiple deployments enter the queue, CD-as-a-Service deploys the most recent deployment request." >}}
 
-See the Deployment Config File [reference]({{< ref "reference/deployment/config-file/deploy-config" >}}) for how to configure the deployment queue feature.
+See the Deployment Config File [reference]({{< ref "reference/deployment/config-file/deploy-config" >}}) for how to configure the deploy queue feature.
 
 {{< include "dep-file/deploy-queue-unsupported-features.md" >}}
 
