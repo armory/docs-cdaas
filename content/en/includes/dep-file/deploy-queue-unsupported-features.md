@@ -10,5 +10,5 @@
   - `afterDeployment`
 - Steps
   - `analysis`
-  - `pause`
+  - `pause` - timed and manual judgment
 {{< /alert >}}
