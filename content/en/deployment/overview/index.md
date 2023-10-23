@@ -41,7 +41,7 @@ This is CD-as-a-Service's default deployment behavior. You cannot start a second
 For example, you have an deployment named Potato Facts. 
 1. You start a deployment of Potato Facts.
 1. Immediately you start a second deployment of Potato Facts.
-1. CD-as-a-Service does not start the second deployment because the first deployment has not finished.
+1. CD-as-a-Service does not start the second deployment because the first deployment has not finished. The second deployment request has a status of REJECTED.
 
 ### Deploy queue process
 
