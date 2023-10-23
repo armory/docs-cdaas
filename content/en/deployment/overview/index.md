@@ -16,7 +16,7 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 ## How deployment works
 
-{{< figure src="/images/cdaas/deploy/deploy-overview.jpg" width=80%" height="80%" >}}
+{{< figure src="deploy-overview.jpg" width=80%" height="80%" >}}
 
 * CD-as-a-Service starts a deployment with an environment, such as development, that does not depend on another environment. Then deployment progresses through the steps, conditions, and environments defined in your deployment process. 
 * CD-as-a-Service deploys a new ReplicaSet every time a deployment is started. This ensures changes to resources like ConfigMap are immediately reflected and validated with your deployment strategy. 
@@ -34,7 +34,11 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 > CD-as-a-Service deploys any Kubernetes manifest to your environments without the need for any special annotations in the manifest.
 
-### How to trigger a deployment
+### Deployment freeze
+
+You can implement a deployment freeze on individual apps or all apps in an account.
+
+## How to trigger a deployment
 
 * [Use the GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}) in your GitHub workflow.
 * [Use the CLI]({{< ref "cli" >}}) with any CI system by installing the CLI natively or running it in Docker.
