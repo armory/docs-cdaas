@@ -10,7 +10,5 @@
   - `afterDeployment`
 - Steps
   - `analysis`
-  - `setWeight` with any value other than `100`
   - `pause`
-  - `exposeServices`
 {{< /alert >}}
