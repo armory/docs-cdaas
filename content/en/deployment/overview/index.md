@@ -16,7 +16,7 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 ## How deployment works
 
-{{< figure src="/images/cdaas/deploy/deploy-overview.jpg" width=80%" height="80%" >}}
+{{< figure src="deploy-overview.jpg" width=80%" height="80%" >}}
 
 * CD-as-a-Service starts a deployment with an environment, such as development, that does not depend on another environment. Then deployment progresses through the steps, conditions, and environments defined in your deployment process. 
 * CD-as-a-Service deploys a new ReplicaSet every time a deployment is started. This ensures changes to resources like ConfigMap are immediately reflected and validated with your deployment strategy. 
@@ -34,7 +34,27 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 > CD-as-a-Service deploys any Kubernetes manifest to your environments without the need for any special annotations in the manifest.
 
-### How to trigger a deployment
+### Single thread process
+
+This is CD-as-a-Service's default deployment behavior. You cannot start a second deployment _of the same deployment name_ until the first deployment has finished. 
+
+For example, you have an deployment called Potato Facts. 
+1. You start a deployment of Potato Facts.
+1. Immediately you start a second deployment of Potato Facts.
+1. CD-as-a-Service does not start the second deployment because the first deployment has not finished.
+
+### Deployment queue process
+
+CDaaS provides you with a simple deployment queue, which deployment requests enter if there is an in-progress deployment. Once the in-progress deployment is complete, CD-as-a-Service starts the most recent request to deploy. This minimizes the time for changes to go from PR merge to production, while ensuring deployments are reliable.
+
+{{< figure src="deploy-queue.png" alt="When multiple deployments enter the queue, CD-as-a-Service deploys the most recent deployment request." >}}
+
+See the Deployment Config File [reference]({{< ref "reference/deployment/config-file/deploy-config" >}}) for how to configure the deployment queue feature.
+
+{{< include "dep-file/deploy-queue-unsupported-features.md" >}}
+
+
+## How to trigger a deployment
 
 * [Use the GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}) in your GitHub workflow.
 * [Use the CLI]({{< ref "cli" >}}) with any CI system by installing the CLI natively or running it in Docker.
