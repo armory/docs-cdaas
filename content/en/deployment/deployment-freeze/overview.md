@@ -18,3 +18,6 @@ CD-as-a-Service enables blocking the release of some or all applications to some
 * **Block Accounts**: You can choose to block deployments to specific accounts so that they can continue to deploy without having to write a custom deploy file. 
 * **View Change History**: You can easily view the history of who made a change to block or unblock deployments, as well as what the change was.
 
+## How to freeze 
+
+- filter, sort
