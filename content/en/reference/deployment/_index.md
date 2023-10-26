@@ -51,11 +51,10 @@ armory template kubernetes [template-type] > deployment-template.yaml
 {{< include "create-config.md" >}}
 
 
-<details><summary>Show me an example deployment file</summary>
-This file is in the <a href="https://github.com/armory/docs-cdaas-sample" target="_blank">armory/docs-cdaas-sample repo</a>.
+## Deployment config file example
 
-{{< github repo="armory/docs-cdaas-sample" file="/deploy.yml" lang="yaml" options="" >}}
-</details><br>
+{{< include "dep-file/skeleton-config.md" >}}
+
 
 ## {{% heading "nextSteps" %}}
 
