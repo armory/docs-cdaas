@@ -1,6 +1,6 @@
 ---
 title: Preview a Deployed Service
-manualLinkRelRef: "reference/deployment/config-preview-link.md"
+manualLinkRelRef: "reference/deployment/config-preview-link/index.md"
 exclude_search: true
 weight: 10
 description: >

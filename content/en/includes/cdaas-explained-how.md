@@ -6,7 +6,7 @@ CD-as-a-Service uses secure, logicless Remote Network Agents to access privately
 
 Remote Network Agents connect to CD-as-a-Service to establish gRPC via HTTP/2 connections secured with TLS and OIDC client credentials. You don't need to open any ports to grant CD-as-a-Service access to your Kubernetes clusters or privately networked resources.
 
-{{< figure src="/images/cdaas/how-cdaas-works.png" alt="How CD-as-a-Service Works" height="75%" width="75%" >}}
+{{< figure src="/media/how-cdaas-works.png" alt="How CD-as-a-Service Works" height="75%" width="75%" >}}
 
 1. You render your Kubernets manifests using the tools you want. You build and publish your containers where and how you want, from DockerHub to a private registry on your network.
 2. You create a CD-as-a-Service deployment config file in which you define your deployment: canary and/or blue/green strategy; traffic shaping; deployment constraints such as manual judgments; external automation using webhooks; and retrospective analysis. You include the path to your Kubernetes manifests in the deployment config file. CD-as-a-Service can deploy any Kubernetes object that you define in your Kubernetes manifest.
