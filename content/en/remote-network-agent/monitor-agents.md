@@ -16,9 +16,7 @@ The Agent Hub and the RNAs perform periodic healthchecks to ensure that the conn
 
 [**Networking > Agents**](https://console.cloud.armory.io/configuration/agents)
 
-The **Agents** page shows you the list of agents that are connected if the credentials they use have the `connect:agentHub` scope.
-
 > Note that you may see a "No Data" message when first loading the **Agents** page even if there are successfully connected RNAs.
 
-{{< figure src="ui-rna-status.jpg" alt="The Connected Remote Network Agents page shows connected agents and the following information: Agent Identifier, Agent Version, Connection Time when the connection was established, Last Heartbeat time, Client ID, and IP Address." >}}
+{{< figure src="/media/ui-rna-status.jpg" alt="The Connected Remote Network Agents page shows connected agents and the following information: Agent Identifier, Agent Version, Connection Time when the connection was established, Last Heartbeat time, Client ID, and IP Address." >}}
 

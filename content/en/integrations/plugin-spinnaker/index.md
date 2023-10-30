@@ -87,7 +87,7 @@ Go to the [Agents page in the Configuration UI](https://console.cloud.armory.io/
 
 > Note that you may see a "No Data message" when first loading the Agent page.
 
-{{< figure src="ui-rna-status.jpg" alt="The Connected Remote Network Agents page shows connected Agents and the following information: Agent Identifier, Agent Version, Connection Time when the connection was established, Last Heartbeat time, Client ID, and IP Address." >}}
+{{< figure src="/media/ui-rna-status.jpg" alt="The Connected Remote Network Agents page shows connected Agents and the following information: Agent Identifier, Agent Version, Connection Time when the connection was established, Last Heartbeat time, Client ID, and IP Address." >}}
 
 If you do not see the RNA for your target deployment cluster, check the logs for the target deployment cluster to see if the RNA is up and running.
 
