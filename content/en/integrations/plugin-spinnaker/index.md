@@ -49,15 +49,16 @@ The Helm chart described in [Enable the Armory CD-as-a-Service Remote Network Ag
 
 ## Register your environment
 
-{{< tabs name="RegisterEnv" >}}
-{{% tabbody name="Armory CD" %}}
+{{< tabpane text=true right=true >}}
+{{% tab header="**Environment**:" disabled=true /%}}
+{{% tab header="Armory CD" %}}
 
 Register your Armory CD environment so that it can communicate with Armory services. Each environment needs to get registered if you, for example, have production and development environments.
 
 Register your Armory CD [environment](https://docs.armory.io/continuous-deployment/installation/ae-instance-reg/).
 
-{{% /tabbody %}}
-{{% tabbody name="Spinnaker" %}}
+{{% /tab %}}
+{{% tab header="Spinnaker" %}}
 
 [Create a new CD-as-a-Service credential]({{< ref "/iam/manage-client-creds" >}}) for your Spinnaker instance so it can authenticate with CD-as-a-Service. 
 
@@ -68,8 +69,8 @@ In the CD-as-a-Service Console, go to the **Access Management** > **Client Crede
 
 Click **Create Credential**. Copy the **Client ID** and **Client Secret** values for use in the _[Install the plugin](#install-the-plugin)_ section.
 
-{{% /tabbody %}}
-{{< /tabs >}}
+{{% /tab %}}
+{{< /tabpane >}}
 
 ## Install the CD-as-a-Service Remote Network Agent
 
@@ -104,8 +105,9 @@ time="2021-07-16T17:48:30Z" level=info msg="starting agentCreator provider:\"kub
 
 >You can configure Spinnaker secrets as outlined in the [Work with Secrets in Spinnaker](https://docs.armory.io/continuous-deployment/armory-admin/secrets) guide. This means you can set the Client Secret value a secret token instead of the plain text value.
 
-{{< tabs name="DeploymentPlugin" >}}
-{{% tabbody name="Operator" %}}
+{{< tabpane text=true right=true >}}
+{{% tab header="**Method**:" disabled=true /%}}
+{{% tab header="Operator" %}}
 
 If you are running Armory CD 2.26.3, `armory.cloud` block goes in a different location. Instead of `spec.spinnakerConfig.spinnaker`, the block needs to go under both `spec.spinnakerConfig.gate` and `spec.spinnakerConfig.orca`. For more information see [Known issues](#known-issues). Additionally there is a `plugins` block that needs to be added.
 
@@ -173,8 +175,8 @@ Apply the changes to your Armory CD instance.
 kubectl apply -k <path-to-kustomize-file>.yml
 ```
 
-{{% /tabbody %}}
-{{% tabbody name="Halyard" %}}
+{{% /tab %}}
+{{% tab header="Halyard" %}}
 
 If you are running Armory CD 2.26.3, `armory.cloud` block needs to go in `gate-local.yml` and `orca-local.yml` instead of `spinnaker-local.yml`. For more information see [Known issues](#known-issues). Other than the change in location, the installation instructions remain the same.
 
@@ -226,8 +228,8 @@ Apply the changes to your Armory CD instance.
 hal deploy apply
 ```
 
-{{% /tabbody %}}
-{{< /tabs >}}
+{{% /tab %}}
+{{< /tabpane >}}
 
 ### Verify that the plugin is configured
 
@@ -275,20 +277,21 @@ You have the following options for adding your Armory CD-as-a-Service deployment
 
 #### Configure the stage
 
-The **Deployment Configuration** section is where you define your Armory CD-as-a-Service progressive deployment and consists of the following parts:
+The **Deployment Configuration** section is where you define your Armory CD-as-a-Service progressive deployment and consists of [manifest source](#manifest-source) and [required artifacts to bind](#required-artifacts-to-bind).
 
-**Manifest Source**
+##### Manifest source
 
-{{< tabs name="DeploymentYAMLManifestSource" >}}
-{{% tabbody name="Text" %}}
+{{< tabpane text=true right=true >}}
+{{% tab header="**Manifest Source**:" disabled=true /%}}
+{{% tab header="Text" %}}
 
 1. Choose **Text** for the **Manifest Source**.
 1. Paste your deployment file YAML into the **Deployment YAML** text box. For example:
 
 {{< figure src="prog-deploy-yaml.png" alt="Example of a deployment YAML file pasted into the Deployment YAML text box." >}}
 
-{{% /tabbody %}}
-{{% tabbody name="Artifact" %}}
+{{% /tab %}}
+{{% tab header="Artifact" %}}
 
 Before you select **Artifact**, make sure you have added your Armory CD-as-a-Service deployment file as a pipeline artifact.
 
@@ -297,11 +300,12 @@ Before you select **Artifact**, make sure you have added your Armory CD-as-a-Ser
 
 {{< figure src="prog-deploy-artifact.png" alt="Example of a deployment YAML file attached as an artifact." >}}
 
-{{% /tabbody %}}
-{{< /tabs >}}
+{{% /tab %}}
+{{< /tabpane >}}
 <br>
 <br>
-**Required Artifacts to Bind**
+
+##### Required artifacts to bind
 
 For each manifest you list in the `manifests.path` section of your Armory CD-as-a-Service deployment file, you must bind the artifact to the stage.
 
@@ -419,8 +423,9 @@ Armory CD-as-a-Service has the following constraints when deploying a manifest:
 
 In Armory CD 2.26.3, the location of where you put the `armory.cloud` config block is different from other versions. Additionally, there is an additional config block for `spec.spinnakerConfig.profiles.gate.spinnaker.extensibility` that contains information for the plugin named `plugins`.
 
-{{< tabs name="KnownIssue" >}}
-{{% tabbody name="Operator" %}}
+{{< tabpane text=true right=true >}}
+{{% tab header="**Method**:" disabled=true /%}}
+{{% tab header="Operator" %}}
 
 Your Kustomize patch file should resemble the following where `armory.cloud` is a child of the `gate` and `orca` blocks instead of a `spinnaker` block:
 
@@ -484,8 +489,8 @@ spec:
 
 
 
-{{% /tabbody %}}
-{{% tabbody name="Halyard" %}}
+{{% /tab %}}
+{{% tab header="Halyard" %}}
 
 Your `spinnaker-local.yml` file should not have the `armory.cloud` block anymore and only contain the block to install the plugin:
 
@@ -547,8 +552,8 @@ armory.cloud:
     baseUrl: https://api.cloud.armory.io
 ```
 
-{{% /tabbody %}}
-{{< /tabs >}}
+{{% /tab %}}
+{{< /tabpane >}}
 
 > This product documentation page is Armory confidential information.
 

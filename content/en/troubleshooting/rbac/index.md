@@ -14,8 +14,9 @@ tags: ["RBAC"]
 
 **Why this happens**
 <br>
-{{< tabs name="no-role" >}}
-{{% tabbody name="No SSO" %}}
+
+{{< tabpane text=true right=true >}}
+{{% tab header="No SSO" %}}
 The user doesn't have an RBAC role. This happens when:
 
 * The Organization Admin didn't create any RBAC roles.
@@ -29,8 +30,8 @@ Organization Admin is a system role. CD-as-a-Service automatically assigns that 
 * Assign the existing Organization Admin role to the affected user.
 * [Create at least one custom RBAC role]({{< ref "iam/manage-rbac-roles.md" >}}) and then assign that RBAC role to the affected user.
 
-{{% /tabbody %}}
-{{% tabbody name="SSO" %}}
+{{% /tab %}}
+{{% tab header="SSO" %}}
 
 * The user doesn't have the correct SSO groups assigned in your company's SSO provider.
 * The Organization or Tenant Admin didn't create an RBAC role that corresponds to the SSO group. The CD-as-a-Service RBAC role name must be identical to the SSO group name.
@@ -40,7 +41,7 @@ Organization Admin is a system role. CD-as-a-Service automatically assigns that 
 * [Create RBAC roles]({{< ref "iam/manage-rbac-roles#sso-roles" >}}) to match the SSO groups that you want to use with CD-as-a-Service.
 
 
-{{% /tabbody %}}
-{{< /tabs >}}
+{{% /tab %}}
+{{< /tabpane >}}
 
 
