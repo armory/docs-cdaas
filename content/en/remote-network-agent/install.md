@@ -136,5 +136,5 @@ You can go to the [Agents page](https://console.cloud.armory.io/configuration/ag
 
 ## {{% heading "nextSteps" %}}
 
-* [View your connected Remote Network Agents]({{< ref "remote-network-agent/monitor-agents" >}}) to see data such as the last time CD-as-a-Service detected a heartbeat.
+* [View your connected Remote Network Agents]({{< ref "remote-network-agent/monitor-agents/index.md" >}}) to see data such as the last time CD-as-a-Service detected a heartbeat.
 * [Install with advanced configuration options]({{< ref "remote-network-agent/install-helm" >}}).
