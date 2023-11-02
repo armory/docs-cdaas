@@ -48,7 +48,7 @@ By default, CD-as-a-Service deploys and manages ReplicaSets even when the client
 
 ## If deployment in progress (deploy queue)
 
-This field tells CD-as-a-Service how to behave when you start a deployment but there is an existing deployment for the same app already in progress. CD-as-a-Service uses the value of the `application` [field]({{< ref "reference/deployment/config-file/applicaiton" >}}) when determining if there is already an in-progress deployment.
+This field tells CD-as-a-Service how to behave when you start a deployment but there is an existing deployment for the same app already in progress. CD-as-a-Service uses the value of the `application` [field]({{< ref "reference/deployment/config-file/application" >}}) when determining if there is already an in-progress deployment.
 
 ```yaml
 ifDeploymentInProgress:
