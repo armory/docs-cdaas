@@ -18,4 +18,4 @@ description: >
 
 * {{< linkWithTitle "webhooks/overview.md" >}}
 * {{< linkWithTitle "webhooks/webhook-approval.md" >}}
-* {{< linkWithTitle "tutorials/tutorial-webhook-github">}}
+* {{< linkWithTitle "tutorials/tutorial-webhook-github/index.md">}}

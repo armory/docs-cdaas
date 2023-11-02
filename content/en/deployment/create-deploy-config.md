@@ -16,6 +16,10 @@ Make sure you have [installed the CD-as-a-Service CLI]({{< ref "cli" >}}), which
 
 {{< include "create-config.md" >}}
 
+## Deployment config file example
+
+{{< include "dep-file/skeleton-config.md" >}}
+
 ## {{% heading "nextSteps" %}}
 
 * {{< linkWithTitle "reference/deployment/config-file/_index.md" >}}

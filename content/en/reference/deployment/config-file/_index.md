@@ -8,12 +8,9 @@ categories: ["Reference"]
 tags: ["Deployment", "Deploy Config"]
 ---
 
-<details><summary>Show an example deploy config file</summary>
-<br>
-The following is a skeleton for a deployment to Kubernetes. All all config options are listed for each section. 
+## Deployment config file example
 
-{{< readfile file="/includes/dep-file/deploy-example.yaml" code="true" lang="yaml" >}}
-</details>
+{{< include "dep-file/skeleton-config.md" >}}
 
 
 

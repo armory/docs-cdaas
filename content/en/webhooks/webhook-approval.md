@@ -271,6 +271,6 @@ After you have configured your webhook in your deployment config file, you shoul
 
 ## {{% heading "nextSteps" %}}
 
-* {{< linkWithTitle "tutorials/tutorial-webhook-github.md" >}}
+* {{< linkWithTitle "tutorials/tutorial-webhook-github/index.md" >}}
 * [Webhooks section]({{< ref "reference/deployment/config-file/webhooks" >}}) in the deployment config file reference
 * {{< linkWithTitle "troubleshooting/webhook.md" >}}

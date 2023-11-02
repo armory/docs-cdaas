@@ -46,7 +46,7 @@ Installation using Helm consists of the following steps:
 1. [Generate and preview the manifests](#generate-and-preview-the-manifests)
 1. [Install the RNA](#install-the-rna)
 
-<details><summary>Show the values file</summary>
+<details><summary>Click to view the values file</summary>
 {{< github repo="armory-io/remote-network-agent-helm-chart" file="/values.yaml" lang="yaml" options="" >}}
 </details><br>
 

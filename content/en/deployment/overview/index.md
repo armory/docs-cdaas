@@ -33,6 +33,7 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
   You can deploy multiple Deployment objects as part of a single CD-as-a-Service deployment. When defined in a single deployment, multiple Deployment objects are rolled back together if there's an automatic or manual rollback.
 
 > CD-as-a-Service deploys any Kubernetes manifest to your environments without the need for any special annotations in the manifest.
+
 ### Handling concurrent deployments
 
 CD-as-a-Service uses the deployment config file's `application` value to identify whether or not multiple deployments may conflict. By default, CD-as-a-Service allows a single deployment to run at a time ([single thread process](#single-thread-process)). However, you can configure your deployment process to enqueue the latest deployment ([deploy queue process](#deploy-queue-process)).
