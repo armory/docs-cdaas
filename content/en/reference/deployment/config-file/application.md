@@ -12,4 +12,4 @@ kind: kubernetes
 application: <application-name>
 ```
 
-Provide a descriptive name for your application so that you can identify it when viewing the status of your deployment in the **Deployments UI** and other locations.
+Provide a descriptive name for your app so that you can identify it when viewing the status of your deployment in the **Deployments UI** and other locations. This must be a unique name.
