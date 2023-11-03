@@ -38,7 +38,7 @@ When you install the RNA configured with Armory credentials into your private ne
 
 Agent Hub routes network traffic from internal, authenticated Armory services to your privately networked resources via a multi-target network relay that pipes data through encrypted gRPC tunnels to the RNA, which forwards the data to its destination.
 
-{{< centeredImage src="rna-arch.png" alt="CD-as-a-Service Remote Network Agent Architecture Diagram" caption="Remote Network Agent securely integrates your on-prem tools with CD-as-a-Service." >}}
+{{< centeredImage src="./rna-arch.png" alt="CD-as-a-Service Remote Network Agent Architecture Diagram" caption="Remote Network Agent securely integrates your on-prem tools with CD-as-a-Service." >}}
 
 In Armory's secure private network, Agent Hub is an [(RFC 1929)](https://datatracker.ietf.org/doc/html/rfc1929) SOCKS5 compliant proxy [(RFC 1928)](https://www.rfc-editor.org/rfc/rfc1928.html). Agent Hub knows how to execute socks proxy requests through a bidirectional gRPC tunnel that is established by an RNA.
 
