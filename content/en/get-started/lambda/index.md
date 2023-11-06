@@ -19,7 +19,8 @@ tags: ["Deployment", "Quickstart"]
 ## {{% heading "prereq" %}}
 
 * You are familiar with CD-as-a-Service's [key components]({{< ref "architecture.md" >}}).
-* You have an [AWS account](https://aws.amazon.com/) and are familiar with [AWS Lambda](https://aws.amazon.com/lambda/).
+* You should be familiar with [AWS Lambda](https://aws.amazon.com/lambda/) and have a [Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
+
 
 ## Sign up for CD-as-a-Service
 

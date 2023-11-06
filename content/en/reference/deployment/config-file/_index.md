@@ -8,9 +8,16 @@ categories: ["Reference"]
 tags: ["Deployment", "Deploy Config"]
 ---
 
-## Deployment config file example
+## Deployment config file examples
 
-{{< include "dep-file/skeleton-config.md" >}}
+### Kubernetes
+
+{{< include "dep-file/k8s-skeleton-config.md" >}}
+
+### AWS Lambda
+
+{{< include "dep-file/lambda-skeleton-config.md" >}}
+
 
 
 
