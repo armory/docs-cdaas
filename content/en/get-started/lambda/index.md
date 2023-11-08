@@ -37,3 +37,5 @@ armory login
 ```
 
 Confirm the device code in your browser when prompted. Then return to this guide.    
+
+## Create the Armory role

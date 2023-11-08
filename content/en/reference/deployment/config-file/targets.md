@@ -1,24 +1,41 @@
 ---
 title: Targets Config
 description: >
-  Declare your deployment targets: account, namespace, and strategy to use. Configure target constraints such as `dependsOn`, `beforeDeployment`, and `afterDeployment` with pause, webhoook, and analysis conditions.
+  Declare your Kubernetes or Lambda deployment targets.
 ---
 
 
 ## Targets config overview
 
-In the `targets.` config block, you define where and how you want to deploy an app. You can specify multiple targets. Provide unique descriptive names for each environment to which you are deploying.
+In the `targets.` config block, you define where and how you want to deploy your Kubernetes app or Lambda function. 
 
-```yaml
+You can specify multiple targets. Provide unique descriptive names for each target to which you are deploying.
+
+{{< cardpane >}}
+{{< card code=true  lang="yaml" header="Kubernetes" >}}
 targets:
   <targetName>:
-    account: <accountName>
-    namespace: <namespaceOverride>
-    strategy: <strategyName>
-    constraints: <mapOfConstraints>
-```
+    account: <account-name>
+    namespace: <namespace-override>
+    strategy: <strategy-name>
+    constraints: <constraints-collection>
+{{< /card >}}
+{{< card code=true lang="yaml" header="Lambda" >}}
+targets:
+  <targetName>:
+    account: <armory-role-arn>
+    deployAsIamRole: <armory-role-arn>
+    region: <aws-region>
+    strategy: <strategy-name>
+    constraints: <constraints-collection>
+{{< /card >}}
+{{< /cardpane >}}
 
-## Name
+## Common fields
+
+These fields are declared the same whether your target is AWS Lambda or a Kubernetes cluster.
+
+### Name
 
 `targets.<targetName>`: A descriptive name for this deployment, such as the name of the environment you want to deploy to.
 
@@ -30,7 +47,24 @@ targets:
 ...
 ```
 
-## Account (cluster)
+### Strategy
+
+`targets.<targetName>.strategy`: This is the name of the strategy that you want to use to deploy your app. You define the strategy and its behavior in the `strategies` block.
+
+For example, this snippet configures a deployment to use the `canary-wait-til-approved` strategy:
+
+```yaml
+targets:
+  prod:
+    account: prod-cluster-west
+    strategy: canary-wait-til-approved
+```
+
+Read more about how this config is defined and used in the [strategies]({{< ref "reference/deployment/config-file/strategies" >}}) section.
+
+## Kubernetes fields
+
+### Account (cluster)
 
 `targets.<targetName>.account`: The account name that a target Kubernetes cluster got assigned when you installed the Remote Network Agent (RNA) on it. Specifically, it is the value for the `agentIdentifier` parameter. Note that older versions of the RNA used the `agent-k8s.accountName` parameter.
 
@@ -45,7 +79,7 @@ targets:
 ...
 ```
 
-## Namespace
+### Namespace
 
 `targets.<targetName>.namespace`
 
@@ -62,21 +96,7 @@ targets:
     namespace: overflow
 ```
 
-## Strategy
 
-`targets.<targetName>.strategy`: This is the name of the strategy that you want to use to deploy your app. You define the strategy and its behavior in the `strategies` block.
-
-For example, this snippet configures a deployment to use the `canary-wait-til-approved` strategy:
-
-```yaml
-targets:
-  prod:
-    account: prod-cluster-west
-    namespace: overflow
-    strategy: canary-wait-til-approved
-```
-
-Read more about how this config is defined and used in the [strategies]({{< ref "reference/deployment/config-file/strategies" >}}) section.
 
 ## Constraints
 
