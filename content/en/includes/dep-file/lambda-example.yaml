@@ -4,7 +4,7 @@ kind: lambda
 application: <application-name>
 targets:
   <targetName>:
-    account: <Armory-Role-arn>
+    account: <account-name>
     region: <aws-region>
     deployAsIamRole: <Armory-Role-arn>
     strategy: <strategy-name>
