@@ -30,9 +30,9 @@ CD-as-a-Service automatically rolls back when:
 
 ## How CD-as-a-Service integrates with AWS
 
-CD-as-a-Service needs to assume an IAM Role to manage your Lambda deployments. The Armory CLI provides a function that creates an [AWS CloudFormation Stack](https://docs.aws.amazon.com/cloudformation/) with an IAM Role, by default named **ArmoryRole**. You need to create a Stack in each AWS Account you want to deploy your Lambda functions to. Each AWS Accounts needs its own **ArmoryRole**.
+{{< include "lambda/iam-role.md" >}}
 
-You need to store your function zip files in an S3 bucket, and the S3 bucket should be in the same region you deploy to. For example, if you plan to deploy to three regions, you need three S3 buckets, one for each region. CD-as-a-Service deploys your Lambda function's archive from your S3 bucket.
+You need to store your function zip files in an S3 bucket, and the S3 bucket should be in the same region you deploy to (this is an AWS limitation). For example, if you plan to deploy to three regions, you need three S3 buckets, one for each region. CD-as-a-Service deploys your Lambda function's archive from your S3 bucket.
 
 | AWS Accounts | ArmoryRole | Regions | S3 Buckets |
 |--------------|-----------|---------|------------|
