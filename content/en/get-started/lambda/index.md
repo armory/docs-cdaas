@@ -113,7 +113,7 @@ const potatolessFacts = [
 
 </details>
 
-1. <a href="/get-started/lambda/files/just-sweet-potatoes.zip" download>Download the Lambda zip file</a>
+1. <a href="/get-started/lambda/files/just-sweet-potatoes.zip" download>Download the Lambda zip file</a>.
 1. Upload the file to each of your `armory-demo-lambda-deploy` S3 buckets.
 1. Make a note of each bucket's S3 path to the lambda function. The paths should be:
   
@@ -153,7 +153,16 @@ strategies:
 
 ### Add targets
 
-Add four targets, one in each region:
+```mermaid
+flowchart LR
+    A[dev] --> B[staging]
+    B --> C[prod-west-1]
+    B --> D[prod-west-2]
+```
+
+CD-as-a-Service deploys your Lambda function from your S3 bucket to the `dev` target first. You want a linear, success-dependent progression from `dev` to `prod`, so there is a `dependsOn` constraint for staging and prod targets. `staging` depends on `dev` and the prod targets depend on `staging`. 
+
+Add the four targets, one in each region:
 
 {{< highlight yaml "linenos=table" >}}
 targets:
@@ -193,15 +202,6 @@ Replace:
 * `<account-name>` with the name of your AWS Account, such as `armory-docs-dev`
 * `<armory-role-arn>` with the ARN of the role you created in the [Create the Armory IAM role](#create-the-armory-iam-role) section
 
-
-```mermaid
-flowchart LR
-    A[dev] --> B[staging]
-    B --> C[prod-west-1]
-    B --> D[prod-west-2]
-```
-
-CD-as-a-Service deploys your Lambda function from your S3 bucket to the `dev` target first. You want a linear, success-dependent progression from `dev` to `prod`, so you add a `dependsOn` constraint to each target: `staging` depends on `dev` and the prod targets depend on `staging`. 
 
 ### Add lambda artifacts
 
@@ -256,12 +256,12 @@ providerOptions:
       runtime: python3.10
 {{< /highlight >}}
 
-* `name`: The `artifacts.functionName` for the target region
+* `name`: This is the same value as `artifacts.functionName` for the target region. This function name appears in your AWS Lambda **Functions** list.
 * `target`: The deployment target name
 * `runAsIamRole`: Replace `<execution-role-arn>` with the ARN of your Lambda execution role, which is **not** 
   the ArmoryRole ARN.
-* `handler`: The function's handler method
-* `runtime`: The function's runtime
+* `handler`: The function's handler method; this value is written to the **Runtime settings** section in the AWS Lambda function details page.
+* `runtime`: The function's runtime; this value is written to the **Runtime settings** section in the AWS Lambda function details page.
 
 ## Deploy the sample function
 
@@ -275,7 +275,7 @@ armory deploy start -f deploy.yaml
 
 You can use the link provided by the CLI to observe your deployment's progression in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). CD-as-a-Service deploys your resources to `dev`. Once those resources have deployed successfully, CD-as-a-Service deploys to `staging` and then `prod`.
 
-{{< figure src="deploy-details.webp" >}}
+{{< figure src="deploy-details.webp" width="80%" height="80%" >}}
 
 ### Second deployment
 
@@ -339,16 +339,25 @@ armory deploy start -f deploy.yaml
 Use the link provided by the CLI to observe your deployment's progression in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments).
 
 In this second deployment, you see that CD-as-a-Service paused deployment to prod. Click the **Approve** button in each prod node to continue deployment.
- 
-{{< figure src="manual-constraint.webp" >}}
+
+{{< figure src="manual-constraint.webp"  width="80%" height="80%" >}}
 
 ## Test the deployed function 
 
+Go to the  `us-east-1` Lamba section of your AWS Account. You should see your deployed `just-sweet-potatoes-dev` function there.
+
+{{< figure src="deployed-function-list.webp"  width="80%" height="80%" >}}
 
 
+1. Click `just-sweet-potatoes-dev` to open the function's details page.
+1. Click the **Test** tab.
+1. Click the **Test** button in the **Test event** section to test the function.
+1. Expand the **Details** section to see the test results.
 
-
-
-
+   {{< figure src="function-test.webp"  >}}
 
 ## {{% heading "nextSteps" %}}
+
+* {{< linkWithTitle "integrations/ci-systems/gh-action.md" >}}
+* {{< linkWithTitle "deployment/strategies/canary.md" >}}
+* {{< linkWithTitle "webhooks/overview.md" >}}
