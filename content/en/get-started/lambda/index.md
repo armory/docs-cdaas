@@ -139,6 +139,10 @@ description: A sample function for deployment using CD-as-a-Service
 
 ### Add a canary strategy
 
+A strategy defines how CD-as-a-Service deploys your Lambda function to a target.
+
+A [canary strategy]({{< ref "deployment/strategies/canary.md" >}}) is a linear sequence of steps. The `setWeight` step defines the ratio of traffic between function versions.
+
 <!-- change this once traffic split is supported -->
 Add a basic [canary strategy]({{< ref "deployment/strategies/canary" >}}) with a single step that sets the weight to 100. 
 
@@ -153,6 +157,8 @@ strategies:
 
 ### Add targets
 
+In CD-as-a-Service, a `target` is an (AWS Account, region) pair.
+
 ```mermaid
 flowchart LR
     A[dev] --> B[staging]
@@ -160,7 +166,7 @@ flowchart LR
     B --> D[prod-west-2]
 ```
 
-CD-as-a-Service deploys your Lambda function from your S3 bucket to the `dev` target first. You want a linear, success-dependent progression from `dev` to `prod`, so there is a `dependsOn` constraint for staging and prod targets. `staging` depends on `dev` and the prod targets depend on `staging`. 
+When deploying to multiple targets, you can specify dependencies between targets using the `constraints.dependsOn` field. CD-as-a-Service deploys your Lambda function from your S3 bucket to the `dev` target first. You want a linear, success-dependent progression from `dev` to `prod`, so there is a `dependsOn` constraint for staging and prod targets. `staging` depends on `dev` and the prod targets depend on `staging`. 
 
 Add the four targets, one in each region:
 
@@ -355,6 +361,14 @@ Go to the  `us-east-1` Lamba section of your AWS Account. You should see your de
 1. Expand the **Details** section to see the test results.
 
    {{< figure src="function-test.webp"  >}}
+
+
+## Clean up
+
+1. Delete the deployed Lambda functions from each region.
+1. Delete the Lambda zip files from each S3 bucket. Delete each S3 bucket.
+1. Delete the CloudFormation Stack. This also deletes the associated IAM Role.
+
 
 ## {{% heading "nextSteps" %}}
 
