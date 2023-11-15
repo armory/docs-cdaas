@@ -45,7 +45,7 @@ After installation completes, you should start a new terminal session or source 
 
    You can see the full list of available releases in the [repo](https://github.com/armory/avm/releases/).
 
-   *Note:* You can also download AVM from the releases s3 bucket
+   *Note:* You can also download AVM from the releases AWS S3 bucket:
 
    ```bash
    curl -LO https://armory-cli-releases.s3.us-west-2.amazonaws.com/avm/latest/avm-darwin-amd64
