@@ -22,9 +22,13 @@ In this guide, you deploy an AWS Lambda function to four regions in your AWS Lam
 
 1. [Sign up for CD-as-a-Service](#sign-up-for-cd-as-a-service).
 1. [Install the CD-as-as-Service CLI](#install-the-cd-as-as-service-cli) on your Mac, Linux, or Windows workstation.
-1. 
-
-
+1. Create AWS artifacts
+   1. [Create the IAM Role](#create-the-armory-iam-role) that CD-as-a-Service assumes to deploy your function.
+   1. [Create S3 buckets](#create-s3-buckets), one for each deployment region, to house your function's zip files.
+   1. [Upload the sample function](#upload-the-lambda-function-to-your-buckets) to each S3 bucket.
+1. [Create your CD-as-a-Service deployment config file](#create-your-deployment-config-file).
+1. [Deploy the sample function](#deploy-the-sample-function).
+1. [Test the deployed function](#test-the-deployed-function) in the AWS Lambda console.
 
 ## Sign up for CD-as-a-Service
 
@@ -46,18 +50,7 @@ Confirm the device code in your browser when prompted. Then return to this guide
 
 {{< include "lambda/iam-role.md" >}}
 
-1. In your default browser, log in to your AWS Account. You must have permissions to configure IAM roles.
-1. In your terminal, execute the following:
-
-   ```bash
-   armory aws create-role
-   ```
-
-   Type "Y" in the terminal to continue with Stack creation. This opens your browser to the CloudFormation page of your AWS Console. You complete the rest of this process in your browser.
-
-1. Review the resources that CD-as-a-Service is creating in your AWS account. The default IAM Role name is **ArmoryRole**.
-1. Click **Create** on the AWS CloudFormation page and wait for Stack creation to finish.
-1. After the CloudFormation Stack creation finishes, locate the created role ARN in the **Outputs** section. You can find it under the key **RoleArnOutput**. Make note of the ARN since you use it in your deployment config file.
+{{< include "lambda/iam-role-steps.md" >}}
 
 ## Create S3 buckets
 
@@ -213,7 +206,7 @@ Replace:
 
 In this section, you declare your Lambda function artifacts. You have an entry for each deployment region.
 
-The function is named `just-sweet-potatoes` in each S3 bucket, but the `functionName` is unique each entry in the 
+The function is named `just-sweet-potatoes` in each S3 bucket, but the `functionName` is unique for each entry in the 
 `artifacts` collection. For this guide, the target name is appended to the function's name to create the 
 `functionName` value for each entry.
 
@@ -235,39 +228,34 @@ artifacts:
 
 ### Add provider options
 
-You need to populate provider options for each deployment target.
+This section defines options specific to the cloud provider to which you are deploying. You need to populate provider options for each deployment target.
 
 {{< highlight yaml "linenos=table" >}}
 providerOptions:
   lambda:
-    - name: just-sweet-potatoes-dev
-      target: dev
+    - target: dev
+      name: just-sweet-potatoes-dev      
       runAsIamRole: <execution-role-arn>
       handler: index.handler
       runtime: python3.10
-    - name: just-sweet-potatoes-staging
-      target: staging
+    - target: staging
+      name: just-sweet-potatoes-staging      
       runAsIamRole: <execution-role-arn>
       handler: index.handler
       runtime: python3.10
-    - name: just-sweet-potatoes-prod-west-1
-      target: prod-west-1
+    - target: prod-west-1
+      name: just-sweet-potatoes-prod-west-1      
       runAsIamRole: <execution-role-arn>
       handler: index.handler
       runtime: python3.10
-    - name: just-sweet-potatoes-prod-west-2
-      target: prod-west-2
+    - target: prod-west-2
+      name: just-sweet-potatoes-prod-west-2      
       runAsIamRole: <execution-role-arn>
       handler: index.handler
       runtime: python3.10
 {{< /highlight >}}
 
-* `name`: This is the same value as `artifacts.functionName` for the target region. This function name appears in your AWS Lambda **Functions** list.
-* `target`: The deployment target name
-* `runAsIamRole`: Replace `<execution-role-arn>` with the ARN of your Lambda execution role, which is **not** 
-  the ArmoryRole ARN.
-* `handler`: The function's handler method; this value is written to the **Runtime settings** section in the AWS Lambda function details page.
-* `runtime`: The function's runtime; this value is written to the **Runtime settings** section in the AWS Lambda function details page.
+{{< include "dep-file/lambda-provider-options.md" >}}
 
 ## Deploy the sample function
 

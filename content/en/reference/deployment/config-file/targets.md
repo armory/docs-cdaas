@@ -20,10 +20,10 @@ targets:
     strategy: <strategy-name>
     constraints: <constraints-collection>
 {{< /card >}}
-{{< card code=true lang="yaml" header="Lambda" >}}
+{{< card code=true lang="yaml" header="AWS Lambda" >}}
 targets:
   <targetName>:
-    account: <armory-role-arn>
+    account: <aws-account-name>
     deployAsIamRole: <armory-role-arn>
     region: <aws-region>
     strategy: <strategy-name>
@@ -33,7 +33,7 @@ targets:
 
 ## Common fields
 
-These fields are declared the same whether your target is AWS Lambda or a Kubernetes cluster.
+These fields are the same whether your target is AWS Lambda or a Kubernetes cluster.
 
 ### Name
 
@@ -96,7 +96,41 @@ targets:
     namespace: overflow
 ```
 
+## AWS Lambda fields
 
+```yaml
+<targetName>:
+    account: <aws-account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: <aws-region>
+```
+
+### Account (AWS)
+
+`targets.<targetName>.account`: A descriptive name for your AWS Account.
+
+```yaml
+Prod-West-1:
+    account: armory-docs-dev
+```
+
+### Deploy as IAM Role
+
+`targets.<targetName>.deployAsIamRole`: The ARN of the [ArmoryRole]({{< ref "deployment/create-iam-role-lambda" >}}) that CD-as-a-Service assumes to deploy your function.
+
+```yaml
+Prod-West-1:
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+```
+
+### AWS Region
+
+`targets.<targetName>.region`: The AWS Region to deploy your function to.
+
+```yaml
+Prod-West-1:
+    region: us-east-1
+```
 
 ## Constraints
 
@@ -108,6 +142,9 @@ Optional
 
 > Constraints are evaluated in parallel.
 
+{{< tabpane text=true right=true >}}
+  {{% tab header="**Target**:" disabled=true /%}}
+  {{% tab header="Kubernetes" %}}
 ```yaml
 targets:
   prod:
@@ -126,6 +163,30 @@ targets:
         - runWebhook:
             name: <webhook-name>
 ```
+  {{% /tab %}}
+  {{% tab header="AWS Lambda" %}}
+```yaml
+targets:
+  prod:
+    account: aws-docs-dev
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-east-1
+    strategy: canary-wait-til-approved
+    constraints:
+      dependsOn: ["<targetName>"]
+      beforeDeployment:
+        - pause:
+            untilApproved: true
+        - pause:
+            duration: <integer>
+            unit: <seconds|minutes|hours>
+      afterDeployment:
+        - runWebhook:
+            name: <webhook-name>
+```
+  {{% /tab %}}
+{{< /tabpane >}}
+
 
 ### Depends on
 
@@ -135,15 +196,35 @@ Optional
 
 The following example shows a deployment to `prod-west` that cannot start until the `dev-west` target finishes:
 
+{{< tabpane text=true right=true >}}
+  {{% tab header="**Target**:" disabled=true /%}}
+  {{% tab header="Kubernetes" %}}
 ```yaml
 targets:
-  prod:
+  prod-west:
     account: prod-west
     namespace: overflow
     strategy: canary-wait-til-approved
     constraints:
       dependsOn: ["dev-west"]
 ```
+
+  {{% /tab %}}
+  {{% tab header="AWS Lambda" %}}
+```yaml
+targets:
+  prod-west:
+    account: aws-docs-dev
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-west-1
+    strategy: canary-wait-til-approved
+    constraints:
+      dependsOn: ["dev-west"]
+```
+
+  {{% /tab %}}
+{{< /tabpane >}}
+
 
 ### Before and after deployment
 
@@ -161,6 +242,9 @@ You can specify a pause that waits for a manual approval or a certain amount of 
 
 **Pause until manual approval**
 
+{{< tabpane text=true right=true >}}
+  {{% tab header="**Target**:" disabled=true /%}}
+  {{% tab header="Kubernetes" %}}
 ```yaml
 targets:
   prod:
@@ -181,9 +265,37 @@ targets:
 - `pause.untilApproved`: Set to true
 - `pause.requiresRoles`: (Optional) List of RBAC roles that can issue a manual approval
 - `pause.approvalExpiration`: (Optional) Timeout configuration; when expired the ongoing deployment is cancelled 
+  
+  {{% /tab %}}
+  {{% tab header="AWS Lambda" %}}
+```yaml
+targets:
+  prod:
+    account: aws-docs-dev
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-west-1
+    strategy: canary-wait-til-approved
+    constraints:
+      dependsOn: ["dev-west"]
+      beforeDeployment:
+        - pause:
+            untilApproved: true 
+            approvalExpiration:
+              duration: 60
+              unit: seconds
+```
+
+- `pause.untilApproved`: Set to true
+- `pause.approvalExpiration`: (Optional) Timeout configuration; when expired the ongoing deployment is cancelled 
+
+  {{% /tab %}}
+{{< /tabpane >}}
 
 **Pause for a certain amount of time**
 
+{{< tabpane text=true right=true >}}
+  {{% tab header="**Target**:" disabled=true /%}}
+  {{% tab header="Kubernetes" %}}
 ```yaml
 targets:
   prod:
@@ -197,14 +309,35 @@ targets:
             duration: 60
             unit: seconds
 ```
+  {{% /tab %}}
+  {{% tab header="AWS Lambda" %}}
+```yaml
+targets:
+  prod:
+    account: aws-docs-dev
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-west-1
+    strategy: canary-wait-til-approved
+    constraints:
+      dependsOn: ["dev-west"]
+      beforeDeployment:
+        - pause:
+            duration: 60
+            unit: seconds
+```
+  {{% /tab %}}
+{{< /tabpane >}}
 
 - `pause.duration` set to an integer value for the amount of time to wait before starting after the `dependsOn` condition is met.
 - `pause.unit` set to `seconds`, `minutes` or `hours` to indicate the unit of time to wait.
 
 #### Run a webhook
 
-In the following example, before deploying to the `prod-cluster-west` target, CD-as-a-Service pauses deployment for manual approval by an Org Admin and also calls a webhook that sends a Slack notification. You declare the webhook in the [webhooks section]
+In the following example, before deploying to the `prod-cluster-west` target, CD-as-a-Service pauses deployment for manual approval by an Org Admin and also calls a webhook that sends a Slack notification. You declare the webhook in the [webhooks section]({{< ref "reference/deployment/config-file/webhooks" >}}).
 
+{{< tabpane text=true right=true >}}
+  {{% tab header="**Target**:" disabled=true /%}}
+  {{% tab header="Kubernetes" %}}
 ```yaml
 targets:
   prod:
@@ -224,10 +357,36 @@ targets:
         - runWebhook:
             name: Send_Slack_Deployment_Approval_Required
 ```
+  {{% /tab %}}
+  {{% tab header="AWS Lambda" %}}
+```yaml
+targets:
+  prod:
+    account: aws-docs-dev
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-west-1
+    strategy: canary-wait-til-approved
+    constraints:
+      dependsOn: ["staging"]
+      beforeDeployment:
+        - pause:
+            untilApproved: true
+            approvalExpiration:
+              duration: 24
+              unit: hours
+        - runWebhook:
+            name: Send_Slack_Deployment_Approval_Required
+```
+  {{% /tab %}}
+{{< /tabpane >}}
+
+
 
 #### Analysis
 
-In this example, CD-as-a-Service performs a [canary analysis]({{< ref "reference/canary-analysis-query" >}}) after deploying to the target. You declare your query in the [analysis section]{{< ref "reference/deployment/config-file/analysis" >}} and then add the name to the `queries` list.
+**Kubernetes Only**
+
+In this example, CD-as-a-Service performs a [canary analysis]({{< ref "reference/canary-analysis-query" >}}) after deploying to the target. You declare your query in the [analysis section]({{< ref "reference/deployment/config-file/analysis" >}}) and then add the name to the `queries` list.
 
 ```yaml
 targets:
@@ -249,7 +408,7 @@ targets:
               - avgCPUUsage
 ```
 
-## Example
+## Kubernetes example
 
 In this example, there are four targets: `dev`,  `infosec`, `staging`, and `prod-west`. After you deploy code to `infosec` and `staging`, you want to run jobs against those targets. If either of those jobs fails, CD-as-a-Service does not deploy to `prod-west`.
 
@@ -309,3 +468,38 @@ targets:
     strategy: mycanary
 ```
 
+## AWS Lambda example
+
+```yaml
+targets:
+  Production-1:
+    account: arn:aws:iam::111111111111:role/ArmoryRole
+    constraints:
+      dependsOn:
+        - staging
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-east-2
+    strategy: allAtOnce
+  Production-2:
+    account: arn:aws:iam::111111111111:role/ArmoryRole
+    constraints:
+      dependsOn:
+        - staging
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-west-1
+    strategy: allAtOnce
+  staging:
+    account: arn:aws:iam::111111111111:role/ArmoryRole
+    constraints:      
+      beforeDeployment:
+        - runWebhook:
+            name: Send_Slack_Deployment_Approval_Required
+      afterDeployment:
+        - runWebhook:
+            name: Integration_Tests
+        - pause:
+            untilApproved: true
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-east-1
+    strategy: allAtOnce
+```

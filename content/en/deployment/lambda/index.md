@@ -321,3 +321,6 @@ strategies:
 ```
 
 ## {{% heading "nextSteps" %}}
+
+* Work through the [AWS Lambda Quickstart]({{< ref "get-started/lambda" >}}) to deploy a sample function to your AWS Account.
+* Learn how you can [monitor your deployment]({{< ref "deployment/monitor-deployment" >}}) using the UI or the CLI.
