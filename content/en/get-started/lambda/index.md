@@ -2,25 +2,29 @@
 title: Quickstart AWS Lambda Deployment
 linktitle: Quickstart AWS Lambda
 description: >
-  Quickly get started using Armory CD-as-a-Service to deploy to AWS Lambda. Install the CLI, connect to AWS Lambda with a single command, and deploy a sample app. Learn deployment file syntax.
+  Quickly get started using Armory CD-as-a-Service to deploy a function to AWS Lambda. Install the CLI, connect to AWS Lambda with a single command, and deploy a sample function. Learn deployment file syntax.
 weight: 2
-categories: ["Get Started", "Guides"]
-tags: ["Deployment", "Quickstart"]
 ---
 
 
+## {{% heading "prereq" %}}
+
+* You are familiar with CD-as-a-Service's [key components]({{< ref "architecture.md" >}}).
+* You have read the {{< linkWithTitle "deployment/lambda/index.md" >}}.
+* AWS requirements:
+  * You need an [AWS Account](https://aws.amazon.com/free/), and you must have authority to create an IAM Role.
+  * You should be familiar with [AWS Lambda](https://aws.amazon.com/lambda/). 
+  * You need a [Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
+
 ## Learning objectives
+
+In this guide, you deploy an AWS Lambda function to four regions in your AWS Lambda account.
 
 1. [Sign up for CD-as-a-Service](#sign-up-for-cd-as-a-service).
 1. [Install the CD-as-as-Service CLI](#install-the-cd-as-as-service-cli) on your Mac, Linux, or Windows workstation.
 1. 
 
 
-## {{% heading "prereq" %}}
-
-* You are familiar with CD-as-a-Service's [key components]({{< ref "architecture.md" >}}).
-* You should be familiar with [AWS Lambda](https://aws.amazon.com/lambda/) and have a [Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
-* You have read the {{< linkWithTitle "deployment/lambda/index.md" >}}.
 
 ## Sign up for CD-as-a-Service
 
@@ -110,8 +114,8 @@ const potatolessFacts = [
 </details>
 
 1. <a href="/get-started/lambda/files/just-sweet-potatoes.zip" download>Download the Lambda zip file</a>
-1. Upload the file to your `armory-demo-lambda-deploy` S3 bucket.
-1. Make a note of each bucket's S3 path to the lambda function. They should be:
+1. Upload the file to each of your `armory-demo-lambda-deploy` S3 buckets.
+1. Make a note of each bucket's S3 path to the lambda function. The paths should be:
   
   * `s3://armory-demo-east-1/just-sweet-potatoes.zip`
   * `s3://armory-demo-east-2/just-sweet-potatoes.zip`
@@ -122,16 +126,229 @@ const potatolessFacts = [
 
 First create a file called `deploy.yaml` with the following contents:
 
-{{< highlight yaml "linenos=table, hl_lines=2 3 4" >}}
+{{< highlight yaml "linenos=table" >}}
 version: v1
 kind: lambda
 application: just-sweet-potatoes
-description: A demo function for deployment using CD-as-a-Service
+description: A sample function for deployment using CD-as-a-Service
 {{< /highlight >}}
 
 * `kind`: `lambda` tells CD-as-a-Service the deployment type
 * `application`: This is the unique name of your deployment and appears in the **Deployments** list.
 * `description`: Brief description of your function (optional)
 
+### Add a canary strategy
+
+<!-- change this once traffic split is supported -->
+Add a basic [canary strategy]({{< ref "deployment/strategies/canary" >}}) with a single step that sets the weight to 100. 
+
+{{< highlight yaml "linenos=table" >}}
+strategies:
+  allAtOnce:
+    canary:
+      steps:
+        - setWeight:
+            weight: 100
+{{< /highlight >}}
+
 ### Add targets
 
+Add four targets, one in each region:
+
+{{< highlight yaml "linenos=table" >}}
+targets:
+  dev:
+    account: <account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: us-east-1
+    strategy: allAtOnce
+  staging:
+    account:  <account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: us-east-2
+    strategy: allAtOnce
+    constraints:
+      dependsOn:
+        - dev
+  prod-west-1:
+    account:  <account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: us-west-1
+    strategy: allAtOnce
+    constraints:
+      dependsOn:
+        - staging
+  prod-west-2:
+    account:  <account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: us-west-2
+    strategy: allAtOnce
+    constraints:
+      dependsOn:
+        - staging
+{{< /highlight >}}
+
+Replace:
+
+* `<account-name>` with the name of your AWS Account, such as `armory-docs-dev`
+* `<armory-role-arn>` with the ARN of the role you created in the [Create the Armory IAM role](#create-the-armory-iam-role) section
+
+
+```mermaid
+flowchart LR
+    A[dev] --> B[staging]
+    B --> C[prod-west-1]
+    B --> D[prod-west-2]
+```
+
+CD-as-a-Service deploys your Lambda function from your S3 bucket to the `dev` target first. You want a linear, success-dependent progression from `dev` to `prod`, so you add a `dependsOn` constraint to each target: `staging` depends on `dev` and the prod targets depend on `staging`. 
+
+### Add lambda artifacts
+
+In this section, you declare your Lambda function artifacts. You have an entry for each deployment region.
+
+The function is named `just-sweet-potatoes` in each S3 bucket, but the `functionName` is unique each entry in the 
+`artifacts` collection. For this guide, the target name is appended to the function's name to create the 
+`functionName` value for each entry.
+
+{{< highlight yaml "linenos=table" >}}
+artifacts:
+  - functionName: just-sweet-potatoes-dev
+    path: s3://armory-demo-east-1/just-sweet-potatoes.zip
+    type: zipFile
+  - functionName: just-sweet-potatoes-staging
+    path: s3://armory-demo-east-2/just-sweet-potatoes.zip
+    type: zipFile
+  - functionName: just-sweet-potatoes-prod-west-1
+    path: s3://armory-demo-west-1/just-sweet-potatoes.zip
+    type: zipFile
+  - functionName: just-sweet-potatoes-prod-west-2
+    path: s3://armory-demo-west-2/just-sweet-potatoes.zip
+    type: zipFile
+{{< /highlight >}}
+
+### Add provider options
+
+You need to populate provider options for each deployment target.
+
+{{< highlight yaml "linenos=table" >}}
+providerOptions:
+  lambda:
+    - name: just-sweet-potatoes-dev
+      target: dev
+      runAsIamRole: <execution-role-arn>
+      handler: index.handler
+      runtime: python3.10
+    - name: just-sweet-potatoes-staging
+      target: staging
+      runAsIamRole: <execution-role-arn>
+      handler: index.handler
+      runtime: python3.10
+    - name: just-sweet-potatoes-prod-west-1
+      target: prod-west-1
+      runAsIamRole: <execution-role-arn>
+      handler: index.handler
+      runtime: python3.10
+    - name: just-sweet-potatoes-prod-west-2
+      target: prod-west-2
+      runAsIamRole: <execution-role-arn>
+      handler: index.handler
+      runtime: python3.10
+{{< /highlight >}}
+
+* `name`: The `artifacts.functionName` for the target region
+* `target`: The deployment target name
+* `runAsIamRole`: Replace `<execution-role-arn>` with the ARN of your Lambda execution role, which is **not** 
+  the ArmoryRole ARN.
+* `handler`: The function's handler method
+* `runtime`: The function's runtime
+
+## Deploy the sample function
+
+### First deployment 
+
+Start your deployment using the CLI:
+
+```bash
+armory deploy start -f deploy.yaml
+```
+
+You can use the link provided by the CLI to observe your deployment's progression in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments). CD-as-a-Service deploys your resources to `dev`. Once those resources have deployed successfully, CD-as-a-Service deploys to `staging` and then `prod`.
+
+{{< figure src="deploy-details.webp" >}}
+
+### Second deployment
+
+CD-as-a-Service is designed to help you build safety into your app deployment process. It does so by giving you declarative levers to control the scope of your deployment.
+
+CD-as-a-Service has four kinds of constraints that you can use to control your deployment:
+
+- Manual Approvals
+- Timed Pauses
+- [External Automation (Webhooks)]({{< ref "webhooks/overview.md" >}})
+- [Automated Canary Analysis]({{< ref "deployment/strategies/canary" >}})
+
+You can use these constraints between environments and within environments. During your next deployment, you need to issue a manual approval before deploying to to the prod targets. Add a `beforeDeployment` constraint for a manual judgment:
+
+{{< highlight yaml "linenos=table,hl_lines=23-25 34-36" >}}
+targets:
+  dev:
+    account: <account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: us-east-1
+    strategy: allAtOnce
+  staging:
+    account:  <account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: us-east-2
+    strategy: allAtOnce
+    constraints:
+      dependsOn:
+        - dev
+  prod-west-1:
+    account:  <account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: us-west-1
+    strategy: allAtOnce
+    constraints:
+      dependsOn:
+        - staging
+      beforeDeployment:
+        - pause:
+            untilApproved: true
+  prod-west-2:
+    account:  <account-name>
+    deployAsIamRole: <armory-role-arn>
+    region: us-west-2
+    strategy: allAtOnce
+    constraints:
+      dependsOn:
+        - staging
+      beforeDeployment:
+        - pause:
+            untilApproved: true
+{{< /highlight>}}
+
+
+Start your second deployment using the CLI:
+
+```bash
+armory deploy start -f deploy.yaml
+```
+
+Use the link provided by the CLI to observe your deployment's progression in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments).
+
+In this second deployment, you see that CD-as-a-Service paused deployment to prod. Click the **Approve** button in each prod node to continue deployment.
+ 
+{{< figure src="manual-constraint.webp" >}}
+
+## Test the deployed function 
+
+
+
+
+
+
+
+
+## {{% heading "nextSteps" %}}
