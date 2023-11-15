@@ -3,16 +3,16 @@ title: Deployment Overview
 linktitle: Overview
 weight: 1
 description: >
-  Learn what an Armory CD-as-a-Service deployment is and how it works - strategies (blue/green, canary) and constraints for deploying your app to your target Kubernetes clusters.
+  Learn what an Armory CD-as-a-Service deployment is and how CD-as-a-Service deploys your artifacts. Learn about deployment strategies (blue/green, canary) and constraints for deploying your app to your target Kubernetes clusters.
 categories: ["Canary Analysis", "Features", "Concepts"]
 tags: ["Deploy Strategy", "Canary", "Blue/Green", "Kubernetes"]
 ---
 
 ## What a deployment is
 
-A _deployment_ encompasses the manifests, artifacts, configuration, and actions that deliver your code to remote environments. You can configure a deployment to deliver software to a single environment or multiple environments, either in sequence or in parallel depending on your [deployment configuration]({{<ref "deployment/create-deploy-config" >}}).
+A _deployment_ encompasses the manifests, artifacts, configuration, and actions that deliver your code to remote environments. You can configure a deployment to deliver software to a single environment or multiple environments, either in sequence or in parallel depending on your [deployment configuration]({{<ref "deployment/create-deploy-config" >}}). 
 
-You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. You trigger deployments using the Armory CLI, either from your CI system or your workstation. Although CD-as-a-Service requires a separate deployment configuration file for each app, you can deploy multiple Kubernetes Deployment objects together as part of a single app. 
+You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. Each deployment has a unique name, which you declare in the config file. You trigger deployments using the Armory CLI, either from your CI system or your workstation. Although CD-as-a-Service requires a separate deployment configuration file for each app, you can deploy multiple Kubernetes Deployment objects together as part of a single app. 
 
 ## How deployment works
 
@@ -34,7 +34,32 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 > CD-as-a-Service deploys any Kubernetes manifest to your environments without the need for any special annotations in the manifest.
 
-### How to trigger a deployment
+### Handling concurrent deployments
+
+CD-as-a-Service uses the deployment config file's `application` value to identify whether or not multiple deployments may conflict. By default, CD-as-a-Service allows a single deployment to run at a time ([single thread process](#single-thread-process)). However, you can configure your deployment process to enqueue the latest deployment ([deploy queue process](#deploy-queue-process)).
+
+#### Single thread process
+
+This is CD-as-a-Service's default deployment behavior. You cannot start a second deployment _of the same deployment name_ until the first deployment has finished. 
+
+For example, you have an deployment named Potato Facts. 
+1. You start a deployment of Potato Facts.
+1. Immediately you start a second deployment of Potato Facts.
+1. CD-as-a-Service does not start the second deployment because the first deployment has not finished. The second deployment request has a status of REJECTED.
+
+### Deploy queue process
+
+CD-as-a-Service provides you with a simple deployment queue, which deployment requests enter if there is an in-progress deployment with the same name. Once the in-progress deployment is complete, CD-as-a-Service starts the most recent deployment request. This minimizes the time for changes to go from PR merge to production, while ensuring reliable deployments.
+
+When multiple deployments enter the queue, CD-as-a-Service deploys the most recent deployment request after the in-progress deployment finishes.
+
+{{< figure src="deploy-queue.png" alt="When multiple deployments enter the queue, CD-as-a-Service deploys the most recent deployment request." >}}
+
+See the Deployment Config File [reference]({{< ref "reference/deployment/config-file/deploy-config" >}}) for how to configure the deploy queue feature.
+
+{{< include "dep-file/deploy-queue-unsupported-features.md" >}}
+
+## How to trigger a deployment
 
 * [Use the GitHub Action]({{< ref "integrations/ci-systems/gh-action" >}}) in your GitHub workflow.
 * [Use the CLI]({{< ref "cli" >}}) with any CI system by installing the CLI natively or running it in Docker.

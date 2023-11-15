@@ -207,3 +207,5 @@ deploymentConfig:
   timeout:
     unit: <seconds|minutes|hours>
     duration: <integer>
+  ifDeploymentInProgress:
+    strategy: <reject|enqueueOne>
