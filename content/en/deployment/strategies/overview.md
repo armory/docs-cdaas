@@ -18,6 +18,8 @@ A deployment strategy is the procedure that CD-as-a-Service uses to deploy your 
 
 ## Blue/Green deployment strategy
 
+**Kubernetes Only**
+
 In a blue/green deployment strategy, you deploy and maintain two identical production environments throughout the execution of the deployment. You maintain _blue_ and _green_ production environments. The _blue_ environment contains the latest known stable version of your app (usually the version you are replacing with the new version) while the _green_ environment contains the changes you are currently deploying. 
 
 Once you deploy to the green environment, traffic continues to flow exclusively to the blue environment, allowing you to validate and test the changes in your green environment. You can do this via manual testing, automated testing, or any other validation method you may use. 
