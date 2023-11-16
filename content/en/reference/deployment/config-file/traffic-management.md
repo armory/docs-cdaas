@@ -6,6 +6,8 @@ description: >
 
 ## Traffic management section
 
+**Kubernetes Only**
+
 `trafficManagement.`
 
 You configure your service mesh per target in this section. If you omit the `target` entry, CD-as-a-Service applies the config to all targets.

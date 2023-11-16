@@ -14,7 +14,7 @@ weight: 2
 * AWS requirements:
   * You need an [AWS Account](https://aws.amazon.com/free/), and you must have authority to create an IAM Role.
   * You should be familiar with [AWS Lambda](https://aws.amazon.com/lambda/). 
-  * You need a [Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
+  * You need an [AWS Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
 
 ## Learning objectives
 

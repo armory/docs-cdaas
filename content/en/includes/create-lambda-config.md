@@ -1,12 +1,52 @@
-1. Create a YAML file.
+1. Create a YAML file with this basic content:
+
+   ```yaml
+   version: v1
+   kind: lambda
+   application: <application-name>
+   strategies:
+     canary:
+       steps:
+         - setWeight:
+             weight: 100
+   targets:
+     <target-name>:
+       account: <aws-account-name>
+       deployAsIamRole: <armory-role-arn>
+       region: <aws-region>
+       strategy: canary
+   artifacts:
+     - functionName: <function-name>
+       path: <s3-path-to-function-zip>
+       type: zipFile
+   providerOptions:
+    lambda:
+      - target: <target-name>
+        name: <function-name>   
+        runAsIamRole: <execution-role-arn>
+        handler: <handler-function>
+        runtime: <runtime>
+   ```
+
+   These sections are the minimum you need to declare to deploy an AWS Lambda function.
 
 1. Customize your deployment file by setting the following minimum set of parameters:
 
-   - `application`: The name of your app.
-   - `targets.<deploymentName>`: A descriptive name for your deployment. Armory recommends using the environment name.
-   - `targets.<deploymentName>.account`: This is the name of your RNA. If you installed the RNA manually, it is the value that you assigned to the `agentIdentifier` parameter.
+   - `application`: The name of your function. This appears in the **Deployments** list page.
+   - `targets.<target-name>`: A descriptive name for your deployment. 
+
+      * `account`: A descriptive name for the AWS Account this target resides in, such as `armory-docs-dev`.
+      * `deployAsIamRole`: The ARN of the [ArmoryRole]({{< ref "deployment/create-iam-role-lambda" >}}) that CD-as-a-Service assumes to deploy your function.
+      * `region`: The AWS Region to deploy your function to.
   
-  LAMBDA STUFF
+   * `artifacts`
+
+      * `functionName`: A unique name for each entry in the `artifacts` collection.
+      * `path`: The S3 path to your function's zip file.
+
+   * `providerOptions.lambda`
+
+      {{< include "dep-file/lambda-provider-options.md" >}}
 
 1. (Optional) Ensure there are no YAML issues with your deployment file.
 

@@ -345,7 +345,7 @@ All the queries must pass for the step as a whole to be considered a success.
 
 ## Blue/green fields
 
-**Kubernetes**
+**Kubernetes Only**
 
 ```yaml
 strategies:

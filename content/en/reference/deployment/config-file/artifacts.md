@@ -4,6 +4,7 @@ description: >
   Declare your AWS Lambda artifacts (functionName, path, type) and provider options.
 ---
 
+**AWS Lambda Only**
 
 ## Artifacts
 
