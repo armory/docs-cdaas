@@ -279,12 +279,12 @@ CD-as-a-Service has four kinds of constraints that you can use to control your d
 
 - Manual Approvals
 - Timed Pauses
-- [External Automation (Webhooks)]({{< ref "webhooks/overview.md" >}})
+- [External Automation (Webhooks)]({{< ref "webhooks/overview.md" >}}) to run integration tests and security audits or send notifications
 - [Automated Canary Analysis]({{< ref "deployment/strategies/canary" >}})
 
-You can use these constraints between environments and within environments. During your next deployment, you need to issue a manual approval before deploying to to the prod targets. Add a `beforeDeployment` constraint for a manual judgment:
+You can use these constraints between environments and within environments. During your next deployment, you need to issue a manual approval before deploying to to the prod targets. Add a `beforeDeployment` constraint for a manual judgment to your `staging` target:
 
-{{< highlight yaml "linenos=table,hl_lines=23-25 34-36" >}}
+{{< highlight yaml "linenos=table,hl_lines=15-17" >}}
 targets:
   dev:
     account: <account-name>
@@ -299,6 +299,9 @@ targets:
     constraints:
       dependsOn:
         - dev
+      afterDeployment:
+        - pause:
+            untilApproved: true
   prod-west-1:
     account:  <account-name>
     deployAsIamRole: <armory-role-arn>
@@ -307,9 +310,6 @@ targets:
     constraints:
       dependsOn:
         - staging
-      beforeDeployment:
-        - pause:
-            untilApproved: true
   prod-west-2:
     account:  <account-name>
     deployAsIamRole: <armory-role-arn>
@@ -318,9 +318,6 @@ targets:
     constraints:
       dependsOn:
         - staging
-      beforeDeployment:
-        - pause:
-            untilApproved: true
 {{< /highlight>}}
 
 
@@ -332,7 +329,7 @@ armory deploy start -f deploy.yaml
 
 Use the link provided by the CLI to observe your deployment's progression in the [CD-as-a-Service Console](https://console.cloud.armory.io/deployments).
 
-In this second deployment, you see that CD-as-a-Service paused deployment to prod. Click the **Approve** button in each prod node to continue deployment.
+In this second deployment, you see that CD-as-a-Service paused deployment to prod. Click the **Approve** button in the `staging` node to continue deployment.
 
 {{< figure src="manual-constraint.webp"  width="80%" height="80%" >}}
 
