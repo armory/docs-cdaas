@@ -1,9 +1,7 @@
 ---
 title: Create a Deployment Config File
 linkTitle: Create Deploy Config
-weight: 2
-categories: ["Deployment", "Guides"]
-tags: ["Deploy Config"]
+weight: 3
 description: >
   Create a config file to deploy your app to your Kubernetes cluster using CD-as-a-Service.
 ---

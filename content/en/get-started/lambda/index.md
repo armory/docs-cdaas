@@ -202,7 +202,7 @@ Replace:
 * `<armory-role-arn>` with the ARN of the role you created in the [Create the Armory IAM role](#create-the-armory-iam-role) section
 
 
-### Add lambda artifacts
+### Add Lambda artifacts
 
 In this section, you declare your Lambda function artifacts. You have an entry for each deployment region.
 

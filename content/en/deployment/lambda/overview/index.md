@@ -1,6 +1,6 @@
 ---
 title: AWS Lambda Deployment Overview
-linktitle: AWS Lambda Overview
+linktitle: Overview
 weight: 1
 description: >
  Learn what an Armory CD-as-a-Service deployment to AWS Lambda is, how CD-as-a-Service connects to your AWS Account, and how deployment works.

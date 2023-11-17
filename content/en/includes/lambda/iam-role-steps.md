@@ -5,7 +5,7 @@
    armory aws create-role
    ```
 
-   Type "Y" in the terminal to continue with Stack creation. This opens your browser to the CloudFormation page of your AWS Console. You complete the rest of this process in your browser.
+   Type `Y` in the terminal to continue with Stack creation. This opens your browser to the CloudFormation page of your AWS Console. You complete the rest of this process in your browser.
 
 1. Review the resources that CD-as-a-Service is creating in your AWS account. The default IAM Role name is **ArmoryRole**.
 1. Click **Create** on the AWS CloudFormation page and wait for Stack creation to finish.

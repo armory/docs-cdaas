@@ -1,7 +1,7 @@
 ---
 title: Canary and Blue/Green Deployment Strategies
 linktitle: Strategies
-weight: 3
+weight: 2
 no_list: false
 exclude_search: true
 description: >

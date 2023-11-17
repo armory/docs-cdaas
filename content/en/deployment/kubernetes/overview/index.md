@@ -1,6 +1,6 @@
 ---
 title: Kubernetes Deployment Overview
-linktitle: Kubernetes Overview
+linktitle: Overview
 weight: 1
 description: >
   Learn what an Armory CD-as-a-Service deployment to Kubernetes is and how it works - strategies (blue/green, canary) and constraints for deploying your app to your target Kubernetes clusters.
