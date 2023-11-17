@@ -1,7 +1,7 @@
 ---
 title: Create an Armory IAM Role for AWS Lambda Deployment
 linkTitle: Create Armory IAM Role
-weight: 2
+weight: 5
 description: >
   Create the Armory IAM Role that CD-as-a-Service assumes when it deploys your AWS Lambda function.
 ---

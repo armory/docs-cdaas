@@ -36,7 +36,8 @@
    - `targets.<target-name>`: A descriptive name for your deployment. 
 
       * `account`: A descriptive name for the AWS Account this target resides in, such as `armory-docs-dev`.
-      * `deployAsIamRole`: The ARN of the [ArmoryRole]({{< ref "deployment/create-iam-role-lambda" >}}) that CD-as-a-Service assumes to deploy your function.
+      * `deployAsIamRole`: The ARN of the [ArmoryRole]({{< ref "deployment/lambda/create-iam-role-lambda" >}}) that 
+        CD-as-a-Service assumes to deploy your function.
       * `region`: The AWS Region to deploy your function to.
   
    * `artifacts`

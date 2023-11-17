@@ -24,7 +24,8 @@ A blue/green strategy shifts traffic from the running version of your software (
 
 ## {{% heading "prereq" %}}
 
-Before configuring a blue/green strategy in your [deployment]({{< ref "deployment/overview" >}}), you should have the following:
+Before configuring a blue/green strategy in your [Kubernetes deployment]({{< ref "deployment/kubernetes/overview" >}}), 
+you should have the following:
 
 * Kubernetes Deployment object
   

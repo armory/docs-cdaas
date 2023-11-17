@@ -116,7 +116,9 @@ Prod-West-1:
 
 ### Deploy as IAM Role
 
-`targets.<targetName>.deployAsIamRole`: The ARN of the [ArmoryRole]({{< ref "deployment/create-iam-role-lambda" >}}) that CD-as-a-Service assumes to deploy your function.
+`targets.<targetName>.deployAsIamRole`: The ARN of the [ArmoryRole]({{< ref "deployment/lambda/create-iam-role-lambda" 
+ >}})
+that CD-as-a-Service assumes to deploy your function.
 
 ```yaml
 Prod-West-1:
