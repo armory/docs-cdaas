@@ -192,7 +192,7 @@ targets:
 
 Optional
 
-`targets.<targetName>.constraints.dependsOn`: A comma-separated list of deployments that must finish before this deployment can start. You can use this option to sequence deployments. Deployments with the same `dependsOn` criteria execute in parallel. For example, you can make it so that a deployment to prod cannot happen until a staging deployment finishes successfully.
+`targets.<targetName>.constraints.dependsOn`: A list of deployments that must finish before this deployment can start. You can use this option to sequence deployments. Deployments with the same `dependsOn` criteria execute in parallel. For example, you can make it so that a deployment to prod cannot happen until a staging deployment finishes successfully.
 
 The following example shows a deployment to `prod-west` that cannot start until the `dev-west` target finishes:
 
@@ -206,7 +206,9 @@ targets:
     namespace: overflow
     strategy: canary-wait-til-approved
     constraints:
-      dependsOn: ["dev-west"]
+      dependsOn:
+        - ITSec
+        - Audit
 ```
 
   {{% /tab %}}
@@ -219,7 +221,9 @@ targets:
     region: us-west-1
     strategy: canary-wait-til-approved
     constraints:
-      dependsOn: ["dev-west"]
+      dependsOn: 
+        - ITSec
+        - Audit
 ```
 
   {{% /tab %}}
@@ -412,7 +416,9 @@ targets:
 
 In this example, there are four targets: `dev`,  `infosec`, `staging`, and `prod-west`. After you deploy code to `infosec` and `staging`, you want to run jobs against those targets. If either of those jobs fails, CD-as-a-Service does not deploy to `prod-west`.
 
-`prod-west`'s `afterDeployment` conditions perform an analysis and call a webhook that sends a "deployment complete" notification. If the `analysis` condition fails, CD-as-a-Service rolls back the target deployment.
+`prod-west`'s `afterDeployment` conditions perform an analysis and call a webhook that sends a "deployment complete" notification. 
+
+>If the `analysis` condition fails, CD-as-a-Service does **not** roll back the prod-west deployment because the analysis condition is in an `afterdeployment` constraint. However, if you include the `analysis` step in your strategy and that `analysis` step fails, CD-as-a-Service **does** roll back the deployment.
 
 ```yaml
 targets:

@@ -6,9 +6,11 @@ description: >
   Solutions for issues you might encounter while deploying AWS Lambda functions using the Armory CD-as-a-Service.
 ---
 
+## AWS Lamba Troubleshooting
 
+CD-as-a-Service returns errors thrown by AWS Lambda. If you encounter an error, be sure to check the AWS Lambda docs' [troubleshooting section](https://docs.aws.amazon.com/lambda/latest/dg/lambda-troubleshooting.html).
 
-## InvalidParameterValueException
+## InvalidParameterValueException / PermanentRedirect
 
 ```yaml
 AWSCreateLambdaError: operation error 
@@ -20,9 +22,7 @@ S3 Error Code: PermanentRedirect.
 S3 Error Message: The bucket is in this region: us-east-2. Please use this region to retry the request
 ```
 
-Duplicate functionName in deploy config file
-
-You need to have an S3 bucket with your function archive in the region you want to deploy your function to.
+You need to have an S3 bucket with your function archive in the region you want to deploy your function to. This is an AWS constraint.
 
 For example (same AWS Account):
 
@@ -34,6 +34,7 @@ For example (same AWS Account):
 | hello-world.zip | Prod: us-west-2      | us-west-2           | lambda-us-east-1 | s3://lambda-us-west-2/hello-world.zip |
 | hello-world.zip | Prod: eu-central-1      | eu-central-1            | lambda-eu-central-1  | s3://lambda-eu-central-1/hello-world.zip |
 
+For more details, see the AWS Lambda [InvalidParameterValueException](https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html#troubleshooting-deployment-InvalidParameterValueException1) and [PermanentRedirect](https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html#troubleshooting-deployment-PermanentRedirect) troubleshooting docs.
 
 ## ResourceConflictException
 
@@ -44,7 +45,6 @@ StatusCode: 409,
 RequestID: 8027c7ee-0762-4027-a238-2c636a716d48, 
 ResourceConflictException: Conflict due to concurrent requests on this function. Please try this request again.
 ```
-
 
 You see this error when you have concurrent deployments to same region.
 

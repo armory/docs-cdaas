@@ -83,17 +83,7 @@ defines how to deploy your software and route traffic.
 
 #### Target constraints
 
-You can also configure your deployment targets to use constraints that prevent a deployment from beginning or completing until certain conditions are met. For example, you can configure your deployment to wait for your code to be deployed to your staging environment before promoting that code to production.
-
-You can set `beforeDeployment` or `afterDeployment` constraints depending on your use case. 
-
-CD-as-a-Service offers you multiple constraint options including: 
-
-*  `dependsOn`  
-   Use `dependsOn` to specify a target deployment that must successfully complete prior to starting this target's deployment.
-*  `pause`  
-   Use `pause` to pause a deployment for a set period of time or until an authorized user issues an approval.
-
+{{< include "overview-target-constraints.md" >}}
 
 **Example**
 

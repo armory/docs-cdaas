@@ -8,7 +8,7 @@ description: >
 
 ## Artifacts
 
-This section defines the Lambda artifacts you are deploying. By default, the artifacts reach all targets, but you can specify certain targets if needed.
+This section defines the Lambda artifacts you are deploying. The artifacts reach all target for which there is a provider option block for that function name.
 
 ```yaml
 artifacts:

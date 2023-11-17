@@ -9,7 +9,7 @@ description: >
 
 ## What a deployment is
 
-A _deployment_ encompasses the manifests, artifacts, configuration, and actions that deliver your code to remote environments. You can configure a deployment to deliver your [AWS Lambda](https://docs.aws.amazon.com/lambda) function to a single environment or multiple environments, either in sequence or in parallel depending on your [deployment configuration]({{<ref "deployment/create-deploy-config" >}}).
+A _deployment_ encompasses the artifacts, configuration, and actions that deliver your code to remote environments. You can configure a deployment to deliver your [AWS Lambda](https://docs.aws.amazon.com/lambda) function to a single environment or multiple environments, either in sequence or in parallel depending on your [deployment configuration]({{<ref "deployment/create-deploy-config" >}}).
 
 You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. You trigger deployments using the Armory CLI, either from your CI system or your workstation. Although CD-as-a-Service requires a separate deployment configuration file for each app, you can deploy multiple Kubernetes Deployment objects together as part of a single app. 
 
@@ -27,6 +27,11 @@ CD-as-a-Service automatically rolls back when:
   * You configured your retrospective analysis step to automatically rollback
   * A user fails to issue a configured manual approval within a specified time frame
   * A deployment target constraint is not met
+
+How CD-as-a-Service performs rollbacks:
+
+* If you have specified an [AWS Lambda alias](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) to use for routing traffic, CD-as-a-Service points the alias to the old version.
+* If you have not specified an alias to use for routing traffic, CD-as-a-Service publishes a new version with the old configuration, so that the 'latest' version of your Lambda function has the same configuration as before the deployment started.
 
 ## How CD-as-a-Service integrates with AWS
 
@@ -189,16 +194,7 @@ targets:
 
 #### Target constraints
 
-You can also configure your deployment targets to use constraints that prevent a deployment from beginning or completing until certain conditions are met. For example, you can configure your deployment to wait for your code to be deployed to your staging environment before promoting that code to production.
-
-You can set `beforeDeployment` or `afterDeployment` constraints depending on your use case. 
-
-CD-as-a-Service offers you multiple constraint options including: 
-
-*  `dependsOn`  
-   Use `dependsOn` to specify a target deployment that must successfully complete prior to starting this target's deployment.
-*  `pause`  
-   Use `pause` to pause a deployment for a set period of time or until an authorized user issues an approval.
+{{< include "overview-target-constraints.md" >}}
 
 This example has multiple targets and illustrates `dependsOn`, `beforeDeployment`, and `afterDeployment` constraints.
 
