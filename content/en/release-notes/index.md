@@ -405,7 +405,7 @@ You do not need any extra configuration to start with
 
 When deploying manifests that do not contain and
                         Deployment object, the 'Strategy' will be ignored. You
-                        can still use <code>beforeDeployment</code> constraint
+                        can still use `beforeDeployment` constraint
                         for manual approvals and other actions. When deploying
                         to an operator use web-hooks in an AfterDeployment
                         constraint to add operator-specific logic that waits for
@@ -423,8 +423,8 @@ Objects of Kind 'Custom Resource Definition' must be deployed before objects of 
                         deployment. Until now, using webhooks required a
                         callback for the deployment to continue or rollback,
                         which was not ideal for use cases like event streaming.
-                        <code>webhooks</code> now has an optional boolean field
-                        <code>disableCallback</code>. When you set this field to
+                        `webhooks` now has an optional boolean field
+                        `disableCallback`. When you set this field to
                         true, CD-as-a-Service does not wait for the callback to
                         continue deployment.
 
