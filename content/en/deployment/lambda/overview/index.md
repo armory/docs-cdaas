@@ -307,7 +307,7 @@ A deployment strategy is the method by which CD-as-a-Service deploys your change
 For AWS Lambda, CD-as-a-Service supports a canary deployment strategy, which involves releasing a new software version to a small subset of users or systems while leaving the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance and stability. 
 If the canary users experience positive results, the new version can be gradually rolled out to a wider audience.
 
-This example deploys 100% to the target. You'd use this `allAtOnce` strategy to initially deploy your function to AWS Lambda when the function does not exist in the AWS Lambda console.
+This example **routes 100% of traffic** to the **new version**. You’d use this `allAtOnce`` strategy to initially deploy your function to AWS Lambda when the function does not exist in the AWS Lambda console. **This strategy is also useful in non-production environments such as staging.**
 
 ```yaml
 strategies:

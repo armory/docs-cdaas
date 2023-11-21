@@ -20,9 +20,9 @@ trafficManagement:
         aliasName: <function-alias>
 ```
 
-* `targets`: the target name
+* `targets`: the list of targets using this alias
 * `function`: This is the same value as `artifacts.functionName` and `providerOptions.lambda.name`. See {{< linkWithTitle "reference/deployment/config-file/artifacts.md" >}} for details on those sections.
-* `aliasName`: The alias name, such as "latest-version". Your function's alias must already exist in the AWS Lambda console.
+* `aliasName`: The alias name, such as "live-version". Your function's alias must already exist in the AWS Lambda console.
 
 This example declares a traffic split canary strategy. You must declare your function's alias for each deployment target that uses the traffic split strategy.
 
