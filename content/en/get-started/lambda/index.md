@@ -257,7 +257,9 @@ providerOptions:
 
 {{< include "dep-file/lambda-provider-options.md" >}}
 
-## Deploy your function
+## Deploy the sample function
+
+### First deployment 
 
 Start your deployment using the CLI:
 
@@ -269,23 +271,7 @@ You can use the link provided by the CLI to observe your deployment's progressio
 
 {{< figure src="deploy-details.webp" width="80%" height="80%" >}}
 
-## Test the deployed function 
-
-Go to the  `us-east-1` Lamba section of your AWS Account. You should see your deployed `just-sweet-potatoes-dev` function there.
-
-{{< figure src="deployed-function-list.webp"  width="80%" height="80%" >}}
-
-
-1. Click `just-sweet-potatoes-dev` to open the function's details page.
-1. Click the **Test** tab.
-1. Click the **Test** button in the **Test event** section to test the function.
-1. Expand the **Details** section to see the test results.
-
-   {{< figure src="function-test.webp"  >}}
-
-## Update the deployment config file
-
-### Add target constraints
+### Second deployment
 
 CD-as-a-Service is designed to help you build safety into your app deployment process. It does so by giving you declarative levers to control the scope of your deployment.
 
@@ -296,7 +282,7 @@ CD-as-a-Service has four kinds of constraints that you can use to control your d
 - [External Automation (Webhooks)]({{< ref "webhooks/overview.md" >}}) to run integration tests and security audits or send notifications
 - [Automated Canary Analysis]({{< ref "deployment/strategies/canary" >}})
 
-You can use these constraints between environments and within environments. For your next deployment, you are going to add a manual approval before deploying to the prod targets. Add an `afterDeployment` constraint for a manual judgment to your `staging` target:
+You can use these constraints between environments and within environments. During your next deployment, you need to issue a manual approval before deploying to to the prod targets. Add a `beforeDeployment` constraint for a manual judgment to your `staging` target:
 
 {{< highlight yaml "linenos=table,hl_lines=15-17" >}}
 targets:
@@ -320,7 +306,7 @@ targets:
     account:  <account-name>
     deployAsIamRole: <armory-role-arn>
     region: us-west-1
-    strategy: trafficSplit
+    strategy: allAtOnce
     constraints:
       dependsOn:
         - staging
@@ -328,101 +314,12 @@ targets:
     account:  <account-name>
     deployAsIamRole: <armory-role-arn>
     region: us-west-2
-    strategy: trafficSplit
+    strategy: allAtOnce
     constraints:
       dependsOn:
         - staging
 {{< /highlight>}}
 
-### Add a traffic split canary strategy
-
-In addition to a manual approval, you're going to add a traffic split strategy to use for the prod targets. The strategy deploys 25%, pauses for manual approval, and then deploys 100%.
-
-Add to the `strategies` section:
-
-{{< highlight yaml "linenos=table,hl_lines=7-15" >}}
-strategies:
-  allAtOnce:
-    canary:
-      steps:
-        - setWeight:
-            weight: 100
-  trafficSplit:
-    canary:
-      steps:
-        - setWeight:
-            weight: 25
-        - pause:
-            untilApproved: true
-        - setWeight:
-            weight: 100
-{{< /highlight >}}
-
-Then update your `targets` section, replacing `allAtOnce` with `trafficSplit` for the prod targets.
-
-{{< highlight yaml "linenos=table,hl_lines=19 27" >}}
-targets:
-  dev:
-    account: <account-name>
-    deployAsIamRole: <armory-role-arn>
-    region: us-east-1
-    strategy: allAtOnce
-  staging:
-    account:  <account-name>
-    deployAsIamRole: <armory-role-arn>
-    region: us-east-2
-    strategy: allAtOnce
-    constraints:
-      dependsOn:
-        - dev
-  prod-west-1:
-    account:  <account-name>
-    deployAsIamRole: <armory-role-arn>
-    region: us-west-1
-    strategy: trafficSplit
-    constraints:
-      dependsOn:
-        - staging
-  prod-west-2:
-    account:  <account-name>
-    deployAsIamRole: <armory-role-arn>
-    region: us-west-2
-    strategy: trafficSplit
-    constraints:
-      dependsOn:
-        - staging
-{{< /highlight >}}
-
-
-#### Create an AWS Lambda alias
-
-CD-as-a-Service uses an AWS Lambda [alias](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) when routing traffic between old and new versions of your function. Before you can use use the `trafficSplit` strategy, create an AWS Lambda alias for the functions you deployed to `prod-west-1` and `prod-west-2`.
-
-In your AWS Lambda console, make sure you are in region `us-west-1`. Access the details page for `just-sweet-potatoes-prod-west-1`. Open the **Aliases** section, then create an alias with the following values:
-
-1. **Name**: `latest-version`
-1. **Version**: `$LATEST`
-
-Repeat for the `just-sweet-potatoes-prod-west-2` function.
-
-#### Add traffic management info
-
-Now that you've created aliases, you need to declare those in a new `trafficManagement` section so CD-as-a-Service can perform the traffic split strategy. Add the following top-level section to your deployment config file:
-
-{{< highlight yaml "linenos=table,hl_lines=19 27" >}}
-trafficManagement:
-  - targets: ['prod-west-1']
-    alias:
-      - function: just-sweet-potatoes-us-west-1
-        aliasName: latest-version
-  - targets: ['prod-west-2']
-    alias:
-      - function: just-sweet-potatoes-us-west-2
-        aliasName: latest-version
-{{< /highlight >}}
-
-
-## Deploy your function for a second time
 
 Start your second deployment using the CLI:
 
@@ -436,7 +333,19 @@ In this second deployment, you see that CD-as-a-Service paused deployment to pro
 
 {{< figure src="manual-constraint.webp"  width="80%" height="80%" >}}
 
+## Test the deployed function 
 
+Go to the  `us-east-1` Lamba section of your AWS Account. You should see your deployed `just-sweet-potatoes-dev` function there.
+
+{{< figure src="deployed-function-list.webp"  width="80%" height="80%" >}}
+
+
+1. Click `just-sweet-potatoes-dev` to open the function's details page.
+1. Click the **Test** tab.
+1. Click the **Test** button in the **Test event** section to test the function.
+1. Expand the **Details** section to see the test results.
+
+   {{< figure src="function-test.webp"  >}}
 
 
 ## Clean up

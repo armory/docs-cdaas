@@ -322,7 +322,7 @@ For subsequent deployments, you could use a canary strategy that splits traffic.
 
 >You must create the alias in the AWS Lambda console before using the alias in your CD-as-a-Service deployment.
 
-This example uses a canary strategy that splits traffic. You declare your function's alias in the `trafficManagement` section. There are two entries in the `trafficeManagement` section since both staging and prod targets use the traffic split strategy.
+This example uses a canary strategy that splits traffic. You declare your function's alias in the `trafficManagement` section. There are two entries in the `trafficManagement` section since both staging and prod targets use the traffic split strategy.
 
 {{< readfile  file="/includes/code/lambda-traffic-split-snippet.yaml" code="true" lang="yaml" >}}
 
