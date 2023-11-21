@@ -2,5 +2,5 @@ Expand to see a skeleton config file for a deployment to Kubernetes. All all con
 
 <details><summary><b>Click to view a skeleton deployment config file</b></summary>
 <br>
-{{< readfile file="/includes/dep-file/k8s-example.yaml" code="true" lang="yaml" >}}
+{{< readfile file="/includes/code/k8s-skeleton.yaml" code="true" lang="yaml" >}}
 </details>

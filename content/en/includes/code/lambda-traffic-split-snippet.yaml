@@ -1,0 +1,49 @@
+targets:
+  prod-us-east-1:
+    account: armory-docs-dev
+    region:  us-east-1
+    deployAsIamRole: "arn:aws:iam::111111111111:role/ArmoryRole"
+    strategy: trafficSplit
+  staging-us-east-2:
+    account: armory-docs-dev
+    region:  us-east-2
+    deployAsIamRole: "arn:aws:iam::111111111111:role/ArmoryRole"
+    strategy: trafficSplit
+artifacts:
+  - functionName: just-sweet-potatoes-us-east-1
+    path: s3://armory-demo-east-1/just-sweet-potatoes.zip
+    type: zipFile
+  - functionName: just-sweet-potatoes-us-east-2
+    path: s3://armory-demo-east-2/just-sweet-potatoes.zip
+    type: zipFile
+strategies:
+  trafficSplit:
+    canary:
+      steps:
+        - setWeight:
+            weight: 25
+        - pause:
+            untilApproved: true
+        - setWeight:
+            weight: 100
+trafficManagement:
+  - targets: ['prod-us-east-1']
+    alias:
+      - function: just-sweet-potatoes-us-east-1
+        aliasName: latest-version
+  - targets: ['staging-us-east-2']
+    alias:
+      - function: just-sweet-potatoes-us-east-2
+        aliasName: latest-version
+providerOptions:
+  lambda:
+    - name: just-sweet-potatoes-us-east-1
+      target: prod-us-east-1
+      runAsIamRole: "arn:aws:iam::111111111111:role/LambdaExecutionRole"
+      handler:  index.handler
+      runtime: nodejs18.x
+    - name: just-sweet-potatoes-us-east-2
+      target: staging-us-east-2
+      runAsIamRole: "arn:aws:iam::111111111111:role/LambdaExecutionRole"
+      handler:  index.handler
+      runtime: nodejs18.x

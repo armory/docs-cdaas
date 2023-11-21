@@ -304,8 +304,10 @@ providerOptions:
 
 A deployment strategy is the method by which CD-as-a-Service deploys your changes to a target. Strategies can use different techniques to allow for rapid rollback should a problem be discovered, minimizing the impact of potential issues to a small subset of users. You could also use a strategy optimized for speed.
 
-For Lambda, CD-as-a-Service supports a canary deployment strategy, which involves releasing a new software version to a small subset of users or systems while leaving the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance and stability. 
+For AWS Lambda, CD-as-a-Service supports a canary deployment strategy, which involves releasing a new software version to a small subset of users or systems while leaving the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance and stability. 
 If the canary users experience positive results, the new version can be gradually rolled out to a wider audience.
+
+This example deploys 100% to the target. You'd use this `allAtOnce` strategy to initially deploy your function to AWS Lambda when the function does not exist in the AWS Lambda console.
 
 ```yaml
 strategies:
@@ -316,7 +318,17 @@ strategies:
             weight: 100
 ```
 
+For subsequent deployments, you could use a canary strategy that splits traffic. CD-as-a-Service uses your function's AWS Lambda [alias](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) when splitting traffic between versions. 
+
+>You must create the alias in the AWS Lambda console before using the alias in your CD-as-a-Service deployment.
+
+This example uses a canary strategy that splits traffic. You declare your function's alias in the `trafficManagement` section. There are two entries in the `trafficeManagement` section since both staging and prod targets use the traffic split strategy.
+
+{{< readfile  file="/includes/code/lambda-traffic-split-snippet.yaml" code="true" lang="yaml" >}}
+
+
 ## {{% heading "nextSteps" %}}
 
 * Work through the [AWS Lambda Quickstart]({{< ref "get-started/lambda" >}}) to deploy a sample function to your AWS Account.
 * Learn how you can [monitor your deployment]({{< ref "deployment/monitor-deployment" >}}) using the UI or the CLI.
+* View the deployment config file [reference]({{< ref "reference/deployment/config-file" >}}).

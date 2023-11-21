@@ -17,7 +17,7 @@ artifacts:
     type: zipFile
 ```
 
-* `functionName`: A unique name for each entry in the `artifacts` collection
+* `functionName`: A unique name for each entry in the `artifacts` collection. You also use this value for `providerOptions.lambda.name` and `trafficManagement.alias.function`.
 * `path`: The S3 path to your function's zip file
 * `type`: This value is always `zipFile`. CD-as-a-Service does not support deploying Lambda containers.
 

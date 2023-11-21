@@ -62,40 +62,6 @@ targets:
 
 Read more about how this config is defined and used in the [strategies]({{< ref "reference/deployment/config-file/strategies" >}}) section.
 
-## Kubernetes fields
-
-### Account (cluster)
-
-`targets.<targetName>.account`: The account name that a target Kubernetes cluster got assigned when you installed the Remote Network Agent (RNA) on it. Specifically, it is the value for the `agentIdentifier` parameter. Note that older versions of the RNA used the `agent-k8s.accountName` parameter.
-
-This name must match an existing cluster because Armory CD-as-a-Service uses the identifier to determine which cluster to deploy to.
-
-For example, this snippet configures a deployment to an environment named `prod` that is hosted on a cluster named `prod-cluster-west`:
-
-```yaml
-targets:
-  prod:
-    account: prod-cluster-west
-...
-```
-
-### Namespace
-
-`targets.<targetName>.namespace`
-
-Optional but recommended
-
-The namespace on the target Kubernetes cluster that you want to deploy to. This field overrides any namespaces defined in your manifests.
-
-For example, this snippet overrides the namespace in your manifest and deploys the app to a namespace called `overflow`:
-
-```yaml
-targets:
-  prod:
-    account: prod-cluster-west
-    namespace: overflow
-```
-
 ## AWS Lambda fields
 
 ```yaml
@@ -131,8 +97,43 @@ Prod-West-1:
 
 ```yaml
 Prod-West-1:
-    region: us-east-1
+    region: us-west-1
 ```
+
+## Kubernetes fields
+
+### Account (cluster)
+
+`targets.<targetName>.account`: The account name that a target Kubernetes cluster got assigned when you installed the Remote Network Agent (RNA) on it. Specifically, it is the value for the `agentIdentifier` parameter. Note that older versions of the RNA used the `agent-k8s.accountName` parameter.
+
+This name must match an existing cluster because Armory CD-as-a-Service uses the identifier to determine which cluster to deploy to.
+
+For example, this snippet configures a deployment to an environment named `prod` that is hosted on a cluster named `prod-cluster-west`:
+
+```yaml
+targets:
+  prod:
+    account: prod-cluster-west
+...
+```
+
+### Namespace
+
+`targets.<targetName>.namespace`
+
+Optional but recommended
+
+The namespace on the target Kubernetes cluster that you want to deploy to. This field overrides any namespaces defined in your manifests.
+
+For example, this snippet overrides the namespace in your manifest and deploys the app to a namespace called `overflow`:
+
+```yaml
+targets:
+  prod:
+    account: prod-cluster-west
+    namespace: overflow
+```
+
 
 ## Constraints
 

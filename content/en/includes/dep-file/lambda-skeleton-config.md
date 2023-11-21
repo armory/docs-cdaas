@@ -2,5 +2,5 @@ Expand to see a skeleton config file for a deployment to AWS Lambda. All all con
 
 <details><summary><b>Click to view a skeleton deployment config file</b></summary>
 <br>
-{{< readfile file="/includes/dep-file/lambda-example.yaml" code="true" lang="yaml" >}}
+{{< readfile file="/includes/code/lambda-skeleton.yaml" code="true" lang="yaml" >}}
 </details>
