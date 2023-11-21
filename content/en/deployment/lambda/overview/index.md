@@ -17,7 +17,7 @@ You define your CD-as-a-Service deployment configuration in a YAML file, which y
 
 {{< figure src="lambda-deploy.webp" width=80%" height="80%" >}}
 
-CD-as-a-Service starts a deployment with a target environment, which is a combination of AWS account and region. such as development, that does not depend on another environment. Then deployment progresses through the steps, conditions, and environments defined in your deployment process. 
+CD-as-a-Service starts a deployment with a target environment, which is a combination of AWS account and region. The first target in a deployment does not depend on other targets. Then deployment progresses through the steps, conditions, and targets defined in your deployment process. 
 
 CD-as-a-Service automatically rolls back when:
 
@@ -45,47 +45,6 @@ You need to store your function zip files in an S3 bucket, and the S3 bucket sho
 | 4            | 4         | 1       | 1          |
 | 4            | 4         | 4       | 4          |
 | 2            | 2         | 6       | 6          |
-
-
-<!--
-@TODO NEED MORE INFO ON THIS APPROACH CUZ IT DIDN'T WORK FOR ME
-Alternately, you can create a bucket policy that makes the bucket accessible to all AWS accounts in your AWS organization.
-
-<details><summary>Click for example</summary>
-
-This example makes a bucket read-only and available to an entire AWS organization.
-
-Replace `<bucket>` with your bucket's name and `<orgid>` with your AWS organization's ID.
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": [
-                "s3:List*",
-                "s3:Get*"
-            ],
-            "Resource": [
-                "arn:aws:s3:::<bucket>",
-                "arn:aws:s3:::<bucket>/*"
-            ],
-            "Condition": {
-                "StringEquals": {
-                    "aws:PrincipalOrgID": "<orgid>"
-                }
-            }
-        }
-    ]
-}
-```
-
-See the [Identity and Access Management](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html) of the AWs S3 docs for more information.
-
-</details>
--->
 
 For each Lambda function you want to deploy, CD-as-a-Service needs the following:
 
