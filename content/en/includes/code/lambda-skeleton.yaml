@@ -35,10 +35,10 @@ strategies:
         - runWebhook:
             name: <webhook-name>
 trafficManagement:
-  - alias:
-    - function: <function-name>
-      aliasName: <alias-name>
-    targets: ["<target-name>"]  
+  - targets: ["<target-name>"]
+    alias:
+      - functionName: <function-name>
+        aliasName: <alias-name>
 analysis:
   defaultMetricProviderName: <provider-name>
   queries:
