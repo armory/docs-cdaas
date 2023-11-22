@@ -137,7 +137,7 @@ A strategy defines how CD-as-a-Service deploys your Lambda function to a target.
 A [canary strategy]({{< ref "deployment/strategies/canary.md" >}}) is a linear sequence of steps. The `setWeight` step defines the ratio of traffic between function versions.
 
 <!-- change this once traffic split is supported -->
-Add a basic [canary strategy]({{< ref "deployment/strategies/canary" >}}) with a single step that sets the weight to 100. 
+Add a basic [canary strategy]({{< ref "deployment/strategies/canary" >}}) with a single step that sets the weight to 100.  This  routes 100% of traffic to the new version. You use this `allAtOnce` strategy to initially deploy your function to AWS Lambda when the function does not exist in the AWS Lambda console. This strategy is also useful in non-production environments such as staging.
 
 {{< highlight yaml "linenos=table" >}}
 strategies:
@@ -282,7 +282,7 @@ CD-as-a-Service has four kinds of constraints that you can use to control your d
 - [External Automation (Webhooks)]({{< ref "webhooks/overview.md" >}}) to run integration tests and security audits or send notifications
 - [Automated Canary Analysis]({{< ref "deployment/strategies/canary" >}})
 
-You can use these constraints between environments and within environments. During your next deployment, you need to issue a manual approval before deploying to to the prod targets. Add a `beforeDeployment` constraint for a manual judgment to your `staging` target:
+You can use these constraints between environments and within environments. During your next deployment, you want to issue a manual approval before deploying to to the prod targets. Add an `afterDeployment` constraint with a manual judgment to your `staging` target:
 
 {{< highlight yaml "linenos=table,hl_lines=15-17" >}}
 targets:
