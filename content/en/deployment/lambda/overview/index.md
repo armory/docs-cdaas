@@ -11,7 +11,7 @@ description: >
 
 A _deployment_ encompasses the artifacts, configuration, and actions that deliver your code to remote environments. You can configure a deployment to deliver your [AWS Lambda](https://docs.aws.amazon.com/lambda) function to a single environment or multiple environments, either in sequence or in parallel depending on your [deployment configuration]({{<ref "deployment/create-deploy-config" >}}).
 
-You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. You trigger deployments using the Armory CLI, either from your CI system or your workstation. Although CD-as-a-Service requires a separate deployment configuration file for each app, you can deploy multiple Kubernetes Deployment objects together as part of a single app. 
+You define your CD-as-a-Service deployment configuration in a YAML file, which you store within your source control, enabling code-like management. You trigger deployments using the Armory CLI, either from your CI system or your workstation.
 
 ## How deployment works
 
@@ -94,7 +94,7 @@ providerOptions:
 
 ## Define your deployment
 
-CD-as-a-Service enables you to declare your deployment configuration outcome in a YAML file. 
+With CD-as-a-Service, you declare your deployment configuration outcome in a YAML file. 
 
 For an AWS Lambda deployment, you only need to provide the following pieces of information:
 
@@ -266,7 +266,7 @@ A deployment strategy is the method by which CD-as-a-Service deploys your change
 For AWS Lambda, CD-as-a-Service supports a canary deployment strategy, which involves releasing a new software version to a small subset of users or systems while leaving the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance and stability. 
 If the canary users experience positive results, the new version can be gradually rolled out to a wider audience.
 
-This example **routes 100% of traffic** to the **new version**. You’d use this `allAtOnce`` strategy to initially deploy your function to AWS Lambda when the function does not exist in the AWS Lambda console. **This strategy is also useful in non-production environments such as staging.**
+This example **routes 100% of traffic** to the **new version**. You’d use this `allAtOnce` strategy to initially deploy your function to AWS Lambda when the function does not exist in the AWS Lambda console. **This strategy is also useful in non-production environments such as staging.**
 
 ```yaml
 strategies:
