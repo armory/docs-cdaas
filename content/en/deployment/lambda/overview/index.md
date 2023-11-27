@@ -21,7 +21,7 @@ CD-as-a-Service starts a deployment with a target environment, which is a combin
 
 CD-as-a-Service automatically rolls back when:
 
-  * There is an error deploying your Lambda function
+  * There is an error deploying your AWS Lambda function
   * Deployment fails to finish within 30 minutes
   * A webhook fails
   * You configured your retrospective analysis step to automatically rollback
@@ -31,13 +31,13 @@ CD-as-a-Service automatically rolls back when:
 How CD-as-a-Service performs rollbacks:
 
 * If you have specified an [AWS Lambda alias](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) to use for routing traffic, CD-as-a-Service points the alias to the old version.
-* If you have not specified an alias to use for routing traffic, CD-as-a-Service publishes a new version with the old configuration, so that the 'latest' version of your Lambda function has the same configuration as before the deployment started.
+* If you have not specified an alias to use for routing traffic, CD-as-a-Service publishes a new version with the old configuration, so that the live version of your AWS Lambda function has the same configuration as before the deployment started.
 
 ## How CD-as-a-Service integrates with AWS
 
 {{< include "lambda/iam-role.md" >}}
 
-You need to store your function zip files in an S3 bucket, and the S3 bucket should be in the same region you deploy to (this is an AWS limitation). For example, if you plan to deploy to three regions, you need three S3 buckets, one for each region. CD-as-a-Service deploys your Lambda function's archive from your S3 bucket.
+You need to store your function zip files in an S3 bucket, and the S3 bucket should be in the same region you deploy to (this is an AWS limitation). For example, if you plan to deploy to three regions, you need three S3 buckets, one for each region. CD-as-a-Service deploys your AWS Lambda function's archive from your S3 bucket.
 
 | AWS Accounts | ArmoryRole | Regions | S3 Buckets |
 |--------------|-----------|---------|------------|
@@ -46,7 +46,7 @@ You need to store your function zip files in an S3 bucket, and the S3 bucket sho
 | 4            | 4         | 4       | 4          |
 | 2            | 2         | 6       | 6          |
 
-For each Lambda function you want to deploy, CD-as-a-Service needs the following:
+For each AWS Lambda function you want to deploy, CD-as-a-Service needs the following:
 
 1. **ArmoryRole** ARN
 1. Region
@@ -216,7 +216,7 @@ targets:
 
 ### Artifacts
 
-An _artifact_ is your AWS Lambda function name and the S3 path to the function's archive. 
+An _artifact_ is your AWS Lambda function name and the S3 path to the function's archive. You should have an entry for each deployment target region. The `functionName` is unique for each entry in the `artifacts` collection.
 
 ```yaml
 artifacts:
@@ -259,11 +259,13 @@ providerOptions:
       runtime: python3.10
 ```
 
+Be sure to view the [AWS Lambda Quickstart]({{< ref "get-started/lambda" >}}) and [config file reference]({{< ref "reference/deployment/config-file/artifacts" >}}) for additional examples.
+
 ### Strategies
 
 A deployment strategy is the method by which CD-as-a-Service deploys your changes to a target. Strategies can use different techniques to allow for rapid rollback should a problem be discovered, minimizing the impact of potential issues to a small subset of users. You could also use a strategy optimized for speed.
 
-For AWS Lambda, CD-as-a-Service supports a canary deployment strategy, which involves releasing a new software version to a small subset of users or systems while leaving the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance and stability. 
+For AWS Lambda deployments, CD-as-a-Service supports a canary deployment strategy, which involves releasing a new software version to a small subset of users or systems while leaving the majority on the current version. This strategy allows for real-world testing and monitoring of the new version's performance and stability. 
 If the canary users experience positive results, the new version can be gradually rolled out to a wider audience.
 
 This example **routes 100% of traffic** to the **new version**. You’d use this `allAtOnce` strategy to initially deploy your function to AWS Lambda when the function does not exist in the AWS Lambda console. **This strategy is also useful in non-production environments such as staging.**
@@ -281,7 +283,7 @@ For subsequent deployments, you could use a canary strategy that splits traffic.
 
 >You must create the alias in the AWS Lambda console before using the alias in your CD-as-a-Service deployment.
 
-This example uses a canary strategy that splits traffic. You declare your function's alias in the `trafficManagement` section. There are two entries in the `trafficManagement` section since both staging and prod targets use the traffic split strategy.
+This example is for deployment to multiple regions in a single AWS Account. The canary strategy splits traffic. You declare your function's alias in the `trafficManagement` section. There are two entries in the `trafficManagement` section since both staging and prod targets use the traffic split strategy.
 
 {{< readfile  file="/includes/code/lambda-traffic-split-snippet.yaml" code="true" lang="yaml" >}}
 

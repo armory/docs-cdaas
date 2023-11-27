@@ -62,14 +62,13 @@ armory template kubernetes [template-type] > deployment-template.yaml
 
 ## Deployment config file examples
 
-### Kubernetes
-
-{{< include "dep-file/k8s-skeleton-config.md" >}}
-
 ### AWS Lambda
 
 {{< include "dep-file/lambda-skeleton-config.md" >}}
 
+### Kubernetes
+
+{{< include "dep-file/k8s-skeleton-config.md" >}}
 
 ## {{% heading "nextSteps" %}}
 

@@ -8,7 +8,7 @@ description: >
 
 ## {{% heading "prereq" %}}
 
-Make sure you have [installed the CD-as-a-Service CLI]({{< ref "cli" >}}), which you can use to generate a deployment template.
+Make sure you have [installed the CD-as-a-Service CLI]({{< ref "cli" >}}), which you use to load the AWS Cloud Formation template into your AWS Account.
 
 ## Create the Armory IAM role
 

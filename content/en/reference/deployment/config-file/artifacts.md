@@ -21,7 +21,7 @@ artifacts:
 * `path`: The S3 path to your function's zip file
 * `type`: This value is always `zipFile`. CD-as-a-Service does not support deploying AWS Lambda containers.
 
-If you want to deploy to multiple regions in the same AWS Account, your `functionName` should be unique for the region.
+>If you want to deploy to multiple regions in the same AWS Account, your `functionName` should be unique for each region. 
 
 In this example, you deploy a function called `just-sweet-potatoes` to four regions in the same AWS Account:
 
@@ -155,7 +155,7 @@ providerOptions:
       runtime: python3.10
 ```
 
-## Multiple AWS Account example
+## Multiple AWS Accounts example
 
 This illustrates deploying a function to the same region in multiple AWS Accounts.
 

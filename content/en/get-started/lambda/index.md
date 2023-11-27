@@ -282,7 +282,7 @@ CD-as-a-Service has four kinds of constraints that you can use to control your d
 - [External Automation (Webhooks)]({{< ref "webhooks/overview.md" >}}) to run integration tests and security audits or send notifications
 - [Automated Canary Analysis]({{< ref "deployment/strategies/canary" >}})
 
-You can use these constraints between environments and within environments. During your next deployment, you want to issue a manual approval before deploying to to the prod targets. Add an `afterDeployment` constraint with a manual judgment to your `staging` target:
+You can use these constraints between environments and within environments. During your next deployment, you want to issue a manual approval before deploying to to the prod targets. Add to your `staging` target an `afterDeployment` constraint with a manual judgment:
 
 {{< highlight yaml "linenos=table,hl_lines=15-17" >}}
 targets:
