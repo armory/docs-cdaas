@@ -392,8 +392,45 @@ targets:
         - staging
 {{< /highlight >}}
 
+## Upload function v2
 
-#### Create an AWS Lambda alias
+1. <a href="/get-started/lambda/files/just-sweet-potatoes-v2.zip" download>Download the function v2 zip file</a>.
+1. Rename the zip file to `just-sweet-potatoes.zip`.
+1. Upload the file to each of your `armory-demo-lambda-deploy` S3 buckets, overwriting the existing `just-sweet-potatoes.zip` file.
+
+<details><summary>Expand to see the v2 code</summary>
+
+```js
+
+exports.handler = async (event) => {
+  // Get a random sweet potato fact
+ const randomFact = potatolessFacts[Math.floor(Math.random() * potatolessFacts.length)];
+
+ // Prepare the response
+ const response = {
+   statusCode: 200,
+   body: randomFact,
+ };
+
+ return response;
+};
+
+const potatolessFacts = [
+   "Sweet potatoes are a great source of vitamin A, which is important for vision health.",
+   "There are over 400 varieties of sweet potatoes around the world.",
+   "Sweet potatoes are not related to regular potatoes; they belong to the morning glory family.",
+   "Sweet potatoes are high in fiber, making them good for digestion.",
+   "Sweet potatoes come in different colors, including orange, purple, and white.",
+   "Sweet potatoes are one of the oldest vegetables known to man.",
+   "North Carolina is the largest producer of sweet potatoes in the United States.",
+   "Sweet potatoes are often used in Thanksgiving dishes like casseroles and pies.",
+   "Sweet potatoes and yams are not the same vegetable even though many Americans use the two names interchangeably.",
+ ];
+```
+
+</details>
+
+## Create an AWS Lambda alias
 
 CD-as-a-Service uses an AWS Lambda [alias](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) when routing traffic between old and new versions of your function. Before you can use use the `trafficSplit` strategy, create an AWS Lambda alias for the functions you deployed to `prod-west-1` and `prod-west-2`.
 
@@ -404,7 +441,7 @@ In your AWS Lambda console, make sure you are in region `us-west-1`. Access the 
 
 Repeat for the `just-sweet-potatoes-prod-west-2` function.
 
-#### Add traffic management info
+## Add traffic management configuration
 
 Now that you've created aliases, you need to declare those in a new `trafficManagement` section so CD-as-a-Service can perform the traffic split strategy. Add the following top-level section to your deployment config file:
 
@@ -419,6 +456,9 @@ trafficManagement:
       - function: just-sweet-potatoes-us-west-2
         aliasName: live-version
 {{< /highlight >}}
+
+
+
 
 
 ## Deploy your function for a second time
