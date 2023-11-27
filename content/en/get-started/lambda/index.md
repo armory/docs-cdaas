@@ -25,7 +25,7 @@ In this guide, you deploy an AWS Lambda function to four regions in your AWS Lam
 1. Create AWS artifacts
    1. [Create the IAM Role](#create-the-armory-iam-role) that CD-as-a-Service assumes to deploy your function.
    1. [Create S3 buckets](#create-s3-buckets), one for each deployment region, to house your function's zip files.
-   1. [Upload the sample function](#upload-the-lambda-function-to-your-buckets) to each S3 bucket.
+   1. [Upload the sample function](#upload-the-aws-lambda-function-to-your-buckets) to each S3 bucket.
 1. [Create your CD-as-a-Service deployment config file](#create-your-deployment-config-file).
 1. [Deploy the sample function](#deploy-the-sample-function).
 1. [Test the deployed function](#test-the-deployed-function) in the AWS Lambda console.
