@@ -1,8 +1,10 @@
 ---
-title: Manifests Config
+title: Manifests Config (Kubernetes)
 description: >
   Declare the path to the Kubernetes manifests to use for your deployment. You can deploy a manifest to all targets or declare specific targets per manifest.
 ---
+
+**Kubernetes Only**
 
 ## Manifests section
 

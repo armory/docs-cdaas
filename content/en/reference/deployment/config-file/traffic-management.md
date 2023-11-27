@@ -1,19 +1,36 @@
 ---
 title: Traffic Management Config
 description: >
-  Declare Istio or Linkerd traffic management for all or specific targets. Configure Istio settings such as virtual service and destination rule. Configure Linkerd settings like root service, canary service, active service, and traffic split.
+  Declare AWS Lambda aliases. Declare Istio or Linkerd traffic management for all or specific Kubernetes targets. Configure Istio settings such as virtual service and destination rule. Configure Linkerd settings like root service, canary service, active service, and traffic split.
 ---
 
 ## Traffic management section
 
 `trafficManagement.`
 
-You configure your service mesh per target in this section. If you omit the `target` entry, CD-as-a-Service applies the config to all targets.
+## AWS Lambda
+
+You declare your AWS Lambda alias per target in this section. CD-as-a-Service uses [aliases](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) when routing traffic from the previous version to the latest version of your function.
 
 ```yaml
 trafficManagement:
   - targets: ["<target-name>"]
+    alias:
+      - functionName:  <function-name>
+        aliasName: <function-alias>
 ```
+
+* `targets`: the list of targets using this alias
+* `functionName`: This is the same value as `artifacts.functionName` and `providerOptions.lambda.name`. See {{< linkWithTitle "reference/deployment/config-file/artifacts.md" >}} for details on those sections.
+* `aliasName`: The alias name, such as "live-version". Your function's alias must already exist in the AWS Lambda console.
+
+This example declares a traffic split canary strategy. You must declare your function's alias for each deployment target that uses the traffic split strategy.
+
+{{< readfile  file="/includes/code/lambda-traffic-split-snippet.yaml" code="true" lang="yaml" >}}
+
+## Kubernetes
+
+You configure your service mesh per target in this section.
 
 ### SMI targets
 

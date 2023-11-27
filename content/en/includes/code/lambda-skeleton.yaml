@@ -1,0 +1,73 @@
+---
+version: v1
+kind: lambda
+application: <application-name>
+targets:
+  <targetName>:
+    account: <account-name>
+    region: <aws-region>
+    deployAsIamRole: <Armory-Role-arn>
+    strategy: <strategy-name>
+    constraints:
+      dependsOn:
+        - <target-name>
+        - <target-name>
+artifacts:
+  - functionName: <function-name>
+    path: <path-to-function>  # S3 bucket
+    type: zipFile
+providerOptions:
+  lambda:
+    - handler: <function-handler>  # typically index.handler
+      name: <function-name>
+      runAsIamRole: <lambda-execution-role>
+      runtime: <function-runtime>  # nodejs18.x, Python, etc
+      target: <target-name>
+strategies:
+  <strategy-name>:
+    canary:
+      steps:
+        - pause:
+            duration: <integer>
+            unit: <seconds|minutes|hours>
+        - setWeight:
+            weight: 100
+        - runWebhook:
+            name: <webhook-name>
+trafficManagement:
+  - targets: ["<target-name>"]
+    alias:
+      - functionName: <function-name>
+        aliasName: <alias-name>
+analysis:
+  defaultMetricProviderName: <provider-name>
+  queries:
+    - name: <query-name>
+      upperLimit: <integer>
+      lowerLimit: <integer>
+      queryTemplate: >-
+        <query>
+webhooks:
+  - name: <webhook-name>
+    method: <endpoint-method-type>
+    uriTemplate: <endpoint-uri>
+    networkMode: <network-mode>
+    agentIdentifier: <remote-network-agent-id>
+    headers:
+      - key: Authorization
+        value: <auth-type-and-value>
+      - key: Content-Type
+        value: application/json
+    bodyTemplate:
+      inline: >-
+        {
+          "event_type": "<event-type>",
+          "client_payload": {
+            "callbackUri": "{{armory.callbackUri}}/callback"
+            }
+        }
+    retryCount: <num-retries>
+deploymentConfig:
+  timeout:
+    unit: <seconds|minutes|hours>
+    duration: <integer>

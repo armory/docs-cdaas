@@ -4,8 +4,6 @@ linkTitle: Canary
 weight: 5
 description: >
   Learn how to configure a canary deployment strategy in your Armory CD-as-a-Service deployment.
-categories: ["Deployment", "Guides"]
-tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 ---
 
 ## What a canary strategy does
@@ -33,7 +31,8 @@ When using a canary strategy with a service mesh such as Istio or Linkerd, CD-as
 
 ## {{% heading "prereq" %}}
 
-Before configuring a canary strategy in your [deployment]({{< ref "deployment/overview" >}}), you should have the following:
+Before configuring a canary strategy in your [Kubernetes deployment]({{< ref "deployment/kubernetes/overview" >}}), you 
+should have the following:
 
 * Kubernetes Deployment object
   
@@ -88,7 +87,19 @@ targets:
 
 You can define different canary strategies for different deployment targets.
 
-## Example deployment config file
+## Using canary strategies with a service mesh
+
+Service meshes enable setting up accurate traffic splits between the new version and the old version of your app. If you are using a service mesh, you need to add a `trafficManagement` block to your deployment config.
+
+```yaml
+trafficManagement:
+  - istio:
+      ...
+```
+For more info on using service meshes, see the [Traffic Management Overview]({{< ref "traffic-management/overview.md" >}}), which explains how CD-as-a-Service implements progressive canary deployment using an SMI TrafficSplit.
+
+
+## Example Kubernetes deployment config file
 
 In this basic example, you deploy an app called "sample-app" to two deployment targets.
 
@@ -180,16 +191,48 @@ spec:
 ```
 </details>
 
-## Using canary strategies with a service mesh
-
-Service meshes enable setting up accurate traffic splits between the new version and the old version of your app. If you are using a service mesh, you need to add a `trafficManagement` block to your deployment config. 
+## Example AWS Lambda deployment config
 
 ```yaml
-trafficManagement:
-  - istio:
-      ...
+version: v1
+kind: lambda
+application: Sweet Potato Lambda
+description: Sweet Potato facts from a Lambda function
+deploymentConfig:
+  timeout:
+    unit: minutes
+    duration: 10
+targets:
+  dev:
+    account: armory-docs-dev
+    deployAsIamRole: arn:aws:iam::111111111111:role/ArmoryRole
+    region: us-east-2
+    strategy: trafficSplit
+
+strategies:
+  trafficSplit:
+    canary:
+      steps:
+        - setWeight: 10
+        - pause:
+            untilApproved: true
+        - setWeight: 20
+        - pause:
+            untilApproved: true
+        - setWeight: 100
+artifacts:
+  - functionName: just-sweet-potatoes
+    path: s3://armory-docs-dev-us-east-2/justsweetpotatoes.zip
+    type: zipFile
+
+providerOptions:
+  lambda:
+    - name: just-sweet-potatoes
+      target: dev
+      runAsIamRole: arn:aws:iam::111111111111:role/LamdaExecutionRole
+      handler: index.handler
+      runtime: nodejs18.x
 ```
-For more info on using service meshes, see the [Traffic Management Overview]({{< ref "traffic-management/overview.md" >}}), which explains how CD-as-a-Service implements progressive canary deployment using an SMI TrafficSplit.
 
 ## {{% heading "nextSteps" %}}
 
