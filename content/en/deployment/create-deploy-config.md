@@ -14,24 +14,23 @@ Make sure you have [installed the CD-as-a-Service CLI]({{< ref "cli" >}}), which
 
 {{< tabpane text=true right=true >}}
 {{% tab header="**Platform:**" disabled=true /%}}
-{{% tab header="Kubernetes" %}}
-{{< include "create-k8s-config.md" >}}
-{{% /tab %}}
 {{% tab header="AWS Lambda" %}}
 {{< include "create-lambda-config.md" >}}
+{{% /tab %}}
+{{% tab header="Kubernetes" %}}
+{{< include "create-k8s-config.md" >}}
 {{% /tab %}}
 {{< /tabpane >}}
 
 ## Deployment config file examples
 
-### Kubernetes
-
-{{< include "dep-file/k8s-skeleton-config.md" >}}
-
 ### AWS Lambda
 
 {{< include "dep-file/lambda-skeleton-config.md" >}}
 
+### Kubernetes
+
+{{< include "dep-file/k8s-skeleton-config.md" >}}
 
 ## {{% heading "nextSteps" %}}
 

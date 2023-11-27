@@ -3,7 +3,7 @@ title: Deployment Strategies Overview
 linktitle: Overview
 weight: 1
 description: >
-  Learn about blue/green and canary deployment strategies for deploying your apps to Kubernetes using Armory CD-as-a-Service. Compare features to decide which strategy fits your use case. 
+  Learn about blue/green and canary deployment strategies for deploying AWS Lambda functions or your apps to Kubernetes using Armory CD-as-a-Service. Compare features to decide which strategy fits your use case. 
 ---
 
 ## {{% heading "prereq" %}}

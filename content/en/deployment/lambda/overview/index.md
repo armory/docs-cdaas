@@ -51,7 +51,7 @@ For each Lambda function you want to deploy, CD-as-a-Service needs the following
 1. **ArmoryRole** ARN
 1. Region
 1. S3 path to the function zip file
-1. The ARN of your [Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html)
+1. The ARN of your [AWS Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html)
 1. Your function's [runtime](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html) and handler method
 
 This basic example deploys one function to one region in one account:
@@ -99,8 +99,8 @@ With CD-as-a-Service, you declare your deployment configuration outcome in a YAM
 For an AWS Lambda deployment, you only need to provide the following pieces of information:
 
 * The target you want to deploy to
-* The Lambda function you want to deploy
-* Provider options for that Lambda function
+* The AWS Lambda function you want to deploy
+* Provider options for that AWS Lambda function
 * The canary strategy you want to use for the deployment
 
 ## Elements of a deployment
@@ -216,7 +216,7 @@ targets:
 
 ### Artifacts
 
-An _artifact_ is your Lambda function name and the S3 path to the function's archive. 
+An _artifact_ is your AWS Lambda function name and the S3 path to the function's archive. 
 
 ```yaml
 artifacts:

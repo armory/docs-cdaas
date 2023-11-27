@@ -54,7 +54,7 @@ Confirm the device code in your browser when prompted. Then return to this guide
 
 ## Create S3 buckets
 
-You need to store your Lambda function as a zip file in an S3 bucket, and S3 bucket needs to be in the same region you deploy to. For this guide, you are going to deploy the Lambda function to four regions so you need to create four buckets:
+You need to store your AWS Lambda function as a zip file in an S3 bucket, and S3 bucket needs to be in the same region you deploy to. For this guide, you are going to deploy the AWS Lambda function to four regions so you need to create four buckets:
 
 
 | Region | Bucket Name | 
@@ -70,9 +70,9 @@ After you have finished, you should have four buckets.
 
 {{< figure src="s3-buckets.webp" >}}
 
-## Upload the Lambda function to your buckets
+## Upload the AWS Lambda function to your buckets
 
-Armory provides a basic Lambda function called `just-sweet-potatoes` for you to deploy.
+Armory provides a basic AWS Lambda function called `just-sweet-potatoes` for you to deploy.
 
 <details><summary>Expand to see the code</summary>
 
@@ -106,7 +106,7 @@ const potatolessFacts = [
 
 </details>
 
-1. <a href="/get-started/lambda/files/just-sweet-potatoes.zip" download>Download the Lambda zip file</a>.
+1. <a href="/get-started/lambda/files/just-sweet-potatoes.zip" download>Download the function zip file</a>.
 1. Upload the file to each of your `armory-demo-lambda-deploy` S3 buckets.
 1. Make a note of each bucket's S3 path to the lambda function. The paths should be:
   
@@ -132,7 +132,7 @@ description: A sample function for deployment using CD-as-a-Service
 
 ### Add a canary strategy
 
-A strategy defines how CD-as-a-Service deploys your Lambda function to a target.
+A strategy defines how CD-as-a-Service deploys your AWS Lambda function to a target.
 
 A [canary strategy]({{< ref "deployment/strategies/canary.md" >}}) is a linear sequence of steps. The `setWeight` step defines the ratio of traffic between function versions.
 
@@ -159,7 +159,7 @@ flowchart LR
     B --> D[prod-west-2]
 ```
 
-When deploying to multiple targets, you can specify dependencies between targets using the `constraints.dependsOn` field. CD-as-a-Service deploys your Lambda function from your S3 bucket to the `dev` target first. You want a linear, success-dependent progression from `dev` to `prod`, so there is a `dependsOn` constraint for staging and prod targets. `staging` depends on `dev` and the prod targets depend on `staging`. 
+When deploying to multiple targets, you can specify dependencies between targets using the `constraints.dependsOn` field. CD-as-a-Service deploys your AWS Lambda function from your S3 bucket to the `dev` target first. You want a linear, success-dependent progression from `dev` to `prod`, so there is a `dependsOn` constraint for staging and prod targets. `staging` depends on `dev` and the prod targets depend on `staging`. 
 
 Add the four targets, one in each region:
 
@@ -202,9 +202,9 @@ Replace:
 * `<armory-role-arn>` with the ARN of the role you created in the [Create the Armory IAM role](#create-the-armory-iam-role) section
 
 
-### Add Lambda artifacts
+### Add AWS Lambda artifacts
 
-In this section, you declare your Lambda function artifacts. You have an entry for each deployment region.
+In this section, you declare your AWS Lambda function artifacts. You have an entry for each deployment region.
 
 The function is named `just-sweet-potatoes` in each S3 bucket, but the `functionName` is unique for each entry in the 
 `artifacts` collection. For this guide, the target name is appended to the function's name to create the 
@@ -350,8 +350,8 @@ Go to the  `us-east-1` Lamba section of your AWS Account. You should see your de
 
 ## Clean up
 
-1. Delete the deployed Lambda functions from each region.
-1. Delete the Lambda zip files from each S3 bucket. Delete each S3 bucket.
+1. Delete the deployed AWS Lambda functions from each region.
+1. Delete the AWS Lambda zip files from each S3 bucket. Delete each S3 bucket.
 1. Delete the CloudFormation Stack. This also deletes the associated IAM Role.
 
 

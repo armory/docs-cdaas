@@ -4,8 +4,6 @@ linkTitle: Canary
 weight: 5
 description: >
   Learn how to configure a canary deployment strategy in your Armory CD-as-a-Service deployment.
-categories: ["Deployment", "Guides"]
-tags: ["Kubernetes", "Deploy Strategy", "Canary"]
 ---
 
 ## What a canary strategy does

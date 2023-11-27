@@ -50,11 +50,11 @@ armory template kubernetes [template-type] > deployment-template.yaml
 
 {{< tabpane text=true right=true >}}
 {{% tab header="**Platform:**" disabled=true /%}}
-{{% tab header="Kubernetes" %}}
-{{< include "create-k8s-config.md" >}}
-{{% /tab %}}
 {{% tab header="AWS Lambda" %}}
 {{< include "create-lambda-config.md" >}}
+{{% /tab %}}
+{{% tab header="Kubernetes" %}}
+{{< include "create-k8s-config.md" >}}
 {{% /tab %}}
 {{< /tabpane >}}
 

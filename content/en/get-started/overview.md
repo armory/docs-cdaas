@@ -2,10 +2,8 @@
 title: How to Get Started using Armory CD-as-a-Service
 linkTitle: Overview
 description: >
-  Learn what you need to get started deploying an app to Kubernetes using Armory Continuous Deployment-as-a-Service.
+  Learn what you need to get started deploying your AWS Lambda function or an app to Kubernetes.
 weight: 1
-categories: ["Get Started", "Concepts"]
-tags: ["Quickstart", "Deployment"]
 ---
 
 ## What you need to use CD-as-a-Service

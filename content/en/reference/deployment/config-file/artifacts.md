@@ -8,7 +8,7 @@ description: >
 
 ## Artifacts
 
-This section defines the Lambda artifacts you are deploying. The artifacts reach all target for which there is a provider option block for that function name.
+This section defines the AWS Lambda artifacts you are deploying. The artifacts reach all target for which there is a provider option block for that function name.
 
 ```yaml
 artifacts:
@@ -19,7 +19,7 @@ artifacts:
 
 * `functionName`: A unique name for each entry in the `artifacts` collection. You also use this value for `providerOptions.lambda.name` and `trafficManagement.alias.functionName`.
 * `path`: The S3 path to your function's zip file
-* `type`: This value is always `zipFile`. CD-as-a-Service does not support deploying Lambda containers.
+* `type`: This value is always `zipFile`. CD-as-a-Service does not support deploying AWS Lambda containers.
 
 If you want to deploy to multiple regions in the same AWS Account, your `functionName` should be unique for the region.
 
