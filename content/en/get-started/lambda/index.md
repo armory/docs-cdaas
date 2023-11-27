@@ -9,7 +9,6 @@ weight: 2
 
 ## {{% heading "prereq" %}}
 
-* You are familiar with CD-as-a-Service's [key components]({{< ref "architecture.md" >}}).
 * You have read the {{< linkWithTitle "deployment/lambda/overview/index.md" >}}.
 * AWS requirements:
   * You need an [AWS Account](https://aws.amazon.com/free/), and you must have authority to create an IAM Role.
