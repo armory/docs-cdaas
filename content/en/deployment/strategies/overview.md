@@ -3,20 +3,23 @@ title: Deployment Strategies Overview
 linktitle: Overview
 weight: 1
 description: >
-  Learn about blue/green and canary deployment strategies for deploying your apps to Kubernetes using Armory CD-as-a-Service. Compare features to decide which strategy fits your use case. 
-categories: ["Deployment Strategies", "Features", "Concepts"]
-tags: ["Canary", "Blue/Green"]
+  Learn about blue/green and canary deployment strategies for deploying AWS Lambda functions or your apps to Kubernetes using Armory CD-as-a-Service. Compare features to decide which strategy fits your use case. 
 ---
 
 ## {{% heading "prereq" %}}
 
-You are familiar with [what a deployment is]({{< ref "deployment/overview" >}}) and the elements of a deployment.
+You are familiar with the following deployments and the elements that comprise each type:
+
+* [AWS Lambda deployment]({{< ref "deployment/lambda/overview" >}})
+* [Kubernetes deployment]({{< ref "deployment/kubernetes/overview" >}})
 
 ## What is a deployment strategy?
 
 A deployment strategy is the procedure that CD-as-a-Service uses to deploy your changes to a deployment target. Different strategies prioritize different benefits such as speed, ability to rollback, and minimizing risk to a small subset of users.  CD-as-a-Service offers two different deployment strategies that you can customize to meet your needs and priorities: [blue/green](#bluegreen-deployment-strategy) and [canary](#canary-deployment-strategy) .
 
 ## Blue/Green deployment strategy
+
+**Kubernetes Only**
 
 In a blue/green deployment strategy, you deploy and maintain two identical production environments throughout the execution of the deployment. You maintain _blue_ and _green_ production environments. The _blue_ environment contains the latest known stable version of your app (usually the version you are replacing with the new version) while the _green_ environment contains the changes you are currently deploying. 
 

@@ -8,6 +8,8 @@ categories: ["Deployment", "Guides"]
 tags: ["Deploy Strategy", "Blue/Green", "Kubernetes"]
 ---
 
+**Kubernetes Only**
+
 ## What a blue/green strategy does
 
 A blue/green strategy shifts traffic from the running version of your software (_blue_) to a new version of your software (_green_) based on conditions you set. You specify conditions that must be met prior to routing traffic to the new version and before shutting down the old version. See the [Strategies Overview]({{< ref "deployment/strategies/overview" >}}) for details on the advantages of using a blue/green deployment strategy.
@@ -22,7 +24,8 @@ A blue/green strategy shifts traffic from the running version of your software (
 
 ## {{% heading "prereq" %}}
 
-Before configuring a blue/green strategy in your [deployment]({{< ref "deployment/overview" >}}), you should have the following:
+Before configuring a blue/green strategy in your [Kubernetes deployment]({{< ref "deployment/kubernetes/overview" >}}), 
+you should have the following:
 
 * Kubernetes Deployment object
   

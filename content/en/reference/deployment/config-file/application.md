@@ -1,15 +1,17 @@
 ---
-title: Application Config
+title: Application and Kind Config
 description: >
-  Define your app name.
+  Declare your app name and specify whether the deployment is to Kubernetes or AWS Lambda.
 ---
 
-## Application 
+
+## Fields
 
 ```yaml
 version: v1
-kind: kubernetes
-application: <application-name>
+kind: <kind>
+application: <name>
 ```
 
-Provide a descriptive name for your application so that you can identify it when viewing the status of your deployment in the **Deployments UI** and other locations.
+- `kind`: `kubernetes` or `lambda`
+- `application`: Provide a descriptive name for your Kubernetes app or Lambda function so that you can identify it when viewing the status of your deployment in the **Deployments UI** and other locations.

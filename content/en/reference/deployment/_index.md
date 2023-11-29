@@ -17,7 +17,7 @@ Make sure you have [installed the CD-as-a-Service CLI]({{< ref "cli" >}}), which
 
 ## Templates
 
-You can generate a template file by running the following command with the CLI:
+You can generate a Kubernetes deployment config file template by running the following command with the CLI:
 
 Basic template:
 
@@ -48,13 +48,27 @@ armory template kubernetes [template-type] > deployment-template.yaml
 
 ## How to create a deployment config file
 
-{{< include "create-config.md" >}}
+{{< tabpane text=true right=true >}}
+{{% tab header="**Platform:**" disabled=true /%}}
+{{% tab header="AWS Lambda" %}}
+{{< include "create-lambda-config.md" >}}
+{{% /tab %}}
+{{% tab header="Kubernetes" %}}
+{{< include "create-k8s-config.md" >}}
+{{% /tab %}}
+{{< /tabpane >}}
 
 
-## Deployment config file example
 
-{{< include "dep-file/skeleton-config.md" >}}
+## Deployment config file examples
 
+### AWS Lambda
+
+{{< include "dep-file/lambda-skeleton-config.md" >}}
+
+### Kubernetes
+
+{{< include "dep-file/k8s-skeleton-config.md" >}}
 
 ## {{% heading "nextSteps" %}}
 

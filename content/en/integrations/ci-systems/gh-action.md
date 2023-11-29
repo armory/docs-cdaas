@@ -58,7 +58,7 @@ Then the value you use for `manifests.path` in your `deployment.yaml` would be `
 
 ### Create a deployment file
 
-{{< include "create-config.md" >}}
+{{< include "create-k8s-config.md" >}}
 
 Save your deployment file to a directory in your repo. You use this path later when you configure the GitHub Action's `path-to-file` parameter.
 
