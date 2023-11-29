@@ -5,6 +5,21 @@ description: >
   Information about new features and changes, fixes, and improvements in Armory Continuous Deployment-as-a-Service.
 ---
 
+## 28 Nov 2023
+
+### Support for AWS Lambda
+
+Armory CD-as-a-Service now supports deploying to AWS Lambda. Orchestrate your Lambda function release across multiple AWS Accounts, ensuring they are always tested in staging, then leverage canary deployments in production.
+
+{{< youtube>}}
+
+Learn more:
+
+* [Demo](https://youtu.be/AwThI9wnD-o?feature=shared)
+* {{< linkWithTitle "deployment/lambda/index.md" >}}
+* {{< linkWithTitle "get-started/lambda/index.md" >}}
+
+
 ## 2023 Sept 29
 
 ### Pipeline graph is now available when deploying to a single target
