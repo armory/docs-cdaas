@@ -11,12 +11,12 @@ description: >
 
 Armory CD-as-a-Service now supports deploying to AWS Lambda. Orchestrate your Lambda function release across multiple AWS Accounts, ensuring they are always tested in staging, then leverage canary deployments in production.
 
-{{< youtube>}}
+{{< youtube-enhanced id="AwThI9wnD-o" widthPercent="75" heightPercent="75"  >}}
+
 
 Learn more:
 
-* [Demo](https://youtu.be/AwThI9wnD-o?feature=shared)
-* {{< linkWithTitle "deployment/lambda/index.md" >}}
+* {{< linkWithTitle "deployment/lambda/overview/index.md" >}}
 * {{< linkWithTitle "get-started/lambda/index.md" >}}
 
 
