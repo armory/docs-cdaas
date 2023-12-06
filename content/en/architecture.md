@@ -6,23 +6,9 @@ description: >
  Learn how Armory Continuous Deployment-as-a-Service works and how its key components orchestrate continuous deployment to your Kubernetes clusters.
 ---
 
-{{< include "cdaas-explained-how.md" >}}
+
 
 ## Key components
-
-### CD-as-a-Service control plane
-
-The control plane is the set of services comprising the CD-as-a-Service platform. This control plane utilizes Remote Network Agents to talk to your networked resources such as Kubernetes APIs, Jenkins, and Prometheus, as well as external services like New Relic and Datadog.
-
-### Remote Network Agent (RNA)
-
-The RNA is a logicless network relay that enables CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, and Kubernetes clusters. For Kubernetes, the CD-as-a-Service control plane uses an RNA's ServiceAccount credentials to automatically register the cluster the RNA is installed in as a deployment target. Once you install the RNA in your cluster, you don't need to update it beyond security updates since deployment logic is encapsulated in CD-as-a-Service's centralized control plane.
-
-See the [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) overview for details.
-
-### Agent Hub
-
-_Agent Hub_ routes deployment commands to RNAs and caches data received from them. Agent Hub does not require direct network access to the RNAs since they connect to Agent Hub through an encrypted, long-lived gRPC HTTP2 connection. Agent Hub uses this connection to send deployment commands to the RNA for execution.
 
 ### Command Line Interface (CLI)
 
@@ -41,8 +27,28 @@ _Cloud Console_ is the browser-based UI for CD-as-a-Service. You can visually mo
  - Creating secrets
  - Configuring RBAC
  - Inviting users
- - Monitoring your Remote Network Agents
+ - Monitoring your Kubernetes Remote Network Agents
+
+
+
+## Kubernetes components
+
+{{< include "cdaas-explained-how-k8s.md" >}}
+
+### CD-as-a-Service control plane
+
+The control plane is the set of services comprising the CD-as-a-Service platform. This control plane utilizes Remote Network Agents to talk to your networked resources such as Kubernetes APIs, Jenkins, and Prometheus, as well as external services like New Relic and Datadog.
+
+### Remote Network Agent (RNA)
+
+The RNA is a logicless network relay that enables CD-as-a-Service to integrate with privately networked resources such as Jenkins, Prometheus, and Kubernetes clusters. For Kubernetes, the CD-as-a-Service control plane uses an RNA's ServiceAccount credentials to automatically register the cluster the RNA is installed in as a deployment target. Once you install the RNA in your cluster, you don't need to update it beyond security updates since deployment logic is encapsulated in CD-as-a-Service's centralized control plane.
+
+See the [Remote Network Agent]({{< ref "remote-network-agent/overview.md" >}}) overview for details.
+
+### Agent Hub
+
+_Agent Hub_ routes deployment commands to RNAs and caches data received from them. Agent Hub does not require direct network access to the RNAs since they connect to Agent Hub through an encrypted, long-lived gRPC HTTP2 connection. Agent Hub uses this connection to send deployment commands to the RNA for execution.
 
 ## Networking
 
-{{< include "req-networking.md" >}}
+{{< include "req-networking-k8s.md" >}}
