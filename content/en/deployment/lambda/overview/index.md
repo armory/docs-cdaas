@@ -281,11 +281,14 @@ strategies:
 
 For subsequent deployments, you could use a canary strategy that splits traffic. CD-as-a-Service uses your function's AWS Lambda [alias](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) when splitting traffic between versions. 
 
->You must create the alias in the AWS Lambda console before using the alias in your CD-as-a-Service deployment.
-
 This example is for deployment to multiple regions in a single AWS Account. The canary strategy splits traffic. You declare your function's alias in the `trafficManagement` section. There are two entries in the `trafficManagement` section since both staging and prod targets use the traffic split strategy.
 
+{{< include "lambda/alias-info.md" >}}
+
+This example assumes you have already created an alias named `v2` 
+
 {{< readfile  file="/includes/code/lambda-traffic-split-snippet.yaml" code="true" lang="yaml" >}}
+
 
 
 ## {{% heading "nextSteps" %}}

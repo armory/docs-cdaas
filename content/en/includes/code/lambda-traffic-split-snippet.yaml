@@ -42,8 +42,8 @@ trafficManagement:
   - targets: ['prod-us-east-1']
     alias:
       - functionName: just-sweet-potatoes-us-east-1
-        aliasName: live-version
+        aliasName: v2
   - targets: ['prod-us-east-2']
     alias:
       - functionName: just-sweet-potatoes-us-east-2
-        aliasName: live-version
+        aliasName: v2
