@@ -5,6 +5,14 @@ description: >
   Information about new features and changes, fixes, and improvements in Armory Continuous Deployment-as-a-Service.
 ---
 
+## 7 Dec 2023
+
+### AWS Lambda alias creation
+
+When you specify an alias in a `trafficManagement` block, CD-as-a-Service creates your function's alias if it doesn't already exist in AWS.
+
+{{< include "lambda/alias-info" >}}
+
 ## 28 Nov 2023
 
 ### Support for AWS Lambda
