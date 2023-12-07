@@ -285,7 +285,7 @@ This example is for deployment to multiple regions in a single AWS Account. The 
 
 {{< include "lambda/alias-info.md" >}}
 
-This example assumes you have already created an alias named `v2` 
+This example assumes you have already created an alias named `v2`. 
 
 {{< readfile  file="/includes/code/lambda-traffic-split-snippet.yaml" code="true" lang="yaml" >}}
 
