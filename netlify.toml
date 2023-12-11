@@ -12,12 +12,6 @@
   HUGO_ENV = "production"
   GO_VERSION = "1.18"
 
-# section redirects
-[[redirects]]
-  from = "/cd-as-a-service/release-notes/"
-  to = "https://armory.releases.live/?filter=eyJ0aXRsZU9yRGVzY3JpcHRpb24iOiIiLCJzY29wZSI6WyJDRC1hcy1hLVNlcnZpY2UiXSwidHlwZSI6W10sImZpZWxkcyI6W119/"
-  force = true # ensure this always redirects because the  manualLink does not work for users typing in the URL
-
 [[redirects]]
   from = "/deployment/preview-deployed-service/" # this page contains manualLinkRelRef in frontmatter
   to = "/reference/deployment/config-preview-link/"
