@@ -104,5 +104,5 @@ You use the UI to switch to the tenant whose resources you want to see. CD-as-a-
 {{< figure src="ui-switch-tenant.jpg" alt="Switch Tenant." >}}
 
 1. Access your user context menu.
-1. Hover over **Switch Tenant** to display a list of accessible tenants.
+1. Click the **Switch Tenant** button.
 1. Click the tenant you want to switch to.
