@@ -37,7 +37,7 @@ The Armory Continuous Deployment-as-a-Service Plugin for Spinnaker™ adds new s
 
 Your Spinnaker instance and the cluster(s) where you install the CD-as-a-Service Remote Network Agent(s) need specific ports open.
 
-{{< include "req-networking.md" >}}
+{{< include "req-networking-k8s.md" >}}
 
 Additionally, your Armory CD instance needs access to GitHub to download the plugin during installation.
 

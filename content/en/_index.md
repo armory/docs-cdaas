@@ -34,4 +34,4 @@ Modern software delivery requires sophisticated control of delivery speed and tr
   "deployment/kubernetes/overview.md" >}}).
 * **Integration with your existing SDLC:** You build and publish your containers where and how you want, whether you use Docker Hub or a private registry that is only accessible in your network.
 
-{{< include "cdaas-explained-how.md" >}}
+{{< include "cdaas-explained-how-k8s.md" >}}
