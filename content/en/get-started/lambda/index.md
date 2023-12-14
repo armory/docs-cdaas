@@ -55,7 +55,7 @@ Confirm the device code in your browser when prompted. Then return to this guide
 
 You need to store your AWS Lambda function as a zip file in an S3 bucket, and S3 bucket needs to be in the same region you deploy to. 
 
-For this guide you are going to need to create S3 buckets in four regions, us-east-1, us-east-2, us-west-1, and us-west-2 . We will reference these buckets as <my-bucket-prefix>-<region> (i.e <my-bucket-prefix>-us-west-1 )
+For this guide you are going to need to create S3 buckets in four regions, us-east-1, us-east-2, us-west-1, and us-west-2 . You reference these buckets as `<my-bucket-prefix>-<region>` (i.e `<my-bucket-prefix>-us-west-1` ).
 
 Create each bucket by entering <my-bucket-prefix>-<region> into the Bucket Name field. 
 Use the default values for the rest of the fields. 
