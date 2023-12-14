@@ -53,16 +53,11 @@ Confirm the device code in your browser when prompted. Then return to this guide
 
 ## Create S3 buckets
 
-You need to store your AWS Lambda function as a zip file in an S3 bucket, and S3 bucket needs to be in the same region you deploy to. For this guide, you are going to deploy the AWS Lambda function to four regions so you need to create four buckets:
+You need to store your AWS Lambda function as a zip file in an S3 bucket, and S3 bucket needs to be in the same region you deploy to. 
 
+For this guide you are going to need to create S3 buckets in four regions, us-east-1, us-east-2, us-west-1, and us-west-2 . You reference these buckets as `<my-bucket-prefix>-<region>` (i.e `<my-bucket-prefix>-us-west-1` ).
 
-| Region | Bucket Name | 
-| ---------|----------|
-| us-east-1 | armory-demo-east-1 | 
-| us-east-2 | armory-demo-east-2 | 
-| us-west-1 | armory-demo-west-1 | 
-| us-west-2 | armory-demo-west-2 |
-
+Create each bucket by entering `<my-bucket-prefix>-<region>` into the **Bucket Name** field. 
 Use the default values for the rest of the fields. 
 
 After you have finished, you should have four buckets.
@@ -106,13 +101,13 @@ const potatolessFacts = [
 </details>
 
 1. <a href="/get-started/lambda/files/just-sweet-potatoes.zip" download>Download the function zip file</a>.
-1. Upload the file to each of your `armory-demo-lambda-deploy` S3 buckets.
+1. Upload the file to each of your `<my-demo-prefix>` S3 buckets.
 1. Make a note of each bucket's S3 path to the lambda function. The paths should be:
   
-  * `s3://armory-demo-east-1/just-sweet-potatoes.zip`
-  * `s3://armory-demo-east-2/just-sweet-potatoes.zip`
-  * `s3://armory-demo-west-1/just-sweet-potatoes.zip`
-  * `s3://armory-demo-west-2/just-sweet-potatoes.zip`
+  * `s3://<my-bucket-prefix>-us-east-1/just-sweet-potatoes.zip`
+  * `s3://<my-bucket-prefix>-us-east-2/just-sweet-potatoes.zip`
+  * `s3://<my-bucket-prefix>-us-west-1/just-sweet-potatoes.zip`
+  * `s3://<my-bucket-prefix>-us-west-2/just-sweet-potatoes.zip`
 
 ## Create your deployment config file
 
@@ -212,16 +207,16 @@ The function is named `just-sweet-potatoes` in each S3 bucket, but the `function
 {{< highlight yaml "linenos=table" >}}
 artifacts:
   - functionName: just-sweet-potatoes-dev
-    path: s3://armory-demo-east-1/just-sweet-potatoes.zip
+    path: s3://<my-bucket-prefix>-us-east-1/just-sweet-potatoes.zip
     type: zipFile
   - functionName: just-sweet-potatoes-staging
-    path: s3://armory-demo-east-2/just-sweet-potatoes.zip
+    path: s3://<my-bucket-prefix>-us-east-2/just-sweet-potatoes.zip
     type: zipFile
   - functionName: just-sweet-potatoes-prod-west-1
-    path: s3://armory-demo-west-1/just-sweet-potatoes.zip
+    path: s3://<my-bucket-prefix>-us-west-1/just-sweet-potatoes.zip
     type: zipFile
   - functionName: just-sweet-potatoes-prod-west-2
-    path: s3://armory-demo-west-2/just-sweet-potatoes.zip
+    path: s3://<my-bucket-prefix>-us-west-2/just-sweet-potatoes.zip
     type: zipFile
 {{< /highlight >}}
 
@@ -236,22 +231,22 @@ providerOptions:
       name: just-sweet-potatoes-dev      
       runAsIamRole: <execution-role-arn>
       handler: index.handler
-      runtime: python3.10
+      runtime: nodejs18.x
     - target: staging
       name: just-sweet-potatoes-staging      
       runAsIamRole: <execution-role-arn>
       handler: index.handler
-      runtime: python3.10
+      runtime: nodejs18.x
     - target: prod-west-1
       name: just-sweet-potatoes-prod-west-1      
       runAsIamRole: <execution-role-arn>
       handler: index.handler
-      runtime: python3.10
+      runtime: nodejs18.x
     - target: prod-west-2
       name: just-sweet-potatoes-prod-west-2      
       runAsIamRole: <execution-role-arn>
       handler: index.handler
-      runtime: python3.10
+      runtime: nodejs18.x
 {{< /highlight >}}
 
 {{< include "dep-file/lambda-provider-options.md" >}}

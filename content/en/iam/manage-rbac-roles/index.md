@@ -242,5 +242,5 @@ Execute `armory config apply -f <path-to-rbac-config>.yml` to apply your changes
 
 You can check that you deleted your role by running `armory config get`.
 
-When you delete a role, that role is removed from existing users. You can accidentally remove the ability for your users to perform actions within CD-as-a-Service. A user with no role can still log into the UI but only sees a blank **Deployments** screen:
+When you delete a role, that role is removed from existing users. You can accidentally remove the ability for your users to perform actions within CD-as-a-Service. A user with no role can still log into the UI but only sees a blank **Deployments** screen and will receive a 'Principal Not Authorized' error:
 {{< figure src="user-no-role.png" >}}
